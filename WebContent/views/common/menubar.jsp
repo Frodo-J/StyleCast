@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.stylecast.member.model.vo.Member"%>
+    pageEncoding="UTF-8" %>
 <%
 	String contextPath = request.getContextPath();
 
-	Member loginUser = (Member)session.getAttribute("loginUser");
+	//Member loginUser = (Member)session.getAttribute("loginUser");
 	
 	String alertMsg = (String)session.getAttribute("alertMsg");
 %>
@@ -188,7 +188,7 @@
     <div class="wrap">
         <div id="header">
             <div id="header_1">
-                <a href="<%= contextPath %>"><img id="logoimg"src="img/logo.jpg"></a>
+                <a href="<%= contextPath %>"><img id="logoimg"src="<%=contextPath %>/resources/images/logo.jpg"></a>
             </div>
 
             <div id="header_2">
@@ -216,10 +216,11 @@
             
             <div id="header_4">
                 
-               <% if(loginUser == null){ %>
+               <% //if(loginUser == null){ %>
                 	<button type="button" id="login" class="btn btn-primary">로그인</button>
-               <% }else{ %>
+               <% //}else{ %>
                 
+                <!--
 	     		<ul id="navi">
 	              	<li>
 	                    <div>
@@ -236,7 +237,8 @@
 	                    </ul>
 	        		</li>
 	            </ul>
-                <% } %>
+                <%// } %>
+                -->
              
 
             </div>
