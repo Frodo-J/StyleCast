@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.stylecast.notice.model.vo.Notice, java.util.ArrayList" %>
+<%
+	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -127,7 +131,21 @@
                         <th>등록일</th>
                       </thead>
                       <tbody>
-                        <tr>
+                   		<% if(list.isEmpty()) { %>
+                   			<tr>
+                   				<td colspan="4">존재하는 공지사항이 없습니다</td>
+                   			</tr>
+                   		<% }else{ %>
+                   			<% for(Notice n: list){ %>
+                   			<tr>
+                            	<td><%= n.getNoticeNo() %></td>
+                            	<td><%= n.getNoticeTitle()%> </td>
+                            	<td><%= n.getMemName() %></td>
+                            	<td><%= n.getEnrDate() %></td>
+                        	</tr>
+                        	<% } %>
+                        <% } %>
+                        <!--  <tr>
                             <td>15</td>
                             <td>카카오 오븐에 제목만은 왼쪽 정렬로 되어 있어서 일단 왼쪽정렬로 해봤는데</td>
                             <td>admin</td>
