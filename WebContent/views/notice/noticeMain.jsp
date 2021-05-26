@@ -44,6 +44,7 @@
 
         * {
                 font-family: 'Noto Sans KR', sans-serif;
+                font-weight: 300;
         }
 
         table tbody tr td:nth-child(2){
@@ -79,7 +80,7 @@
         }
         #admin_box{
             width: 80%;
-            height: 3%;
+            height: 70px;
             margin: auto;
         }
         #admin_box_inner{
@@ -116,7 +117,7 @@
                         <option value="3">작성자</option>
                     </select>
                     <input id="input_search" class="form-control" type="text" placeholder="검색내용">
-                    <button id="img_btn" type="button"><img src="images/loupe.png"></button> 
+                    <button id="img_btn" type="button"><img src="<%=contextPath %>/resources/images/loupe.png"></button> 
                 </div>
                 <table class="table table-hover text-center">
                     <thead class="table-light">
