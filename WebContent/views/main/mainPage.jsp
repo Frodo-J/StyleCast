@@ -134,21 +134,23 @@
 </head>
 <body>
     
+    <%@ include file="../common/menubar.jsp" %>
+    
     <div class="wrap">
 
         <div id="content">
             <div id="content_1">
                 <div id="codi">
-                    <b><font size="5px">ì¤ëì ì½ë</font></b>  
+                    <b><font size="5px">오늘의 코디</font></b>  
                </div>
                 <div id="codi_img">
-                    <div id="codi_1"><img id="codi_img_1" src="img/codi1.jpg" alt="" width="280px" height="380px"></div>
-                    <div id="codi_2"><img id="codi_img_2" src="img/codi2.jpg" alt="" width="280px" height="380px"></div>
+                    <div id="codi_1"><img id="codi_img_1" src="<%=contextPath %>/resources/codi_upfiles/codi1.jpg" alt="" width="280px" height="380px"></div>
+                    <div id="codi_2"><img id="codi_img_2" src="<%=contextPath %>/resources/codi_upfiles/codi2.jpg" alt="" width="280px" height="380px"></div>
                 </div>    
             </div>
             <div id="content_3">
                 <button  id="change" onclick="toggleImg()">
-                    <img src="img/button.png" alt="" width="100%" height="100%">
+                    <img src="<%=contextPath %>/resources/images/changebutton.png" alt="" width="100%" height="100%">
                 </button>
             </div>
 
@@ -159,11 +161,11 @@
                     var img2 = document.getElementById("codi_img_2");
 
                     if(cnt%2==1){
-                        img1.src = "img/codi3.jpg";
-                        img2.src = "img/codi4.jpg";
+                        img1.src = "<%=contextPath %>/resources/codi_upfiles/codi3.jpg";
+                        img2.src = "<%=contextPath %>/resources/codi_upfiles/codi4.jpg";
                     }else{
-                        img1.src = "img/codi1.jpg";
-                        img2.src = "img/codi2.jpg";
+                        img1.src = "<%=contextPath %>/resources/codi_upfiles/codi1.jpg";
+                        img2.src = "<%=contextPath %>/resources/codi_upfiles/codi2.jpg";
                     }
                     cnt++;
                 }
@@ -177,13 +179,13 @@
             
             <div id="content_5">
                 <div id="daily">
-                     <b><font size="5px">ë°ì¼ë¦¬</font></b>  
+                     <b><font size="5px">데일리</font></b>  
                 </div>
                 <div id="dailycontent">
-                    <div id="best1"><a href=""><img src="img/dailybest1.jpg" alt=""></a></div>
-                    <div id="best2"><a href=""><img src="img/dailybest2.jpg" alt=""></a></div>
-                    <div id="best3"><a href=""><img src="img/dailybest3.jpg" alt=""></a></div>
-                    <div id="best4"><a href=""><img src="img/dailybest4.jpg" alt=""></a></div>
+                    <div id="best1"><a href=""><img src="<%=contextPath %>/resources/daily_upfiles/dailybest1.jpg" alt=""></a></div>
+                    <div id="best2"><a href=""><img src="<%=contextPath %>/resources/daily_upfiles/dailybest2.jpg" alt=""></a></div>
+                    <div id="best3"><a href=""><img src="<%=contextPath %>/resources/daily_upfiles/dailybest3.jpg" alt=""></a></div>
+                    <div id="best4"><a href=""><img src="<%=contextPath %>/resources/daily_upfiles/dailybest4.jpg" alt=""></a></div>
                 </div>
             </div>
         </div>
