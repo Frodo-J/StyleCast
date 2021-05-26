@@ -217,9 +217,9 @@
             
             <div id="header_4">
                 
-               <% //if(loginUser == null){ %>
-                	<button type="button" id="login" class="btn btn-primary">로그인</button>
-               <% //}else{ %>
+               <% if(loginUser == null){ %>
+                	<button type="button" id="login" onclick="loginPage();" class="btn btn-primary">로그인</button>
+               <% }else{ %>
                 
                 <!--
 	     		<ul id="navi">
@@ -240,6 +240,10 @@
 	            </ul>
                 <%// } %>
                 -->
+                
+                <script>
+                	function
+                </script>
              
 
             </div>
