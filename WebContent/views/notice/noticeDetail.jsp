@@ -92,7 +92,9 @@
                     </tr>
                     <tr>
                         <th>작성자</th>
-                        <td colspan="3">admin</td>
+                        <td>admin</td>
+                        <th>조회수</th>
+                        <td>0</td>
                     </tr>
                     <tr>
                         <th>내용</th>
