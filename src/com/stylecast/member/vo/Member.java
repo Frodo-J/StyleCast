@@ -19,8 +19,8 @@ public class Member {
 	private Date entDate;
 	private String profImg;
 	
-	public Member() {};
-	
+	public Member() {}
+
 	public Member(int memNo, String memId, String memPwd, String memName, String email, String gender, Date enrollDate,
 			String blackYN, String entYN, int warning, String adminYN, Date updateDate, Date entDate, String profImg) {
 		super();
