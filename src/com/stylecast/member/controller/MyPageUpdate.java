@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.stylecast.member.mode.service.MemberService;
 import com.stylecast.member.vo.Member;
 
 /**
@@ -34,8 +35,11 @@ public class MyPageUpdate extends HttpServlet {
 		String userName = request.getParameter("userName");
 		String email = request.getParameter("email");
 		char gender = request.getParameter("gender").charAt(0);
+		String userPwd = (request.getParameter("userPwd") == null) ? request.getParameter("userPwd2") : request.getParameter("userNewPwd");
 		
 		Member m = new Member(userName, email, gender);
+		
+		new MemberService().updateMember(m);
 	}
 
 	/**

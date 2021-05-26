@@ -146,15 +146,17 @@
 	<%
 		/*
 		String userId = loginUser.getUserId();
+		String userPwd = loginUser.getUserPwd();
 		String userName = loginUser.getUserName();
 		String email = loginUser.getEmail();
-		char gender = loginUser.getGender();
+		String gender = loginUser.getGender();
 		*/
 		
 		String userId = "임시";
+		String userPwd = "password";
 		String userName = "임시";
 		String email = "임시";
-		char gender = 'M';
+		String gender = "M";
 	%>
 	
     
@@ -233,12 +235,17 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td><input type="password" id="newpass" class="form-control form-control-sm" maxlength="15" placeholder="새 비밀번호"></td>
+                            <td><input type="password" name="userNewPwd" id="newpass" class="form-control form-control-sm" maxlength="15" placeholder="새 비밀번호"></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td></td>
                             <td><input type="password" id="newpass_check" class="form-control form-control-sm" maxlength="15" placeholder="새 비밀번호 확인" ></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="hidden" name="userPwd2" class="form-control form-control-sm" value="<%=userPwd%>"></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -271,7 +278,7 @@
                     <!-- 성별 라디오 버튼 선택 함수 -->
                     <script>
                     	$(function(){
-                    		if(<%=gender%> == 'M'){
+                    		if(<%=gender%>.equals("M")){
                     			$("#male").attr("checked", true);
                     		}else{
                     			$("#female").attr("checked", true);
