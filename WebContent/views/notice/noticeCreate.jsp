@@ -132,7 +132,7 @@
         #image_lists img{
             margin: 2px;
         }
-
+        
     </style>
     
 </head>
@@ -150,18 +150,18 @@
         <%@ include file="../common/menubar1.jsp" %>
         <div id="content">
             <div id="head_box">
-                <h2 id="head_of_notice">Notice</h2>
+                <h3 id="head_of_notice">Notice</h3>
             </div>
             <div id="detail_box">
                 <table class="table">
                     <tr>
-                        <th width=13% style="font-weight:300">제목</td>
+                        <th width=13%>제목</td>
                         <td width=57%><input type="text" style="font-weight:300" placeholder="제목을 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"></td>
-                        <th width=10% style="font-weight:300">작성일자</td>
+                        <th width=10%>작성일자</td>
                         <td width=20%>2021-05-02</td>
                     </tr>
                     <tr>
-                        <th style="font-weight:300">내용</th>
+                        <th>내용</th>
                         <td colspan="3">
                             <div id="notice_contents">
                                 <textarea class="form-control" placeholder="내용을 입력해주세요" id="floatingTextarea2" style="height: 100%; font-weight:300"></textarea>
