@@ -96,7 +96,7 @@
         #content_5{width:100%; height:35%; float: right;} */
 
         
-       	#content {
+       	#content{
                 font-family: 'Noto Sans KR', sans-serif;
                 font-weight: 300;
         }
@@ -132,6 +132,7 @@
         #image_lists img{
             margin: 2px;
         }
+
     </style>
     
 </head>
@@ -154,16 +155,16 @@
             <div id="detail_box">
                 <table class="table">
                     <tr>
-                        <th width=13%>제목</td>
+                        <th width=13% style="font-weight:300">제목</td>
                         <td width=57%><input type="text" style="font-weight:300" placeholder="제목을 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"></td>
-                        <th width=10%>작성일자</td>
+                        <th width=10% style="font-weight:300">작성일자</td>
                         <td width=20%>2021-05-02</td>
                     </tr>
                     <tr>
-                        <th>내용</th>
+                        <th style="font-weight:300">내용</th>
                         <td colspan="3">
                             <div id="notice_contents">
-                                <textarea class="form-control"  style="font-weight:300" placeholder="내용을 입력해주세요" id="floatingTextarea2" style="height: 100%"></textarea>
+                                <textarea class="form-control" placeholder="내용을 입력해주세요" id="floatingTextarea2" style="height: 100%; font-weight:300"></textarea>
                             </div>
                         </td>
                     </tr>
