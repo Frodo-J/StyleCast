@@ -218,7 +218,7 @@
                 <br><br>
 
                 <!-- 개인정보 수정 입력 폼 -->
-                <form action="" id="update-form" method="post">
+                <form action="<%= contextPath %>/update.me" id="update-form" method="post">
 
                     <table>
                         <tr>
@@ -238,7 +238,7 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td><input type="password" id="newpass_confirm" class="form-control form-control-sm" maxlength="15" placeholder="새 비밀번호 확인" ></td>
+                            <td><input type="password" id="newpass_check" class="form-control form-control-sm" maxlength="15" placeholder="새 비밀번호 확인" ></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -253,13 +253,13 @@
                         </tr>
                         <tr>
                             <td><label class="form-label">닉네임</label></td>
-                            <td><input type="text" class="form-control form-control-sm" name="nickname" value="<%=userName%>"></td>
+                            <td><input type="text" class="form-control form-control-sm" name="userName" value="<%=userName%>"></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td><label class="form-label">성별</label></td>
                             <td colspan="2">
-                                <input type="radio" name="gender" id="male" value="m" checked>
+                                <input type="radio" name="gender" id="male" value="m">
                                 <label for="male">남자</label>
                                 
                                 <input type="radio" name="gender" id="female" value="f">

@@ -9,7 +9,7 @@ public class Member {
 	private String memPwd; 
 	private String memName;
 	private String email;
-	private String gender;
+	private char gender;
 	private Date enrollDate;
 	private String blackYN;
 	private String entYN;
@@ -21,7 +21,7 @@ public class Member {
 	
 	public Member() {};
 	
-	public Member(int memNo, String memId, String memPwd, String memName, String email, String gender, Date enrollDate,
+	public Member(int memNo, String memId, String memPwd, String memName, String email, char gender, Date enrollDate,
 			String blackYN, String entYN, int warning, String adminYN, Date updateDate, Date entDate, String profImg) {
 		super();
 		this.memNo = memNo;
@@ -38,6 +38,15 @@ public class Member {
 		this.updateDate = updateDate;
 		this.entDate = entDate;
 		this.profImg = profImg;
+	}
+	
+	
+
+	public Member(String memName, String email, char gender) {
+		super();
+		this.memName = memName;
+		this.email = email;
+		this.gender = gender;
 	}
 
 	public int getMemNo() {
@@ -80,11 +89,11 @@ public class Member {
 		this.email = email;
 	}
 
-	public String getGender() {
+	public char getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(char gender) {
 		this.gender = gender;
 	}
 
