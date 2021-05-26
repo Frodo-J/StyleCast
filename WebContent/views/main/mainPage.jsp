@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="kr">
 <head>
@@ -19,7 +21,7 @@
        
         .wrap{
             width:1200px; 
-            height:1,144px;  
+            height:1144px;  
             margin: auto; font-family:'Noto Sans KR', sans-serif;
             }
 
@@ -137,7 +139,7 @@
         <div id="content">
             <div id="content_1">
                 <div id="codi">
-                    <b><font size="5px">오늘의 코디</font></b>  
+                    <b><font size="5px">ì¤ëì ì½ë</font></b>  
                </div>
                 <div id="codi_img">
                     <div id="codi_1"><img id="codi_img_1" src="img/codi1.jpg" alt="" width="280px" height="380px"></div>
@@ -169,13 +171,13 @@
 
             <div id="content_4">
                 <div id="todayweather"><img src="img/sunny.png" alt="" width="134px" height="134px"></div>
-                <div id="todaytemp"><b>5/17월&nbsp&nbsp5˚/20˚ </b></div>
+                <div id="todaytemp"><b>5/17ì&nbsp&nbsp5Ë/20Ë </b></div>
                 <div id="location"><b><font size="7px" >Seoul</font></b></div>   
             </div>
             
             <div id="content_5">
                 <div id="daily">
-                     <b><font size="5px">데일리</font></b>  
+                     <b><font size="5px">ë°ì¼ë¦¬</font></b>  
                 </div>
                 <div id="dailycontent">
                     <div id="best1"><a href=""><img src="img/dailybest1.jpg" alt=""></a></div>
