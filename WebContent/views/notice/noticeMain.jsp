@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.stylecast.notice.model.vo.Notice, java.util.ArrayList" %>
+<%@ page import="com.stylecast.common.model.vo.PageInfo,com.stylecast.notice.model.vo.Notice, java.util.ArrayList" %>
 <%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,7 +72,7 @@
         }
         #notice_lists{
             width: 80%;
-            height: 65%;
+            height: 725px;
             margin: auto;
         }
         #search_box{
@@ -110,7 +115,7 @@
         
         <div id="content">
             <div id="head_box">
-                <h2 id="head_of_notice">Notice</h2>
+                <h3 id="head_of_notice">Notice</h3>
             </div>
             
             <div id="notice_lists">
@@ -252,21 +257,29 @@
                     <button type="button" class="btn btn-secondary btn-sm">글작성</button>
                 </div>
             </div>
-            <div id="page_box">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                      <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item"><a class="page-link" href="#">2</a></li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">&raquo;</a>
-                      </li>
-                    </ul>
-                  </nav>
-            </div>
+            <div id="page_box" class="text-center">
+             	<div align="center" class="btn-group me-2" role="group" aria-label="First group">
+
+					<% if(currentPage != 1){ %>
+            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage-1%>';"> &lt; </button>
+					<% } %>
+
+            		<% for(int p=startPage; p<=endPage; p++){ %>
+            	
+            			<% if(p != currentPage){ %>
+	            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%= p %>';"><%= p %></button>
+	            		<% }else { %>
+	            			<button type="button" class="btn btn-outline-secondary" disabled><%= p %></button>
+            			<% } %>
+            	
+            		<% } %>
+
+				<% if(currentPage != maxPage){ %>
+            		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage+1%>';"> &gt; </button>
+				<% } %>
+			
+        	</div>
+        </div>
 
         </div>
 
