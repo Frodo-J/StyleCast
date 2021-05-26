@@ -34,12 +34,12 @@ public class MyPageUpdate extends HttpServlet {
 		
 		String userName = request.getParameter("userName");
 		String email = request.getParameter("email");
-		char gender = request.getParameter("gender").charAt(0);
+		String gender = request.getParameter("gender");
 		String userPwd = (request.getParameter("userPwd") == null) ? request.getParameter("userPwd2") : request.getParameter("userNewPwd");
 		
 		Member m = new Member(userName, email, gender);
 		
-		new MemberService().updateMember(m);
+		new com.stylecast.member.service.MemberService().updateMember(m);
 	}
 
 	/**

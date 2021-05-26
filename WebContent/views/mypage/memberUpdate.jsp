@@ -278,11 +278,11 @@
                     <!-- 성별 라디오 버튼 선택 함수 -->
                     <script>
                     	$(function(){
-                    		if(<%=gender%>.equals("M")){
+                    		<% if(gender.equals("M")){ %>
                     			$("#male").attr("checked", true);
-                    		}else{
+                    		<% }else{ %>
                     			$("#female").attr("checked", true);
-                    		}
+                    		<% } %>
                     	})
                     </script>
 
