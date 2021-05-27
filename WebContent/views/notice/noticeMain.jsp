@@ -268,7 +268,7 @@
                 <div id="admin_box_inner">
                     <!-- 사용자일경우 안보이게-->
                     <% if(loginUser != null && loginUser.getAdminYN().equals("Y")){ %>
-                    	<button type="button" class="btn btn-secondary btn-sm">글작성</button>
+                    	<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='<%=contextPath%>/createForm.no';">글작성</button>
                     <% } %>
                 </div>
             </div>
