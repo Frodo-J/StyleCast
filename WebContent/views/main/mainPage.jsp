@@ -176,7 +176,7 @@
             <div id="content_4">
 
             	<script>
-            		var imgURL = "http://openweathermap.org/img/w/" + resp.weather[0].icon + ".png";
+            		var imgURL = "";
 	            	var apiURI = "http://api.openweathermap.org/data/2.5/weather?q=seoul&appid=1edf4d31ce3af918461e6292d0fd5669&units=metric";
 		                $.ajax({
 		                    url: apiURI,
@@ -184,21 +184,15 @@
 		                    type: "GET",
 		                    async: "false",
 		                    success: function(resp) {
+		                    	imgURL = "http://openweathermap.org/img/w/" + resp.weather[0].icon + ".png";
+		                    	
 		                        $("#todaytemp").text("현재온도 : "+(resp.main.temp) + "°C");
-		                        $("#todayweather").attr("src", imgURL);
-		                        console.log("현재온도 : "+ (resp.main.temp- 273.15) );
-		                        console.log("현재습도 : "+ resp.main.humidity);
-		                        console.log("날씨 : "+ resp.weather[0].main );
-		                        console.log("상세날씨설명 : "+ resp.weather[0].description );
-		                        console.log("날씨 이미지 : "+ resp.weather[0].icon );
-		                        console.log("바람   : "+ resp.wind.speed );
-		                        console.log("나라   : "+ resp.sys.country );
-		                        console.log("도시이름  : "+ resp.name );
-		                        console.log("구름  : "+ (resp.clouds.all) +"%" );                 
+		                        $("#todayweathericon").attr("src", imgURL);
+		                        
 		                    }
 		                });
             	</script>
-                <div id="todayweather"></div>
+                <div id="todayweather"><img id="todayweathericon" src="" alt="" width="134px" height="134px"></div>
                 <div id="todaytemp" class="ctemp"></div>
                 <div id="location"><b><font size="7px" >Seoul</font></b></div>   
             </div>
