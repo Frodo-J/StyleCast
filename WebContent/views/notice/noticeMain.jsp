@@ -100,6 +100,11 @@
             margin: auto;
             height: 100px;
         }
+        #font_notice{
+        	color: rgb(241, 196, 15);
+        
+        } 
+        
     </style>
 </head>
 <body>
@@ -262,7 +267,9 @@
             <div id="admin_box">
                 <div id="admin_box_inner">
                     <!-- 사용자일경우 안보이게-->
-                    <button type="button" class="btn btn-secondary btn-sm">글작성</button>
+                    <% if(loginUser != null && loginUser.getAdminYN().equals("Y")){ %>
+                    	<button type="button" class="btn btn-secondary btn-sm">글작성</button>
+                    <% } %>
                 </div>
             </div>
             <div id="page_box" class="text-center">

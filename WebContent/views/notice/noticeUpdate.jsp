@@ -132,7 +132,10 @@
         #image_lists img{
             margin: 2px;
         }
+        #font_notice{
+        	color: rgb(241, 196, 15);
         
+        } 
     </style>
     
 </head>
