@@ -28,7 +28,6 @@
             height:1144px;  
             margin: auto; font-family:'Noto Sans KR', sans-serif;
             }
-
         .wrap>div{
             width:100%;
             }
@@ -36,10 +35,7 @@
             height:100%; 
             position: relative;
             }
-
         
-
-
         #content_1{
             width:57%; 
             height:50%; 
@@ -64,7 +60,6 @@
         #codi_2{
             margin-left: 40px;
             }
-
         #content_3{
             width:10%; 
             height:50%; 
@@ -82,7 +77,6 @@
         #change:hover{
             background-color: gray;
             }
-
         #content_4{
             width:33%; 
             height:50%; 
@@ -106,7 +100,6 @@
             height:20%; 
             text-align:center; 
             }
-
         #content_5{
             width:100%;
             height:35%;
@@ -140,16 +133,14 @@
             float:left; 
             width:240px;
             }
-
     </style>
 </head>
 
 <body>
-    
+
     <%@ include file="../common/menubar.jsp" %>
     
     <div class="wrap">
-
         <div id="content">
             <div id="content_1">
                 <div id="codi">
@@ -165,13 +156,11 @@
                     <img src="<%=contextPath %>/resources/images/changebutton.png" alt="" width="100%" height="100%">
                 </button>
             </div>
-
             <script>
                 var cnt = 1;
                 function toggleImg() {
                     var img1 = document.getElementById("codi_img_1");
                     var img2 = document.getElementById("codi_img_2");
-
                     if(cnt%2==1){
                         img1.src = "<%=contextPath %>/resources/codi_upfiles/codi3.jpg";
                         img2.src = "<%=contextPath %>/resources/codi_upfiles/codi4.jpg";
@@ -182,8 +171,10 @@
                     cnt++;
                 }
               </script>
+
 			
             <div id="content_4">
+
             	<script>
             		var imgURL = "http://openweathermap.org/img/w/" + resp.weather[0].icon + ".png";
 	            	var apiURI = "http://api.openweathermap.org/data/2.5/weather?q=seoul&appid=1edf4d31ce3af918461e6292d0fd5669&units=metric";
@@ -194,8 +185,7 @@
 		                    async: "false",
 		                    success: function(resp) {
 		                        $("#todaytemp").text("현재온도 : "+(resp.main.temp) + "°C");
-		                        $("#todayweather").text(resp.weather[0].icon);
-		                        $("#")
+		                        $("#todayweather").attr("src", imgURL);
 		                        console.log("현재온도 : "+ (resp.main.temp- 273.15) );
 		                        console.log("현재습도 : "+ resp.main.humidity);
 		                        console.log("날씨 : "+ resp.weather[0].main );
@@ -207,17 +197,14 @@
 		                        console.log("구름  : "+ (resp.clouds.all) +"%" );                 
 		                    }
 		                });
-		        	function changeIcon(date){
-		        		let icon = (Arr["weather"] as! [[String: Any]])[0]["icon"]
-		        	}
             	</script>
                 <div id="todayweather"></div>
                 <div id="todaytemp" class="ctemp"></div>
                 <div id="location"><b><font size="7px" >Seoul</font></b></div>   
             </div>
-            
-            
-            
+
+
+
             <div id="content_5">
                 <div id="daily">
                      <b><font size="5px">데일리</font></b>  
@@ -230,8 +217,6 @@
                 </div>
             </div>
         </div>
-
     </div>
-
 </body>
 </html>
