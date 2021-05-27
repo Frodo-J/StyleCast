@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.qna.model.vo.Qna;
 
 import static com.stylecast.common.JDBCTemplate.*;
@@ -28,17 +29,23 @@ public class QnaDao {
 		}
 	}
 	
-	public ArrayList<Qna> selectMyQnaList(Connection conn, int memNo){
+	public ArrayList<Qna> selectMyQnaList(Connection conn, int memNo, PageInfo pi){
 		
 		ArrayList<Qna> list = new ArrayList<Qna>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectMyQnaList");
 		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
 		try {
 			
 			pstmt = conn.prepareStatement(sql);
+			
 			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -57,6 +64,34 @@ public class QnaDao {
 		}
 		
 		return list;
+	}
+
+	public int selectMyQnaListCount(Connection conn, int memNo) {
+		
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMyQnaListCount");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
 	}
 
 }

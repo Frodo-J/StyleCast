@@ -136,7 +136,7 @@
                         내가 쓴 글
                         <div><a href="<%= request.getContextPath() %>/myPage.me">데일리</a></div>
                         <div><a href="<%= request.getContextPath() %>/reply.me" style="font-weight: normal;">댓글</a></div>
-                        <div><a href="<%= request.getContextPath() %>/question.me" style="font-weight: normal;">문의글</a></div>
+                        <div><a href="<%= request.getContextPath() %>/question.me?currentPage=1" style="font-weight: normal;">문의글</a></div>
                     </div>
                     <div><a href="<%= request.getContextPath() %>/bookmark.me">북마크</a></div>
                     <div><a href="<%= request.getContextPath() %>/myMember.me">개인정보 수정</a></div>

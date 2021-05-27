@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.stylecast.qna.model.vo.Qna"%>
-    
+    pageEncoding="UTF-8" %>
+<%@ page import="java.util.ArrayList, com.stylecast.qna.model.vo.Qna, com.stylecast.common.model.vo.PageInfo" %>
  <%
+ 	PageInfo pi = (PageInfo)request.getAttribute("pi");
  	ArrayList<Qna> list = (ArrayList<Qna>)request.getAttribute("list");
+
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
  %>
 <!DOCTYPE html>
 <html lang="kr">
@@ -124,7 +130,7 @@
                         내가 쓴 글
                         <div><a href="<%= request.getContextPath() %>/myPage.me">데일리</a></div>
                         <div><a href="<%= request.getContextPath() %>/reply.me" style="font-weight: normal;">댓글</a></div>
-                        <div><a href="<%= request.getContextPath() %>/question.me" style="font-weight: normal;">문의글</a></div>
+                        <div><a href="<%= request.getContextPath() %>/question.me?currentPage=1" style="font-weight: normal;">문의글</a></div>
                     </div>
                     <div><a href="<%= request.getContextPath() %>/bookmark.me">북마크</a></div>
                     <div><a href="<%= request.getContextPath() %>/myMember.me">개인정보 수정</a></div>
@@ -210,15 +216,39 @@
             <div id="page_box">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
-                      <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item"><a class="page-link" href="#">2</a></li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">&raquo;</a>
-                      </li>
+                    	
+               			<% if(currentPage == 1){ %>
+               				<!-- 현재 페이지가 1일 때 -->
+							<li class="page-item disabled">
+		                       <a class="page-link" href="<%=contextPath%>/question.me?currentPage=<%= currentPage-1 %>" tabindex="-1" aria-disabled="true">&laquo;</a>
+		                    </li>
+						<% }else { %>
+               				<!-- 현재 페이지가 1이 아닐 때 -->
+							<li class="page-item">
+		                       <a class="page-link" href="<%=contextPath%>/question.me?currentPage=<%= currentPage-1 %>" tabindex="-1" aria-disabled="true">&laquo;</a>
+		                    </li>
+						<%} %>
+                      
+                      <% for(int p=startPage; p<=endPage; p++){ %>
+                      	<% if(p != currentPage){ %>
+                      		<li class="page-item"><a class="page-link" href="<%=contextPath%>/question.me?currentPage=<%= p %>"><%= p %></a></li>
+                      	<% }else { %>
+                      	<!-- 현재 페이지 버튼 -->
+                      		<li class="page-item disabled"><button class="page-link"><%= p %></button></li>
+                      	<% } %>
+                      <% } %>
+                      
+                      <% if(currentPage == maxPage){ %>
+               				<!-- 현재 페이지가 마지막 페이지일 때 -->
+							<li class="page-item disabled">
+		                       <a class="page-link" href="<%=contextPath%>/question.me?currentPage=<%= currentPage-1 %>" tabindex="-1" aria-disabled="true">&raquo;</a>
+		                    </li>
+						<% }else { %>
+               				<!-- 현재 페이지가 1이 아닐 때 -->
+							<li class="page-item">
+		                       <a class="page-link" href="<%=contextPath%>/question.me?currentPage=<%= currentPage+1 %>">&raquo;</a>
+		                    </li>
+						<%} %>
                     </ul>
                   </nav>
             </div>
