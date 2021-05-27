@@ -1,4 +1,4 @@
-package com.stylecast.member.controller;
+package com.stylecast.notice.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.stylecast.member.mode.service.MemberService;
-import com.stylecast.member.vo.Member;
+import com.stylecast.notice.model.service.NoticeService;
+import com.stylecast.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class MyPageUpdate
+ * Servlet implementation class NoticeDetailController
  */
-@WebServlet("/update.me")
-public class MyPageUpdate extends HttpServlet {
+@WebServlet("/detail.no")
+public class NoticeDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPageUpdate() {
+    public NoticeDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,17 +29,20 @@ public class MyPageUpdate extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		int noticeNo = Integer.parseInt(request.getParameter("nno"));
 		
-		request.setCharacterEncoding("UTF-8");
+		NoticeService nService = new NoticeService();
 		
-		String userName = request.getParameter("userName");
-		String email = request.getParameter("email");
-		String gender = request.getParameter("gender");
-		String userPwd = (request.getParameter("userPwd") == null) ? request.getParameter("userPwd2") : request.getParameter("userNewPwd");
+		int result = nService.increaseCount(noticeNo);
 		
-		Member m = new Member(userName, email, gender);
+		if(result > 0) {
+			Notice n = nService.selectNotice(noticeNo);
+			
+			request.setAttribute("n", n);
+			request.getRequestDispatcher("views/notice/noticeDetail.jsp").forward(request, response);
+		}
 		
-		new com.stylecast.member.service.MemberService().updateMember(m);
 	}
 
 	/**

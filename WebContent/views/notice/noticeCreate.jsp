@@ -147,7 +147,7 @@
             <div id="header_4">로그인</div>
         </div>
        -->
-        <%@ include file="../common/menubar1.jsp" %>
+        <%@ include file="../common/menubar.jsp" %>
         <div id="content">
             <div id="head_box">
                 <h3 id="head_of_notice">Notice</h3>

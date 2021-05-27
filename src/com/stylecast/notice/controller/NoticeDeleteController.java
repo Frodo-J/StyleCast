@@ -1,4 +1,4 @@
-package com.stylecast.member.controller;
+package com.stylecast.notice.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.stylecast.member.mode.service.MemberService;
-import com.stylecast.member.vo.Member;
+import com.stylecast.notice.model.service.NoticeService;
 
 /**
- * Servlet implementation class MyPageUpdate
+ * Servlet implementation class NoticeDeleteController
  */
-@WebServlet("/update.me")
-public class MyPageUpdate extends HttpServlet {
+@WebServlet("/delete.no")
+public class NoticeDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPageUpdate() {
+    public NoticeDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,17 +28,16 @@ public class MyPageUpdate extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		int noticeNo = Integer.parseInt(request.getParameter("nno"));
+		int result = new NoticeService().deleteNotice(noticeNo);
 		
-		request.setCharacterEncoding("UTF-8");
+		if(result > 0) {
+			response.sendRedirect(request.getContextPath() + "/list.no?currentPage=1");
+		}else {
+			//에러페이지
+		}
 		
-		String userName = request.getParameter("userName");
-		String email = request.getParameter("email");
-		String gender = request.getParameter("gender");
-		String userPwd = (request.getParameter("userPwd") == null) ? request.getParameter("userPwd2") : request.getParameter("userNewPwd");
-		
-		Member m = new Member(userName, email, gender);
-		
-		new com.stylecast.member.service.MemberService().updateMember(m);
 	}
 
 	/**

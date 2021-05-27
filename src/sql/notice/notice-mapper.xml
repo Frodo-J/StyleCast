@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT
+		FROM NOTICE
+		WHERE STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectNoticeList">
+		SELECT
+			NOTICE_NO,
+			M.MEM_NAME MEM_NAME,
+			NOTICE_TITLE,
+			ENR_DATE
+		FROM
+				NOTICE N
+			JOIN MEMBER M ON ( N.MEM_NO = M.MEM_NO )
+		WHERE
+			N.STATUS = 'Y'
+		ORDER BY
+			ENR_DATE DESC
+	</entry>
+
+	<entry key="selectList">
+		SELECT *
+		FROM(
+    		SELECT ROWNUM RNUM, A.*
+    		FROM(
+        		SELECT
+            		NOTICE_NO,
+            		M.MEM_ID MEM_ID,
+            		NOTICE_TITLE,
+            		ENR_DATE
+        		FROM
+            		NOTICE N
+        		JOIN MEMBER M ON ( N.MEM_NO = M.MEM_NO )
+    		WHERE
+        		N.STATUS = 'Y'
+    		ORDER BY
+        		ENR_DATE DESC) A
+        		)
+    		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="increaseCount">
+		UPDATE
+    		NOTICE
+    	SET COUNT = COUNT + 1
+    	WHERE NOTICE_NO = ?
+    	AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectNotice">
+		SELECT 
+    		NOTICE_NO,
+    		M.MEM_NAME MEM_NAME,
+    		NOTICE_TITLE,
+    		NOTICE_CONTENT, 
+    		COUNT, 
+    		ENR_DATE
+    	FROM NOTICE N
+    	JOIN MEMBER M ON (N.MEM_NO=M.MEM_NO)
+    	WHERE NOTICE_NO = ?
+    	AND N.STATUS = 'Y'
+	
+	</entry>
+	
+	<entry key="deleteNotice">
+		UPDATE 
+		       NOTICE
+		   SET STATUS = 'N'
+		 WHERE NOTICE_NO = ?
+	</entry>
+
+</properties>
