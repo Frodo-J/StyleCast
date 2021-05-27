@@ -41,13 +41,11 @@ public class NoticeDetailController extends HttpServlet {
 		
 		if(result > 0) {
 			Notice n = nService.selectNotice(noticeNo);
-			
-			
+
 			ArrayList<BoardImage> imgList = new NoticeService().selectBoardImageList(noticeNo);
 			
-			
-			
 			request.setAttribute("n", n);
+			request.setAttribute("imgList", imgList);
 			request.getRequestDispatcher("views/notice/noticeDetail.jsp").forward(request, response);
 		}
 		
