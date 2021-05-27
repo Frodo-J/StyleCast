@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.stylecast.notice.model.vo.*"%>
+<%
+	Notice n = (Notice)request.getAttribute("n");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,7 +80,7 @@
             <div id="header_3">검색</div>
             <div id="header_4">로그인</div>
         </div>-->
-        <%@ include file="../common/menubar1.jsp" %>
+        <%@ include file="../common/menubar.jsp" %>
         <div id="content">
             <div id="head_box">
                 <h3 id="head_of_notice">Notice</h3>
@@ -85,23 +88,22 @@
             <div id="detail_box">
                 <table class="table">
                     <tr>
-                        <th width=10%>제목</td>
-                        <td width=60%>공지사항</td>
-                        <th width=10%>등록일</td>
-                        <td width=10%>2021-05-02</td>
+                        <th width=10%>제목</th>
+                        <td width=60%><%= n.getNoticeTitle() %></td>
+                        <th width=10%>등록일</th>
+                        <td width=10%><%=n.getEnrDate()%></td>
                     </tr>
                     <tr>
                         <th>작성자</th>
-                        <td>admin</td>
+                        <td><%=n.getMemName() %></td>
                         <th>조회수</th>
-                        <td>0</td>
+                        <td><%=n.getCount() %></td>
                     </tr>
                     <tr>
                         <th>내용</th>
                         <td colspan="3">
                             <div id="notice_contents">
-                               	 공지사항 내용입니다.
-                                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                               	<%=n.getNoticeContent()%>
                                 <!--첨부파일 이미지 있으면 여기아래 처리-->
                                 <img src="<%=contextPath %>/resources/images/coffee.jpg"/>
 								<img src="<%=contextPath %>/resources/images/coffee.jpg"/>
@@ -115,7 +117,7 @@
                 <!--아래 두개 버튼은 관리자만 보이게끔-->
                 <button type="button" class="btn btn-secondary btn-sm">수정</button>
                 <button type="button" class="btn btn-secondary btn-sm">삭제</button>
-                <button id="notice_main" type="button" class="btn btn-secondary btn-sm">목록으로 가기</button>
+                <button id="notice_main" type="button" class="btn btn-secondary btn-sm" onclick="location.href='<%=contextPath%>/list.no?currentPage=1';">목록으로 가기</button>
             </div>
         </div>
 

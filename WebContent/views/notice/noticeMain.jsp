@@ -51,7 +51,7 @@
         #content_4{width:30%; height:42%; float:left;}
         #content_5{width:100%; height:35%; float: right;} */
 
-        * {
+        #content {
                 font-family: 'Noto Sans KR', sans-serif;
                 font-weight: 300;
         }
@@ -105,7 +105,7 @@
 <body>
     
     <div class="wrap">
-    	<%@ include file="../common/menubar1.jsp" %>
+    	<%@ include file="../common/menubar.jsp" %>
         <!--  <div id="header">
             <div id="header_1">로고</div>
             <div id="header_2">메뉴바</div>
@@ -250,6 +250,14 @@
                         </tr> -->
                       </tbody>
                   </table>
+                  <script>
+                  	$(function(){
+                  		$("table>tbody>tr").click(function(){
+                  			location.href = "<%=contextPath%>/detail.no?nno=" + $(this).children().eq(0).text();
+                  		})
+                  	})
+                  
+                  </script>
             </div>
             <div id="admin_box">
                 <div id="admin_box_inner">

@@ -30,7 +30,16 @@ public class Notice {
 	}
 	
 	
-	
+	public Notice(int noticeNo, String memName, String noticeTitle, String noticeContent, int count, Date enrDate) {
+		super();
+		this.noticeNo = noticeNo;
+		this.memName = memName;
+		this.noticeTitle = noticeTitle;
+		this.noticeContent = noticeContent;
+		this.count = count;
+		this.enrDate = enrDate;
+	}
+
 	public Notice(int noticeNo, String memName, String noticeTitle, Date enrDate) {
 		super();
 		this.noticeNo = noticeNo;
@@ -38,6 +47,8 @@ public class Notice {
 		this.noticeTitle = noticeTitle;
 		this.enrDate = enrDate;
 	}
+	
+	
 
 	public int getNoticeNo() {
 		return noticeNo;
