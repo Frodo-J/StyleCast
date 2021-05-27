@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html lang="kr">
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -142,6 +143,7 @@
 
     </style>
 </head>
+
 <body>
     
     <%@ include file="../common/menubar.jsp" %>
@@ -180,12 +182,41 @@
                     cnt++;
                 }
               </script>
-
+			
             <div id="content_4">
-                <div id="todayweather"><img src="img/sunny.png" alt="" width="134px" height="134px"></div>
-                <div id="todaytemp"><b>5/17ì&nbsp&nbsp5Ë/20Ë </b></div>
+            	<script>
+            		var imgURL = "http://openweathermap.org/img/w/" + resp.weather[0].icon + ".png";
+	            	var apiURI = "http://api.openweathermap.org/data/2.5/weather?q=seoul&appid=1edf4d31ce3af918461e6292d0fd5669&units=metric";
+		                $.ajax({
+		                    url: apiURI,
+		                    dataType: "json",
+		                    type: "GET",
+		                    async: "false",
+		                    success: function(resp) {
+		                        $("#todaytemp").text("현재온도 : "+(resp.main.temp) + "°C");
+		                        $("#todayweather").text(resp.weather[0].icon);
+		                        $("#")
+		                        console.log("현재온도 : "+ (resp.main.temp- 273.15) );
+		                        console.log("현재습도 : "+ resp.main.humidity);
+		                        console.log("날씨 : "+ resp.weather[0].main );
+		                        console.log("상세날씨설명 : "+ resp.weather[0].description );
+		                        console.log("날씨 이미지 : "+ resp.weather[0].icon );
+		                        console.log("바람   : "+ resp.wind.speed );
+		                        console.log("나라   : "+ resp.sys.country );
+		                        console.log("도시이름  : "+ resp.name );
+		                        console.log("구름  : "+ (resp.clouds.all) +"%" );                 
+		                    }
+		                });
+		        	function changeIcon(date){
+		        		let icon = (Arr["weather"] as! [[String: Any]])[0]["icon"]
+		        	}
+            	</script>
+                <div id="todayweather"></div>
+                <div id="todaytemp" class="ctemp"></div>
                 <div id="location"><b><font size="7px" >Seoul</font></b></div>   
             </div>
+            
+            
             
             <div id="content_5">
                 <div id="daily">
