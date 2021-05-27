@@ -186,6 +186,17 @@
     </style>
 </head>
 <body>
+	<script>
+		var msg = "<%= alertMsg %>";
+		// var msg = "메세지" / "null"
+		
+		if(msg != "null"){
+			alert(msg);
+			// 알람창 띄워준 후 session에 담긴 해당 메세지는 지워줘야 됨
+			// 안그러면 menubar.jsp가 로딩될때마다 매번 alert가 계속 뜸
+			<% session.removeAttribute("alertMsg"); %>
+		}
+	</script>
     <div class="wrap">
         <div id="header">
             <div id="header_1">
@@ -220,27 +231,29 @@
                <% if(loginUser == null){ %>
                 	<button type="button" id="login" onclick="loginPage();" class="btn btn-primary">로그인</button>
                <% }else{ %>
-                
-                <!--
+  
 	     		<ul id="navi">
 	              	<li>
 	                    <div>
+	                    <% if(loginUser.getMemId().equals("admin")) { %>
 	                        <a id="profile" href="">
-	                            <img src="img/prof.PNG" alt="" class="rounded-circle">
+	                            <img src="<%=contextPath %>/resources/images/prof.PNG" class="rounded-circle">
 	                        </a>
-	                        <div>닉네임</div>
+	                    <% }else { %>
+	                    	<a id="profile" href="">
+	                            <img src="<%=contextPath %>/resources/images/prof.PNG" class="rounded-circle">
+	                        </a>
+	                    <% } %>
+	                        <b><%= loginUser.getMemName() %></b>
 	                    </div>
-	                    
 	                    <ul id="hide">
-	                        <div id="myfage"><a href="<%= contextPath %>/myPage.me">마이페이지</a><div>
+	                        <div id="mypage"><a href="<%= contextPath %>/myPage.me">마이페이지</a><div>
 	                        <div id="bookmk"><a href="<%= contextPath %>/bookmark.me">북마크</a><div>
 	                        <div id="logout"><a href="<%= contextPath %>/logout.me">로그아웃</a><div>
 	                    </ul>
 	        		</li>
 	            </ul>
-	            -->
-                
-                
+	          
                 <% } %>
                 <script>
                 	function loginPage(){
