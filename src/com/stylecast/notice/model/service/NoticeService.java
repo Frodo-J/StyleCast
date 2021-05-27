@@ -59,6 +59,19 @@ public class NoticeService {
 		return n;
 	}
 
+	public int deleteNotice(int noticeNo) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		int result = new NoticeDao().deleteNotice(conn,noticeNo);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
 	
 	
 }
