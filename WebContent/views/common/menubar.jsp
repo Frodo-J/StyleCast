@@ -123,8 +123,9 @@
             }
         #login{
             border-radius:5px; 
-            border:none; padding:7px 20px; 
-            margin-top: 55px;
+            border:none; padding:7px 10px;
+            font-size: 15px;
+            margin-top: 56px;
             }
 
         #navi{
@@ -229,7 +230,7 @@
             <div id="header_4">
                 
                <% if(loginUser == null){ %>
-                	<button type="button" id="login" onclick="loginPage();" class="btn btn-primary">로그인</button>
+                	<button type="button" id="login" onclick="loginPage();" class="btn btn-dark">로그인/가입</button>
                <% }else{ %>
   
 	     		<ul id="navi">
