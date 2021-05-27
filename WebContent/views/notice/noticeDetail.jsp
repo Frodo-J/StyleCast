@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.stylecast.notice.model.vo.*"%>
+    pageEncoding="UTF-8" import="com.stylecast.notice.model.vo.*, java.util.ArrayList, com.stylecast.common.model.vo.BoardImage"%>
 <%
 	Notice n = (Notice)request.getAttribute("n");
+	ArrayList<BoardImage> imgList = (ArrayList<BoardImage>)request.getAttribute("imgList");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,10 +105,12 @@
                         <td colspan="3">
                             <div id="notice_contents">
                                	<%=n.getNoticeContent()%>
+                               	<br>
+                               	<br>
                                 <!--첨부파일 이미지 있으면 여기아래 처리-->
-                                <img src="<%=contextPath %>/resources/images/coffee.jpg"/>
-								<img src="<%=contextPath %>/resources/images/coffee.jpg"/>
-								<img src="<%=contextPath %>/resources/images/coffee.jpg"/>
+                                <% for(int i=0; i<imgList.size(); i++){ %>
+                                	<img src="<%=contextPath %>/<%= imgList.get(i).getImgPath()%>" width="700" height="450"/>
+								<%} %>
                             </div>
                         </td>
                     </tr>
