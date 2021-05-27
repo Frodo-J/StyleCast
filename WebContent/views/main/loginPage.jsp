@@ -62,20 +62,21 @@
 
     </style>
     <script>
-            $(document).ready(function(){ 
-      
+
+	    $(document).ready(function(){ 
+	        
 		    var numberOfImages=3; 
 		    var imageNum = Math.round(Math.random()*(numberOfImages-1))+1;
 		    var imgPath=('./resources/images/login_img/img_'+imageNum+'.jpg');
 		    $('#background').css('background-image', ('url("'+imgPath+'")'));
 		     
 		    });
+		    
   	</script>
 </head>
 <body> 
 	
     <div class="wrap" id="background">
-
         <div id="box">
             <div id="box_wrap">
                 <div id="logo">
