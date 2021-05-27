@@ -115,10 +115,78 @@
             </div>
             <div id="button_box">
                 <!--아래 두개 버튼은 관리자만 보이게끔-->
-                <button type="button" class="btn btn-secondary btn-sm">수정</button>
-                <button type="button" class="btn btn-secondary btn-sm">삭제</button>
+                <%// if(loginUser != null && loginUser.getAdminYN().equals("Y")){ %>
+                	<button type="button" class="btn btn-secondary btn-sm">수정</button>
+                	<button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#exampleModalToggle_rept">삭제</button>
+                 <% //} %>
                 <button id="notice_main" type="button" class="btn btn-secondary btn-sm" onclick="location.href='<%=contextPath%>/list.no?currentPage=1';">목록으로 가기</button>
             </div>
+            
+             <!-- Modal -->
+                        <div
+                            class="modal fade"
+                            id="exampleModalToggle_rept"
+                            aria-hidden="true"
+                            aria-labelledby="exampleModalToggleLabel"
+                            tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalToggleLabel">
+                                            <b>공지글 삭제</b>
+                                        </h5>
+                                        <button
+                                            type="button"
+                                            class="btn-close"
+                                            data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        	정말 공지글을 삭제하시겠습니까?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                        <button
+                                            class="btn btn-primary"
+                                            data-bs-target="#exampleModalToggle_rept2"
+                                            data-bs-toggle="modal"
+                                            data-bs-dismiss="modal">삭제하기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="modal fade"
+                            id="exampleModalToggle_rept2"
+                            aria-hidden="true"
+                            aria-labelledby="exampleModalToggleLabel2"
+                            tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalToggleLabel2">
+                                            <b>확인창</b>
+                                        </h5>
+                                        <button
+                                            type="button"
+                                            class="btn-close"
+                                            data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        	삭제되었습니다!
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button
+                                            class="btn btn-primary"
+                                            data-bs-toggle="modal"
+                                            data-bs-dismiss="modal"
+                                            onclick="location.href='<%=contextPath%>/delete.no?nno=<%=n.getNoticeNo()%>';">확인</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
         </div>
 
     </div>
