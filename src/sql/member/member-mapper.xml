@@ -19,7 +19,7 @@
 	     , ENT_DATE
 	     , PROF_IMG
 	  FROM MEMBER
-	 WHERE MEM_NO = ?
+	 WHERE MEM_ID = ?
 	   AND MEM_PWD = ?
 	   AND BLACK_YN = 'N'
 	   AND ENT_YN = 'N'

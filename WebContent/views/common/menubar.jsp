@@ -238,11 +238,14 @@
 	                    </ul>
 	        		</li>
 	            </ul>
-                <%// } %>
-                -->
+	            -->
                 
+                
+                <% } %>
                 <script>
-                	function
+                	function loginPage(){
+                		location.href = "<%=contextPath%>/loginPage.me";
+                	}
                 </script>
              
 
