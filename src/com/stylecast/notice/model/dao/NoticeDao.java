@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import static com.stylecast.common.JDBCTemplate.*;
 
+import com.stylecast.common.model.vo.BoardImage;
 import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.notice.model.vo.Notice;
 
@@ -190,6 +191,11 @@ public class NoticeDao {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<BoardImage> selectBoardImageList(Connection conn, int noticeNo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
