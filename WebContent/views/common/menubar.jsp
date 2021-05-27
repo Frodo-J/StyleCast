@@ -196,7 +196,7 @@
                 <div id="daily"><a href=""><font size="5px">Daily</font></a></div>
                 <div id="trending"><a href=""><font size="5px">Trending</font></a></div>
                 <div id="qna"><a href=""><font size="5px">QnA</font></a></div>
-                <div id="notice"><a href=""><font size="5px">Notice</font></a></div>
+                <div id="notice"><a href="<%= contextPath %>/list.no?currentPage=1"><font size="5px">Notice</font></a></div>
             </div>
             
             <script>
