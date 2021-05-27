@@ -73,5 +73,16 @@
 		   SET STATUS = 'N'
 		 WHERE NOTICE_NO = ?
 	</entry>
+	
+	<entry key="selectBoardImage">
+		SELECT
+		 	IMG_NO,
+		 	IMG_PATH,
+		 	POST_CATEGORY,
+		 	POST_NO
+		FROM IMAGE
+		WHERE POST_CATEGORY = 0
+		AND POST_NO = ?
+	</entry>
 
 </properties>

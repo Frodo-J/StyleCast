@@ -1,12 +1,15 @@
 package com.stylecast.notice.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.stylecast.common.model.vo.BoardImage;
 import com.stylecast.notice.model.service.NoticeService;
 import com.stylecast.notice.model.vo.Notice;
 
@@ -38,8 +41,11 @@ public class NoticeDetailController extends HttpServlet {
 		
 		if(result > 0) {
 			Notice n = nService.selectNotice(noticeNo);
+
+			ArrayList<BoardImage> imgList = new NoticeService().selectBoardImageList(noticeNo);
 			
 			request.setAttribute("n", n);
+			request.setAttribute("imgList", imgList);
 			request.getRequestDispatcher("views/notice/noticeDetail.jsp").forward(request, response);
 		}
 		

@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import static com.stylecast.common.JDBCTemplate.*;
 
+import com.stylecast.common.model.vo.BoardImage;
 import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.notice.model.vo.Notice;
 
@@ -190,6 +191,37 @@ public class NoticeDao {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<BoardImage> selectBoardImageList(Connection conn, int noticeNo) {
+		// TODO Auto-generated method stub
+		ArrayList<BoardImage> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectBoardImage");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, noticeNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				BoardImage bImg = new BoardImage();
+				bImg.setImgNo(rset.getInt("img_no"));
+				bImg.setImgPath(rset.getString("img_path"));
+				bImg.setPostCategory(rset.getInt("post_category"));
+				bImg.setPostNo(rset.getInt("post_no"));
+				list.add(bImg);
+			}
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 
 }
