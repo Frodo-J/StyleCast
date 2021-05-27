@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.stylecast.main.model.vo.Main"%>
+<%
+	ArrayList<Main> list = (ArrayList<Main>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html lang="kr">
 <head>
@@ -117,17 +120,24 @@
             }
         #dailycontent{
             height:70%;
+            width:100%;
+            float:left; 
             }
         #dailycontent>div{
-            height:80%; 
+            height:240px; 
             float:left; 
-            width:20%; 
+            width:240px; 
             margin-left:60px;
             }
-        #dailycontent>div>img{
-            height:80%; 
+        #dailycontent>div>div{
+        	height:240px; 
             float:left; 
-            width:80%;
+            width:240px; 
+        }
+        #dailycontent img{
+            height:240px; 
+            float:left; 
+            width:240px;
             }
 
     </style>
@@ -181,11 +191,11 @@
                 <div id="daily">
                      <b><font size="5px">데일리</font></b>  
                 </div>
+				
                 <div id="dailycontent">
-                    <div id="best1"><a href=""><img src="<%=contextPath %>/resources/daily_upfiles/dailybest1.jpg" alt=""></a></div>
-                    <div id="best2"><a href=""><img src="<%=contextPath %>/resources/daily_upfiles/dailybest2.jpg" alt=""></a></div>
-                    <div id="best3"><a href=""><img src="<%=contextPath %>/resources/daily_upfiles/dailybest3.jpg" alt=""></a></div>
-                    <div id="best4"><a href=""><img src="<%=contextPath %>/resources/daily_upfiles/dailybest4.jpg" alt=""></a></div>
+                <% for(Main m : list){ %>
+                	<div id="newDaily"><a href=""><img src="<%= m.getDailyImg() %>" alt=""></a></div>
+                <% } %>
                 </div>
             </div>
         </div>

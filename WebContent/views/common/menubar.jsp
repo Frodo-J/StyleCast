@@ -148,6 +148,13 @@
             display:block;
             transform:scale(1);
         }
+        
+        #nickName{
+        	text-align:center;
+        	width:auto;
+            height:auto;
+        }
+        
         #profile{margin-top:50px;
             margin-left:35px;
             height:50px;
@@ -218,17 +225,17 @@
             <div id="header_4">
                 
                <% //if(loginUser == null){ %>
-                	<button type="button" id="login" class="btn btn-primary">로그인</button>
+                <!--  	<button type="button" id="login" class="btn btn-primary">로그인</button> -->
                <% //}else{ %>
                 
-                <!--
+                
 	     		<ul id="navi">
 	              	<li>
 	                    <div>
 	                        <a id="profile" href="">
-	                            <img src="img/prof.PNG" alt="" class="rounded-circle">
+	                            <img src="<%=contextPath %>/resources/images/prof.PNG" alt="" class="rounded-circle">
 	                        </a>
-	                        <div>닉네임</div>
+	                        <div id="nickName">닉네임</div>
 	                    </div>
 	                    
 	                    <ul id="hide">
@@ -239,7 +246,7 @@
 	        		</li>
 	            </ul>
                 <%// } %>
-                -->
+                
              
 
             </div>
