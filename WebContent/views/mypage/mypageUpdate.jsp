@@ -144,19 +144,11 @@
 	<%@ include file="../common/menubar.jsp" %>
 	
 	<%
-		/*
-		String userId = loginUser.getUserId();
-		String userPwd = loginUser.getUserPwd();
-		String userName = loginUser.getUserName();
+		String memId = loginUser.getMemId();
+		String memPwd = loginUser.getMemPwd();
+		String memName = loginUser.getMemName();
 		String email = loginUser.getEmail();
 		String gender = loginUser.getGender();
-		*/
-		
-		String userId = "임시";
-		String userPwd = "password";
-		String userName = "임시";
-		String email = "임시";
-		String gender = "M";
 	%>
 	
     
@@ -173,14 +165,14 @@
                 </div>
 
                 <div id="menu">
-                    <div id="write">
+                    <div id="write" style="font-weight: bold;">
                         내가 쓴 글
-                        <div><a href="">데일리</a></div>
-                        <div><a href="">댓글</a></div>
-                        <div><a href="">문의글</a></div>
+                        <div><a href="<%= request.getContextPath() %>/myPage.me">데일리</a></div>
+                        <div><a href="<%= request.getContextPath() %>/reply.me" style="font-weight: normal;">댓글</a></div>
+                        <div><a href="<%= request.getContextPath() %>/question.me" style="font-weight: normal;">문의글</a></div>
                     </div>
-                    <div><a href="">북마크</a></div>
-                    <div><a href="" style="font-weight: bold;">개인정보 수정</a></div>
+                    <div><a href="<%= request.getContextPath() %>/bookmark.me">북마크</a></div>
+                    <div><a href="<%= request.getContextPath() %>/myMember.me">개인정보 수정</a></div>
                 </div>
             </div>
 
@@ -225,16 +217,11 @@
                     <table>
                         <tr>
                             <td><label class="form-label">아이디</label></td>
-                            <td><span id="userId"><%=userId %></span></td>
-                            <td></td>
+                            <td><span id="userId"><%=memId %></span></td>
+                            <td><input type="hidden" name="userId" class="form-control form-control-sm" value="<%=memId%>"></td>
                         </tr>
                         <tr>
                             <td><label class="form-label">비밀번호</label></td>
-                            <td><input type="password" name="userPwd" class="form-control form-control-sm" maxlength="15" placeholder="현재 비밀번호" required></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
                             <td><input type="password" name="userNewPwd" id="newpass" class="form-control form-control-sm" maxlength="15" placeholder="새 비밀번호"></td>
                             <td></td>
                         </tr>
@@ -245,7 +232,7 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td><input type="hidden" name="userPwd2" class="form-control form-control-sm" value="<%=userPwd%>"></td>
+                            <td><input type="hidden" name="userPwd" class="form-control form-control-sm" value="<%=memPwd%>"></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -260,7 +247,7 @@
                         </tr>
                         <tr>
                             <td><label class="form-label">닉네임</label></td>
-                            <td><input type="text" class="form-control form-control-sm" name="userName" value="<%=userName%>"></td>
+                            <td><input type="text" class="form-control form-control-sm" name="userName" value="<%=memName%>"></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -284,6 +271,18 @@
                     			$("#female").attr("checked", true);
                     		<% } %>
                     	})
+                    </script>
+
+                    <script>
+                        $(function(){
+                            if($("#newpass").val().length > 0){
+                            	$("#newpass_check").attr("required", true);
+                            	
+                            	if($("#newpass").val() != $("#newpass_check").val()){
+                        			$("#form-button button[type='submit']").attr("disabled", true);
+                        		}
+                        	}
+                        })
                     </script>
 
                     <br>

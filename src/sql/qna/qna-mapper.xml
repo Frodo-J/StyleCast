@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectMyQnaList">
+		SELECT
+			   QNA_NO
+			 , QNA_TITLE
+			 , ENR_DATE
+			 , ANS_CONTENT
+		  FROM QNA
+		 WHERE MEM_NO = ?
+	  ORDER BY
+	  	 	   ENR_DATE DESC
+	</entry>
+
+</properties>

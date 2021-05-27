@@ -9,16 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class mypageMember
+ * Servlet implementation class mypageQuestionController
  */
-@WebServlet("/myMember.me")
-public class MypageMember extends HttpServlet {
+@WebServlet("/memberPage.me")
+public class MypageMemberPageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MypageMember() {
+    public MypageMemberPageController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,7 +37,7 @@ public class MypageMember extends HttpServlet {
 			response.sendRedirect(request.getContextPath());
 			
 		}else { // 로그인 후
-			request.getRequestDispatcher("views/mypage/passCheck.jsp").forward(request, response);
+			request.getRequestDispatcher("views/mypage/mypageUpdate.jsp").forward(request, response);
 		}	
 	}
 
