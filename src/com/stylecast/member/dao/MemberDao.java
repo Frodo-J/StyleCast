@@ -37,7 +37,7 @@ public class MemberDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memId);
-			pstmt.setString(1, memPwd);
+			pstmt.setString(2, memPwd);
 			
 			rset = pstmt.executeQuery();
 			
