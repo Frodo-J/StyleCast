@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import static com.stylecast.common.JDBCTemplate.*;
 
+import com.stylecast.common.model.vo.BoardImage;
 import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.notice.model.dao.NoticeDao;
 import com.stylecast.notice.model.vo.Notice;
@@ -70,6 +71,16 @@ public class NoticeService {
 		}
 		close(conn);
 		return result;
+	}
+
+	public ArrayList<BoardImage> selectBoardImageList(int noticeNo) {
+		// TODO Auto-generated method stub
+		
+		Connection conn = getConnection();
+		ArrayList<BoardImage> imgList = new NoticeDao().selectBoardImageList(conn,noticeNo);
+		close(conn);
+		
+		return imgList;
 	}
 
 	
