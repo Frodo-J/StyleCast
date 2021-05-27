@@ -99,7 +99,7 @@ public class NoticeDao {
 			
 			while(rset.next()) {
 				list.add(new Notice(rset.getInt("notice_no"),
-						rset.getString("mem_id"),
+						rset.getString("mem_name"),
 						rset.getString("notice_title"),
 						rset.getDate("enr_date")
 						));
