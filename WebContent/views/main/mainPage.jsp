@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.stylecast.main.model.vo.MainSelectDaily, com.stylecast.main.model.vo.MainSelectCodi"%>
 <%
-	ArrayList<MainSelectDaily> list = (ArrayList<MainSelectDaily>)request.getAttribute("list");
-	ArrayList<MainSelectCodi> list = (ArrayList<MainSelectCodi>)request.getAttribute("list");
+	ArrayList<MainSelectDaily> dailylist = (ArrayList<MainSelectDaily>)request.getAttribute("list");
+	ArrayList<MainSelectCodi> codilist = (ArrayList<MainSelectCodi>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html lang="kr">
@@ -219,7 +219,7 @@
                 </div>
 				
                 <div id="dailycontent">
-                <% for(Main m : list){ %>
+                <% for(MainSelectDaily m : dailylist){ %>
                 	<div id="newDaily"><a href=""><img src="<%= m.getDailyImg() %>" alt=""></a></div>
                 <% } %>
                 </div>

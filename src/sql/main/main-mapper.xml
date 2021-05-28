@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-	<entry key="selectMainList">
+	<entry key="MainSelectDaily">
 		SELECT * FROM (
 			SELECT
 				   DAILY_NO
@@ -11,7 +11,7 @@
 		) WHERE <![CDATA[ROWNUM <= 4 ]]>
 	</entry>
 	
-	<entry key="selectCodi">
+	<entry key="selectCodiM">
 		SELECT 
 		       CODI_NO
 		     , IMG_PATH

@@ -11,20 +11,20 @@ import com.stylecast.main.model.vo.MainSelectDaily;
 
 public class MainService {
 	
-	public ArrayList<MainSelectDaily> selectMainList(){
+	public ArrayList<MainSelectDaily> MainSelectDaily(){
 		
 		Connection conn = getConnection();
-		ArrayList<MainSelectDaily> list = new MainDao().selectMainList(conn);
+		ArrayList<MainSelectDaily> list = new MainDao().MainSelectDaily(conn);
 		
 		close(conn);
 		return list;
 		
 	}
 	
-	public ArrayList<MainSelectCodi> selectCodi(){
+	public ArrayList<MainSelectCodi> selectCodiM(){
 		
 		Connection conn = getConnection();
-		ArrayList<MainSelectCodi> list = new MainDao().selectCodi(conn);
+		ArrayList<MainSelectCodi> list = new MainDao().selectCodiM(conn);
 		
 		close(conn);
 		return list;

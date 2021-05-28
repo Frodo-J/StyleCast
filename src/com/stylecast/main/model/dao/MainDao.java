@@ -29,11 +29,11 @@ public class MainDao {
 		
 	}
 	
-	public ArrayList<MainSelectDaily> selectMainList(Connection conn){
+	public ArrayList<MainSelectDaily> MainSelectDaily(Connection conn){
 		ArrayList<MainSelectDaily> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectMainList");
+		String sql = prop.getProperty("MainSelectDaily");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -55,11 +55,11 @@ public class MainDao {
 		
 	}
 	
-	public ArrayList<MainSelectCodi> selectCodi(Connection conn){
+	public ArrayList<MainSelectCodi> selectCodiM(Connection conn){
 		ArrayList<MainSelectCodi> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectCoid");
+		String sql = prop.getProperty("selectCodiM");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
