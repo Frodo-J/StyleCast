@@ -50,7 +50,7 @@
 
         #enroll_form_input_info>input[type = text], input[type = password]{width: 300px; height: 35px; margin: auto;}
         #enroll_form_input_info>input[type = email]{width: 52.6%; height: 35px; margin-right: 115px; display: inline-block;}
-        #enroll_form_input_info>#emailAuthenticate{position: absolute; margin-left: -30%;}
+        #enroll_form_input_info>#sendAuthenticate,#emailAuthenticate{position: absolute; margin-left: -30%;}
 
         #enroll_form_input_info>#userId, #userNname{margin-bottom: 8px;}
         #enroll_form_input_info>a{color: gray;}
@@ -86,7 +86,7 @@
                         <div id="enroll_form_input_info">
                             <input type="text" id="userId" name="memId" class="form-control" placeholder="ID" maxlength="12" required>
                             <input type="email" name="email" class="form-control" placeholder="E-mail" required>
-                            <input type="button" class="btn btn-secondary btn-sm" name="emailAuthenticate" id="emailAuthenticate" value="인증번호 발송">
+                            <input type="button" class="btn btn-secondary btn-sm" name="emailAuthenticate" id="sendAuthenticate" onclick="resendEmail();" value="인증번호 발송">
                             <br><br>
                             <input type="text" name="authenticateNumber" class="form-control" id="authenticateNumber" style="width: 35%; margin-right: 5px; display: inline-block;" placeholder="인증번호" required>
                             <input type="button" style="margin-right: 90px; margin-bottom: 10px; width: 80px;"class="btn btn-secondary btn-sm" name="emailAuhenticate" id="emailAuhenticate" value="확인">
@@ -101,10 +101,10 @@
                             <input type="radio" class="form-check-input" name="gender" value="F"> <label for="radioF">여자</label>
                             <br>
                             <input type="checkbox" class="form-check-input" name="form" id="infoForm" value="infoForm" required>
-                            <a href="">개인정보 처리방침 동의</a>
+                            <a href="<%=contextPath%>/privacy.po">개인정보 처리방침 동의</a>
                             <br>
                             <input type="checkbox" class="form-check-input" name="form" id="serviceForm" value="serviceForm" required>
-                            <a href="" style="margin-right: 18%;">사용약관 동의</a>
+                            <a href="<%=contextPath%>/termsofUse.po" style="margin-right: 18%;">사용약관 동의</a>
                             <br><br>
                             <button type="submit" class="btn btn-dark" style="width: 130px;">가입</button>
                             <br><br>
@@ -112,6 +112,11 @@
                             <br>
                             <h6>이용 중 도움이 필요하시면<br>
                             help@sytlecast.com으로 문의해 주세요.</h6>
+                            <script>
+                            	function resendEmail(){
+                            		document.getElementById('sendAuthenticate').value = "재발송";
+                            	}
+                            </script>
                         </div>
                     </form>
                 </div>
