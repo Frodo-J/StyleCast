@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.stylecast.main.model.vo.Main"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.stylecast.main.model.vo.MainSelectDaily, com.stylecast.main.model.vo.MainSelectCodi"%>
 <%
-	ArrayList<Main> list = (ArrayList<Main>)request.getAttribute("list");
+	ArrayList<MainSelectDaily> list = (ArrayList<MainSelectDaily>)request.getAttribute("list");
+	ArrayList<MainSelectCodi> list = (ArrayList<MainSelectCodi>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html lang="kr">
@@ -152,13 +153,26 @@
                 </div>    
             </div>
             <div id="content_3">
-                <button  id="change" onclick="toggleImg()">
+                <button  id="changeGender" onclick="toggleImg()">
                     <img src="<%=contextPath %>/resources/images/changebutton.png" alt="" width="100%" height="100%">
                 </button>
             </div>
             <script>
                 var cnt = 1;
                 function toggleImg() {
+                	
+					var Nowtemp = $(resp.main.temp);
+            		
+            		$.ajax({
+            			url:"tempCheck.ma",
+            			data:{checkTemp:$Nowtemp.val()},
+            			success:function(){
+            				
+            				
+            				
+            			}
+            		});
+                	
                     var img1 = document.getElementById("codi_img_1");
                     var img2 = document.getElementById("codi_img_2");
                     if(cnt%2==1){

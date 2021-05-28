@@ -10,20 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.stylecast.main.model.service.MainService;
-import com.stylecast.main.model.vo.MainSelectDaily;
-
+import com.stylecast.main.model.vo.MainSelectCodi;
 
 /**
- * Servlet implementation class MainController
+ * Servlet implementation class CheckTempController
  */
-@WebServlet("")
-public class MainController extends HttpServlet {
+@WebServlet("/tempCheck.ma")
+public class CheckTempController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainController() {
+    public CheckTempController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,13 +32,11 @@ public class MainController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<MainSelectDaily> list = new MainService().selectMainList();
+		String checkTemp = request.getParameter("checkTemp");
 		
-		//System.out.println(list);
+		ArrayList<MainSelectCodi> list = new MainService().selectCodi();
 		
 		request.setAttribute("list", list);
-		
-		//System.out.println(list);
 		
 		request.getRequestDispatcher("views/main/mainPage.jsp").forward(request, response);
 		

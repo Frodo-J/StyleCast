@@ -1,15 +1,14 @@
 package com.stylecast.main.model.vo;
 
-public class Main {
+public class MainSelectDaily {
 	
 	private int dailyNo;
 	private String dailyImg;
 	
-	public Main() {}
+	public MainSelectDaily() {}
+	
 
-	
-	
-	public Main(int dailyNo, String dailyImg) {
+	public MainSelectDaily(int dailyNo, String dailyImg) {
 		super();
 		this.dailyNo = dailyNo;
 		this.dailyImg = dailyImg;
