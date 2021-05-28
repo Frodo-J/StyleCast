@@ -276,13 +276,13 @@
              	<div align="center" class="btn-group me-2" role="group" aria-label="First group">
 
 					<% if(currentPage != 1){ %>
-            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage-1%>';"> &lt; </button>
+            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.no?currentPage=<%=currentPage-1%>';"> &lt; </button>
 					<% } %>
 
             		<% for(int p=startPage; p<=endPage; p++){ %>
             	
             			<% if(p != currentPage){ %>
-	            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%= p %>';"><%= p %></button>
+	            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.no?currentPage=<%= p %>';"><%= p %></button>
 	            		<% }else { %>
 	            			<button type="button" class="btn btn-outline-secondary" disabled><%= p %></button>
             			<% } %>
@@ -290,7 +290,7 @@
             		<% } %>
 
 				<% if(currentPage != maxPage){ %>
-            		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage+1%>';"> &gt; </button>
+            		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.no?currentPage=<%=currentPage+1%>';"> &gt; </button>
 				<% } %>
 			
         	</div>
