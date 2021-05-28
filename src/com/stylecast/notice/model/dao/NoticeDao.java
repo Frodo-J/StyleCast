@@ -224,4 +224,50 @@ public class NoticeDao {
 		return list;
 	}
 
+	public int insertNotice(Connection conn, Notice n) {
+		// TODO Auto-generated method stub
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(n.getMemNo()));
+			pstmt.setString(2, n.getNoticeTitle());
+			pstmt.setString(3, n.getNoticeContent());
+			
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertBoardImageList(Connection conn, ArrayList<BoardImage> list) {
+		// TODO Auto-generated method stub
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertBoardImageList");
+		
+		
+		try {
+			for(BoardImage bImage : list) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, bImage.getImgPath());
+				
+				result = pstmt.executeUpdate();
+			}
+		
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 }

@@ -167,9 +167,9 @@
             	<input type="hidden" name="userNo" value="<%= loginUser.getMemNo() %>">
                 <table class="table">
                     <tr>
-                        <th width=13%>제목</td>
+                        <th width=13%>제목</th>
                         <td width=57%><input type="text" name="title" style="font-weight:300" placeholder="제목을 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required></td>
-                        <th width=10%>작성일자</td>
+                        <th width=10%>작성일자</th>
                         <td width=20%><%= sf.format(nowTime) %></td>
                     </tr>
                     <tr>
@@ -184,7 +184,7 @@
                         <th>이미지1</th>
                         <td colspan="3">
                             <div id="input_file" class="input-group">
-                                <input type="file" class="form-control" id="input-img1" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,1);">
+                                <input type="file" class="form-control" id="input-img1" name="image1" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,1);">
                             </div>
                         </td>
                     </tr>
@@ -192,7 +192,7 @@
                         <th>이미지2</th>
                         <td colspan="3">
                             <div id="input_file" class="input-group">
-                                <input type="file" class="form-control" id="input-img2" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,2);">
+                                <input type="file" class="form-control" id="input-img2" name="image2" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,2);">
                             </div>
                         </td>
                     </tr>
@@ -200,7 +200,7 @@
                         <th>이미지3</th>
                         <td colspan="3">
                             <div id="input_file" class="input-group">
-                                <input type="file" class="form-control" id="input-img3" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,3);">
+                                <input type="file" class="form-control" id="input-img3" name="image3" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,3);">
                             </div>
                         </td>
                     </tr>
@@ -219,7 +219,7 @@
             </div>
             <div id="button_box">
                 <button id="notice_cancel" type="button" class="btn btn-secondary">취소</button>
-                <button id="notice_submit" type="button" class="btn btn-primary">등록</button>
+                <button id="notice_submit" type="submit" class="btn btn-primary" >등록</button>
             </div>
             </form>
         </div>

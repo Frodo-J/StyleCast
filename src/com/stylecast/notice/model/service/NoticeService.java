@@ -83,6 +83,21 @@ public class NoticeService {
 		return imgList;
 	}
 
+	public int insertNotice(Notice n, ArrayList<BoardImage> list) {
+		// TODO Auto-generated method stub
+		
+		Connection conn = getConnection();
+		int result1 = new NoticeDao().insertNotice(conn,n);
+		int result2 = new NoticeDao().insertBoardImageList(conn,list);
+		if(result1>0 && result2>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1 * result2;
+	}
+
 	
 	
 }
