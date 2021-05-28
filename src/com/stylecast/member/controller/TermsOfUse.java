@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class PrivacyPolicy
+ * Servlet implementation class TermsOfUse
  */
-@WebServlet("/privacy.po")
-public class PrivacyPolicy extends HttpServlet {
+@WebServlet("/termsofUse.po")
+public class TermsOfUse extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PrivacyPolicy() {
+    public TermsOfUse() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,9 +26,9 @@ public class PrivacyPolicy extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.getRequestDispatcher("views/member/privacyPolicy.jsp").forward(request, response);
-		
+
+		request.getRequestDispatcher("views/member/termsOfUse.jsp").forward(request, response);
+	
 	}
 
 	/**
