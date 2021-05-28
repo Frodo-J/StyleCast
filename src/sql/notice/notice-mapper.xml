@@ -85,4 +85,39 @@
 		AND POST_NO = ?
 	</entry>
 
+	<entry key="insertNotice">
+		INSERT INTO NOTICE(
+			NOTICE_NO,
+			MEM_NO,
+			NOTICE_TITLE,
+			NOTICE_CONTENT,
+			ENR_DATE,
+			STATUS)
+		VALUES(
+			SEQ_NOTICE.nextval,
+			?,
+			?,
+			?,
+			SYSDATE,
+			'Y'
+		)
+	</entry>
+	
+	<entry key="insertBoardImageList">
+		INSERT
+		INTO IMAGE
+		(
+			IMG_NO
+		, IMG_PATH
+		, POST_CATEGORY
+		, POST_NO
+		)
+		VALUES
+		(
+			SEQ_IMG.NEXTVAL
+			, ?
+			, 0
+			, SEQ_NOTICE.CURRVAL
+		)
+	</entry>
 </properties>
