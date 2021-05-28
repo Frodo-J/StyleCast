@@ -237,11 +237,11 @@
 	              	<li>
 	                    <div>
 	                    <% if(loginUser.getMemId().equals("admin")) { %>
-	                        <a id="profile" href="">
+	                        <a id="profile">
 	                            <img src="<%=contextPath %>/resources/images/prof.PNG" class="rounded-circle">
 	                        </a>
 	                    <% }else { %>
-	                    	<a id="profile" href="">
+	                    	<a id="profile">
 	                            <img src="<%=contextPath %>/resources/images/prof.PNG" class="rounded-circle">
 	                        </a>
 	                    <% } %>

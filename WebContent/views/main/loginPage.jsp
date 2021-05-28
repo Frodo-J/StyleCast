@@ -79,7 +79,7 @@
             <div id="box_wrap">
                 <div id="logo">
                     <a href="">
-                        <img src="<%=contextPath %>/resources/images/logo.jpg" alt="로고입니다" width="60%">
+                        <img src="<%=contextPath %>/resources/images/logo.jpg" width="60%">
                     </a>
                 </div>
                 <div id="enroll_form">
@@ -96,20 +96,15 @@
                             <br><br>
                             <button type="submit" class="btn btn-dark" style="width: 130px;" onclick="loginPage();">로그인</button>
                             <br>
-                            <br>
-                            <h6>
-                            이용 중 도움이 필요하시면<br>
+                            <a href="<%=contextPath%>/login.me" onclick="loginPage();">여기서 가입</a>
+                            <br><br>
+                            <h6>이용 중 도움이 필요하시면<br>
                             help@stylecast.com으로 문의해 주세요.
                             </h6>
                         </div>
                     </form>
                 </div>
             </div>
-            <script>
-            	function loginPage(){
-            		location.href = "<%=contextPath%>/login.me";
-            	}
-            </script>
         </div>
     </div>
 </body>
