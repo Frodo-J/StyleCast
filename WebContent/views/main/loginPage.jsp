@@ -7,12 +7,10 @@
 	Member loginUser = (Member)session.getAttribute("loginUser");
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StyleCast</title>
+<meta charset="UTF-8">
+<title>StyleCast</title>
     <!--bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
@@ -73,7 +71,6 @@
   	</script>
 </head>
 <body> 
-	
     <div class="wrap" id="background">
         <div id="box">
             <div id="box_wrap">
@@ -94,9 +91,9 @@
                             
                             <a href="<%= contextPath %>/findPwd.me" style="margin-left: 38%;">비밀번호를 잊으셨나요?</a>
                             <br><br>
-                            <button type="submit" class="btn btn-dark" style="width: 130px;" onclick="loginPage();">로그인</button>
+                            <button type="submit" class="btn btn-dark" style="width: 130px;">로그인</button>
                             <br>
-                            <a href="<%=contextPath%>/login.me" onclick="loginPage();">여기서 가입</a>
+                            <a href="<%=contextPath%>/joinPage.me">여기서 가입</a>
                             <br><br>
                             <h6>이용 중 도움이 필요하시면<br>
                             help@stylecast.com으로 문의해 주세요.

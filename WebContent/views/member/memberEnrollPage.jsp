@@ -1,13 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="com.stylecast.member.vo.Member"%>
+<%
+	String contextPath = request.getContextPath();
+
+	Member loginUser = (Member)session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StyleCast</title>
+<meta charset="UTF-8">
+<title>StyleCast</title>
     <!--bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
     <!--bootstrap end-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
@@ -28,7 +35,7 @@
         }
         .wrap>#box{
             width: 350px;
-            height: 700px;
+            height: 740px;
             top: 350px;
             left: 425px;
             position: absolute;
@@ -65,15 +72,12 @@
   	</script>
 </head>
 <body> 
-	
-	<%@ include file="../common/menubar.jsp" %>
-	
     <div class="wrap" id="background">
         <div id="box">
             <div id="box_wrap">
                 <div id="logo">
                     <a href="">
-                        <img src="resources/image/logo.jpg" alt="로고입니다" width="60%">
+                        <img src="<%=contextPath %>/resources/images/logo.jpg" width="60%">
                     </a>
                 </div>
                 <div id="enroll_form">
@@ -82,13 +86,13 @@
                         <div id="enroll_form_input_info">
                             <input type="text" id="userId" name="memId" class="form-control" placeholder="ID" maxlength="12" required>
                             <input type="email" name="email" class="form-control" placeholder="E-mail" required>
-                            <input type="button" class="btn btn-secondary btn-sm" name="emailAuthenticate" id="emailAuthenticate" value="재전송">
+                            <input type="button" class="btn btn-secondary btn-sm" name="emailAuthenticate" id="emailAuthenticate" value="인증번호 발송">
                             <br><br>
                             <input type="text" name="authenticateNumber" class="form-control" id="authenticateNumber" style="width: 35%; margin-right: 5px; display: inline-block;" placeholder="인증번호" required>
                             <input type="button" style="margin-right: 90px; margin-bottom: 10px; width: 80px;"class="btn btn-secondary btn-sm" name="emailAuhenticate" id="emailAuhenticate" value="확인">
                             <br><br>
                             <input type="password" name="memPwd" class="form-control" style="margin-bottom: 3px;" placeholder="비밀번호(8자 이상 영문/숫자/특수문자)" maxlength="15" required>
-                            <input type="password" class="form-control" placeholder="비밀번호확인" maxlength="15" required>
+                            <input type="password" class="form-control" placeholder="비밀번호 확인" maxlength="15" required>
                             <br>
                             <input type="text" id="userNname" name="memName" class="form-control" placeholder="닉네임" required>
                             <br>
@@ -101,13 +105,13 @@
                             <br>
                             <input type="checkbox" class="form-check-input" name="form" id="serviceForm" value="serviceForm" required>
                             <a href="" style="margin-right: 18%;">사용약관 동의</a>
-                            <br>
+                            <br><br>
                             <button type="submit" class="btn btn-dark" style="width: 130px;">가입</button>
                             <br><br>
-                            <a href="<%=contextPath%>/login.me">여기서 로그인</a>
+                            <a href="<%=contextPath%>/loginPage.me">여기서 로그인</a>
                             <br>
-                            <h6> 이용 중 도움이 필요하시면<br>
-                            help@stylecast.com으로 문의해 주세요.</h6>
+                            <h6>이용 중 도움이 필요하시면<br>
+                            help@sytlecast.com으로 문의해 주세요.</h6>
                         </div>
                     </form>
                 </div>

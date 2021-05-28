@@ -230,7 +230,7 @@
             <div id="header_4">
                 
                <% if(loginUser == null){ %>
-                	<button type="button" id="login" onclick="loginPage();" class="btn btn-dark">로그인/가입</button>
+                	<button type="button" id="login" onclick="joinPage();" class="btn btn-dark">로그인/가입</button>
                <% }else{ %>
   
 	     		<ul id="navi">
@@ -257,8 +257,8 @@
 	          
                 <% } %>
                 <script>
-                	function loginPage(){
-                		location.href = "<%=contextPath%>/loginPage.me";
+                	function joinPage(){
+                		location.href = "<%=contextPath%>/joinPage.me";
                 	}
                 </script>
              
