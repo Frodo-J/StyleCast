@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.daily.model.vo.Daily;
+import com.stylecast.daily.model.vo.Report;
 
 public class DailyDao {
 	
@@ -25,7 +26,6 @@ public class DailyDao {
 			e.printStackTrace();
 		}
 	}
-
 
 	public int selectListCount(Connection conn) {
 		int listCount = 0;
@@ -91,4 +91,29 @@ public class DailyDao {
 		
 		return list;
 	}
+	
+	public int insertReportDaily(Connection conn, Report r) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReportDaily");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, 1);
+			pstmt.setInt(2, r.getrMemNo());
+			pstmt.setString(3, r.getContent());
+			pstmt.setInt(4, r.getDailyNo());
+			pstmt.setString(5, r.getRptCategory());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
 }

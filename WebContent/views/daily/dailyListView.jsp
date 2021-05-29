@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
-<%@ page import="com.stylecast.common.model.vo.PageInfo, java.util.ArrayList, com.stylecast.daily.model.vo.Daily, java.text.SimpleDateFormat" %>
+<%@ page import="com.stylecast.common.model.vo.PageInfo, java.util.ArrayList, com.stylecast.daily.model.vo.*, java.text.SimpleDateFormat" %>
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Daily> list = (ArrayList<Daily>)request.getAttribute("list");
+	ArrayList<Report> rlist = new ArrayList<>();
 	
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
@@ -56,7 +57,7 @@
         .react_bookmark{background: url("resources/images/react_icon/bookmark.svg") no-repeat; background-size: contain;}
         .react_count{margin-right: 6px; text-align: center; font-size: 15px; font-weight: 550;}
         /* daily style end */
-        .btn{float: right; margin-right: 20px; margin-top: 10px;}
+        .add{position: absolute; top:1100px; right: 150px;}
 		#navigation{position: absolute; margin-top: 970px; margin-left: 500px;}
     </style>
     <!-- bootstrap -->
@@ -87,9 +88,14 @@
 	                            <div class="vertical-line"></div>
 	                            <div class="action"><input type="button" class="bookmark"></div>
 	                            <div class="vertical-line"></div>
-	                            <div class="action"><input type="button" class="report" data-bs-toggle="modal" data-bs-target="#reportModal"></div>
+	                            <div class="action">
+	                            	<input type="button" class="report" data-bs-toggle="modal" data-bs-target="#reportModal">
+	                            </div>
 	                        </div>
 	                    </div>
+						<input type="hidden" name="memNo" value="<%= loginUser %>">
+						<input type="hidden" name="rMemNo" value="<%= d.getMemNo() %>">
+						<input type="hidden" name="dailyNo" value="<%= d.getDailyNo() %>">
 	                    <div class="profile">
 	                        <img src="<%= contextPath %>/<%= d.getProfImg() %>" alt="">
 	                    </div>
@@ -108,7 +114,7 @@
 	                </div>
                 <% } %>
 				
-				<img src="https://img.icons8.com/ios-filled/50/000000/plus.png" class="btn" onclick="location.href='03-2_데일리_작성form.html'">
+				<img src="https://img.icons8.com/ios-filled/50/000000/plus.png" class="add" onclick="location.href='03-2_데일리_작성form.html'">
 				
 				<div id="navigation">
 				  <ul class="pagination">
@@ -154,7 +160,6 @@
             <div class="modal-body">
                 <form action="" method="post" style="line-height: 30px;">
                 	<!-- 회원번호, 피신고회원번호, 내용(널러블), 게시판카테고리(0), 데일리번호, 신고카테고리 -->
-                	<input type="hidden" name="loginUser" value="<%= loginUser %>">
 
                     <input type="radio" name="report_category" value="욕설 및 비방" checked>&nbsp;욕설 및 비방<br>
                     <input type="radio" name="report_category" value="지나친 홍보성 내용">&nbsp;지나친 홍보성 내용<br>
@@ -206,18 +211,29 @@
         });
 
         // data to modal 
+
+		//버튼 클릭했을때 부모창의 값을 모달창으로
+        /*
+		var memNo = "";
+        var rMemNo = "";
+        var dailyNo = "";
+        var rptCategory = "";
+        var content = "";
+        
         $(document).ready(function() {
 			$('#reportModal').on('show.bs.modal', function (event) {
-				var button = $(event.relatedTarget);
-				var insertReport = button.data('title');
+				var button = $(event.relatedTarget); // Button that triggered the modal
+				rMemNo = button.data('rMemNo'); // Extract info from data-* attributes
+				dailyNo = $(this).data('dailyNo');
 				var modal = $(this);
-				modal.find('d.getMemNo()').val(recipient);
-				modal.find('d.getDailyNo()').val(recipient);
-
+				
+				
+				console.log(rMemNo);
+				console.log(dailyNo);
 		
 			})
 		});
-
+		*/
 
     </script>
 

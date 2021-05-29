@@ -29,5 +29,31 @@
 		        )
 		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
+	
+	<entry key="insertReportDaily">
+		INSERT
+		  INTO REPORT
+		  (
+		    RPT_NO
+		  , MEM_NO
+		  , RMEM_NO
+		  , CONTENT
+		  , ENR_DATE
+		  , BR_CATEGORY
+		  , DAILY_NO
+		  , RPT_CATEGORY
+		  )
+		  VALUES
+		  (
+		    SEQ_RPT.NEXTVAL()
+		  , ?
+		  , ?
+		  , ?
+		  , SYSDATE
+		  , 0
+		  , ?
+		  , ?
+		  )
+	</entry>
 
 </properties>
