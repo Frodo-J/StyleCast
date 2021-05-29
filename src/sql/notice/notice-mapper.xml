@@ -120,4 +120,37 @@
 			, SEQ_NOTICE.CURRVAL
 		)
 	</entry>
+	
+	<entry key="deleteBoardImages">
+		DELETE
+		FROM IMAGE
+		WHERE POST_CATEGORY = 0
+		AND POST_NO = ?
+	</entry>
+	
+	<entry key="updateNotice">
+		UPDATE
+		       NOTICE
+		   SET 
+		   	   NOTICE_TITLE = ? 
+		     , NOTICE_CONTENT = ?
+		 WHERE NOTICE_NO = ?
+	</entry>
+		<entry key="insertBoardImageList2">
+		INSERT
+		INTO IMAGE
+		(
+			IMG_NO
+		, IMG_PATH
+		, POST_CATEGORY
+		, POST_NO
+		)
+		VALUES
+		(
+			SEQ_IMG.NEXTVAL
+			, ?
+			, 0
+			, ?
+		)
+	</entry>
 </properties>

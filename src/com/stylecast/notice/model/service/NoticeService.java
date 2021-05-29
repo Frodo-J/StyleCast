@@ -98,6 +98,37 @@ public class NoticeService {
 		return result1 * result2;
 	}
 
+	public int updateNotice(Notice n, ArrayList<BoardImage> list) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		
+		int result2 = new NoticeDao().updateNotice(conn,n);
+		int result3 = new NoticeDao().insertBoardImageList(conn, list,n.getNoticeNo());
+		
+			
+		if(result2 >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result2;
+	}
+
+	public int deleteBoardImages(Notice n) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		int result1 = new NoticeDao().deleteBoardImages(conn,n.getNoticeNo());
+		
+	
+		commit(conn);
+
+		return result1;
+	}
+		
+
 	
 	
 }

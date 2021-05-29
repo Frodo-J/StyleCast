@@ -42,7 +42,7 @@ public class NoticeUpdateFormController extends HttpServlet {
 		request.setAttribute("list", list);
 		request.setAttribute("n", n);
 		
-		request.getRequestDispatcher("views/notice/noticeUpdateForm.jsp").forward(request, response);
+		request.getRequestDispatcher("views/notice/noticeUpdate.jsp").forward(request, response);
 		
 	}
 

@@ -1,5 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList,com.stylecast.common.model.vo.* ,com.stylecast.notice.model.vo.*"%>
+<%
+	ArrayList<BoardImage> list = (ArrayList<BoardImage>)request.getAttribute("list");
+	Notice n = (Notice)request.getAttribute("n");
+	int[] bNo = new int[3];
+	String[] bPath = new String[3];
+	for(int i=0; i<list.size(); i++){
+		bPath[i] = "";
+		bNo[i] = 0;
+		if(list !=null){
+				bNo[i] = list.get(i).getImgNo();
+				bPath[i] = request.getContextPath() +"/" + list.get(i).getImgPath();
+			}
+			
+	}
+		
+	
+	
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +55,7 @@
                 })
             })
         
-
+			
             function loadImg(inputFile, num){
                 // inputFile : 현재 변화가 생긴 input type="file" 요소객체
                 // num : 몇번째 input요소인지 확인 후 해당 그영역에 미리보기하기위해서
@@ -71,7 +89,11 @@
                     case 3: $("#img3").attr("src", null); break;
                     }
                 }
-                
+			
+           function goBack(){
+            	window.history.back();
+            }
+       
             }
     </script>
 
@@ -155,19 +177,19 @@
             <div id="head_box">
                 <h3 id="head_of_notice">Notice</h3>
             </div>
+            <form action="<%= contextPath %>/update.no" id="enroll-form" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="nno" value="<%=n.getNoticeNo()%>"/>
             <div id="detail_box">
                 <table class="table">
                     <tr>
-                        <th width=13%>제목</td>
-                        <td width=57%><input type="text" style="font-weight:300" placeholder="제목을 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"></td>
-                        <th width=10%>작성일자</td>
-                        <td width=20%>2021-05-02</td>
+                        <th width=13%>제목</th>
+                        <td colspan="3"><input type="text" name="title" value="<%=n.getNoticeTitle()%>" style="font-weight:300" placeholder="제목을 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required></td>
                     </tr>
                     <tr>
                         <th>내용</th>
                         <td colspan="3">
                             <div id="notice_contents">
-                                <textarea class="form-control" placeholder="내용을 입력해주세요" id="floatingTextarea2" style="height: 100%; font-weight:300"></textarea>
+                                <textarea class="form-control" name="content" placeholder="내용을 입력해주세요" id="floatingTextarea2" style="height: 100%; font-weight:300"><%= n.getNoticeContent() %></textarea>
                             </div>
                         </td>
                     </tr>
@@ -175,7 +197,8 @@
                         <th>이미지1</th>
                         <td colspan="3">
                             <div id="input_file" class="input-group">
-                                <input type="file" class="form-control" id="input-img1" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,1);">
+                            	<input type="hidden" name="originImage1" value="<%=bNo[0] %>"/>
+                                <input type="file" class="form-control" name="image1" id="input-img1" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,1);">
                             </div>
                         </td>
                     </tr>
@@ -183,7 +206,8 @@
                         <th>이미지2</th>
                         <td colspan="3">
                             <div id="input_file" class="input-group">
-                                <input type="file" class="form-control" id="input-img2" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,2);">
+                            	<input type="hidden" name="originImage2" value="<%=bNo[1] %>"/>
+                                <input type="file" class="form-control" name="image2" id="input-img2" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,2);">
                             </div>
                         </td>
                     </tr>
@@ -191,7 +215,8 @@
                         <th>이미지3</th>
                         <td colspan="3">
                             <div id="input_file" class="input-group">
-                                <input type="file" class="form-control" id="input-img3" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,3);">
+                            	<input type="hidden" name="originImage2" value="<%=bNo[2] %>"/>
+                                <input type="file" class="form-control" name="image3" id="input-img3" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,3);">
                             </div>
                         </td>
                     </tr>
@@ -199,9 +224,12 @@
                         <th>이미지 첨부</th>
                         <td colspan="3">
                             <div id="image_lists">
-                                <img id="img1" width="200" height="150"/>
-                                <img id="img2" width="200" height="150"/>
-                                <img id="img3" width="200" height="150"/>
+                            	<input type="hidden" name="originFilePath1" value="<%=bPath[0] %>"/>
+                     			<input type="hidden" name="originFilePath2" value="<%=bPath[1] %>"/>
+                     			<input type="hidden" name="originFilePath3" value="<%=bPath[2] %>"/>
+                            	<img id="img1" name="img1" width="200" height="150" src="<%=bPath[0]%>"/>
+                            	<img id="img2" name="img2" width="200" height="150" src="<%=bPath[1]%>"/>
+                            	<img id="img3" name="img3" width="200" height="150" src="<%=bPath[2]%>"/>
                             </div>
                         </td>
                     </tr>
@@ -209,9 +237,10 @@
                 </table>
             </div>
             <div id="button_box">
-                <button id="notice_cancel" type="button" class="btn btn-secondary">취소</button>
-                <button id="notice_submit" type="button" class="btn btn-primary">수정</button>
+                <button id="notice_cancel" type="button" class="btn btn-secondary" onclick="goback();">취소</button>
+                <button id="notice_submit" type="submit" class="btn btn-primary">수정</button>
             </div>
+            </form>
         </div>
 
     </div>
