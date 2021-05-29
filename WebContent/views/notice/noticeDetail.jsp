@@ -123,7 +123,7 @@
             <div id="button_box">
                 <!--아래 두개 버튼은 관리자만 보이게끔-->
                 <% if(loginUser != null && loginUser.getAdminYN().equals("Y")){ %>
-                	<button type="button" class="btn btn-secondary btn-sm">수정</button>
+                	<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='<%=contextPath%>/updateForm.no?nno=<%=n.getNoticeNo()%>';">수정</button>
                 	<button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#exampleModalToggle_rept">삭제</button>
                  <% } %>
