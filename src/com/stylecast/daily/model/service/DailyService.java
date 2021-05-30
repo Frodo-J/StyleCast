@@ -37,4 +37,12 @@ public class DailyService {
 		close(conn);
 		return result;
 	}
+	
+	public Daily selectDailyDetail(int dailyNo) {
+		Connection conn = getConnection();
+		Daily d = new DailyDao().selectDailyDetail(conn, dailyNo);
+		
+		close(conn);
+		return d;
+	}
 }

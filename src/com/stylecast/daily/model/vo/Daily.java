@@ -26,6 +26,19 @@ public class Daily {
 		this.tag = tag;
 	}
 
+	public Daily(int dailyNo, int memNo, String dailyContent, Date enrDate, String dailyImg, String tag, String memName,
+			String profImg) {
+		super();
+		this.dailyNo = dailyNo;
+		this.memNo = memNo;
+		this.dailyContent = dailyContent;
+		this.enrDate = enrDate;
+		this.dailyImg = dailyImg;
+		this.tag = tag;
+		this.memName = memName;
+		this.profImg = profImg;
+	}
+
 	public String getMemName() {
 		return memName;
 	}

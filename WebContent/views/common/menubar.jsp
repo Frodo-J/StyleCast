@@ -31,7 +31,6 @@
     
     <style>
         
-       
         .wrap{
             width:1200px; 
             height:1300px;  
@@ -186,6 +185,16 @@
     </style>
 </head>
 <body>
+
+	<script>
+		var msg = "<%= alertMsg %>"; 
+		
+		if(msg != "null"){
+			alert(msg);
+			<% session.removeAttribute("alertMsg"); %>
+		}
+	</script>
+
     <div class="wrap">
         <div id="header">
             <div id="header_1">

@@ -38,12 +38,13 @@ public class DailyReportController extends HttpServlet {
 		int dailyNo = Integer.parseInt(request.getParameter("dailyNo"));
 		String rptCategory = request.getParameter("report_category");
 		String content = request.getParameter("report_text"); 
+		String currentUrl = request.getParameter("currentUrl");
 		
 		Report r = new Report();
 		//r.setMemNo(memNo);
 		r.setrMemNo(rMemNo);
-		r.setContent(content);
 		r.setDailyNo(dailyNo);
+		r.setContent(content);
 		r.setRptCategory(rptCategory);
 		
 		int result = new DailyService().insertReportDaily(r);
@@ -51,8 +52,7 @@ public class DailyReportController extends HttpServlet {
 		if(result > 0) {
 			
 			request.getSession().setAttribute("alertMsg", "성공적으로 신고가 접수되었습니다.");
-			response.sendRedirect(request.getContextPath() + "/list.da");
-			
+			response.sendRedirect(currentUrl);			
 			
 		}else {
 			request.setAttribute("errorMsg", "신고 접수를 실패하였습니다.");

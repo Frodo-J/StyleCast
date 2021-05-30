@@ -19,6 +19,7 @@
                              , DAILY_CONTENT
                              , ENR_DATE
                              , DAILY_IMG
+                             , TAG
                              , MEM_NAME
                              , PROF_IMG
 		                  FROM DAILY
@@ -38,22 +39,37 @@
 		  , MEM_NO
 		  , RMEM_NO
 		  , CONTENT
-		  , ENR_DATE
 		  , BR_CATEGORY
 		  , DAILY_NO
 		  , RPT_CATEGORY
 		  )
 		  VALUES
 		  (
-		    SEQ_RPT.NEXTVAL()
+		    SEQ_RPT.NEXTVAL
 		  , ?
 		  , ?
 		  , ?
-		  , SYSDATE
 		  , 0
 		  , ?
 		  , ?
 		  )
 	</entry>
 
+	<entry key="insertReportComment">
+	</entry>
+	
+	<entry key="selectDailyDetail">
+       SELECT
+              DAILY_NO
+            , MEM_NO
+            , DAILY_CONTENT
+            , ENR_DATE
+            , DAILY_IMG
+            , TAG
+            , MEM_NAME
+            , PROF_IMG
+         FROM DAILY
+         JOIN MEMBER USING (MEM_NO)
+        WHERE DAILY_NO = ?
+	</entry>
 </properties>

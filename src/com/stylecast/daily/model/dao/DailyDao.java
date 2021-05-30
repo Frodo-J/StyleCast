@@ -76,6 +76,7 @@ public class DailyDao {
 				d.setDailyContent(rset.getString("daily_content"));
 				d.setEnrDate(rset.getDate("enr_date"));
 				d.setDailyImg(rset.getString("daily_img"));
+				d.setTag(rset.getString("tag"));
 				d.setMemName(rset.getString("mem_name"));
 				d.setProfImg(rset.getString("prof_img"));
 				
@@ -114,6 +115,39 @@ public class DailyDao {
 		}
 		
 		return result;
+	}
+	
+	public Daily selectDailyDetail(Connection conn, int dailyNo) {
+		Daily d = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectDailyDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dailyNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				d = new Daily(rset.getInt("daily_no"),
+							  rset.getInt("mem_no"),
+							  rset.getString("daily_content"),
+							  rset.getDate("enr_date"),
+							  rset.getString("daily_img"),
+							  rset.getString("tag"),
+							  rset.getString("mem_name"),
+							  rset.getString("prof_img"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return d;
 	}
 	
 }
