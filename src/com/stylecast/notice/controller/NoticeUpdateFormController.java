@@ -1,24 +1,29 @@
-package com.stylecast.member.controller;
+package com.stylecast.notice.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.stylecast.common.model.vo.BoardImage;
+import com.stylecast.notice.model.service.NoticeService;
+import com.stylecast.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class mypageMember
+ * Servlet implementation class NoticeUpdateFormController
  */
-@WebServlet("/myMember.me")
-public class MypageMember extends HttpServlet {
+@WebServlet("/updateForm.no")
+public class NoticeUpdateFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MypageMember() {
+    public NoticeUpdateFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,18 +32,18 @@ public class MypageMember extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		int noticeNo = Integer.parseInt(request.getParameter("nno"));
 		
-		HttpSession session = request.getSession();
+		Notice n = new NoticeService().selectNotice(noticeNo);
 		
-		// 로그인한 회원의 요청인지 확인
-		if(session.getAttribute("loginUser") == null) { // 로그인 전
-			
-			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
-			response.sendRedirect(request.getContextPath());
-			
-		}else { // 로그인 후
-			request.getRequestDispatcher("views/mypage/passCheck.jsp").forward(request, response);
-		}	
+		ArrayList<BoardImage> list = new NoticeService().selectBoardImageList(noticeNo);
+		
+		request.setAttribute("list", list);
+		request.setAttribute("n", n);
+		
+		request.getRequestDispatcher("views/notice/noticeUpdate.jsp").forward(request, response);
+		
 	}
 
 	/**

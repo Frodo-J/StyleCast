@@ -1,4 +1,4 @@
-package com.stylecast.member.controller;
+package com.stylecast.notice.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,19 +6,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.stylecast.notice.model.service.NoticeService;
 
 /**
- * Servlet implementation class mypageMember
+ * Servlet implementation class NoticeDeleteController
  */
-@WebServlet("/myMember.me")
-public class MypageMember extends HttpServlet {
+@WebServlet("/delete.no")
+public class NoticeDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MypageMember() {
+    public NoticeDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,18 +28,16 @@ public class MypageMember extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		int noticeNo = Integer.parseInt(request.getParameter("nno"));
+		int result = new NoticeService().deleteNotice(noticeNo);
 		
-		HttpSession session = request.getSession();
+		if(result > 0) {
+			response.sendRedirect(request.getContextPath() + "/list.no?currentPage=1");
+		}else {
+			//에러페이지
+		}
 		
-		// 로그인한 회원의 요청인지 확인
-		if(session.getAttribute("loginUser") == null) { // 로그인 전
-			
-			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
-			response.sendRedirect(request.getContextPath());
-			
-		}else { // 로그인 후
-			request.getRequestDispatcher("views/mypage/passCheck.jsp").forward(request, response);
-		}	
 	}
 
 	/**

@@ -51,7 +51,7 @@
         #content_4{width:30%; height:42%; float:left;}
         #content_5{width:100%; height:35%; float: right;} */
 
-        * {
+        #content {
                 font-family: 'Noto Sans KR', sans-serif;
                 font-weight: 300;
         }
@@ -100,12 +100,17 @@
             margin: auto;
             height: 100px;
         }
+        #font_notice{
+        	color: rgb(241, 196, 15);
+        
+        } 
+        
     </style>
 </head>
 <body>
     
     <div class="wrap">
-    	<%@ include file="../common/menubar1.jsp" %>
+    	<%@ include file="../common/menubar.jsp" %>
         <!--  <div id="header">
             <div id="header_1">로고</div>
             <div id="header_2">메뉴바</div>
@@ -250,24 +255,34 @@
                         </tr> -->
                       </tbody>
                   </table>
+                  <script>
+                  	$(function(){
+                  		$("table>tbody>tr").click(function(){
+                  			location.href = "<%=contextPath%>/detail.no?nno=" + $(this).children().eq(0).text();
+                  		})
+                  	})
+                  
+                  </script>
             </div>
             <div id="admin_box">
                 <div id="admin_box_inner">
                     <!-- 사용자일경우 안보이게-->
-                    <button type="button" class="btn btn-secondary btn-sm">글작성</button>
+                    <% if(loginUser != null && loginUser.getAdminYN().equals("Y")){ %>
+                    	<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='<%=contextPath%>/createForm.no';">글작성</button>
+                    <% } %>
                 </div>
             </div>
             <div id="page_box" class="text-center">
              	<div align="center" class="btn-group me-2" role="group" aria-label="First group">
 
 					<% if(currentPage != 1){ %>
-            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage-1%>';"> &lt; </button>
+            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.no?currentPage=<%=currentPage-1%>';"> &lt; </button>
 					<% } %>
 
             		<% for(int p=startPage; p<=endPage; p++){ %>
             	
             			<% if(p != currentPage){ %>
-	            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%= p %>';"><%= p %></button>
+	            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.no?currentPage=<%= p %>';"><%= p %></button>
 	            		<% }else { %>
 	            			<button type="button" class="btn btn-outline-secondary" disabled><%= p %></button>
             			<% } %>
@@ -275,7 +290,7 @@
             		<% } %>
 
 				<% if(currentPage != maxPage){ %>
-            		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage+1%>';"> &gt; </button>
+            		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.no?currentPage=<%=currentPage+1%>';"> &gt; </button>
 				<% } %>
 			
         	</div>

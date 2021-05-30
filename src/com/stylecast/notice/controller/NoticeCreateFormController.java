@@ -1,4 +1,4 @@
-package com.stylecast.member.controller;
+package com.stylecast.notice.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,19 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class mypageMember
+ * Servlet implementation class NoticeEnrollFormController
  */
-@WebServlet("/myMember.me")
-public class MypageMember extends HttpServlet {
+@WebServlet("/createForm.no")
+public class NoticeCreateFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MypageMember() {
+    public NoticeCreateFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,24 +27,14 @@ public class MypageMember extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
-		
-		// 로그인한 회원의 요청인지 확인
-		if(session.getAttribute("loginUser") == null) { // 로그인 전
-			
-			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
-			response.sendRedirect(request.getContextPath());
-			
-		}else { // 로그인 후
-			request.getRequestDispatcher("views/mypage/passCheck.jsp").forward(request, response);
-		}	
+		request.getRequestDispatcher("views/notice/noticeCreate.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		doGet(request, response);
 	}
 
