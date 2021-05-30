@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.daily.model.dao.DailyDao;
 import com.stylecast.daily.model.vo.Daily;
+import com.stylecast.daily.model.vo.Report;
 
 public class DailyService {
 
@@ -29,4 +30,19 @@ public class DailyService {
 		
 	}
 	
+	public int insertReportDaily(Report r) {
+		Connection conn = getConnection();
+		int result = new DailyDao().insertReportDaily(conn, r);
+
+		close(conn);
+		return result;
+	}
+	
+	public Daily selectDailyDetail(int dailyNo) {
+		Connection conn = getConnection();
+		Daily d = new DailyDao().selectDailyDetail(conn, dailyNo);
+		
+		close(conn);
+		return d;
+	}
 }

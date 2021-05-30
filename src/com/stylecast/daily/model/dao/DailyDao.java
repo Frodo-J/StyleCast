@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.daily.model.vo.Daily;
+import com.stylecast.daily.model.vo.Report;
 
 public class DailyDao {
 	
@@ -25,7 +26,6 @@ public class DailyDao {
 			e.printStackTrace();
 		}
 	}
-
 
 	public int selectListCount(Connection conn) {
 		int listCount = 0;
@@ -76,6 +76,7 @@ public class DailyDao {
 				d.setDailyContent(rset.getString("daily_content"));
 				d.setEnrDate(rset.getDate("enr_date"));
 				d.setDailyImg(rset.getString("daily_img"));
+				d.setTag(rset.getString("tag"));
 				d.setMemName(rset.getString("mem_name"));
 				d.setProfImg(rset.getString("prof_img"));
 				
@@ -91,4 +92,62 @@ public class DailyDao {
 		
 		return list;
 	}
+	
+	public int insertReportDaily(Connection conn, Report r) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReportDaily");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, 1);
+			pstmt.setInt(2, r.getrMemNo());
+			pstmt.setString(3, r.getContent());
+			pstmt.setInt(4, r.getDailyNo());
+			pstmt.setString(5, r.getRptCategory());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public Daily selectDailyDetail(Connection conn, int dailyNo) {
+		Daily d = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectDailyDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dailyNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				d = new Daily(rset.getInt("daily_no"),
+							  rset.getInt("mem_no"),
+							  rset.getString("daily_content"),
+							  rset.getDate("enr_date"),
+							  rset.getString("daily_img"),
+							  rset.getString("tag"),
+							  rset.getString("mem_name"),
+							  rset.getString("prof_img"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return d;
+	}
+	
 }

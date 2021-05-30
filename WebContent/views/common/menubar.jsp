@@ -31,7 +31,6 @@
     
     <style>
         
-       
         .wrap{
             width:1200px; 
             height:1300px;  
@@ -187,6 +186,7 @@
     </style>
 </head>
 <body>
+
 	<script>
 		var msg = "<%= alertMsg %>";
 		// var msg = "메세지" / "null"
@@ -198,6 +198,7 @@
 			<% session.removeAttribute("alertMsg"); %>
 		}
 	</script>
+
     <div class="wrap">
         <div id="header">
             <div id="header_1">
