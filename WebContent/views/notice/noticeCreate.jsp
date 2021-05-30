@@ -79,6 +79,11 @@
                 }
                 
             }
+
+        	function goBack(){
+        		window.history.back();
+        	}
+
     </script>
 
     <style>
@@ -218,7 +223,7 @@
                 </table>
             </div>
             <div id="button_box">
-                <button id="notice_cancel" type="button" class="btn btn-secondary">취소</button>
+                <button id="notice_cancel" type="button" class="btn btn-secondary" onclick="goBack();">취소</button>
                 <button id="notice_submit" type="submit" class="btn btn-primary" >등록</button>
             </div>
             </form>

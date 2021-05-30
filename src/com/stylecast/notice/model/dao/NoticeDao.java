@@ -267,6 +267,122 @@ public class NoticeDao {
 		}finally {
 			close(pstmt);
 		}
+		System.out.println("insertBoardDao : " + result);
+		return result;
+	}
+
+	public int deleteBoardImages(Connection conn, int noticeNo) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteBoardImages");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, noticeNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("deleteBoardDao : " + result);
+		return result;
+	}
+
+	public int updateNotice(Connection conn, Notice n) {
+		// TODO Auto-generated method stub
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, n.getNoticeTitle());
+			pstmt.setString(2, n.getNoticeContent());
+			pstmt.setInt(3, n.getNoticeNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("updateNoticeDao : " + result);
+		return result;
+	}
+
+	public int insertBoardImageList(Connection conn, ArrayList<BoardImage> list, int noticeNo) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertBoardImageList2");
+		
+		
+		try {
+			for(BoardImage bImage : list) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, bImage.getImgPath());
+				pstmt.setInt(2,noticeNo);
+				
+				result = pstmt.executeUpdate();
+			}
+		
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+
+	}
+
+	public int updateBoardImage(Connection conn, BoardImage bImage) {
+		// TODO Auto-generated method stub
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateBoardImage");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bImage.getImgPath());
+			pstmt.setInt(2,bImage.getImgNo());
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertNewBoardImage(Connection conn, BoardImage bImage) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertNewBoardImage");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,bImage.getImgPath());
+			pstmt.setInt(2, bImage.getPostNo());
+			
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 	
