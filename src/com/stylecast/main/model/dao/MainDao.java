@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.stylecast.main.model.vo.MainSelectCodi;
 import com.stylecast.main.model.vo.MainSelectDaily;
 
 public class MainDao {
@@ -44,31 +43,6 @@ public class MainDao {
 								    	 	 rset.getString("daily_img")));
 			}
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
-		
-	}
-	
-	public ArrayList<MainSelectCodi> selectCodiM(Connection conn){
-		ArrayList<MainSelectCodi> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectCodiM");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new MainSelectCodi(rset.getInt("codiNo"),
-								  			 rset.getString("imgPath")));
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

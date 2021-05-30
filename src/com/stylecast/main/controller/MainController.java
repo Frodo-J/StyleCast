@@ -33,13 +33,17 @@ public class MainController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<MainSelectDaily> list = new MainService().selectMainList();
+		ArrayList<MainSelectDaily> list = new MainService().MainSelectDaily();
 		
 		//System.out.println(list);
 		
 		request.setAttribute("list", list);
 		
 		//System.out.println(list);
+		
+		String NowTemp = request.getParameter("NowTemp");
+		
+		System.out.println(NowTemp);
 		
 		request.getRequestDispatcher("views/main/mainPage.jsp").forward(request, response);
 		

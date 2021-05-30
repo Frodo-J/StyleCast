@@ -1,11 +1,13 @@
 package com.stylecast.main.model.vo;
 
-public class MainSelectCodi {
+public class MainSelectCodiM {
 	
 	private int codiNo;
 	private String imgPath;
 	
-	public MainSelectCodi(int codiNo, String imgPath) {
+	public MainSelectCodiM(){}
+	
+	public MainSelectCodiM(int codiNo, String imgPath) {
 		super();
 		this.codiNo = codiNo;
 		this.imgPath = imgPath;

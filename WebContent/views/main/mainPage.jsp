@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import="java.util.ArrayList, com.stylecast.main.model.vo.MainSelectDaily, com.stylecast.main.model.vo.MainSelectCodi"%>
 <%
 	ArrayList<MainSelectDaily> dailylist = (ArrayList<MainSelectDaily>)request.getAttribute("list");
-	ArrayList<MainSelectCodi> codilist = (ArrayList<MainSelectCodi>)request.getAttribute("list");
+	ArrayList<MainSelectCodiM> codilist = (ArrayList<MainSelectCodi>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html lang="kr">
@@ -66,7 +66,7 @@
             height:50%; 
             float: left;
             }
-        #change{
+        #changeGender{
             height:50px; 
             width:50px; 
             padding:0px; 
@@ -75,7 +75,7 @@
             border:none;
             background-color: darkgray;
             }
-        #change:hover{
+        #changeGender:hover{
             background-color: gray;
             }
         #content_4{
@@ -158,20 +158,10 @@
                 </button>
             </div>
             <script>
+            
                 var cnt = 1;
                 function toggleImg() {
                 	
-					var Nowtemp = $(resp.main.temp);
-            		
-            		$.ajax({
-            			url:"tempCheck.ma",
-            			data:{checkTemp:$Nowtemp.val()},
-            			success:function(){
-            				
-            				
-            				
-            			}
-            		});
                 	
                     var img1 = document.getElementById("codi_img_1");
                     var img2 = document.getElementById("codi_img_2");
@@ -190,6 +180,7 @@
             <div id="content_4">
 
             	<script>
+            		var NowTemp = "";
             		var imgURL = "";
 	            	var apiURI = "http://api.openweathermap.org/data/2.5/weather?q=seoul&appid=1edf4d31ce3af918461e6292d0fd5669&units=metric";
 		                $.ajax({
@@ -198,20 +189,21 @@
 		                    type: "GET",
 		                    async: "false",
 		                    success: function(resp) {
+		                    	NowTemp = resp.main.temp;
 		                    	imgURL = "http://openweathermap.org/img/w/" + resp.weather[0].icon + ".png";
-		                    	
 		                        $("#todaytemp").text("현재온도 : "+(resp.main.temp) + "°C");
 		                        $("#todayweathericon").attr("src", imgURL);
-		                        
 		                    }
 		                });
+		                
+		                
             	</script>
                 <div id="todayweather"><img id="todayweathericon" src="" alt="" width="134px" height="134px"></div>
-                <div id="todaytemp" class="ctemp"></div>
-                <div id="location"><b><font size="7px" >Seoul</font></b></div>   
+                <div id="todaytemp"  class="ctemp"></div>
+                <div id="location"><b><font size="7px" >Seoul</font></b></div>
             </div>
 
-
+		
 
             <div id="content_5">
                 <div id="daily">
