@@ -132,7 +132,7 @@
                 	<button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#exampleModalToggle_rept">삭제</button>
                  <% } %>
-                <button id="notice_main" type="button" class="btn btn-secondary btn-sm" onclick="goBack();">목록으로 가기</button>
+                <button id="notice_main" type="button" class="btn btn-secondary btn-sm" onclick="location.href='<%=contextPath%>/list.no?currentPage=1'">목록으로 가기</button>
             </div>
             
              <!-- Modal -->

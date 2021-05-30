@@ -40,6 +40,8 @@ public class NoticeUpdateController extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		
+		boolean flag = true;
+		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 10 * 1024 * 1024;
 			
@@ -56,44 +58,50 @@ public class NoticeUpdateController extends HttpServlet {
 			n.setNoticeTitle(noticeTitle);
 			n.setNoticeContent(noticeContent);
 			
+			int nresult = new NoticeService().updateNotice(n);
 			
+			//ArrayList<BoardImage> list = new ArrayList<>();
 			
-			ArrayList<BoardImage> list = new ArrayList<>();
 			
 			for(int i=1; i<4; i++) {
+				BoardImage bImage = null;
+				// file input
 				String key = "image" + i;
-				String originalFilePath = "originFilePath" + i;
+
+				String originImageNo = "originImageNo" + i;
 				
+				// 기존 이미지 번호 ( 디비 이미지 번호) 
+				int oImgNo = Integer.parseInt(multiRequest.getParameter(originImageNo));
+	
 				if(multiRequest.getOriginalFileName(key) != null) {
-					BoardImage bImage = new BoardImage();
-					
+					// 새로운 첨부파일이고, 기존의 파일 있었을 경우
+					bImage = new BoardImage();
 					bImage.setImgPath("resources/notice_upfiles/" + multiRequest.getFilesystemName(key));
-					System.out.println("bImage.getimgPath(): " +bImage.getImgPath());
-					System.out.println("multi: "+ multiRequest.getOriginalFileName(key));
 					
-					// 지우는 과정 // 여기 꼼꼼히 보고 다시 작업하셈
-					if(multiRequest.getParameter(originalFilePath) != null) {
-						new File(multiRequest.getParameter(originalFilePath)).delete();
+					if(oImgNo != 0) {
+						// 기존의 파일 있을 경우
+						bImage.setImgNo(oImgNo);
+						
+						// 나중에 여기 수정(기존 파일 삭제부분)
+						//new File(oFilePath).delete();
+						
+					}else {
+						// 새로운 첨부파일이 있었을 경우 
+						bImage.setPostNo(noticeNo);
 					}
-					
-					list.add(bImage);
+				
 				}
 				
+				int result = new NoticeService().updateBoardImages(bImage);
+				
+				if(result <= 0) {
+					flag = false;
+				}
 			}
 			
-			System.out.println(list);
-			System.out.println(n);
 			
-			int dresult = new NoticeService().deleteBoardImages(n);
-			
-			int result = new NoticeService().updateNotice(n,list);
-			
-			if(result > 0) {
-				response.sendRedirect(request.getContextPath() + "/detail.no?nno=" + noticeNo);
-			}else {
-				//에러페이지
-				//RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-				//view.forward(request, response);
+			if(flag == true) {
+				response.sendRedirect("detail.no?nno="+noticeNo);
 			}
 					
 			

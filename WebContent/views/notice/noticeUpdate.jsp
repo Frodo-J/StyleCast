@@ -6,7 +6,7 @@
 	int[] bNo = new int[3];
 	String[] bPath = new String[3];
 	for(int i=0; i<list.size(); i++){
-		bPath[i] = "";
+		bPath[i] = null;
 		bNo[i] = 0;
 		if(list !=null){
 				bNo[i] = list.get(i).getImgNo();
@@ -97,27 +97,7 @@
             }
     </script>
 
-    <style>
-        /* div:not(#head_box, #detail_box,#notice_contents,#button_box,#notice_main,#image_lists,#input_file ){border: 1px solid gray; box-sizing: border-box;}
-        .wrap{width:1200px; height:1300px;  margin: auto;}
-
-        .wrap>div{width:100%;}
-        #header{height:12%;}
-        #content{height:88%;}
-
-        #header>div{height:100%; float:left;}
-        #header_1{width:22%;}
-        #header_2{width:48%;}
-        #header_3{width:20%;}
-        #header_4{width:10%;} */
-
-        /* #content_1{width:100%; height:17%;}
-        #content_2{width:70%; height:48%; float: left;}
-        #content_3{width:30%; height:6%; float: left;}
-        #content_4{width:30%; height:42%; float:left;}
-        #content_5{width:100%; height:35%; float: right;} */
-
-        
+    <style>        
        	#content{
                 font-family: 'Noto Sans KR', sans-serif;
                 font-weight: 300;
@@ -197,7 +177,7 @@
                         <th>이미지1</th>
                         <td colspan="3">
                             <div id="input_file" class="input-group">
-                            	<input type="hidden" name="originImage1" value="<%=bNo[0] %>"/>
+                            	<input type="hidden" name="originImageNo1" value="<%=bNo[0] %>"/>
                                 <input type="file" class="form-control" name="image1" id="input-img1" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,1);">
                             </div>
                         </td>
@@ -206,7 +186,7 @@
                         <th>이미지2</th>
                         <td colspan="3">
                             <div id="input_file" class="input-group">
-                            	<input type="hidden" name="originImage2" value="<%=bNo[1] %>"/>
+                            	<input type="hidden" name="originImageNo2" value="<%=bNo[1] %>"/>
                                 <input type="file" class="form-control" name="image2" id="input-img2" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,2);">
                             </div>
                         </td>
@@ -215,7 +195,7 @@
                         <th>이미지3</th>
                         <td colspan="3">
                             <div id="input_file" class="input-group">
-                            	<input type="hidden" name="originImage2" value="<%=bNo[2] %>"/>
+                            	<input type="hidden" name="originImageNo3" value="<%=bNo[2] %>"/>
                                 <input type="file" class="form-control" name="image3" id="input-img3" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,3);">
                             </div>
                         </td>
@@ -227,9 +207,9 @@
                             	<input type="hidden" name="originFilePath1" value="<%=bPath[0] %>"/>
                      			<input type="hidden" name="originFilePath2" value="<%=bPath[1] %>"/>
                      			<input type="hidden" name="originFilePath3" value="<%=bPath[2] %>"/>
-                            	<img id="img1" name="img1" width="200" height="150" src="<%=bPath[0]%>"/>
-                            	<img id="img2" name="img2" width="200" height="150" src="<%=bPath[1]%>"/>
-                            	<img id="img3" name="img3" width="200" height="150" src="<%=bPath[2]%>"/>
+                            	<img id="img1" name="img1" width="200" height="150" src="<%=bPath[0]%>" onerror="javascript:this.src='<%=contextPath %>/resources/images/add.png'"/>
+                            	<img id="img2" name="img2" width="200" height="150" src="<%=bPath[1]%>" onerror="javascript:this.src='<%=contextPath %>/resources/images/add.png'"/>
+                            	<img id="img3" name="img3" width="200" height="150" src="<%=bPath[2]%>" onerror="javascript:this.src='<%=contextPath %>/resources/images/add.png'"/>
                             </div>
                         </td>
                     </tr>
@@ -237,7 +217,7 @@
                 </table>
             </div>
             <div id="button_box">
-                <button id="notice_cancel" type="button" class="btn btn-secondary" onclick="goback();">취소</button>
+                <button id="notice_cancel" type="button" class="btn btn-secondary" onclick="location.href='<%=contextPath%>/detail.no?nno=<%=n.getNoticeNo()%>';">취소</button>
                 <button id="notice_submit" type="submit" class="btn btn-primary">수정</button>
             </div>
             </form>
