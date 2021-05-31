@@ -133,7 +133,7 @@
                         <th width="10%">번호</th>
                         <th>구분</th>
                         <th width="35%">제목</th>
-                        <th>작성자</th>
+                        <th width="20%">작성자</th>
                         <th>등록일</th>
                         <th>답변여부</th>
                       </thead>
@@ -157,137 +157,7 @@
                             	</td>
                       		</tr>
                       	<% } %>
-                       <% } %>
-                      <!-- 
-                        <tr>
-                            <td>15</td>
-                            <td>[오류/버그]</td>
-                            <td>문의문의<img src="<%=contextPath %>/resources/images/padlock.png"/></td>
-                            <td>adfasfs</td>
-                            <td>2021-05-21</td>
-                            <td>답변대기</td>
-                        </tr>
-                        <tr>
-                            <td>14</td>
-                            <td>[오류/버그]</td>
-                            <td>문의문의<img src="<%=contextPath %>/resources/images/padlock.png"/></td>
-                            <td>adfasfs</td>
-                            <td>2021-05-21</td>
-                            <td>답변대기</td>
-                        </tr>
-                        <tr>
-                            <td>13</td>
-                            <td>[오류/버그]</td>
-                            <td>문의문의<img src="<%=contextPath %>/resources/images/padlock.png"/></td>
-                            <td>adfasfs</td>
-                            <td>2021-05-21</td>
-                            <td>답변대기</td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td>[오류/버그]</td>
-                            <td>문의문의<img src="<%=contextPath %>/resources/images/padlock.png"/></td>
-                            <td>adfasfs</td>
-                            <td>2021-05-21</td>
-                            <td>답변대기</td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>[오류/버그]</td>
-                            <td>문의문의<img src="<%=contextPath %>/resources/images/padlock.png"/></td>
-                            <td>adfasfs</td>
-                            <td>2021-05-21</td>
-                            <td>답변대기</td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>[오류/버그]</td>
-                            <td>문의문의<img src="<%=contextPath %>/resources/images/padlock.png"/></td>
-                            <td>adfasfs</td>
-                            <td>2021-05-21</td>
-                            <td>답변대기</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>[오류/버그]</td>
-                            <td>문의문의<img src="<%=contextPath %>/resources/images/padlock.png"/></td>
-                            <td>adfasfs</td>
-                            <td>2021-05-21</td>
-                            <td>답변대기</td>
-                          </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>[오류/버그]</td>
-                            <td>문의문의 </td>
-                            <td>adfasfs</td>
-                            <td>2021-05-21</td>
-                            <td>답변대기</td>
-                          </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>[기타문의]</td>
-                            <td>문의 <img src="<%=contextPath %>/resources/images/padlock.png"/></td>
-                            <td>admin</td>
-                            <td>2021-05-20</td>
-                            <td>답변대기</td>
-                          </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>[사이트이용]</td>
-                            <td>문의입니다.<img src="<%=contextPath %>/resources/images/padlock.png"/> <span class="answer">[1]</span> </td>
-                            <td>mdf</td>
-                            <td>2021-05-12</td>
-                            <td>답변완료</td>
-                          </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>[건의사항]</td>
-                            <td>문의입니다. 답변해주세요 <img src="<%=contextPath %>/resources/images/padlock.png"/> <span class="answer">[1]</span> </td>
-                            <td>addsf</td>
-                            <td>2021-05-10</td>
-                            <td>답변완료</td>
-                          </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>[사이트이용]</td>
-                            <td>문의문의 <img src="<%=contextPath %>/resources/images/padlock.png"/> <span class="answer">[1]</span> </td>
-                            <td>dafsdaf</td>
-                            <td>2021-05-01</td>
-                            <td>답변완료</td>
-                          </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>[기타문의]</td>
-                            <td>문의입니다. <img src="<%=contextPath %>/resources/images/padlock.png"/> <span class="answer">[1]</span> </td>
-                            <td>admin</td>
-                            <td>2021-05-01</td>
-                            <td>답변완료</td>
-                          </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>[가입/로그인]</td>
-                            <td>가입문의 드립니다. 빨리 답변해주세요!!!!!!!!!!!!!!!!!  <img src="<%=contextPath %>/resources/images/padlock.png"/><span class="answer">[1]</span> </td>
-                            <td>abcv11</td>
-                            <td>2021-05-01</td>
-                            <td>답변완료</td>
-                          </tr>
-                        <tr>
-                          <td>1</td>
-                          <td>[사이트이용]</td>
-                          <td>문의  <img src="<%=contextPath %>/resources/images/padlock.png"/> <span class="answer">[1]</span></td>
-                          <td>asdfa</td>
-                          <td>2021-05-01</td>
-                          <td>답변완료</td>
-                        </tr>
-                        <!--글이 없을 경우-->
-                        <!-- <tr>
-                            <td colspan="6">글이 없습니다.</td>
-                        </tr> -->
-                        <!--검색결과가 없을 경우-->
-                        <!-- <tr>
-                            <td colspan="6">'OO'가 포함된 검색어를 찾을 수 없습니다.</td>
-                        </tr> -->
-                        
+                      <% } %>
                       </tbody>
                   </table>
             </div>
@@ -295,7 +165,7 @@
                 <div id="write_box_inner">
                     <!-- 로그인 안한 사용자일경우 안보이게-->
                     <% if(loginUser != null){ %>
-                    <button type="button" class="btn btn-secondary btn-sm">글작성</button>
+                    	<button type="button" class="btn btn-secondary btn-sm">글작성</button>
                 	<%} %>
                 </div>
             </div>
