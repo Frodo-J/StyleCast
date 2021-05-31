@@ -145,8 +145,9 @@
                       <tbody>
                    		<% if(list.isEmpty()) { %>
                    			<tr>
-                   				<td colspan="4">존재하는 공지사항이 없습니다</td>
+                   				<td colspan="4">검색어와 일치하는 공지사항이 없습니다</td>
                    			</tr>
+                   			
                    		<% }else{ %>
                    			<% for(Notice n: list){ %>
                    			<tr>
