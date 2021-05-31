@@ -80,6 +80,8 @@ public class NoticeSearchController extends HttpServlet {
 		ArrayList<Notice> list = new NoticeService().selectSearchList(pi,category,text);
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
+		request.setAttribute("text", text);
+		request.setAttribute("category", category);
 		request.getRequestDispatcher("views/notice/noticeSearch.jsp").forward(request,response);
 	}
 

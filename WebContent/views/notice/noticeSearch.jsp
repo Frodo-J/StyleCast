@@ -4,6 +4,8 @@
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
+	String category = (String)request.getAttribute("category");
+	String text = (String)request.getAttribute("text");
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -122,7 +124,6 @@
             <div id="head_box">
                 <h3 id="head_of_notice">Notice</h3>
             </div>
-            
             <div id="notice_lists">
             	<form id="search-form" action="<%= contextPath %>/search.no?currentPage=1" method="post">
                 <div id="search_box">
@@ -277,15 +278,14 @@
             </div>
             <div id="page_box" class="text-center">
              	<div align="center" class="btn-group me-2" role="group" aria-label="First group">
-
 					<% if(currentPage != 1){ %>
-            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/search.no?currentPage=<%=currentPage-1%>';"> &lt; </button>
+            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/search.no?currentPage=<%=currentPage-1%>&&search_category=<%=category%>&&search_text=<%=text%>';"> &lt; </button>
 					<% } %>
 
             		<% for(int p=startPage; p<=endPage; p++){ %>
             	
             			<% if(p != currentPage){ %>
-	            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/search.no?currentPage=<%= p %>';"><%= p %></button>
+	            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/search.no?currentPage=<%= p %>&&search_category=<%=category%>&&search_text=<%=text%>';"><%= p %></button>
 	            		<% }else { %>
 	            			<button type="button" class="btn btn-outline-secondary" disabled><%= p %></button>
             			<% } %>
@@ -293,7 +293,7 @@
             		<% } %>
 
 				<% if(currentPage != maxPage){ %>
-            		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/search.no?currentPage=<%=currentPage+1%>';"> &gt; </button>
+            		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/search.no?currentPage=<%=currentPage+1%>&&search_category=<%=category%>&&search_text=<%=text%>';"> &gt; </button>
 				<% } %>
 			
         	</div>
