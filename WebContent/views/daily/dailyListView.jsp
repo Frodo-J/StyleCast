@@ -84,8 +84,8 @@
 	                        <img src="<%= contextPath %>/<%= d.getDailyImg() %>" alt="">
 	                        <div class="action_hover">
 	                        	<!-- 로그인시 가능하도록 설정해야함 -->
-
-	                            <div class="action"><input type="button" class="like"></div>
+								<% if(loginUser != null) { %>
+	                            <div class="action"><input type="button" class="like" ></div>
 	                            <div class="vertical-line"></div>
 	                            <div class="action"><input type="button" class="comment"></div>
 	                            <div class="vertical-line"></div>
@@ -97,7 +97,16 @@
 	                                <input type="hidden" name="writeUser" value="<%= d.getMemNo() %>">
 	                                <input type="hidden" name="reportDailyNo" value="<%= d.getDailyNo() %>">
 	                            </div>
-
+								<% }else { %>
+								<div class="action"><input type="button" class="like" data-bs-toggle="modal" data-bs-target="#logoutUserModal"></div>
+	                            <div class="vertical-line"></div>
+	                            <div class="action"><input type="button" class="comment"></div>
+	                            <div class="vertical-line"></div>
+	                            <div class="action"><input type="button" class="bookmark" data-bs-toggle="modal" data-bs-target="#logoutUserModal"></div>
+	                            <div class="vertical-line"></div>
+	                            <div class="action"><input type="button" class="report" data-bs-toggle="modal" data-bs-target="#logoutUserModal"></div>
+								
+								<% } %>
 	                        </div>
 	                    </div>
 
@@ -123,7 +132,7 @@
 				<% if(loginUser != null) { %>
 				<img src="https://img.icons8.com/ios-filled/50/000000/plus.png" class="add" onclick="location.href='03-2_데일리_작성form.html'">
 				<% }else { %>
-				<img src="https://img.icons8.com/ios-filled/50/000000/plus.png" class="add" onclick="alert('로그인시 글 작성이 가능합니다.');return false;">
+				<img src="https://img.icons8.com/ios-filled/50/000000/plus.png" class="add" data-bs-toggle="modal" data-bs-target="#logoutUserModal">
 				<% } %>
 				
 				<!-- 페이징바 -->
@@ -153,11 +162,10 @@
 						<% } %>
 					</li>
 				  </ul>
-				</nav>
-
-                 
-            </div>
-        </div>
+                
+            	</div>
+        	</div>
+    	</div>
     </div>
 
     <!-- 게시글 신고 Modal -->
@@ -165,7 +173,7 @@
         <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="reportModalLabel">신고</h5>
+            <h5 class="modal-title" id="reportModalLabel">게시글 신고</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -188,6 +196,25 @@
                 </form>
             </div>
         </div>
+        </div>
+    </div>
+    
+    <!-- 비로그인 유저 action 클릭 Modal-->
+    <div class="modal fade" id="logoutUserModal" tabindex="-1" aria-labelledby="logoutUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="logoutUserModalLabel">로그인 요청</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>로그인 후 이용가능한 서비스입니다. 로그인 하시겠습니까?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+              <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/loginPage.me'">확인</button>
+            </div>
+          </div>
         </div>
     </div>
 
@@ -223,7 +250,7 @@
         })
         });
          
-        // 모달에 값 전달 
+        // 게시글 신고 모달에 값 전달 
         $('.report').on('click', function(){
             $("#memNo").val($(this).siblings('input[name=loginUser]').val());
             $("#rMemNo").val($(this).siblings('input[name=writeUser]').val());
