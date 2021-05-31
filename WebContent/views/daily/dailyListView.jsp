@@ -84,6 +84,7 @@
 	                        <img src="<%= contextPath %>/<%= d.getDailyImg() %>" alt="">
 	                        <div class="action_hover">
 	                        	<!-- 로그인시 가능하도록 설정해야함 -->
+
 	                            <div class="action"><input type="button" class="like"></div>
 	                            <div class="vertical-line"></div>
 	                            <div class="action"><input type="button" class="comment"></div>
@@ -92,10 +93,11 @@
 	                            <div class="vertical-line"></div>
 	                            <div class="action">
 		                            <input type="button" class="report" data-bs-toggle="modal" data-bs-target="#reportModal">
-	                                <!-- 수정 .getMemNo() --><input type="hidden" name="loginUser" value="<%= loginUser %>"> 
+	                                <input type="hidden" name="loginUser" value="<%= loginUser.getMemNo() %>"> 
 	                                <input type="hidden" name="writeUser" value="<%= d.getMemNo() %>">
 	                                <input type="hidden" name="reportDailyNo" value="<%= d.getDailyNo() %>">
 	                            </div>
+
 	                        </div>
 	                    </div>
 
@@ -158,7 +160,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- 게시글 신고 Modal -->
     <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -220,20 +222,14 @@
             }
         })
         });
-
+         
         // 모달에 값 전달 
         $('.report').on('click', function(){
-            //$("#memNo").val($(this).siblings('input[name=loginUser]').val());
+            $("#memNo").val($(this).siblings('input[name=loginUser]').val());
             $("#rMemNo").val($(this).siblings('input[name=writeUser]').val());
             $("#dailyNo").val($(this).siblings('input[name=reportDailyNo]').val());
             $("#currentUrl").val($(location).attr('href'));
-            
-			console.log($("#rMemNo").val());
-			console.log($("#dailyNo").val());
-            console.log($("#currentUrl").val());
-            
-         })  
-
+         });
 
 
     </script>

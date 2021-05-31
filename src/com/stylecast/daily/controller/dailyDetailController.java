@@ -1,6 +1,7 @@
 package com.stylecast.daily.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.stylecast.daily.model.service.DailyService;
 import com.stylecast.daily.model.vo.Daily;
+import com.stylecast.daily.model.vo.DailyCM;
+import com.stylecast.daily.model.vo.Item;
 
 /**
  * Servlet implementation class dailyDetailController
@@ -34,8 +37,12 @@ public class dailyDetailController extends HttpServlet {
 		int dailyNo = Integer.parseInt(request.getParameter("dno"));
 	
 		Daily d = new DailyService().selectDailyDetail(dailyNo);
+		ArrayList<Item> iList = new DailyService().selectDailyItem(dailyNo);
+		ArrayList<DailyCM> cList = new DailyService().selectDailyCM(dailyNo);
 			
 		request.setAttribute("d", d);
+		request.setAttribute("iList", iList);
+		request.setAttribute("cList", cList);
 		request.getRequestDispatcher("views/daily/dailyDetailView.jsp").forward(request, response);
 	
 	}

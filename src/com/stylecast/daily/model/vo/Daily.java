@@ -39,22 +39,6 @@ public class Daily {
 		this.profImg = profImg;
 	}
 
-	public String getMemName() {
-		return memName;
-	}
-
-	public void setMemName(String memName) {
-		this.memName = memName;
-	}
-
-	public String getProfImg() {
-		return profImg;
-	}
-
-	public void setProfImg(String profImg) {
-		this.profImg = profImg;
-	}
-
 	public int getDailyNo() {
 		return dailyNo;
 	}
@@ -101,6 +85,22 @@ public class Daily {
 
 	public void setTag(String tag) {
 		this.tag = tag;
+	}
+
+	public String getMemName() {
+		return memName;
+	}
+
+	public void setMemName(String memName) {
+		this.memName = memName;
+	}
+
+	public String getProfImg() {
+		return profImg;
+	}
+
+	public void setProfImg(String profImg) {
+		this.profImg = profImg;
 	}
 
 	@Override
