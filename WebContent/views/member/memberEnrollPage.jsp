@@ -86,10 +86,6 @@
                         <div id="enroll_form_input_info">
                             <input type="text" id="userId" name="memId" class="form-control" placeholder="ID" maxlength="12" required>
                             <input type="email" name="email" class="form-control" placeholder="E-mail" required>
-                            <input type="button" class="btn btn-secondary btn-sm" name="emailAuthenticate" id="sendAuthenticate" onclick="resendEmail();" value="인증번호 발송">
-                            <br><br>
-                            <input type="text" name="authenticateNumber" class="form-control" id="authenticateNumber" style="width: 35%; margin-right: 5px; display: inline-block;" placeholder="인증번호" required>
-                            <input type="button" style="margin-right: 90px; margin-bottom: 10px; width: 80px;"class="btn btn-secondary btn-sm" name="emailAuhenticate" id="emailAuhenticate" value="확인">
                             <br><br>
                             <input type="password" name="memPwd" class="form-control" style="margin-bottom: 3px;" placeholder="비밀번호(8자 이상 영문/숫자/특수문자)" maxlength="15" required>
                             <input type="password" class="form-control" placeholder="비밀번호 확인" maxlength="15" required>
@@ -112,11 +108,7 @@
                             <br>
                             <h6>이용 중 도움이 필요하시면<br>
                             help@sytlecast.com으로 문의해 주세요.</h6>
-                            <script>
-                            	function resendEmail(){
-                            		document.getElementById('sendAuthenticate').value = "재발송";
-                            	}
-                            </script>
+                            
                         </div>
                     </form>
                 </div>
