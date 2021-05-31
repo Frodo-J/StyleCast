@@ -174,7 +174,7 @@
                 <div id="comment_wrapper">
                     <div id="comment_count">
                         <span>댓글</span>
-                        <span>(3)</span>
+                        <span></span>
                     </div>
                     <div id="comment_write"> 
                         <form action="" method="post">
@@ -312,7 +312,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-              <button type="button" class="btn btn-primary">확인</button>
+              <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/loginPage.me'">확인</button>
             </div>
           </div>
         </div>
@@ -370,9 +370,14 @@
             $("#cmCurrentUrl").val($(location).attr('href'));
          })
          
+         // 댓글 개수 카운트
+         $(document).ready(function(){
+        	 var n = $('.comment_read').length;
+        	 $("#comment_count").children().eq(1).text('(' + n + ')');
+         });
+         
     </script>
 
-    
 
 </body>
 </html>
