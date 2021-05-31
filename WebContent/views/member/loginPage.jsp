@@ -92,9 +92,8 @@
                             <a href="<%= contextPath %>/findPwd.me" style="margin-left: 38%;">비밀번호를 잊으셨나요?</a>
                             <br><br>
                             <button type="submit" class="btn btn-dark" style="width: 130px;">로그인</button>
-                            <br>
-                            <a href="<%=contextPath%>/joinPage.me">여기서 가입</a>
                             <br><br>
+                            <a href="<%=contextPath%>/joinPage.me">여기서 가입</a>
                             <h6>이용 중 도움이 필요하시면<br>
                             help@stylecast.com으로 문의해 주세요.
                             </h6>

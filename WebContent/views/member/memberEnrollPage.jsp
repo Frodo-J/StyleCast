@@ -48,8 +48,7 @@
 
         #enroll_form>h2{margin: auto; font-weight:bold; color: gray;}
 
-        #enroll_form_input_info>input[type = text], input[type = password]{width: 300px; height: 35px; margin: auto;}
-        #enroll_form_input_info>input[type = email]{width: 52.6%; height: 35px; margin-right: 115px; display: inline-block;}
+        #enroll_form_input_info>input[type = text], input[type = password], [type = email]{width: 300px; height: 35px; margin: auto;}
         #enroll_form_input_info>#sendAuthenticate,#emailAuthenticate{position: absolute; margin-left: -30%;}
 
         #enroll_form_input_info>#userId, #userNname{margin-bottom: 8px;}
@@ -86,7 +85,7 @@
                         <div id="enroll_form_input_info">
                             <input type="text" id="userId" name="memId" class="form-control" placeholder="ID" maxlength="12" required>
                             <input type="email" name="email" class="form-control" placeholder="E-mail" required>
-                            <br><br>
+                            <br>
                             <input type="password" name="memPwd" class="form-control" style="margin-bottom: 3px;" placeholder="비밀번호(8자 이상 영문/숫자/특수문자)" maxlength="15" required>
                             <input type="password" class="form-control" placeholder="비밀번호 확인" maxlength="15" required>
                             <br>
