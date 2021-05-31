@@ -1,7 +1,6 @@
 package com.stylecast.daily.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,16 +11,16 @@ import com.stylecast.daily.model.service.DailyService;
 import com.stylecast.daily.model.vo.Report;
 
 /**
- * Servlet implementation class DailyReportController
+ * Servlet implementation class DailyCmReportController
  */
-@WebServlet("/report.da")
-public class DailyReportController extends HttpServlet {
+@WebServlet("/report.cm")
+public class DailyCmReportController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DailyReportController() {
+    public DailyCmReportController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,7 +34,8 @@ public class DailyReportController extends HttpServlet {
 		
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		int rMemNo = Integer.parseInt(request.getParameter("rMemNo"));
-		int dailyNo = Integer.parseInt(request.getParameter("dailyNo"));
+		int dailyNo = Integer.parseInt(request.getParameter("DailyNo"));
+		int cmNo = Integer.parseInt(request.getParameter("cmNo"));
 		String rptCategory = request.getParameter("report_category");
 		String content = request.getParameter("report_text"); 
 		String currentUrl = request.getParameter("currentUrl");
@@ -44,10 +44,11 @@ public class DailyReportController extends HttpServlet {
 		r.setMemNo(memNo);
 		r.setrMemNo(rMemNo);
 		r.setDailyNo(dailyNo);
+		r.setCmNo(cmNo);
 		r.setContent(content);
 		r.setRptCategory(rptCategory);
 		
-		int result = new DailyService().insertReportDaily(r);
+		int result = new DailyService().insertReportCm(r);
 		
 		if(result > 0) {
 			
@@ -58,7 +59,6 @@ public class DailyReportController extends HttpServlet {
 			request.setAttribute("errorMsg", "신고 접수를 실패하였습니다.");
 			
 		}
-	
 	
 	}
 
