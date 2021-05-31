@@ -12,6 +12,7 @@ import com.stylecast.daily.model.vo.Daily;
 import com.stylecast.daily.model.vo.DailyCM;
 import com.stylecast.daily.model.vo.Item;
 import com.stylecast.daily.model.vo.Report;
+import com.stylecast.qna.model.dao.QnaDao;
 
 public class DailyService {
 
@@ -70,6 +71,23 @@ public class DailyService {
 		
 		close(conn);
 		return cList;
+	}
+
+	public ArrayList<Daily> selectMyDailyList(int memNo) {
+		
+		Connection conn = getConnection();
+		ArrayList<Daily> list = new DailyDao().selectMyDailyList(conn, memNo);
+		close(conn);
+		
+		return list;
+	}
+
+	public int selectMyDailyListCount(int memNo) {
+		
+		Connection conn = getConnection();
+		int listCount = new DailyDao().selectMyDailyListCount(conn, memNo);
+		close(conn);
+		return listCount;
 	}
 	
 }

@@ -118,4 +118,26 @@
 		 WHERE DAILY_NO = ?
 		 ORDER BY ENR_DATE DESC
 	</entry>
+
+	<entry key="selectMyDailyList">
+		SELECT
+			   DAILY_NO
+			 , MEM_NO
+			 , DAILY_CONTENT
+			 , ENR_DATE
+			 , DAILY_IMG
+			 , MEM_NAME
+			 , PROF_IMG
+		  FROM DAILY
+	      JOIN MEMBER USING (MEM_NO)
+	     WHERE MEM_NO = ?
+	  ORDER BY ENR_DATE DESC
+	</entry>
+
+	<entry key="selectMyDailyListCount">
+		SELECT
+			   COUNT(*) COUNT
+		  FROM DAILY
+		 WHERE MEM_NO = ?
+	</entry>
 </properties>

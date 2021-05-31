@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.stylecast.daily.model.vo.Daily, java.text.SimpleDateFormat" %>
+<%
+ 	ArrayList<Daily> list = (ArrayList<Daily>)request.getAttribute("list");
+	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy.MM.dd");
+%>
 <!DOCTYPE html>
 <html lang="kr">
 <head>
@@ -21,7 +26,7 @@
         }
 
         div{
-            /*border: 1px solid black;*/
+            border: 1px solid black;
             box-sizing: border-box;
         }
        
@@ -79,6 +84,7 @@
         /* 데일리 리스트 css */
         #mypage div{float: left;}
         #daily_box{height: 75%; overflow-y: scroll; position: absolute;}
+        #empty_box{margin-top: 180px; margin-left: 300px;}
 
         /* daily style */
         .daily_post{width:260px; height:425px; float: left; color: rgb(40, 40, 40); border: 0.5px solid lightgrey; border-radius: 2pc; background: whitesmoke; margin-top: 30px; margin-left: 17px;}
@@ -120,9 +126,9 @@
 
                 <div id="menu">
                     <div id="write" style="font-weight: bold;">
-                        내가 쓴 글
+                        	내가 쓴 글
                         <div><a href="<%= request.getContextPath() %>/myPage.me">데일리</a></div>
-                        <div><a href="<%= request.getContextPath() %>/reply.me" style="font-weight: normal;">댓글</a></div>
+                        <div><a href="<%= request.getContextPath() %>/reply.me?currentPage=1" style="font-weight: normal;">댓글</a></div>
                         <div><a href="<%= request.getContextPath() %>/question.me?currentPage=1" style="font-weight: normal;">문의글</a></div>
                     </div>
                     <div><a href="<%= request.getContextPath() %>/bookmark.me">북마크</a></div>
@@ -165,167 +171,41 @@
             <div id="mypage">
                 <b style="margin-left: 50px;">내가 쓴 글 > 데일리</b>
                 <br>
-
-            <div id="daily_box">
-                <div class="daily_post">
-                    <div class="daily_img">
-                        <img src="resources/img_codi4.jpg" alt="">
+                	
+                
+            	<!-- 데일리 게시글이 없을 경우 -->
+            	<%if(list.isEmpty()){ %>
+					<div id="empty_box">
+                        	작성한 데일리 게시글이 없습니다.
                     </div>
-                    <div class="profile">
-                        <img src="resources/profile.png" alt="">
-                    </div>
-                    <div class="userid">userid</div>
-                    <div class="date">21. 05. 03</div>
-                    <div class="text">text</div>
-                    <div class="react">
-                        <div class="react_like"></div>
-                        <div class="react_count">10</div>
-                        <div class="react_comment"></div>
-                        <div class="react_count">10</div>
-                        <div class="react_bookmark"></div>
-                        <div class="react_count">10</div>
-                    </div>
-                </div>
-
-                <div class="daily_post">
-                    <div class="daily_img">
-                        <img src="resources/img_codi15.jpg" alt="">
-                    </div>
-                    <div class="profile">
-                        <img src="resources/profile.png" alt="">
-                    </div>
-                    <div class="userid">userid</div>
-                    <div class="date">21. 05. 03</div>
-                    <div class="text">text</div>
-                    <div class="react">
-                        <div class="react_like"></div>
-                        <div class="react_count">10</div>
-                        <div class="react_comment"></div>
-                        <div class="react_count">10</div>
-                        <div class="react_bookmark"></div>
-                        <div class="react_count">10</div>
-                    </div>
-                </div>
-
-                <div class="daily_post">
-                    <div class="daily_img">
-                        <img src="resources/img_codi16.jpg" alt="">
-                    </div>
-                    <div class="profile">
-                        <img src="resources/profile.png" alt="">
-                    </div>
-                    <div class="userid">userid</div>
-                    <div class="date">21. 05. 03</div>
-                    <div class="text">text</div>
-                    <div class="react">
-                        <div class="react_like"></div>
-                        <div class="react_count">10</div>
-                        <div class="react_comment"></div>
-                        <div class="react_count">10</div>
-                        <div class="react_bookmark"></div>
-                        <div class="react_count">10</div>
-                    </div>
-                </div>
-
-                <div class="daily_post">
-                    <div class="daily_img">
-                        <img src="resources/img_codi7.jpg" alt="">
-                    </div>
-                    <div class="profile">
-                        <img src="resources/profile.png" alt="">
-                    </div>
-                    <div class="userid">userid</div>
-                    <div class="date">21. 05. 03</div>
-                    <div class="text">text</div>
-                    <div class="react">
-                        <div class="react_like"></div>
-                        <div class="react_count">10</div>
-                        <div class="react_comment"></div>
-                        <div class="react_count">10</div>
-                        <div class="react_bookmark"></div>
-                        <div class="react_count">10</div>
-                    </div>
-                </div>
-
-                <div class="daily_post">
-                    <div class="daily_img">
-                        <img src="resources/img_codi8.jpg" alt="">
-                    </div>
-                    <div class="profile">
-                        <img src="resources/profile.png" alt="">
-                    </div>
-                    <div class="userid">userid</div>
-                    <div class="date">21. 05. 03</div>
-                    <div class="text">text</div>
-                    <div class="react">
-                        <div class="react_like"></div>
-                        <div class="react_count">10</div>
-                        <div class="react_comment"></div>
-                        <div class="react_count">10</div>
-                        <div class="react_bookmark"></div>
-                        <div class="react_count">10</div>
-                    </div>
-                </div>
-
-                <div class="daily_post">
-                    <div class="daily_img">
-                        <img src="resources/img_codi9.jpg" alt="">
-                    </div>
-                    <div class="profile">
-                        <img src="resources/profile.png" alt="">
-                    </div>
-                    <div class="userid">userid</div>
-                    <div class="date">21. 05. 03</div>
-                    <div class="text">text</div>
-                    <div class="react">
-                        <div class="react_like"></div>
-                        <div class="react_count">10</div>
-                        <div class="react_comment"></div>
-                        <div class="react_count">10</div>
-                        <div class="react_bookmark"></div>
-                        <div class="react_count">10</div>
-                    </div>
-                </div>
-
-                <div class="daily_post">
-                    <div class="daily_img">
-                        <img src="resources/img_codi8.jpg" alt="">
-                    </div>
-                    <div class="profile">
-                        <img src="resources/profile.png" alt="">
-                    </div>
-                    <div class="userid">userid</div>
-                    <div class="date">21. 05. 03</div>
-                    <div class="text">text</div>
-                    <div class="react">
-                        <div class="react_like"></div>
-                        <div class="react_count">10</div>
-                        <div class="react_comment"></div>
-                        <div class="react_count">10</div>
-                        <div class="react_bookmark"></div>
-                        <div class="react_count">10</div>
-                    </div>
-                </div>
-
-                <div class="daily_post">
-                    <div class="daily_img">
-                        <img src="resources/img_codi9.jpg" alt="">
-                    </div>
-                    <div class="profile">
-                        <img src="resources/profile.png" alt="">
-                    </div>
-                    <div class="userid">userid</div>
-                    <div class="date">21. 05. 03</div>
-                    <div class="text">text</div>
-                    <div class="react">
-                        <div class="react_like"></div>
-                        <div class="react_count">10</div>
-                        <div class="react_comment"></div>
-                        <div class="react_count">10</div>
-                        <div class="react_bookmark"></div>
-                        <div class="react_count">10</div>
-                    </div>
-                </div>
+                <%} else{%>
+            	
+            	<!-- 데일리 게시글이 있을 경우 -->
+	            	<%for(Daily daily : list){ %>
+	            		<div id="daily_box">
+	                		<div class="daily_post">
+	                			<input type="hidden" value="<%= daily.getDailyNo() %>">
+	                    		<div class="daily_img">
+	                        		<img src="<%= contextPath %>/<%= daily.getDailyImg() %>" alt="">
+	                    		</div>
+	                    		<div class="profile">
+	                        		<img src="<%= contextPath %>/<%= daily.getProfImg() %>" alt="">
+	                    		</div>
+	                    		<div class="userid"><%= daily.getMemName() %></div>
+	                    		<div class="date"><%= simpleDateFormat.format(daily.getEnrDate()) %></div>
+	                    		<div class="text"><%= daily.getDailyContent() %></div>
+	                    		<div class="react">
+			                        <div class="react_like"></div>
+			                        <div class="react_count">10</div>
+			                        <div class="react_comment"></div>
+			                        <div class="react_count">10</div>
+			                        <div class="react_bookmark"></div>
+			                        <div class="react_count">10</div>
+	                    		</div>
+	                		</div>
+	            		</div>
+	            	<%} %>
+            	<%} %>
             </div>
         </div>
     </div>

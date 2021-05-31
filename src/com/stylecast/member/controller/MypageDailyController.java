@@ -1,12 +1,19 @@
 package com.stylecast.member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.stylecast.common.model.vo.PageInfo;
+import com.stylecast.daily.model.service.DailyService;
+import com.stylecast.daily.model.vo.Daily;
+import com.stylecast.member.vo.Member;
 
 /**
  * Servlet implementation class MyPageUpdate
@@ -37,8 +44,17 @@ public class MypageDailyController extends HttpServlet {
 			response.sendRedirect(request.getContextPath());
 			
 		}else { // 로그인 후
+			
+			Member loginUser = (Member)session.getAttribute("loginUser");
+			int memNo = loginUser.getMemNo();
+			
+			// 데일리글 전체 조회
+			ArrayList<Daily> list = new DailyService().selectMyDailyList(memNo);
+			
+			request.setAttribute("list", list);
+			
 			request.getRequestDispatcher("views/mypage/mypageDaily.jsp").forward(request, response);
-		}	
+		}
 	}
 
 	/**

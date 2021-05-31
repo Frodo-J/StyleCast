@@ -1,4 +1,6 @@
-package com.stylecast.qna.model.dao;
+package com.stylecast.daily.model.dao;
+
+import static com.stylecast.common.JDBCTemplate.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,29 +12,28 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.stylecast.common.model.vo.PageInfo;
-import com.stylecast.qna.model.vo.Qna;
+import com.stylecast.daily.model.vo.Reply;
 
-import static com.stylecast.common.JDBCTemplate.*;
-
-public class QnaDao {
+public class ReplyDao {
 	
 	private Properties prop = new Properties();
-	
-	 public QnaDao() {
 
-	        try {
-	            prop.loadFromXML(new FileInputStream(QnaDao.class.getResource("/sql/qna/qna-mapper.xml").getPath()));
-	        }catch(IOException e) {
-	            e.printStackTrace();
-	        }
-	    }
-	
-	public ArrayList<Qna> selectMyQnaList(Connection conn, int memNo, PageInfo pi){
-		
-		ArrayList<Qna> list = new ArrayList<Qna>();
+    public ReplyDao() {
+
+        try {
+            prop.loadFromXML(new FileInputStream(ReplyDao.class.getResource("/sql/daily/reply-mapper.xml").getPath()));
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+	public ArrayList<Reply> selectMyReplyList(Connection conn, int memNo, PageInfo pi) {
+
+		ArrayList<Reply> list = new ArrayList<Reply>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectMyQnaList");
+		String sql = prop.getProperty("selectMyReplyList");
 		
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
@@ -48,10 +49,10 @@ public class QnaDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				list.add(new Qna(rset.getInt("qna_no"),
-								 rset.getString("qna_title"),
-								 rset.getDate("enr_date"),
-								 rset.getString("ans_content")));
+				list.add(new Reply(rset.getInt("cm_no"),
+								   rset.getInt("daily_no"),
+						           rset.getString("cm_content"),
+						           rset.getDate("enr_date")));
 			}
 			
 		} catch (SQLException e) {
@@ -64,12 +65,12 @@ public class QnaDao {
 		return list;
 	}
 
-	public int selectMyQnaListCount(Connection conn, int memNo) {
-		
+	public int selectMyReplyListCount(Connection conn, int memNo) {
+
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectMyQnaListCount");
+		String sql = prop.getProperty("selectMyReplyListCount");
 		
 		try {
 			
@@ -88,8 +89,10 @@ public class QnaDao {
 			close(rset);
 			close(pstmt);
 		}
-		
+				
 		return listCount;
 	}
+	
+	
 
 }

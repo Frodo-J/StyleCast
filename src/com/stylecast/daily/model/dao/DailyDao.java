@@ -235,5 +235,72 @@ public class DailyDao {
 		
 		return cList;
 	}
+
+	public ArrayList<Daily> selectMyDailyList(Connection conn, int memNo) {
+		
+		ArrayList<Daily> list = new ArrayList<Daily>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMyDailyList");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Daily d = new Daily();
+				
+				d.setDailyNo(rset.getInt("daily_no"));
+				d.setMemNo(rset.getInt("mem_no"));
+				d.setDailyContent(rset.getString("daily_content"));
+				d.setEnrDate(rset.getDate("enr_date"));
+				d.setDailyImg(rset.getString("daily_img"));
+				d.setMemName(rset.getString("mem_name"));
+				d.setProfImg(rset.getString("prof_img"));
+				
+				list.add(d);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int selectMyDailyListCount(Connection conn, int memNo) {
+		
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMyDailyListCount");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return listCount;
+	}
 	
 }

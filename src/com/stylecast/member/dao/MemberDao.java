@@ -6,9 +6,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import static com.stylecast.common.JDBCTemplate.*;
+
+import com.stylecast.daily.model.vo.Daily;
 import com.stylecast.member.vo.Member;
 
 public class MemberDao {
@@ -159,6 +162,87 @@ public class MemberDao {
 		}
 		
 		return memPwd;
+	}
+
+	public int insertBookmark(Connection conn, int memNo, int dailyNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertBookmark");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, dailyNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteBookmark(Connection conn, int memNo, int dailyNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteBookmark");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, dailyNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<Daily> selectMyBookmarkList(Connection conn, int memNo) {
+		
+		ArrayList<Daily> list = new ArrayList<Daily>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMyBookmarkList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Daily d = new Daily();
+				
+				d.setDailyNo(rset.getInt("daily_no"));
+				d.setMemNo(rset.getInt("mem_no"));
+				d.setDailyContent(rset.getString("daily_content"));
+				d.setEnrDate(rset.getDate("enr_date"));
+				d.setDailyImg(rset.getString("daily_img"));
+				d.setMemName(rset.getString("mem_name"));
+				d.setProfImg(rset.getString("prof_img"));
+				
+				list.add(d);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 	
 	
