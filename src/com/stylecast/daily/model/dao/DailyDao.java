@@ -13,6 +13,8 @@ import java.util.Properties;
 
 import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.daily.model.vo.Daily;
+import com.stylecast.daily.model.vo.DailyCM;
+import com.stylecast.daily.model.vo.Item;
 import com.stylecast.daily.model.vo.Report;
 
 public class DailyDao {
@@ -76,7 +78,6 @@ public class DailyDao {
 				d.setDailyContent(rset.getString("daily_content"));
 				d.setEnrDate(rset.getDate("enr_date"));
 				d.setDailyImg(rset.getString("daily_img"));
-				d.setTag(rset.getString("tag"));
 				d.setMemName(rset.getString("mem_name"));
 				d.setProfImg(rset.getString("prof_img"));
 				
@@ -100,11 +101,36 @@ public class DailyDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, 1);
+			pstmt.setInt(1, r.getMemNo());
 			pstmt.setInt(2, r.getrMemNo());
 			pstmt.setString(3, r.getContent());
 			pstmt.setInt(4, r.getDailyNo());
 			pstmt.setString(5, r.getRptCategory());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int insertReportCm(Connection conn, Report r) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReportCm");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, r.getMemNo());
+			pstmt.setInt(2, r.getrMemNo());
+			pstmt.setString(3, r.getContent());
+			pstmt.setInt(4, r.getDailyNo());
+			pstmt.setString(5, r.getRptCategory());
+			pstmt.setInt(6, r.getCmNo());
 			
 			result = pstmt.executeUpdate();
 			
@@ -148,6 +174,66 @@ public class DailyDao {
 		}
 		
 		return d;
+	}
+	
+	public ArrayList<Item> selectDailyItem(Connection conn, int dailyNo) {
+		ArrayList<Item> iList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectDailyItem");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dailyNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				iList.add(new Item(rset.getInt("item_no"),
+							  	   rset.getString("item_name"),
+							       rset.getString("item_link"),
+							       rset.getString("item_category")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return iList;
+	}
+	
+	public ArrayList<DailyCM> selectDailyCM(Connection conn, int dailyNo) {
+		ArrayList<DailyCM> cList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectDailyCM");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dailyNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				cList.add(new DailyCM(rset.getInt("cm_no"),
+						 			  rset.getInt("mem_no"),
+						 			  rset.getString("cm_content"),
+						 			  rset.getDate("enr_date"),
+						 			  rset.getString("mem_name"),
+						 			  rset.getString("prof_img")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return cList;
 	}
 	
 }

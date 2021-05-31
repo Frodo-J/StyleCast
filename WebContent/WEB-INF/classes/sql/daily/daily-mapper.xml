@@ -29,5 +29,93 @@
 		        )
 		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
+	
+	<entry key="insertReportDaily">
+		INSERT
+		  INTO REPORT
+		  (
+		    RPT_NO
+		  , MEM_NO
+		  , RMEM_NO
+		  , CONTENT
+		  , BR_CATEGORY
+		  , DAILY_NO
+		  , RPT_CATEGORY
+		  )
+		  VALUES
+		  (
+		    SEQ_RPT.NEXTVAL
+		  , ?
+		  , ?
+		  , ?
+		  , 0
+		  , ?
+		  , ?
+		  )
+	</entry>
 
+	<entry key="insertReportCm">
+		INSERT
+			  INTO REPORT
+			  (
+			    RPT_NO
+			  , MEM_NO
+			  , RMEM_NO
+			  , CONTENT
+			  , BR_CATEGORY
+			  , DAILY_NO
+			  , RPT_CATEGORY
+	          , CM_NO
+			  )
+			  VALUES
+			  (
+			    SEQ_RPT.NEXTVAL
+			  , ?
+			  , ?
+			  , ?
+			  , 1
+			  , ?
+			  , ?
+	          , ?
+			  )
+	</entry>
+	
+	<entry key="selectDailyDetail">
+       SELECT
+              DAILY_NO
+            , MEM_NO
+            , DAILY_CONTENT
+            , ENR_DATE
+            , DAILY_IMG
+            , TAG
+            , MEM_NAME
+            , PROF_IMG
+         FROM DAILY
+         JOIN MEMBER USING (MEM_NO)
+        WHERE DAILY_NO = ?
+	</entry>
+	
+	<entry key="selectDailyItem">
+		SELECT
+		       ITEM_NO
+		     , ITEM_NAME
+		     , ITEM_LINK
+		     , ITEM_CATEGORY
+		  FROM ITEM
+		 WHERE DAILY_NO = ?
+	</entry>
+	
+	<entry key="selectDailyCM">
+		SELECT
+		       CM_NO
+		     , MEM_NO
+		     , CM_CONTENT
+		     , ENR_DATE
+		     , MEM_NAME
+		     , PROF_IMG
+		  FROM DAILY_CM
+		  LEFT JOIN MEMBER USING(MEM_NO)
+		 WHERE DAILY_NO = ?
+		 ORDER BY ENR_DATE DESC
+	</entry>
 </properties>
