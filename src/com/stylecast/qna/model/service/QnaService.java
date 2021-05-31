@@ -31,4 +31,26 @@ public class QnaService {
 		return listCount;
 	}
 
+	public ArrayList<Qna> selectList(PageInfo pi) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		ArrayList<Qna> list = new QnaDao().selectList(conn,pi);
+		close(conn);
+		
+		return list;
+	}
+
+	public int selectListCount() {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		int listCount = new QnaDao().selectListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+		
+	}
+
+
+
 }
