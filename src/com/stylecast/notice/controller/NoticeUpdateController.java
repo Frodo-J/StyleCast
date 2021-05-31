@@ -46,7 +46,7 @@ public class NoticeUpdateController extends HttpServlet {
 			int maxSize = 10 * 1024 * 1024;
 			
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/notice_upfiles/");
-			
+			String savePath2 = request.getSession().getServletContext().getRealPath("/");
 			MultipartRequest multiRequest = new MultipartRequest(request,savePath,maxSize,"UTF-8",new MyFileRenamePolicy());
 			
 			int noticeNo = Integer.parseInt(multiRequest.getParameter("nno"));
@@ -60,8 +60,6 @@ public class NoticeUpdateController extends HttpServlet {
 			
 			int nresult = new NoticeService().updateNotice(n);
 			
-			//ArrayList<BoardImage> list = new ArrayList<>();
-			
 			
 			for(int i=1; i<4; i++) {
 				BoardImage bImage = null;
@@ -69,7 +67,12 @@ public class NoticeUpdateController extends HttpServlet {
 				String key = "image" + i;
 
 				String originImageNo = "originImageNo" + i;
-				
+				// 기존 이미지 경로
+				String oFilePathName = "originFilePath" + i;
+				String oFilePath = savePath2 + multiRequest.getParameter(oFilePathName);
+				String sub_1 = request.getContextPath() + "/";
+				oFilePath = oFilePath.replaceAll(sub_1, "");
+				oFilePath = oFilePath.replaceAll("/", "\\\\");
 				// 기존 이미지 번호 ( 디비 이미지 번호) 
 				int oImgNo = Integer.parseInt(multiRequest.getParameter(originImageNo));
 	
@@ -81,9 +84,8 @@ public class NoticeUpdateController extends HttpServlet {
 					if(oImgNo != 0) {
 						// 기존의 파일 있을 경우
 						bImage.setImgNo(oImgNo);
-						
-						// 나중에 여기 수정(기존 파일 삭제부분)
-						//new File(oFilePath).delete();
+
+						new File(oFilePath).delete();
 						
 					}else {
 						// 새로운 첨부파일이 있었을 경우 
