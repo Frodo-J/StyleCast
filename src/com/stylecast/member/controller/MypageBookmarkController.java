@@ -52,6 +52,8 @@ public class MypageBookmarkController extends HttpServlet {
 			
 			request.setAttribute("list", list);
 			
+			System.out.println(list);
+			
 			request.getRequestDispatcher("views/mypage/mypageBookmark.jsp").forward(request, response);
 		}	
 	}

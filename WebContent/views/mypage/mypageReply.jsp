@@ -130,8 +130,8 @@
                 <div id="menu">
                     <div id="write" style="font-weight: bold;">
                         	내가 쓴 글
-                        <div><a href="<%= request.getContextPath() %>/myPage.me">데일리</a></div>
-                        <div><a href="<%= request.getContextPath() %>/reply.me?currentPage=1" style="font-weight: normal;">댓글</a></div>
+                        <div><a href="<%= request.getContextPath() %>/myPage.me" style="font-weight: normal;">데일리</a></div>
+                        <div><a href="<%= request.getContextPath() %>/reply.me?currentPage=1">댓글</a></div>
                         <div><a href="<%= request.getContextPath() %>/question.me?currentPage=1" style="font-weight: normal;">문의글</a></div>
                     </div>
                     <div><a href="<%= request.getContextPath() %>/bookmark.me">북마크</a></div>
@@ -202,13 +202,19 @@
                             <td><%=reply.getCmNo() %></td>
                             <td><%=reply.getCmContent() %></td>
                             <td><%=reply.getEnrDate() %></td>
-                            <td><%=reply.getDailyNo() %></td>
+                            <td class="hidden-col"><%=reply.getDailyNo() %></td>
                         </tr>
                        <%} %>
                       <%} %>
                       </tbody>
                   </table>
             </div>
+            
+            <script>
+	            $("table>tbody>tr").click(function(){
+	            	location.href = "<%=contextPath%>/detail.da?dno=" + $(this).children().eq(3).text();
+		        });
+            </script>
 
             <div id="page_box">
                 <nav aria-label="Page navigation example">

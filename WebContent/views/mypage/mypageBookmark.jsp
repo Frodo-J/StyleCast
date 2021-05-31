@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.stylecast.daily.model.vo.Daily, java.text.SimpleDateFormat" %>
+<%
+ 	ArrayList<Daily> list = (ArrayList<Daily>)request.getAttribute("list");
+	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy.MM.dd");
+%>
 <!DOCTYPE html>
 <html lang="kr">
 <head>
@@ -77,11 +82,13 @@
         }
 
         /* 북마크 리스트 css */
+        /*#mypage{border: 1px solid black;}*/
         #mypage div{float: left;}
-        #daily_box{height: 75%; overflow-y: scroll; position: absolute;}
-
+        #daily_box{height: 75%; width:100%; overflow-y: scroll; position: absolute;}
+        #empty_box{margin-top: 180px; margin-left: 300px;}
+        
         /* daily style */
-        .daily_post{width:260px; height:425px; float: left; color: rgb(40, 40, 40); border: 0.5px solid lightgrey; border-radius: 2pc; background: whitesmoke; margin-top: 30px; margin-left: 17px;}
+        .daily_post{width:260px; height:425px; float: left; color: rgb(40, 40, 40); border: 0.5px solid lightgrey; border-radius: 2pc; background: whitesmoke; margin-top: 25px; margin-left: 17px;}
         .daily_img{position: relative; width:230px; height:280px; margin: 24px 15px 10px;}
         .daily_img>img{width:230px; height:280px; object-fit: cover;}
 
@@ -91,25 +98,25 @@
         .action>input{width:100%; height: 100%; border:0px; background-size: 25px 25px;}
         .vertical-line{float: left; border-color: rgba(255,255,255,0.5); border-style: solid; border-width: 0 0 0 1px; 
                        margin-top: 14px; margin-right: -1px; margin-bottom: 19px; width: 0px; height: 20px; vertical-align: middle;}
-        .like{background: url("resources/react_icon/sun2.svg") no-repeat center/contain;}
-        .comment{background: url("resources/react_icon/comment2.svg") no-repeat center/contain;}
-        .bookmark{background: url("resources/react_icon/bookmark2.svg") no-repeat center/contain;}
-        .report{background: url("resources/react_icon/flag2.svg") no-repeat center/contain;}
+        .like{background: url("resources/images/react_icon/sun2.svg") no-repeat center/contain;}
+        .comment{background: url("resources/images/react_icon/comment2.svg") no-repeat center/contain;}
+        .bookmark{background: url("resources/images/react_icon/bookmark2.svg") no-repeat center/contain;}
+        .report{background: url("resources/images/react_icon/flag2.svg") no-repeat center/contain;}
         .action_hover input:hover{cursor: pointer;}
 
-        .profile{width:50px; height: 50px; float: left; margin: 0px 15px;}
+        .profile{width:50px; height: 50px; float: left; margin: 2px 11px 2px 17px;}
         .profile>img{width: 100%; height: 100%;}
-        .userid{width:80px; float:left; font-size: 16px; font-weight: 700; margin: 0px;}
-        .date{float:left; font-size: 13px; font-weight: 700; margin: 2px 10px 1px 22px;}
-        .text{float:left; width: 120px; margin: 4px 0px;}
-        .more{float:left; background:url("resources/react_icon/plus.svg") no-repeat; width: 24px; height: 24px; margin: 8px 10px 0px 20px; border: 0px;}
+        .userid{width:86px; float:left; font-size: 14px; font-weight: 700; margin: 0px;}
+        .date{float:left; font-size: 12px; font-weight: 700; margin: 0px 0px 1px 28px;}
+        .text{float:left; font-size: 12px; width: 120px; height:34px; margin: 4px 0px; overflow:hidden;}
+        .more{float:left; background:url("resources/images/react_icon/plus.svg") no-repeat; width: 24px; height: 24px; margin: 8px 10px 0px 20px; border: 0px;}
 
         .react{float:left; width:200px; height: 26px; margin: 10px 26px 15px 34px;}
         .react>div{float: left; width:30px; height: 26px;}
-        .react_like{background: url("resources/react_icon/sun.svg") no-repeat; background-size: contain;}
-        .react_comment{background: url("resources/react_icon/comment.svg") no-repeat; background-size: contain;}
-        .react_bookmark{background: url("resources/react_icon/bookmark.svg") no-repeat; background-size: contain;}
-        .react_count{ margin-right: 6px; text-align: center; font-size: 15px; font-weight: 550;}
+        .react_like{background: url("resources/images/react_icon/sun.svg") no-repeat; background-size: contain;}
+        .react_comment{background: url("resources/images/react_icon/comment.svg") no-repeat; background-size: contain;}
+        .react_bookmark{background: url("resources/images/react_icon/bookmark.svg") no-repeat; background-size: contain;}
+        .react_count{margin-right: 6px; text-align: center; font-size: 15px; font-weight: 550;}
         /* daily style end */
     </style>
 </head>
@@ -132,13 +139,13 @@
                 </div>
 
                 <div id="menu">
-                    <div id="write" style="font-weight: bold;">
+                    <div id="write">
                         	내가 쓴 글
                         <div><a href="<%= request.getContextPath() %>/myPage.me">데일리</a></div>
-                        <div><a href="<%= request.getContextPath() %>/reply.me?currentPage=1" style="font-weight: normal;">댓글</a></div>
-                        <div><a href="<%= request.getContextPath() %>/question.me?currentPage=1" style="font-weight: normal;">문의글</a></div>
+                        <div><a href="<%= request.getContextPath() %>/reply.me?currentPage=1">댓글</a></div>
+                        <div><a href="<%= request.getContextPath() %>/question.me?currentPage=1">문의글</a></div>
                     </div>
-                    <div><a href="<%= request.getContextPath() %>/bookmark.me">북마크</a></div>
+                    <div><a href="<%= request.getContextPath() %>/bookmark.me" style="font-weight: bold;">북마크</a></div>
                     <div><a href="<%= request.getContextPath() %>/myMember.me">개인정보 수정</a></div>
                 </div>
             </div>
@@ -180,233 +187,86 @@
                 <br>
 
                 <div id="daily_box">
-                    <div class="daily_post">
-                        <div class="daily_img">
-                            <img src="resources/img_codi4.jpg" alt="">
-                            <div class="action_hover">
-                                <div class="action"><input type="button" class="like"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="comment"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="bookmark"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="report" data-bs-toggle="modal" data-bs-target="#reportModal"></div>
-                            </div>
-                        </div>
-                        <div class="profile">
-                            <img src="resources/profile.png" alt="">
-                        </div>
-                        <div class="userid">userid</div>
-                        <div class="date">21. 05. 03</div>
-                        <div class="text">text</div>
-                        <input type="button" class="more" onclick="">
-                        <div class="react">
-                            <div class="react_like"></div>
-                            <div class="react_count">10</div>
-                            <div class="react_comment"></div>
-                            <div class="react_count">10</div>
-                            <div class="react_bookmark"></div>
-                            <div class="react_count">10</div>
-                        </div>
+                	
+            	<!-- 데일리 게시글이 없을 경우 -->
+            	<%if(list.isEmpty()){ %>
+					<div id="empty_box">
+                        	등록한 북마크가 없습니다.
                     </div>
+                    
+                <%} else{%>
+                    
+                    <% for(Daily daily : list) { %> 
+                   
+	                <div class="daily_post fadein">
+	                	<input type="hidden" value="<%= daily.getDailyNo() %>">
+	                    <div class="daily_img">
+	                        <img src="<%= contextPath %>/<%= daily.getDailyImg() %>" alt="">
+	                        <div class="action_hover">
+	                        	<!-- 로그인시 가능하도록 설정해야함 -->
+								<% if(loginUser != null) { %>
+	                            <div class="action"><input type="button" class="like" ></div>
+	                            <div class="vertical-line"></div>
+	                            <div class="action"><input type="button" class="comment"></div>
+	                            <div class="vertical-line"></div>
+	                            <div class="action"><input type="button" class="bookmark"></div>
+	                            <div class="vertical-line"></div>
+	                            <div class="action">
+		                            <input type="button" class="report" data-bs-toggle="modal" data-bs-target="#reportModal">
+	                                <input type="hidden" name="loginUser" value="<%= loginUser.getMemNo() %>"> 
+	                                <input type="hidden" name="writeUser" value="<%= daily.getMemNo() %>">
+	                                <input type="hidden" name="reportDailyNo" value="<%= daily.getDailyNo() %>">
+	                            </div>
+								<% }else { %>
+								<div class="action"><input type="button" class="like" data-bs-toggle="modal" data-bs-target="#logoutUserModal"></div>
+	                            <div class="vertical-line"></div>
+	                            <div class="action"><input type="button" class="comment"></div>
+	                            <div class="vertical-line"></div>
+	                            <div class="action"><input type="button" class="bookmark" data-bs-toggle="modal" data-bs-target="#logoutUserModal"></div>
+	                            <div class="vertical-line"></div>
+	                            <div class="action"><input type="button" class="report" data-bs-toggle="modal" data-bs-target="#logoutUserModal"></div>
+								
+								<% } %>
+	                        </div>
+	                    </div>
 
-                    <script>
-                        $(".daily_post").click(function(){
-                            if(event.target.class=='action_hover') return false;
-                            $(location).attr("href", "https://www.naver.com/")
-                        })
-                    </script>
-    
-                    <div class="daily_post">
-                        <div class="daily_img">
-                            <img src="resources/img_codi19.jpg" alt="">
-                            <div class="action_hover">
-                                <div class="action"><input type="button" class="like"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="comment"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="bookmark"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="report" data-bs-toggle="modal" data-bs-target="#reportModal"></div>
-                            </div>
-                        </div>
-                        <div class="profile">
-                            <img src="resources/profile.png" alt="">
-                        </div>
-                        <div class="userid">userid</div>
-                        <div class="date">21. 05. 03</div>
-                        <div class="text">text</div>
-                        <input type="button" class="more" onclick="">
-                        <div class="react">
-                            <div class="react_like"></div>
-                            <div class="react_count">10</div>
-                            <div class="react_comment"></div>
-                            <div class="react_count">10</div>
-                            <div class="react_bookmark"></div>
-                            <div class="react_count">10</div>
-                        </div>
-                    </div>
-    
-                    <div class="daily_post">
-                        <div class="daily_img">
-                            <img src="resources/img_codi15.jpg" alt="">
-                            <div class="action_hover">
-                                <div class="action"><input type="button" class="like"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="comment"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="bookmark"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="report" data-bs-toggle="modal" data-bs-target="#reportModal"></div>
-                            </div>
-                        </div>
-                        <div class="profile">
-                            <img src="resources/profile.png" alt="">
-                        </div>
-                        <div class="userid">userid</div>
-                        <div class="date">21. 05. 03</div>
-                        <div class="text">text</div>
-                        <input type="button" class="more" onclick="">
-                        <div class="react">
-                            <div class="react_like"></div>
-                            <div class="react_count">10</div>
-                            <div class="react_comment"></div>
-                            <div class="react_count">10</div>
-                            <div class="react_bookmark"></div>
-                            <div class="react_count">10</div>
-                        </div>
-                    </div>
-    
-                    <div class="daily_post">
-                        <div class="daily_img">
-                            <img src="resources/img_codi16.jpg" alt="">
-                            <div class="action_hover">
-                                <div class="action"><input type="button" class="like"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="comment"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="bookmark"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="report" data-bs-toggle="modal" data-bs-target="#reportModal"></div>
-                            </div>
-                        </div>
-                        <div class="profile">
-                            <img src="resources/profile.png" alt="">
-                        </div>
-                        <div class="userid">userid</div>
-                        <div class="date">21. 05. 03</div>
-                        <div class="text">text</div>
-                        <input type="button" class="more" onclick="">
-                        <div class="react">
-                            <div class="react_like"></div>
-                            <div class="react_count">10</div>
-                            <div class="react_comment"></div>
-                            <div class="react_count">10</div>
-                            <div class="react_bookmark"></div>
-                            <div class="react_count">10</div>
-                        </div>
-                    </div>
-    
-                    <div class="daily_post">
-                        <div class="daily_img">
-                            <img src="resources/img_codi30.jpg" alt="">
-                            <div class="action_hover">
-                                <div class="action"><input type="button" class="like"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="comment"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="bookmark"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="report" data-bs-toggle="modal" data-bs-target="#reportModal"></div>
-                            </div>
-                        </div>
-                        <div class="profile">
-                            <img src="resources/profile.png" alt="">
-                        </div>
-                        <div class="userid">userid</div>
-                        <div class="date">21. 05. 03</div>
-                        <div class="text">text</div>
-                        <input type="button" class="more" onclick="">
-                        <div class="react">
-                            <div class="react_like"></div>
-                            <div class="react_count">10</div>
-                            <div class="react_comment"></div>
-                            <div class="react_count">10</div>
-                            <div class="react_bookmark"></div>
-                            <div class="react_count">10</div>
-                        </div>
-                    </div>
-    
-                    <div class="daily_post">
-                        <div class="daily_img">
-                            <img src="resources/img_codi24.jpg" alt="">
-                            <div class="action_hover">
-                                <div class="action"><input type="button" class="like"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="comment"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="bookmark"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="report" data-bs-toggle="modal" data-bs-target="#reportModal"></div>
-                            </div>
-                        </div>
-                        <div class="profile">
-                            <img src="resources/profile.png" alt="">
-                        </div>
-                        <div class="userid">userid</div>
-                        <div class="date">21. 05. 03</div>
-                        <div class="text">text</div>
-                        <input type="button" class="more" onclick="">
-                        <div class="react">
-                            <div class="react_like"></div>
-                            <div class="react_count">10</div>
-                            <div class="react_comment"></div>
-                            <div class="react_count">10</div>
-                            <div class="react_bookmark"></div>
-                            <div class="react_count">10</div>
-                        </div>
-                    </div>
-    
-                    <div class="daily_post">
-                        <div class="daily_img">
-                            <img src="resources/img_codi24.jpg" alt="">
-                            <div class="action_hover">
-                                <div class="action"><input type="button" class="like"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="comment"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="bookmark"></div>
-                                <div class="vertical-line"></div>
-                                <div class="action"><input type="button" class="report" data-bs-toggle="modal" data-bs-target="#reportModal"></div>
-                            </div>
-                        </div>
-                        <div class="profile">
-                            <img src="resources/profile.png" alt="">
-                        </div>
-                        <div class="userid">userid</div>
-                        <div class="date">21. 05. 03</div>
-                        <div class="text">text</div>
-                        <input type="button" class="more" onclick="">
-                        <div class="react">
-                            <div class="react_like"></div>
-                            <div class="react_count">10</div>
-                            <div class="react_comment"></div>
-                            <div class="react_count">10</div>
-                            <div class="react_bookmark"></div>
-                            <div class="react_count">10</div>
-                        </div>
-                    </div>
+	                    <div class="profile">
+	                        <img src="<%= contextPath %>/<%= daily.getProfImg() %>" alt="">
+	                    </div>
+	                    <div class="userid"><%= daily.getMemName() %></div>
+	                    <div class="date"><%= simpleDateFormat.format(daily.getEnrDate()) %></div>
+	                    <div class="text"><%= daily.getDailyContent() %></div>
+	                    <input type="button" class="more" onclick="">
+	                    <div class="react">
+	                        <div class="react_like"></div>
+	                        <div class="react_count">10</div>
+	                        <div class="react_comment"></div>
+	                        <div class="react_count">10</div>
+	                        <div class="react_bookmark"></div>
+	                        <div class="react_count">10</div>
+	                    </div>
+	                </div>
+                <% } %>
+            	<%} %>
 
-                    <script>
-                        // daily img hover
-                        $(document).ready(function(){
-                        $(".daily_img").hover(function(){
-                            $(this).children(".action_hover").css("visibility", "visible");
-                        }, function(){
-                            $(this).children(".action_hover").css("visibility", "hidden");
-                        })
-                        });
-                    </script>
+			    <script>
+			        // daily img hover
+			        $(document).ready(function(){
+			    	$(".daily_img").hover(function(){
+			    		$(this).children(".action_hover").css("visibility", "visible");
+			    	}, function(){
+			    		$(this).children(".action_hover").css("visibility", "hidden");
+			    	})
+			        });
+			        
+			        // daily click action
+			        $(".daily_post").click(function(){
+			            if(event.target.className=='like' || 
+			               event.target.className=='bookmark' || 
+			               event.target.className=='report') return;
+			            $(location).attr("href", "<%=contextPath%>/detail.da?dno=" + $(this).children().eq(0).val());
+			        });
+			    </script>
                 </div>
             </div>
         </div>

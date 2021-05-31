@@ -83,7 +83,7 @@
 	  AND DAILY_NO = ?
 	</entry>
 
-	<entry key="selectMyDailyList">
+	<entry key="selectMyBookmarkList">
 		SELECT
 			   DAILY_NO
 			 , MEM_NO
@@ -98,7 +98,6 @@
 	     				    SELECT DAILY_NO
 							  FROM BOOKMARK
 							 WHERE MEM_NO = ?
-							 ORDER BY ENR_DATE DESC
 						    )
 	  ORDER BY ENR_DATE DESC
 	</entry>
