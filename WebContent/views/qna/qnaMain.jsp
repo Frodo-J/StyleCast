@@ -2,13 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.stylecast.common.model.vo.PageInfo,com.stylecast.qna.model.vo.Qna, java.util.ArrayList" %>
 <%
-	/*PageInfo pi = (PageInfo)request.getAttribute("pi");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Qna> list = (ArrayList<Qna>)request.getAttribute("list");
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
-	*/
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -132,13 +131,34 @@
                 <table class="table table-hover text-center">
                     <thead class="table-light">
                         <th width="10%">번호</th>
-                        <th width="15%">구분</th>
-                        <th width="50%">제목</th>
+                        <th>구분</th>
+                        <th width="35%">제목</th>
                         <th>작성자</th>
-                        <th width="15%">등록일</th>
-                        <th width="10%">답변여부</th>
+                        <th>등록일</th>
+                        <th>답변여부</th>
                       </thead>
                       <tbody>
+                      <%if(list.isEmpty()){ %>
+                      	<tr>
+                      		<td colspan="6">존재하는 공지사항이 없습니다</td>
+                      	</tr>
+                      <% }else{ %>
+                      	<% for(Qna q : list){ %>
+                      		<tr>
+                      			<td><%=q.getQnaNo() %></td>
+                            	<td>[<%=q.getQnaCategory() %>]</td>
+                            	<td><%=q.getQnaTitle() %><img src="<%=contextPath %>/resources/images/padlock.png"/></td>
+                            	<td><%=q.getMemName() %></td>
+                            	<td><%=q.getEnrDate() %></td>
+                            	<td><% if(q.getAnsContent() == null){ %>
+                            	답변대기<%} else{%>
+                            	답변완료
+                            	<%} %>
+                            	</td>
+                      		</tr>
+                      	<% } %>
+                       <% } %>
+                      <!-- 
                         <tr>
                             <td>15</td>
                             <td>[오류/버그]</td>
@@ -267,18 +287,42 @@
                         <!-- <tr>
                             <td colspan="6">'OO'가 포함된 검색어를 찾을 수 없습니다.</td>
                         </tr> -->
+                        
                       </tbody>
                   </table>
             </div>
             <div id="write_box">
                 <div id="write_box_inner">
-                    <!-- 사용자일경우 안보이게-->
+                    <!-- 로그인 안한 사용자일경우 안보이게-->
                     <% if(loginUser != null){ %>
                     <button type="button" class="btn btn-secondary btn-sm">글작성</button>
                 	<%} %>
                 </div>
             </div>
             <!-- 여기에 페이지네이션 집 -->
+            <div id="page_box" class="text-center">
+             	<div align="center" class="btn-group me-2" role="group" aria-label="First group">
+
+					<% if(currentPage != 1){ %>
+            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.no?currentPage=<%=currentPage-1%>';"> &lt; </button>
+					<% } %>
+
+            		<% for(int p=startPage; p<=endPage; p++){ %>
+            	
+            			<% if(p != currentPage){ %>
+	            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.no?currentPage=<%= p %>';"><%= p %></button>
+	            		<% }else { %>
+	            			<button type="button" class="btn btn-outline-secondary" disabled><%= p %></button>
+            			<% } %>
+            	
+            		<% } %>
+
+				<% if(currentPage != maxPage){ %>
+            		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.no?currentPage=<%=currentPage+1%>';"> &gt; </button>
+				<% } %>
+			
+        	</div>
+        </div>
 
         </div>
 

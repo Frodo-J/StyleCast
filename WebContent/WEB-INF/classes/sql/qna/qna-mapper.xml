@@ -51,7 +51,7 @@
     		ORDER BY
         		ENR_DATE DESC) A
         		)
-    		WHERE RNUM BETWEEN ? AND ?;
+    		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 
 </properties>

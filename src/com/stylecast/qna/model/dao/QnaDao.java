@@ -115,9 +115,11 @@ public class QnaDao {
 					
 			while(rset.next()) {
 				list.add(new Qna(rset.getInt("qna_no"),
+						rset.getString("qna_category"),
+						rset.getString("qna_title"),
 						rset.getString("mem_name"),
-						rset.getString("notice_title"),
-						rset.getDate("enr_date")
+						rset.getDate("enr_date"),
+						rset.getString("ans_content")
 						));
 			}
 					
