@@ -299,7 +299,7 @@
         </div>
     </div>
 
-    <!-- 비로그인 유저 action 클릭 -->
+    <!-- 비로그인 유저 action 클릭 Modal -->
     <div class="modal fade" id="logoutUserModal" tabindex="-1" aria-labelledby="logoutUserModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -359,12 +359,6 @@
             $("#rMemNo").val($(this).siblings('input[name=writeUser]').val());
             $("#dailyNo").val($(this).siblings('input[name=reportDailyNo]').val());
             $("#currentUrl").val($(location).attr('href'));
-            
-            console.log($("#memNo").val());
-			console.log($("#rMemNo").val());
-			console.log($("#dailyNo").val());
-            console.log($("#currentUrl").val());
-            
          })
          
         // 댓글 신고 모달에 값 전달 
@@ -374,12 +368,6 @@
             $("#cmNo").val($(this).siblings('input[name=reportCmNo]').val());
             $("#cmDailyNo").val($(this).siblings('input[name=reportDailyCmNo]').val());
             $("#cmCurrentUrl").val($(location).attr('href'));
-            
-            console.log($("#cmMemNo").val());
-			console.log($("#cmRMemNo").val());
-			console.log($("#cmDailyNo").val());
-            console.log($("#cmCurrentUrl").val());
-            
          })
          
     </script>
