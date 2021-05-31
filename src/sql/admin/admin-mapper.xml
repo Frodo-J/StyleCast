@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	
+	<entry key="selectListCount1">
+		SELECT COUNT(*) COUNT
+		FROM CODI
+	</entry>
+
+	<entry key="SelectCodiList">
+		SELECT *
+		FROM(
+		        SELECT ROWNUM RNUM, A.* 
+		        FROM(
+		            SELECT 
+		                   CODI_NO
+		                 , GENDER
+		                 , IMG_PATH
+		                 , REC_WEATHER
+		                 , REC_LOWT
+		                 , REC_HIGHT
+		                 FROM CODI
+		             )A
+		     )
+		     WHERE RNUM BETWEEN ? AND ?
+	</entry>
+</properties>
