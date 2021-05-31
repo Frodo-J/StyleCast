@@ -33,7 +33,7 @@ public class CheckTempController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int NowTemp = Integer.parseInt(request.getParameter("Temp"));
-		String Weather = request.getParameter("Weather");
+		String weather = request.getParameter("Weather");
 		
 		ArrayList<MainSelectCodiM> list = new MainService().MainSelectCodiM();
 		request.setAttribute("list", list);
@@ -43,10 +43,6 @@ public class CheckTempController extends HttpServlet {
 		
 		//System.out.println(NowTemp);
 		//System.out.println(Weather);
-		
-		
-		
-		
 		
 		
 		//System.out.println(list);
