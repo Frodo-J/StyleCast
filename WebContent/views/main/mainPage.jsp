@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.stylecast.main.model.vo.MainSelectDaily, com.stylecast.main.model.vo.MainSelectCodi"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.stylecast.main.model.vo.MainSelectDaily, com.stylecast.main.model.vo.MainSelectCodiM"%>
 <%
 	ArrayList<MainSelectDaily> dailylist = (ArrayList<MainSelectDaily>)request.getAttribute("list");
-	ArrayList<MainSelectCodiM> codilist = (ArrayList<MainSelectCodi>)request.getAttribute("list");
+	//ArrayList<MainSelectCodiM> codilist = (ArrayList<MainSelectCodi>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html lang="kr">
@@ -180,27 +180,48 @@
             <div id="content_4">
 
             	<script>
-            		var NowTemp = "";
-            		var imgURL = "";
-	            	var apiURI = "http://api.openweathermap.org/data/2.5/weather?q=seoul&appid=1edf4d31ce3af918461e6292d0fd5669&units=metric";
-		                $.ajax({
-		                    url: apiURI,
-		                    dataType: "json",
-		                    type: "GET",
-		                    async: "false",
-		                    success: function(resp) {
-		                    	NowTemp = resp.main.temp;
-		                    	imgURL = "http://openweathermap.org/img/w/" + resp.weather[0].icon + ".png";
-		                        $("#todaytemp").text("현재온도 : "+(resp.main.temp) + "°C");
-		                        $("#todayweathericon").attr("src", imgURL);
-		                    }
-		                });
-		                
-		                
-            	</script>
+                  var apiURI = "http://api.openweathermap.org/data/2.5/weather?q=seoul&appid=1edf4d31ce3af918461e6292d0fd5669&units=metric";
+                      $.ajax({
+                          url: apiURI,
+                          dataType: "json",
+                          type: "GET",
+                          async: "false",
+                          success: function(resp) {
+                             
+                             NowTemp = resp.main.temp;
+                             Weather = resp.weather[0].main;
+                             imgURL = "http://openweathermap.org/img/w/" + resp.weather[0].icon + ".png";
+                              $("#todaytemp").text("현재온도 : "+(resp.main.temp) + "°C");
+                              $("#todayweathericon").attr("src", imgURL);
+                              $("#Temp").attr("value", NowTemp);
+                              $("#weather").attr("value", Weather);
+
+           // *****************
+           callTemp();
+                          }
+                      });
+                   
+                     function callTemp() {
+                          var Temp = $('#Temp').val();
+                          var Weather = $('#weather').val();
+                         $.ajax({
+                             type:"GET",
+                             url:"tempCheck.ma",
+                             dataType:"html",
+                             data:{
+                            	 Temp : Temp,
+                            	 Weather : Weather
+                             },
+                         });
+                     }
+                     
+                      
+               </script>
                 <div id="todayweather"><img id="todayweathericon" src="" alt="" width="134px" height="134px"></div>
                 <div id="todaytemp"  class="ctemp"></div>
                 <div id="location"><b><font size="7px" >Seoul</font></b></div>
+                <input type="hidden" id="Temp" value="">
+                <input type="hidden" id="weather" value="">
             </div>
 
 		

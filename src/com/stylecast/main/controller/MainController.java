@@ -41,9 +41,7 @@ public class MainController extends HttpServlet {
 		
 		//System.out.println(list);
 		
-		String NowTemp = request.getParameter("NowTemp");
 		
-		System.out.println(NowTemp);
 		
 		request.getRequestDispatcher("views/main/mainPage.jsp").forward(request, response);
 		

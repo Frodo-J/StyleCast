@@ -11,13 +11,15 @@
 		) WHERE <![CDATA[ROWNUM <= 4 ]]>
 	</entry>
 	
-	<entry key="selectCodiM">
-		SELECT 
-		       CODI_NO
-		     , IMG_PATH
-		FROM CODI
-		WHERE ? BETWEEN REC_LOWT AND REC_HIGHT AND GENDER='M'
-		
+	<entry key="MainSelectCodiM">
+		SELECT * FROM(
+			SELECT 
+			       CODI_NO
+			     , IMG_PATH
+			FROM CODI
+			WHERE ? BETWEEN REC_LOWT AND REC_HIGHT AND GENDER='M'
+		) WHERE <![CDATA[ROWNUM <= 2 ]]>
 	</entry>
+	
 	
 </properties>
