@@ -170,6 +170,45 @@ public class NoticeService {
 		return result;
 	}
 
+	public ArrayList<Notice> selectSearchList(PageInfo pi, String category, String text) {
+		// TODO Auto-generated method stub
+		
+		Connection conn = getConnection();
+		ArrayList<Notice> list = null;
+		if(category.equals("notice_title")) {
+			System.out.println("notice_title진입");
+			System.out.println(pi);
+			System.out.println(text);
+			list = new NoticeDao().selectListByNoticeTitle(conn,pi,text);
+		}else if(category.equals("notice_content")) {
+			list = new NoticeDao().selectListByNoticeContent(conn,pi,text);
+		}else if(category.contentEquals("mem_name")) {
+			list = new NoticeDao().selectListByMemName(conn,pi,text);
+		}
+		close(conn);
+		
+		return list;
+		
+
+	}
+
+	public int selectListCount(String category, String text) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		int listCount =0;
+		if(category.equals("notice_title")) {
+			listCount = new NoticeDao().selectListCountByNoticeTitle(conn,text);
+		}else if(category.equals("notice_content")) {
+			listCount = new NoticeDao().selectListCountByNoticeContent(conn,text);
+		}else if(category.contentEquals("mem_name")) {
+			listCount = new NoticeDao().selectListCountByMemName(conn,text);
+		}
+		
+		close(conn);
+		
+		return listCount;
+	}
+
 		
 
 	
