@@ -1,7 +1,6 @@
 package com.stylecast.daily.model.service;
 
-import static com.stylecast.common.JDBCTemplate.close;
-import static com.stylecast.common.JDBCTemplate.getConnection;
+import static com.stylecast.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -36,14 +35,24 @@ public class DailyService {
 		Connection conn = getConnection();
 		int result = new DailyDao().insertReportDaily(conn, r);
 
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		close(conn);
 		return result;
 	}
 	
-	public int insertReportCm(Report r) {
+	public int insertReportCM(Report r) {
 		Connection conn = getConnection();
-		int result = new DailyDao().insertReportCm(conn, r);
-
+		int result = new DailyDao().insertReportCM(conn, r);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		close(conn);
 		return result;
 	}
@@ -70,6 +79,37 @@ public class DailyService {
 		
 		close(conn);
 		return cList;
+	}
+	
+	public int insertDailyCM(DailyCM cm) {
+		Connection conn = getConnection();
+		int result = new DailyDao().insertDailyCM(conn, cm);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public int deleteDailyCM(DailyCM cm) {
+		Connection conn = getConnection();
+		int result = new DailyDao().deleteDailyCM(conn, cm);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
+		
+		
+		
+		
 	}
 	
 }

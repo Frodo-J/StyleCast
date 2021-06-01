@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	
+	<entry key="selectThemeMonthly">
+		SELECT
+		       THEME_NO
+		     , THEME_TITLE
+		     , THEME_TITLE_COLOR
+		     , THEME_SUBTITLE
+		  FROM THEME
+		 WHERE STATUS = 'Y'
+		   AND THEME_TITLE LIKE 'Monthly%'
+	</entry>
+
+	<entry key="selectThemePost">
+		SELECT
+		       DAILY_NO
+		     , DAILY_IMG
+		  FROM THEME_POST
+		  JOIN DAILY USING(DAILY_NO)
+		 WHERE THEME_NO = ?
+	</entry>
+
+</properties>

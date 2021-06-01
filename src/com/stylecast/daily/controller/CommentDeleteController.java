@@ -1,6 +1,7 @@
 package com.stylecast.daily.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,19 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.stylecast.daily.model.service.DailyService;
-import com.stylecast.daily.model.vo.Report;
+import com.stylecast.daily.model.vo.DailyCM;
 
 /**
- * Servlet implementation class DailyCmReportController
+ * Servlet implementation class CommentDeleteController
  */
-@WebServlet("/report.cm")
-public class DailyCmReportController extends HttpServlet {
+@WebServlet("/cdelete.da")
+public class CommentDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DailyCmReportController() {
+    public CommentDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,37 +30,25 @@ public class DailyCmReportController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.setCharacterEncoding("UTF-8");
 		
-		int memNo = Integer.parseInt(request.getParameter("memNo"));
-		int rMemNo = Integer.parseInt(request.getParameter("rMemNo"));
 		int dailyNo = Integer.parseInt(request.getParameter("dailyNo"));
 		int cmNo = Integer.parseInt(request.getParameter("cmNo"));
-		String rptCategory = request.getParameter("report_category");
-		String content = request.getParameter("report_text"); 
 		String currentUrl = request.getParameter("currentUrl");
 		
-		Report r = new Report();
-		r.setMemNo(memNo);
-		r.setrMemNo(rMemNo);
-		r.setDailyNo(dailyNo);
-		r.setCmNo(cmNo);
-		r.setContent(content);
-		r.setRptCategory(rptCategory);
+		DailyCM cm = new DailyCM();
+		cm.setDailyNo(dailyNo);
+		cm.setCmNo(cmNo);
 		
-		int result = new DailyService().insertReportCM(r);
-		
+		int result = new DailyService().deleteDailyCM(cm);
+	
 		if(result > 0) {
 			
-			request.getSession().setAttribute("alertMsg", "성공적으로 신고가 접수되었습니다.");
+			request.getSession().setAttribute("alertMsg", "댓글이 성공적으로 삭제되었습니다.");
 			response.sendRedirect(currentUrl);			
 			
 		}else {
-			request.setAttribute("errorMsg", "신고 접수를 실패하였습니다.");
-			
+			request.setAttribute("errorMsg", "댓글 삭제를 실패하였습니다.");
 		}
-	
 	}
 
 	/**

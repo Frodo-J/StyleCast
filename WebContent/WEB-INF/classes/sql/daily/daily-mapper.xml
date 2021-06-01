@@ -54,7 +54,7 @@
 		  )
 	</entry>
 
-	<entry key="insertReportCm">
+	<entry key="insertReportCM">
 		INSERT
 			  INTO REPORT
 			  (
@@ -110,7 +110,7 @@
 		       CM_NO
 		     , MEM_NO
 		     , CM_CONTENT
-		     , ENR_DATE
+		     , TO_CHAR(ENR_DATE, 'YY.MM.DD') ENR_DATE
 		     , MEM_NAME
 		     , PROF_IMG
 		  FROM DAILY_CM
@@ -118,4 +118,30 @@
 		 WHERE DAILY_NO = ?
 		 ORDER BY ENR_DATE DESC
 	</entry>
+	
+	<entry key="insertDailyCM">
+		INSERT
+		  INTO DAILY_CM
+		  (
+		    CM_NO
+		  , MEM_NO
+		  , DAILY_NO
+		  , CM_CONTENT
+		  )
+		  VALUES
+		  (
+		    SEQ_CM.NEXTVAL
+		  , ?
+		  , ?
+		  , ?
+		  )
+	</entry>
+	
+	<entry key="deleteDailyCM">
+		DELETE
+		  FROM DAILY_CM
+		 WHERE CM_NO = ?
+		   AND DAILY_NO = ?
+	</entry>
+	
 </properties>

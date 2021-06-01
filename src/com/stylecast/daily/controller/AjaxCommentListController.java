@@ -9,22 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.stylecast.daily.model.service.DailyService;
-import com.stylecast.daily.model.vo.Daily;
 import com.stylecast.daily.model.vo.DailyCM;
-import com.stylecast.daily.model.vo.Item;
 
 /**
- * Servlet implementation class dailyDetailController
+ * Servlet implementation class AjaxCommentListController
  */
-@WebServlet("/detail.da")
-public class dailyDetailController extends HttpServlet {
+@WebServlet("/clist.da")
+public class AjaxCommentListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public dailyDetailController() {
+    public AjaxCommentListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,15 +35,11 @@ public class dailyDetailController extends HttpServlet {
 
 		int dailyNo = Integer.parseInt(request.getParameter("dno"));
 	
-		Daily d = new DailyService().selectDailyDetail(dailyNo);
-		ArrayList<Item> iList = new DailyService().selectDailyItem(dailyNo);
 		ArrayList<DailyCM> cList = new DailyService().selectDailyCM(dailyNo);
-			
-		request.setAttribute("d", d);
-		request.setAttribute("iList", iList);
-		request.setAttribute("cList", cList);
-		request.getRequestDispatcher("views/daily/dailyDetailView.jsp").forward(request, response);
-	
+		
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(cList, response.getWriter());
+
 	}
 
 	/**
