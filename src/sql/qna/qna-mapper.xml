@@ -92,5 +92,13 @@
 			ANS_DATE = SYSDATE
 		WHERE QNA_NO = ?
 	</entry>
+	<entry key="deleteQnaAnswer">
+		UPDATE QNA
+			SET
+			ANS_CONTENT = NULL,
+			MEM_ADMIN = NULL,
+			ANS_DATE = NULL
+		WHERE QNA_NO = ?
+	</entry>
 
 </properties>

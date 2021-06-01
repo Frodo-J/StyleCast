@@ -275,6 +275,25 @@ public class QnaDao {
 		return result;
 	}
 
+	public int deleteQnaAnswer(Connection conn, int qnaNo) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteQnaAnswer");
+		
+		try{
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qnaNo);
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 	
 
 }

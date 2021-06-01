@@ -96,6 +96,20 @@ public class QnaService {
 		return result;
 	}
 
+	public int deleteQnaAnswer(int qnaNo) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		int result = new QnaDao().deleteQnaAnswer(conn,qnaNo);
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return 0;
+	}
+
 
 
 
