@@ -27,7 +27,6 @@
     <!--bootstrap end-->
     <!--돋보기 이미지-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
-    <link rel="stylesheet" href="style.css">
     <!--돋보기 이미지end-->
     <!--font-->
     <link rel="preconnect" href="https://fonts.gstatic.com">

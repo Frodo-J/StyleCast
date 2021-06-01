@@ -39,15 +39,15 @@ public class LoginController extends HttpServlet {
 		
 		Member loginUser = new MemberService().loginMember(memId, memPwd);
 		
+		HttpSession session = request.getSession();
 		if(loginUser == null) { // 로그인 실패 => 에러페이지 응답
-			request.setAttribute("errorMsg", "로그인에 실패하였습니다.");
+			session.setAttribute("alertMsg", "아이디 또는 비밀번호를 다시 입력해주세요.");
 			
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/loginPage.me");
+		
 			
 		}else { // 로그인 성공 => mainPage 응답
 	
-			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
 			session.setAttribute("alertMsg", "성공적으로 로그인됐습니다!");
 			
