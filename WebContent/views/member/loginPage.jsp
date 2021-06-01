@@ -5,6 +5,8 @@
 	String contextPath = request.getContextPath();
 
 	Member loginUser = (Member)session.getAttribute("loginUser");
+	
+	String alertMsg = (String)session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -59,6 +61,16 @@
     </style>
     <script>
 
+		var msg = "<%= alertMsg %>";
+		// var msg = "메세지" / "null"
+		
+		if(msg != "null"){
+			alert(msg);
+			// 알람창 띄워준 후 session에 담긴 해당 메세지는 지워줘야 됨
+			// 안그러면 menubar.jsp가 로딩될때마다 매번 alert가 계속 뜸
+			<% session.removeAttribute("alertMsg"); %>
+		}
+    
 	    $(document).ready(function(){ 
 	        
 		    var numberOfImages=3; 
@@ -72,6 +84,7 @@
 </head>
 <body> 
     <div class="wrap" id="background">
+    
         <div id="box">
             <div id="box_wrap">
                 <div id="logo">
@@ -85,11 +98,11 @@
                         <div id="enroll_form_input_info">
                             <input type="text" name="memId" class="form-control" placeholder="ID" required>
                             
-                            <a href="<%= contextPath %>/findId.me" style="margin-left: 35%;">ID가 기억나지 않으세요?</a>
+                            <a href="<%= contextPath %>/findIdController.me" style="margin-left: 35%;">ID가 기억나지 않으세요?</a>
                             <br><br>
                             <input type="password" name="memPwd" class="form-control" placeholder="비밀번호를 입력해주세요" required>
                             
-                            <a href="<%= contextPath %>/findPwd.me" style="margin-left: 38%;">비밀번호를 잊으셨나요?</a>
+                            <a href="<%= contextPath %>/findPwdController.me" style="margin-left: 38%;">비밀번호를 잊으셨나요?</a>
                             <br><br>
                             <button type="submit" class="btn btn-dark" style="width: 130px;">로그인</button>
                             <br><br>

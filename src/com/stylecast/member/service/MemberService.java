@@ -1,6 +1,9 @@
 package com.stylecast.member.service;
 
-import static com.stylecast.common.JDBCTemplate.*;
+import static com.stylecast.common.JDBCTemplate.close;
+import static com.stylecast.common.JDBCTemplate.commit;
+import static com.stylecast.common.JDBCTemplate.getConnection;
+import static com.stylecast.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 
@@ -31,4 +34,17 @@ public class MemberService {
 		return result;
 	}
 	
+	public String MemberFindId(String email) {
+		Connection conn = getConnection();
+		String memId = new MemberDao().MemberFindId(conn, email);
+		close(conn);
+		return memId;
+	}
+	
+	public String MemberFindPwd(Member m) {
+		Connection conn = getConnection();
+		String memPwd = new MemberDao().MemberFindPwd(conn, m);
+		close(conn);
+		return memPwd;
+	}
 }

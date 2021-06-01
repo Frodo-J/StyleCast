@@ -51,6 +51,13 @@ public class Member {
 		this.gender = gender;
 	}
 
+	
+	public Member(String memId, String email) {
+		super();
+		this.memId = memId;
+		this.email = email;
+	}
+
 	public int getMemNo() {
 		return memNo;
 	}
