@@ -226,8 +226,8 @@
                       <div class="card-body">
                         <div class="input-group mb-3">
                         <%if(loginUser.getAdminYN().equals("Y")){ %>
-                            <input type="text" class="form-control" placeholder="답변 내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
-                            <button class="btn btn-secondary" type="button" id="button-addon2">작성</button>
+                            <input type="text" id="answerContent" class="form-control" placeholder="답변 내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <button class="btn btn-secondary" type="button" id="button-addon2" onclick="updateAnswer();">작성</button>
                         <% }else{%>
                         	 <input type="text" class="form-control" placeholder="관리자만 입력 가능합니다." aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
                             <button class="btn btn-secondary" type="button" id="button-addon2" disabled>작성</button>
@@ -252,6 +252,28 @@
             		
             		setInterval(selectReplyList, 1000);
             	})
+            	
+            	function updateAnswer(){
+            		$.ajax({
+            			url:"ainsert.qna",
+            			data:{
+            				content:$("#answerContent").val(),
+            				qno:<%=q.getQnaNo()%>
+            			},
+            			type:"post",
+            			success:function(result){
+            				console.log("updateAnswer실행");
+            				if(result > 0){ // 댓글작성 성공 => 갱신된 댓글 리스트 조회
+            					selectReplyList();
+            					$("#answerContent").val("");
+            					$("#answerContent").attr("placeholder","여기에 다시 답변을 달면 답변이 수정됩니다.");
+            				}
+            				
+            			},error:function(){
+            				console.log("댓글 작성용 ajax 통신실패");
+            			}
+            		});
+            	}
             	
             	function selectReplyList(){
             		$.ajax({
