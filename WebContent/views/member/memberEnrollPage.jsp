@@ -74,7 +74,7 @@
         <div id="box">
             <div id="box_wrap">
                 <div id="logo">
-                    <a href="">
+                    <a href="<%= contextPath %>">
                         <img src="<%=contextPath %>/resources/images/logo.jpg" width="60%">
                     </a>
                 </div>
