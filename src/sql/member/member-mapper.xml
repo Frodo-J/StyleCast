@@ -66,7 +66,27 @@
 	   AND ENT_YN = 'N'
 	</entry>
 
-
+	<entry key="insertMember">
+	INSERT
+	       INTO MEMBER
+	       (
+	         MEM_NO
+	       , MEM_ID
+	       , MEM_PWD
+	       , MEM_NAME
+	       , MEM_EMAIL
+	       , MEM_GENDER
+	       )
+	       VALUES
+	       (
+	         SEQ_MEM.NEXTVAL
+	       , ?
+	       , ?
+	       , ?
+	       , ?
+	       , ?
+	       )
+	</entry>
 
 
 

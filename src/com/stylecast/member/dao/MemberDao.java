@@ -68,8 +68,30 @@ public class MemberDao {
 		return m;
 	}
 	
-	public int updateMember(Connection conn, Member m) {
+	public int insertMember(Connection conn, Member m) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getMemId());
+			pstmt.setString(2, m.getMemPwd());
+			pstmt.setString(3, m.getMemName());
+			pstmt.setString(4, m.getEmail());
+			pstmt.setString(5, m.getGender());
 			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateMember(Connection conn, Member m) {
+		
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateMember");
@@ -93,36 +115,20 @@ public class MemberDao {
 		return result;
 	}
 	
-	
-	public Member selectMember(Connection conn, String userId) {
-		
-		Member updateMem = null;
+	public String MemberFindId(Connection conn, String email) {
+		String memId = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectMember");
+		String sql = prop.getProperty("selectMemberId");
 		
 		try {
-			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
+			pstmt.setString(1, email);
 			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				updateMem = new Member(rset.getInt("mem_no"),
-						   rset.getString("mem_id"),
-						   rset.getString("mem_pwd"),
-						   rset.getString("mem_name"),
-						   rset.getString("mem_email"),
-						   rset.getString("mem_gender"),
-						   rset.getDate("enroll_date"),
-						   rset.getString("black_yn"),
-						   rset.getString("ent_yn"),
-						   rset.getInt("warning"),
-						   rset.getString("admin_yn"),
-						   rset.getDate("update_date"),
-						   rset.getDate("ent_date"),
-						   rset.getString("prof_img"));
+				memId = rset.getString("mem_id");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -130,37 +136,32 @@ public class MemberDao {
 			close(rset);
 			close(pstmt);
 		}
-		return updateMem;
+		return memId;
 	}
-
-	public String checkMember(Connection conn, String memId) {
-		
+	
+	public String MemberFindPwd(Connection conn, Member m) {
 		String memPwd = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("checkMember");
+		String sql = prop.getProperty("selectMemberPwd");
 		
 		try {
-			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, memId);
+			pstmt.setString(1, m.getMemId());
+			pstmt.setString(2, m.getEmail());
 			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
 				memPwd = rset.getString("mem_pwd");
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
-		
 		return memPwd;
 	}
-	
-	
 	
 }

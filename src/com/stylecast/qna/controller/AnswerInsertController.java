@@ -1,29 +1,28 @@
-package com.stylecast.member.controller;
+package com.stylecast.qna.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.stylecast.member.service.MemberService;
 import com.stylecast.member.vo.Member;
+import com.stylecast.qna.model.service.QnaService;
+import com.stylecast.qna.model.vo.Qna;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class AnswerInsertController
  */
-@WebServlet("/loginPage.me")
-public class LoginPageMove extends HttpServlet {
+@WebServlet("/ainsert.qna")
+public class AnswerInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginPageMove() {
+    public AnswerInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,9 +31,20 @@ public class LoginPageMove extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.getRequestDispatcher("views/member/loginPage.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		String content = request.getParameter("content");
+		int qnaNo = Integer.parseInt(request.getParameter("qno"));
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
 		
+		Qna qnaAnswer = new Qna();
+		qnaAnswer.setAnsContent(content);
+		qnaAnswer.setMemAdmin(userNo);
+		qnaAnswer.setQnaNo(qnaNo);
+		
+		int result = new QnaService().updateQnaAnswer(qnaAnswer);
+		
+		response.getWriter().print(result);
+
 	}
 
 	/**
