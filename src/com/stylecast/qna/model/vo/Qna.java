@@ -49,9 +49,6 @@ public class Qna {
 		this.ansDate = ansDate;
 		this.qnaCategory = qnaCategory;
 	}
-	
-	
-	
 
 	public Qna(int qnaNo, String qnaCategory, String qnaTitle,String memName, Date enrDate, String ansContent) {
 		super();
@@ -70,6 +67,17 @@ public class Qna {
 		this.enrDate = enrDate;
 		this.ansContent = ansContent;
 	}
+	
+	public Qna(int qnaNo, String qnaCategory, String qnaTitle, String memName, String qnaContent, Date enrDate) {
+		this.qnaNo = qnaNo;
+		this.qnaCategory = qnaCategory;
+		this.qnaTitle = qnaTitle;
+		this.memName = memName;
+		this.qnaContent = qnaContent;
+		this.enrDate = enrDate;
+	}
+	
+	
 
 	public int getQnaNo() {
 		return qnaNo;
