@@ -40,6 +40,15 @@ public class Member {
 		this.profImg = profImg;
 	}
 
+	public Member(String memId, String memPwd, String memName, String email, String gender) {
+		super();
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.memName = memName;
+		this.email = email;
+		this.gender = gender;
+	}
+
 	public int getMemNo() {
 		return memNo;
 	}

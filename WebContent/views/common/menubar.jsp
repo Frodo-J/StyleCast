@@ -31,7 +31,6 @@
     
     <style>
         
-       
         .wrap{
             width:1200px; 
             height:1300px;  
@@ -123,8 +122,9 @@
             }
         #login{
             border-radius:5px; 
-            border:none; padding:7px 20px; 
-            margin-top: 55px;
+            border:none; padding:7px 10px;
+            font-size: 15px;
+            margin-top: 56px;
             }
 
         #navi{
@@ -148,13 +148,6 @@
             display:block;
             transform:scale(1);
         }
-        
-        #nickName{
-        	text-align:center;
-        	width:auto;
-            height:auto;
-        }
-        
         #profile{margin-top:50px;
             margin-left:35px;
             height:50px;
@@ -193,6 +186,19 @@
     </style>
 </head>
 <body>
+
+	<script>
+		var msg = "<%= alertMsg %>";
+		// var msg = "메세지" / "null"
+		
+		if(msg != "null"){
+			alert(msg);
+			// 알람창 띄워준 후 session에 담긴 해당 메세지는 지워줘야 됨
+			// 안그러면 menubar.jsp가 로딩될때마다 매번 alert가 계속 뜸
+			<% session.removeAttribute("alertMsg"); %>
+		}
+	</script>
+
     <div class="wrap">
         <div id="header">
             <div id="header_1">
@@ -200,18 +206,18 @@
             </div>
 
             <div id="header_2">
-                <div id="daily"><a href=""><font size="5px">Daily</font></a></div>
+                <div id="daily"><a href="<%=contextPath%>/list.da?currentPage=1"><font size="5px">Daily</font></a></div>
                 <div id="trending"><a href=""><font size="5px">Trending</font></a></div>
-                <div id="qna"><a href=""><font size="5px">QnA</font></a></div>
-                <div id="notice"><a href=""><font size="5px">Notice</font></a></div>
+                <div id="qna"><a href="<%= contextPath %>/list.qna?currentPage=1"><font size="5px" id="font_qna">QnA</font></a></div>
+                <div id="notice"><a href="<%= contextPath %>/list.no?currentPage=1"><font size="5px" id="font_notice">Notice</font></a></div>
             </div>
             
-            <script>
+            <!--  <script>
                 $("#header_2 a").click(function(){
                     $("#header_2 a").css("color", "black");
                     $(this).css("color", "rgb(241, 196, 15)");
                 })
-            </script>
+            </script>-->
 
             <div id="header_3">
                 <div class="search-box">
@@ -224,29 +230,38 @@
             
             <div id="header_4">
                 
-               <% //if(loginUser == null){ %>
-                <!--  	<button type="button" id="login" class="btn btn-primary">로그인</button> -->
-               <% //}else{ %>
-                
-                
+               <% if(loginUser == null){ %>
+                	<button type="button" id="login" onclick="loginPage();" class="btn btn-dark">로그인/가입</button>
+               <% }else{ %>
+  
 	     		<ul id="navi">
 	              	<li>
 	                    <div>
+	                    <% if(loginUser.getMemId().equals("admin")) { %>
 	                        <a id="profile" href="">
-	                            <img src="<%=contextPath %>/resources/images/prof.PNG" alt="" class="rounded-circle">
+	                            <img src="<%=contextPath %>/resources/images/prof.PNG" class="rounded-circle">
 	                        </a>
-	                        <div id="nickName">닉네임</div>
+	                    <% }else { %>
+	                    	<a id="profile" href="">
+	                            <img src="<%=contextPath %>/resources/images/prof.PNG" class="rounded-circle">
+	                        </a>
+	                    <% } %>
+	                        <b><%= loginUser.getMemName() %></b>
 	                    </div>
-	                    
 	                    <ul id="hide">
-	                        <div id="myfage"><a href="<%= contextPath %>/myPage.me">마이페이지</a><div>
+	                        <div id="mypage"><a href="<%= contextPath %>/myPage.me">마이페이지</a><div>
 	                        <div id="bookmk"><a href="<%= contextPath %>/bookmark.me">북마크</a><div>
 	                        <div id="logout"><a href="<%= contextPath %>/logout.me">로그아웃</a><div>
 	                    </ul>
 	        		</li>
 	            </ul>
-                <%// } %>
-                
+	          
+                <% } %>
+                <script>
+                	function loginPage(){
+                		location.href = "<%=contextPath%>/loginPage.me";
+                	}
+                </script>
              
 
             </div>

@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.stylecast.notice.model.vo.Notice, java.util.ArrayList" %>
+<%@ page import="com.stylecast.common.model.vo.PageInfo,com.stylecast.notice.model.vo.Notice, java.util.ArrayList" %>
 <%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +51,7 @@
         #content_4{width:30%; height:42%; float:left;}
         #content_5{width:100%; height:35%; float: right;} */
 
-        * {
+        #content {
                 font-family: 'Noto Sans KR', sans-serif;
                 font-weight: 300;
         }
@@ -67,7 +72,7 @@
         }
         #notice_lists{
             width: 80%;
-            height: 65%;
+            height: 725px;
             margin: auto;
         }
         #search_box{
@@ -95,12 +100,17 @@
             margin: auto;
             height: 100px;
         }
+        #font_notice{
+        	color: rgb(241, 196, 15);
+        
+        } 
+        
     </style>
 </head>
 <body>
     
     <div class="wrap">
-    	<%@ include file="../common/menubar1.jsp" %>
+    	<%@ include file="../common/menubar.jsp" %>
         <!--  <div id="header">
             <div id="header_1">로고</div>
             <div id="header_2">메뉴바</div>
@@ -110,19 +120,21 @@
         
         <div id="content">
             <div id="head_box">
-                <h2 id="head_of_notice">Notice</h2>
+                <h3 id="head_of_notice">Notice</h3>
             </div>
             
             <div id="notice_lists">
+            	<form id="search-form" action="<%= contextPath %>/search.no?currentPage=1" method="post">
                 <div id="search_box">
-                    <select class="form-select">
-                        <option selected value="1">제목</option>
-                        <option value="2">내용</option>
-                        <option value="3">작성자</option>
+                    <select class="form-select" name="search_category">
+                        <option selected value="notice_title">제목</option>
+                        <option value="notice_content">내용</option>
+                        <option value="mem_name">작성자</option>
                     </select>
-                    <input id="input_search" class="form-control" type="text" placeholder="검색내용">
-                    <button id="img_btn" type="button"><img src="<%=contextPath %>/resources/images/loupe.png"></button> 
+                    <input id="input_search" class="form-control" type="text" placeholder="검색내용" name="search_text">
+                    <button id="img_btn" type="submit"><img src="<%=contextPath %>/resources/images/loupe.png"></button> 
                 </div>
+                </form>
                 <table class="table table-hover text-center">
                     <thead class="table-light">
                         <th width="10%">번호</th>
@@ -245,28 +257,46 @@
                         </tr> -->
                       </tbody>
                   </table>
+                  <script>
+                  	$(function(){
+                  		$("table>tbody>tr").click(function(){
+                  			location.href = "<%=contextPath%>/detail.no?nno=" + $(this).children().eq(0).text();
+                  		})
+                  	})
+                  
+                  </script>
             </div>
             <div id="admin_box">
                 <div id="admin_box_inner">
                     <!-- 사용자일경우 안보이게-->
-                    <button type="button" class="btn btn-secondary btn-sm">글작성</button>
+                    <% if(loginUser != null && loginUser.getAdminYN().equals("Y")){ %>
+                    	<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='<%=contextPath%>/createForm.no';">글작성</button>
+                    <% } %>
                 </div>
             </div>
-            <div id="page_box">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                      <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item"><a class="page-link" href="#">2</a></li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">&raquo;</a>
-                      </li>
-                    </ul>
-                  </nav>
-            </div>
+            <div id="page_box" class="text-center">
+             	<div align="center" class="btn-group me-2" role="group" aria-label="First group">
+
+					<% if(currentPage != 1){ %>
+            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.no?currentPage=<%=currentPage-1%>';"> &lt; </button>
+					<% } %>
+
+            		<% for(int p=startPage; p<=endPage; p++){ %>
+            	
+            			<% if(p != currentPage){ %>
+	            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.no?currentPage=<%= p %>';"><%= p %></button>
+	            		<% }else { %>
+	            			<button type="button" class="btn btn-outline-secondary" disabled><%= p %></button>
+            			<% } %>
+            	
+            		<% } %>
+
+				<% if(currentPage != maxPage){ %>
+            		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.no?currentPage=<%=currentPage+1%>';"> &gt; </button>
+				<% } %>
+			
+        	</div>
+        </div>
 
         </div>
 
