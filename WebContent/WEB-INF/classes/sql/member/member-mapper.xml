@@ -3,26 +3,26 @@
 <properties>
 
 	<entry key="loginMember">
-	SELECT
-	       MEM_NO
-	     , MEM_ID
-	     , MEM_PWD
-	     , MEM_NAME
-	     , MEM_EMAIL
-	     , MEM_GENDER
-	     , ENROLL_DATE
-	     , BLACK_YN
-	     , ENT_YN
-	     , WARNING
-	     , ADMIN_YN
-	     , UPDATE_DATE
-	     , ENT_DATE
-	     , PROF_IMG
-	  FROM MEMBER
-	 WHERE MEM_ID = ?
-	   AND MEM_PWD = ?
-	   AND BLACK_YN = 'N'
-	   AND ENT_YN = 'N'
+		SELECT
+		       MEM_NO
+		     , MEM_ID
+		     , MEM_PWD
+		     , MEM_NAME
+		     , MEM_EMAIL
+		     , MEM_GENDER
+		     , ENROLL_DATE
+		     , BLACK_YN
+		     , ENT_YN
+		     , WARNING
+		     , ADMIN_YN
+		     , UPDATE_DATE
+		     , ENT_DATE
+		     , PROF_IMG
+		  FROM MEMBER
+		 WHERE MEM_ID = ?
+		   AND MEM_PWD = ?
+		   AND BLACK_YN = 'N'
+		   AND ENT_YN = 'N'
 	</entry>
 	
 	<entry key="updateMember">
@@ -66,9 +66,52 @@
 	   AND ENT_YN = 'N'
 	</entry>
 
+	<entry key="insertMember">
+		INSERT
+		       INTO MEMBER
+		       (
+		       MEM_NO
+		     , MEM_ID
+		     , MEM_PWD
+		     , MEM_NAME
+		     , MEM_EMAIL
+		     , MEM_GENDER
+		       )
+		       VALUES
+		       (
+		        SEQ_MEM.NEXTVAL
+		      , ?
+		      , ?
+		      , ?
+		      , ?
+		      , ?
+		       )
+	</entry>
 
+	<entry key="selectMemberId">
+		SELECT 
+		       MEM_ID
+		  FROM 
+		       MEMBER
+		 WHERE 
+		       MEM_EMAIL = ?
+		   AND BLACK_YN = 'N'
+		   AND ENT_YN = 'N'
+		   AND ADMIN_YN = 'N'
+	</entry>
 
-
+	<entry key="selectMemberPwd">
+		SELECT 
+		       MEM_PWD
+		  FROM 
+		       MEMBER
+		 WHERE 
+		 	   MEM_ID = ?
+		   AND MEM_EMAIL = ?
+		   AND BLACK_YN = 'N'
+		   AND ENT_YN = 'N'
+		   AND ADMIN_YN = 'N'
+	</entry>
 
 
 </properties>

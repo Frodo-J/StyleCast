@@ -5,14 +5,14 @@
 	String contextPath = request.getContextPath();
 
 	Member loginUser = (Member)session.getAttribute("loginUser");
+	
+	String alertMsg = (String)session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StyleCast</title>
+<meta charset="UTF-8">
+<title>StyleCast</title>
     <!--bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
@@ -61,6 +61,16 @@
     </style>
     <script>
 
+		var msg = "<%= alertMsg %>";
+		// var msg = "메세지" / "null"
+		
+		if(msg != "null"){
+			alert(msg);
+			// 알람창 띄워준 후 session에 담긴 해당 메세지는 지워줘야 됨
+			// 안그러면 menubar.jsp가 로딩될때마다 매번 alert가 계속 뜸
+			<% session.removeAttribute("alertMsg"); %>
+		}
+    
 	    $(document).ready(function(){ 
 	        
 		    var numberOfImages=3; 
@@ -73,13 +83,13 @@
   	</script>
 </head>
 <body> 
-	
     <div class="wrap" id="background">
+    
         <div id="box">
             <div id="box_wrap">
                 <div id="logo">
                     <a href="">
-                        <img src="<%=contextPath %>/resources/images/logo.jpg" alt="로고입니다" width="60%">
+                        <img src="<%=contextPath %>/resources/images/logo.jpg" width="60%">
                     </a>
                 </div>
                 <div id="enroll_form">
@@ -88,28 +98,22 @@
                         <div id="enroll_form_input_info">
                             <input type="text" name="memId" class="form-control" placeholder="ID" required>
                             
-                            <a href="<%= contextPath %>/findId.me" style="margin-left: 35%;">ID가 기억나지 않으세요?</a>
+                            <a href="<%= contextPath %>/findIdController.me" style="margin-left: 35%;">ID가 기억나지 않으세요?</a>
                             <br><br>
                             <input type="password" name="memPwd" class="form-control" placeholder="비밀번호를 입력해주세요" required>
                             
-                            <a href="<%= contextPath %>/findPwd.me" style="margin-left: 38%;">비밀번호를 잊으셨나요?</a>
+                            <a href="<%= contextPath %>/findPwdController.me" style="margin-left: 38%;">비밀번호를 잊으셨나요?</a>
                             <br><br>
-                            <button type="submit" class="btn btn-dark" style="width: 130px;" onclick="loginPage();">로그인</button>
-                            <br>
-                            <br>
-                            <h6>
-                            이용 중 도움이 필요하시면<br>
+                            <button type="submit" class="btn btn-dark" style="width: 130px;">로그인</button>
+                            <br><br>
+                            <a href="<%=contextPath%>/joinPage.me">여기서 가입</a>
+                            <h6>이용 중 도움이 필요하시면<br>
                             help@stylecast.com으로 문의해 주세요.
                             </h6>
                         </div>
                     </form>
                 </div>
             </div>
-            <script>
-            	function loginPage(){
-            		location.href = "<%=contextPath%>/login.me";
-            	}
-            </script>
         </div>
     </div>
 </body>

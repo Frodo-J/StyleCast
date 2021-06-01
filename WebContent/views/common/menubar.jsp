@@ -237,18 +237,18 @@
             <div id="header_4">
                 
                <% if(loginUser == null){ %>
-                	<button type="button" id="login" onclick="loginPage();" class="btn btn-dark">로그인/가입</button>
+                	<button type="button" id="login" onclick="joinPage();" class="btn btn-dark">로그인/가입</button>
                <% }else{ %>
   
 	     		<ul id="navi">
 	              	<li>
 	                    <div>
 	                    <% if(loginUser.getMemId().equals("admin")) { %>
-	                        <a id="profile" href="">
+	                        <a id="profile">
 	                            <img src="<%=contextPath %>/resources/images/prof.PNG" class="rounded-circle">
 	                        </a>
 	                    <% }else { %>
-	                    	<a id="profile" href="">
+	                    	<a id="profile">
 	                            <img src="<%=contextPath %>/resources/images/prof.PNG" class="rounded-circle">
 	                        </a>
 	                    <% } %>
@@ -264,8 +264,8 @@
 	          
                 <% } %>
                 <script>
-                	function loginPage(){
-                		location.href = "<%=contextPath%>/loginPage.me";
+                	function joinPage(){
+                		location.href = "<%=contextPath%>/joinPage.me";
                 	}
                 </script>
              
