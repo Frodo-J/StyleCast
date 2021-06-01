@@ -94,4 +94,22 @@ public class DailyService {
 		return result;
 	}
 	
+	public int deleteDailyCM(DailyCM cm) {
+		Connection conn = getConnection();
+		int result = new DailyDao().deleteDailyCM(conn, cm);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
+		
+		
+		
+		
+	}
+	
 }

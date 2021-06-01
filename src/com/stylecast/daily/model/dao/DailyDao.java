@@ -221,7 +221,7 @@ public class DailyDao {
 				cList.add(new DailyCM(rset.getInt("cm_no"),
 						 			  rset.getInt("mem_no"),
 						 			  rset.getString("cm_content"),
-						 			  rset.getDate("enr_date"),
+						 			  rset.getString("enr_date"),
 						 			  rset.getString("mem_name"),
 						 			  rset.getString("prof_img")));
 			}
@@ -256,6 +256,27 @@ public class DailyDao {
 		}
 		
 		return result;
+	}
+	
+	public int deleteDailyCM(Connection conn, DailyCM cm) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteDailyCM");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cm.getCmNo());
+			pstmt.setInt(2, cm.getDailyNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
 	}
 	
 }

@@ -8,14 +8,14 @@ public class DailyCM {
 	private int memNo;
 	private int dailyNo;
 	private String cmContent;
-	private Date enrDate;
+	private String enrDate;
 	
 	private String memName;
 	private String profImg;
 	
 	public DailyCM() {}
 
-	public DailyCM(int cmNo, int memNo, int dailyNo, String cmContent, Date enrDate) {
+	public DailyCM(int cmNo, int memNo, int dailyNo, String cmContent, String enrDate) {
 		super();
 		this.cmNo = cmNo;
 		this.memNo = memNo;
@@ -24,7 +24,7 @@ public class DailyCM {
 		this.enrDate = enrDate;
 	}
 
-	public DailyCM(int cmNo, int memNo, String cmContent, Date enrDate, String memName, String profImg) {
+	public DailyCM(int cmNo, int memNo, String cmContent, String enrDate, String memName, String profImg) {
 		super();
 		this.cmNo = cmNo;
 		this.memNo = memNo;
@@ -66,11 +66,11 @@ public class DailyCM {
 		this.cmContent = cmContent;
 	}
 
-	public Date getEnrDate() {
+	public String getEnrDate() {
 		return enrDate;
 	}
 
-	public void setEnrDate(Date enrDate) {
+	public void setEnrDate(String enrDate) {
 		this.enrDate = enrDate;
 	}
 
@@ -92,9 +92,9 @@ public class DailyCM {
 
 	@Override
 	public String toString() {
-		return "Daily_CM [cmNo=" + cmNo + ", memNo=" + memNo + ", dailyNo=" + dailyNo + ", cmContent=" + cmContent
-				+ ", enrDate=" + enrDate + "]";
+		return "DailyCM [cmNo=" + cmNo + ", memNo=" + memNo + ", dailyNo=" + dailyNo + ", cmContent=" + cmContent
+				+ ", enrDate=" + enrDate + ", memName=" + memName + ", profImg=" + profImg + "]";
 	}
-	
+
 	
 }

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList, com.stylecast.daily.model.vo.*"%>
+	import="java.util.ArrayList, com.stylecast.daily.model.vo.*, java.text.SimpleDateFormat"%>
 <%
 	Daily d = (Daily)request.getAttribute("d");
 	// 데일리번호, 회원번호, 데일리내용, 작성일, 이미지경로, 태그, 회원닉네임, 프로필이미지경로
@@ -425,6 +425,12 @@ div {
 	<div class="wrap">
 
 		<%@ include file="../common/menubar.jsp"%>
+		<% SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy.MM.dd"); %>
+		<% if(loginUser != null) { %>
+		<input type="hidden" id="loginUserNo"
+			value="<%=loginUser.getMemNo()%>">
+		<% } %>
+
 
 		<div id="content">
 			<div id="content_1">
@@ -461,7 +467,7 @@ div {
 						<div>117</div>
 					</div>
 					<% } %>
-					<div id="date"><%= d.getEnrDate() %></div>
+					<div id="date"><%= simpleDateFormat.format(d.getEnrDate()) %></div>
 					<div id="post_no">
 						No.
 						<%= d.getDailyNo() %></div>
@@ -510,19 +516,22 @@ div {
 			<div id="content_3">
 				<div id="comment_wrapper">
 					<div id="comment_count">
-						<span>댓글</span> <span></span>
+						<span>댓글</span>
+						<span></span>
 					</div>
 					<div id="comment_write">
 						<form action="" method="post">
 							<% if(loginUser != null) { %>
 							<!-- 로그인이 되어있을 경우 -->
-							<input type="text" id="commentContent" class="form-control" placeholder="댓글을 입력해주세요">
-							<button onclick="insertReply()"; class="btn btn-secondary btn-sm">입력</button>
+							<input type="text" id="commentContent" class="form-control"
+								placeholder="댓글을 입력해주세요">
+							<button onclick="insertComment();" class="btn btn-secondary btn-sm">입력</button>
 							<% }else {%>
 							<!-- 로그인 되어있지 않을 경우 -->
 							<input type="text" class="form-control"
 								placeholder="로그인 후 이용가능한 서비스입니다" readonly>
-							<button onclick="insertReply()"; class="btn btn-secondary btn-sm" disabled>입력</button>
+							<button onclick="insertComment()"
+								; class="btn btn-secondary btn-sm" disabled>입력</button>
 							<% } %>
 						</form>
 					</div>
@@ -587,7 +596,7 @@ div {
 						<!-- 회원번호, 피신고회원번호, 내용(널러블), 게시판카테고리(0), 데일리번호, 신고카테고리 -->
 						<input type="hidden" id="cmMemNo" name="memNo" value=""> <input
 							type="hidden" id="cmRMemNo" name="rMemNo" value=""> <input
-							type="hidden" id="cmDailyNo" name="DailyNo" value=""> <input
+							type="hidden" id="cmDailyNo" name="dailyNo" value=""> <input
 							type="hidden" id="cmNo" name="cmNo" value=""> <input
 							type="hidden" id="cmCurrentUrl" name="currentUrl" value="">
 						<input type="radio" name="report_category" value="욕설 및 비방" checked>&nbsp;욕설
@@ -617,7 +626,7 @@ div {
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="deleteModalLabel">삭제</h5>
+					<h5 class="modal-title" id="deleteModalLabel">게시글 삭제</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
@@ -628,6 +637,33 @@ div {
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">취소</button>
 					<button type="button" class="btn btn-primary">확인</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 댓글 삭제 확인-->
+	<div class="modal fade" id="deleteCmModal" tabindex="-1"
+		aria-labelledby="deleteModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="deleteModalLabel">댓글 삭제</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>이 댓글을 삭제하시겠습니까?</p>
+				</div>
+				<div class="modal-footer">
+					<form action="<%=contextPath%>/cdelete.da" method="post">
+						<input type="hidden" id="deleteCmDNo" name="dailyNo" value="">
+						<input type="hidden" id="deleteCmNo" name="cmNo" value="">
+						<input type="hidden" id="deleteCmCurrentUrl" name="currentUrl" value="">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">취소</button>
+						<button type="submit" class="btn btn-primary">확인</button>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -660,22 +696,20 @@ div {
 
 	<script>
         // 댓글 신고 버튼 호버
-        $(document).ready(function(){
-    	$(".comment_read").hover(function(){
-    		$(this).children(".comment_report").css("visibility", "visible");
-    	}, function(){
-    		$(this).children(".comment_report").css("visibility", "hidden");
-    	})
+        $(document).on("mouseover", ".comment_read", function(){
+        	$(this).children(".comment_report").css("visibility", "visible");
+        });
+        $(document).on("mouseout", ".comment_read", function(){
+        	$(this).children(".comment_report").css("visibility", "hidden");
         });
         
         // 댓글 삭제 버튼 호버
-        $(document).ready(function(){
-    	$(".comment_read").hover(function(){
+        $(document).on("mouseover", ".comment_read", function(){
     		$(this).children(".comment_delete").css("visibility", "visible");
-    	}, function(){
+     	});
+     	$(document).on("mouseout", ".comment_read", function(){
     		$(this).children(".comment_delete").css("visibility", "hidden");
-    	})
-        });
+     	});
 
         // 신고 양식 textarea 비활성화
         $(document).ready(function(){
@@ -692,34 +726,39 @@ div {
         });
         
         // 게시글 신고 모달에 값 전달 
-        $('.report').on('click', function(){
+        $(document).on("click", ".report", function(){
             $("#memNo").val($(this).siblings('input[name=loginUser]').val());
             $("#rMemNo").val($(this).siblings('input[name=writeUser]').val());
             $("#dailyNo").val($(this).siblings('input[name=reportDailyNo]').val());
             $("#currentUrl").val($(location).attr('href'));
-         })
+         });
          
         // 댓글 신고 모달에 값 전달 
-        $('.report_cm').on('click', function(){
+        $(document).on("click", ".report_cm", function(){
             $("#cmMemNo").val($(this).siblings('input[name=cmLoginUser]').val());
             $("#cmRMemNo").val($(this).siblings('input[name=cmWriteUser]').val());
             $("#cmNo").val($(this).siblings('input[name=reportCmNo]').val());
             $("#cmDailyNo").val($(this).siblings('input[name=reportDailyCmNo]').val());
             $("#cmCurrentUrl").val($(location).attr('href'));
-         })
-         
-         // 댓글 개수 카운트
-         $(document).ready(function(){
-        	 var n = $('.comment_read').length;
-        	 $("#comment_count").children().eq(1).text('(' + n + ')');
          });
         
-        // 댓글 ajax
-        $(function(){
-        	//selectReplyList();
-        })
+        // 댓글 삭제 모달에 값 전달
+        $(document).on("click", ".comment_delete", function(){
+            $("#deleteCmDNo").val($(this).siblings('input[name=deleteCmDNo]').val());
+            $("#deleteCmNo").val($(this).siblings('input[name=deleteCmNo]').val());
+            $("#deleteCmCurrentUrl").val($(location).attr('href'));
+            
+            console.log($("#deleteCmDNo").val());
+            console.log($("#deleteCmNo").val());
+            console.log($("#deleteCmCurrentUrl").val());
+        });
         
-        function insertReply() {
+        // 댓글 관련
+        $(function(){
+        	selectCommentList();
+        });
+        
+        function insertComment() {
     		$.ajax({
     			url:"cinsert.da",
     			data:{
@@ -730,15 +769,71 @@ div {
     			success:function(result){
     				
     				if(result > 0) { 
-    					//selectReplyList();
+    					selectCommentList();
     					$("#commentContent").val("");
     				}
     				
     			},error:function(){
-    				console.log("댓글 작성용 ajax통신 실패");
+    				console.log("댓글 작성 ajax통신 실패");
     			}
     		});
     	}
+        
+        
+        function selectCommentList(){
+        	$.ajax({
+                url:"clist.da",
+                data:{dno:<%=d.getDailyNo()%>},
+                success:function(list){
+                	var result = "";
+
+        	        for(var i in list){
+        	        	result += "<div class='comment_read'>"
+	        	        			+ "<div><img src='" + list[i].profImg + "'></div>"
+	        	        			+ "<div class='comment_id'>" + list[i].memName + "</div>"
+	        	        			+ "<div class='comment_content'>" + list[i].cmContent + "</div>"; 
+        	         	// 여기까지는 공통요소
+
+        	      		// 이어서 각 조건에 맞는 부분
+        	      		if($("#loginUserNo").val() > 0 && $("#loginUserNo").val() == list[i].memNo){ //현재 로그인한 회원이 해당 댓글작성자 본인일경우
+        	      		
+            	      		result += "<input type='button' class='comment_delete' data-bs-toggle='modal' data-bs-target='#deleteCmModal'>"
+      	                        	+ "<input type='hidden' name='deleteCmDNo' value='" + <%= d.getDailyNo() %> + "'>"
+      	                        	+ "<input type='hidden' name='deleteCmNo' value='" + list[i].cmNo + "'>"
+    	                        	+ "<div class='comment_date'>" + list[i].enrDate + "</div>"
+    	                        	+ "</div>";
+
+        	      		}else if($("#loginUserNo").val() > 0) { //현재 로그인한회원이 해당 댓글작성자 본인이 아닐 경우
+        	      			
+        	      			result += "<input type='button' class='comment_report report_cm' data-bs-toggle='modal' data-bs-target='#reportCmModal'>"
+	      	                		+ "<input type='hidden' name='cmLoginUser' value='" + $("#loginUserNo").val() + "'>" 
+	      	                        + "<input type='hidden' name='cmWriteUser' value='" + list[i].memNo + "'>"
+	      	                        + "<input type='hidden' name='reportDailyCmNo' value='" + <%= d.getDailyNo() %> + "'>"
+	      	                        + "<input type='hidden' name='reportCmNo' value='" + list[i].cmNo + "'>"
+	      	                        + "<div class='comment_date'>" + list[i].enrDate + "</div>"
+	      	                        + "</div>";
+
+        	      		}else{  //비회원일경우
+      	            		result += "<input type='button' class='comment_none'>"
+                        			+ "<div class='comment_date'>" + list[i].enrDate + "</div>"
+                       				+ "</div>";
+        	      		}
+        	           $("#comment_read_wrapper").html(result);
+        	        }
+        	    },error:function(){
+        	         console.log("댓글 조회 ajax통신 실패");
+        	    }
+        	})
+      	}	
+        
+	         // 댓글 개수 카운트
+	         $(document).ready(function(){
+	        	 $(document).ajaxComplete(function(){
+		        	 var n = $(".comment_read").length;
+		        	 $("#comment_count").children().eq(1).text('(' + n + ')');
+	        	 })
+	         });
+
          
     </script>
 
