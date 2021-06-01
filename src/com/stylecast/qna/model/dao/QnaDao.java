@@ -254,6 +254,27 @@ public class QnaDao {
 		return qAnswer;
 	}
 
+	public int updateQnaAnswer(Connection conn, Qna q) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateQnaAnswer");
+		
+		try{
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, q.getAnsContent());
+			pstmt.setInt(2, q.getMemAdmin());
+			pstmt.setInt(3, q.getQnaNo());
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 	
 
 }

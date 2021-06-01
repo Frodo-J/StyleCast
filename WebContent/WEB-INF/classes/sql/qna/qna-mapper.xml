@@ -84,5 +84,13 @@
     	JOIN MEMBER M ON (Q.MEM_ADMIN=M.MEM_NO)
     	WHERE QNA_NO = ?
 	</entry>
+	<entry key="updateQnaAnswer">
+		UPDATE QNA
+			SET
+			ANS_CONTENT = ?,
+			MEM_ADMIN = ?,
+			ANS_DATE = SYSDATE
+		WHERE QNA_NO = ?
+	</entry>
 
 </properties>

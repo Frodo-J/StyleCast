@@ -77,9 +77,23 @@ public class QnaService {
 		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		Qna qAnswer = new QnaDao().selectQnaAnswer(conn,qnaNo);
-		System.out.println("selectQnaAnswer: " + qAnswer);
 		close(conn);
 		return qAnswer;
+	}
+
+	public int updateQnaAnswer(Qna q) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		int result = new QnaDao().updateQnaAnswer(conn,q);
+		System.out.println("updateQnaAnswer" + result);
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
 	}
 
 
