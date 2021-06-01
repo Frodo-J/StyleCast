@@ -6,6 +6,7 @@ public class Qna {
 	
 	private int qnaNo;
 	private int memNo;
+	private String memName;
 	private String qnaTitle;
 	private String qnaContent;
 	private Date enrDate;
@@ -30,6 +31,36 @@ public class Qna {
 		this.ansContent = ansContent;
 		this.ansDate = ansDate;
 		this.qnaCategory = qnaCategory;
+	}
+	
+	
+
+	public Qna(int qnaNo, int memNo, String memName, String qnaTitle, String qnaContent, Date enrDate, int memAdmin,
+			String ansContent, Date ansDate, String qnaCategory) {
+		super();
+		this.qnaNo = qnaNo;
+		this.memNo = memNo;
+		this.memName = memName;
+		this.qnaTitle = qnaTitle;
+		this.qnaContent = qnaContent;
+		this.enrDate = enrDate;
+		this.memAdmin = memAdmin;
+		this.ansContent = ansContent;
+		this.ansDate = ansDate;
+		this.qnaCategory = qnaCategory;
+	}
+	
+	
+	
+
+	public Qna(int qnaNo, String qnaCategory, String qnaTitle,String memName, Date enrDate, String ansContent) {
+		super();
+		this.qnaNo = qnaNo;
+		this.qnaCategory = qnaCategory;
+		this.qnaTitle = qnaTitle;
+		this.memName = memName;
+		this.enrDate = enrDate;
+		this.ansContent = ansContent;
 	}
 
 	public Qna(int qnaNo, String qnaTitle, Date enrDate, String ansContent) {
@@ -111,12 +142,24 @@ public class Qna {
 	public void setQnaCategory(String qnaCategory) {
 		this.qnaCategory = qnaCategory;
 	}
+	
+	
+
+	public String getMemName() {
+		return memName;
+	}
+
+	public void setMemName(String memName) {
+		this.memName = memName;
+	}
 
 	@Override
 	public String toString() {
-		return "Qna [qnaNo=" + qnaNo + ", memNo=" + memNo + ", qnaTitle=" + qnaTitle + ", qnaContent=" + qnaContent
-				+ ", enrDate=" + enrDate + ", memAdmin=" + memAdmin + ", ansContent=" + ansContent + ", ansDate="
-				+ ansDate + ", qnaCategory=" + qnaCategory + "]";
+		return "Qna [qnaNo=" + qnaNo + ", memNo=" + memNo + ", memName=" + memName + ", qnaTitle=" + qnaTitle
+				+ ", qnaContent=" + qnaContent + ", enrDate=" + enrDate + ", memAdmin=" + memAdmin + ", ansContent="
+				+ ansContent + ", ansDate=" + ansDate + ", qnaCategory=" + qnaCategory + "]";
 	}
+
+	
 	
 }

@@ -1,4 +1,4 @@
-package com.stylecast.notice.controller;
+package com.stylecast.qna.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,20 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.stylecast.common.model.vo.PageInfo;
-import com.stylecast.notice.model.service.NoticeService;
-import com.stylecast.notice.model.vo.Notice;
+
+
+import com.stylecast.qna.model.service.QnaService;
+import com.stylecast.qna.model.vo.Qna;
 
 /**
- * Servlet implementation class NoticeSearchController
+ * Servlet implementation class QnaListController
  */
-@WebServlet("/search.no")
-public class NoticeSearchController extends HttpServlet {
+@WebServlet("/list.qna")
+public class QnaListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeSearchController() {
+    public QnaListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,7 +35,6 @@ public class NoticeSearchController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
 		int listCount;
 		int currentPage;
 		int pageLimit;
@@ -43,19 +44,11 @@ public class NoticeSearchController extends HttpServlet {
 		int startPage;
 		int endPage;
 		
-		// 여기서 작업
-		//사용자가 선택한 카테고리
-		String category = request.getParameter("search_category");
-		
-		//사용자가 입력한 검색내용
-		String text = request.getParameter("search_text");
-		
 		// 총 게시글 갯수
-		listCount = new NoticeService().selectListCount(category,text);
+		listCount = new QnaService().selectListCount();
 		
 		// 사용자가 요청한 페이지 ( 현재 페이지)
-	    currentPage = Integer.parseInt(request.getParameter("currentPage"));
-
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		
 		// pageLimit : 하단에 보여질 페이징바의 페이지 최대 갯수(페이지 목록들 몇개)
 		pageLimit = 10;
@@ -75,14 +68,15 @@ public class NoticeSearchController extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+		ArrayList<Qna> list = new QnaService().selectList(pi);
+		System.out.println(list);
+		System.out.println(pi);
 		
+		//ArrayList<Notice> list = new NoticeService().selectNoticeList();
 		
-		ArrayList<Notice> list = new NoticeService().selectSearchList(pi,category,text);
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
-		request.setAttribute("text", text);
-		request.setAttribute("category", category);
-		request.getRequestDispatcher("views/notice/noticeSearch.jsp").forward(request,response);
+		request.getRequestDispatcher("views/qna/qnaMain.jsp").forward(request,response);
 	}
 
 	/**
