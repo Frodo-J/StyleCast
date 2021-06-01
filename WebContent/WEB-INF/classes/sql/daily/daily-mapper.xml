@@ -54,7 +54,7 @@
 		  )
 	</entry>
 
-	<entry key="insertReportCm">
+	<entry key="insertReportCM">
 		INSERT
 			  INTO REPORT
 			  (
@@ -117,5 +117,23 @@
 		  LEFT JOIN MEMBER USING(MEM_NO)
 		 WHERE DAILY_NO = ?
 		 ORDER BY ENR_DATE DESC
+	</entry>
+	
+	<entry key="insertDailyCM">
+		INSERT
+		  INTO DAILY_CM
+		  (
+		    CM_NO
+		  , MEM_NO
+		  , DAILY_NO
+		  , CM_CONTENT
+		  )
+		  VALUES
+		  (
+		    SEQ_CM.NEXTVAL
+		  , ?
+		  , ?
+		  , ?
+		  )
 	</entry>
 </properties>

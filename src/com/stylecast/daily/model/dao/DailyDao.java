@@ -118,10 +118,10 @@ public class DailyDao {
 		return result;
 	}
 	
-	public int insertReportCm(Connection conn, Report r) {
+	public int insertReportCM(Connection conn, Report r) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertReportCm");
+		String sql = prop.getProperty("insertReportCM");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -234,6 +234,28 @@ public class DailyDao {
 		}
 		
 		return cList;
+	}
+	
+	public int insertDailyCM(Connection conn, DailyCM cm) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertDailyCM");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cm.getMemNo());
+			pstmt.setInt(2, cm.getDailyNo());
+			pstmt.setString(3, cm.getCmContent());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	
 }

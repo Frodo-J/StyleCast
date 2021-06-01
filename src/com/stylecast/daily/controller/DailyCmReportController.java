@@ -48,7 +48,7 @@ public class DailyCmReportController extends HttpServlet {
 		r.setContent(content);
 		r.setRptCategory(rptCategory);
 		
-		int result = new DailyService().insertReportCm(r);
+		int result = new DailyService().insertReportCM(r);
 		
 		if(result > 0) {
 			
