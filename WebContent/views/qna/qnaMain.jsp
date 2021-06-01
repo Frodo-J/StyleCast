@@ -8,6 +8,7 @@
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
+	
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -117,7 +118,6 @@
             <div id="head_box">
                 <h2 id="head_of_qna">Qna</h2>
             </div>
-            
             <div id="qna_lists">
                 <div id="search_box" action="<%= contextPath %>/search.qna?currentPage=1" method="post">
                     <select class="form-select" name="search_category">
@@ -160,6 +160,28 @@
                       <% } %>
                       </tbody>
                   </table>
+                    <script>
+                  	$(function(){
+                  		$("table>tbody>tr").click(function(){
+                  			// 클릭한 행의 큐엔에이 넘버 값을 가져오기
+                  			var qno = $(this).children().eq(0).text();
+                  			// 클릭한 행의 큐앤에이 작성자 닉네임을 가져오기
+                  			var postMemName = $(this).children().eq(3).text();
+                  			var adminYN = "<%=adminYN%>";
+                  			var memName = "<%=memName%>";
+                  			console.log(postMemName);
+                  			
+                  			if((adminYN =="Y") || (memName == postMemName) ){
+                  				location.href = "<%=contextPath%>/detail.qna?qno=" + $(this).children().eq(0).text();
+                  			}else{
+                  				alert("권한이 없습니다!")
+                  			}
+                  			
+                  			
+                  		})
+                  	})
+                  
+                  </script>
             </div>
             <div id="write_box">
                 <div id="write_box_inner">

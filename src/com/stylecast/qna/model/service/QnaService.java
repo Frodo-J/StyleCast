@@ -5,6 +5,7 @@ import static com.stylecast.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.stylecast.common.model.vo.BoardImage;
 import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.qna.model.dao.QnaDao;
 import com.stylecast.qna.model.vo.Qna;
@@ -49,6 +50,27 @@ public class QnaService {
 		
 		return listCount;
 		
+	}
+
+
+	public Qna selectQna(int qnaNo) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		Qna q = new QnaDao().selectQna(conn,qnaNo);
+		System.out.println(q);
+		close(conn);
+		
+		return q;
+	}
+
+	public ArrayList<BoardImage> selectBoardImageList(int qnaNo) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		
+		ArrayList<BoardImage> imgList = new QnaDao().selectBoardImageList(conn,qnaNo);
+		close(conn);
+		System.out.println(imgList);
+		return imgList;
 	}
 
 

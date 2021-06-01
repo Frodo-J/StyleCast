@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.stylecast.common.model.vo.BoardImage;
 import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.notice.model.vo.Notice;
 import com.stylecast.qna.model.vo.Qna;
@@ -157,5 +158,72 @@ public class QnaDao {
 		return listCount;
 
 	}
+
+	public Qna selectQna(Connection conn, int qnaNo) {
+		// TODO Auto-generated method stub
+		Qna q = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectQna");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qnaNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				q = new Qna(rset.getInt("qna_no"),
+							   rset.getString("qna_category"),
+							   rset.getString("qna_title"),
+							   rset.getString("mem_name"),
+							   rset.getString("qna_content"),
+							   rset.getDate("enr_date")
+							   );
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return q;
+	}
+
+	public ArrayList<BoardImage> selectBoardImageList(Connection conn, int qnaNo) {
+		// TODO Auto-generated method stub
+		ArrayList<BoardImage> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectBoardImage");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qnaNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				BoardImage bImg = new BoardImage();
+				bImg.setImgNo(rset.getInt("img_no"));
+				bImg.setImgPath(rset.getString("img_path"));
+				bImg.setPostCategory(rset.getInt("post_category"));
+				bImg.setPostNo(rset.getInt("post_no"));
+				list.add(bImg);
+			}
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	
 
 }

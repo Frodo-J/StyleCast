@@ -7,6 +7,12 @@
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	
 	String alertMsg = (String)session.getAttribute("alertMsg");
+	String adminYN = "N";
+	String memName = null;
+	if(loginUser!=null){
+		adminYN = loginUser.getAdminYN();
+		memName = loginUser.getMemName();
+	}
 %>
 <!DOCTYPE html>
 <html >
