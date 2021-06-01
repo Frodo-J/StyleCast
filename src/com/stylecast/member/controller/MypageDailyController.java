@@ -1,29 +1,24 @@
-package com.stylecast.notice.controller;
+package com.stylecast.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.stylecast.common.model.vo.BoardImage;
-import com.stylecast.notice.model.service.NoticeService;
-import com.stylecast.notice.model.vo.Notice;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class NoticeDetailController
+ * Servlet implementation class MyPageUpdate
  */
-@WebServlet("/detail.no")
-public class NoticeDetailController extends HttpServlet {
+@WebServlet("/myPage.me")
+public class MypageDailyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDetailController() {
+    public MypageDailyController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,23 +27,18 @@ public class NoticeDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		int noticeNo = Integer.parseInt(request.getParameter("nno"));
 		
-		NoticeService nService = new NoticeService();
+		HttpSession session = request.getSession();
 		
-		int result = nService.increaseCount(noticeNo);
-		
-		if(result > 0) {
-			Notice n = nService.selectNotice(noticeNo);
-
-			ArrayList<BoardImage> imgList = new NoticeService().selectBoardImageList(noticeNo);
+		// 로그인한 회원의 요청인지 확인
+		if(session.getAttribute("loginUser") == null) { // 로그인 전
 			
-			request.setAttribute("n", n);
-			request.setAttribute("imgList", imgList);
-			request.getRequestDispatcher("views/notice/noticeDetail.jsp").forward(request, response);
-		}
-		
+			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스입니다.");
+			response.sendRedirect(request.getContextPath());
+			
+		}else { // 로그인 후
+			request.getRequestDispatcher("views/mypage/mypageDaily.jsp").forward(request, response);
+		}	
 	}
 
 	/**

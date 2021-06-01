@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectMyQnaList">
+		SELECT *
+		  FROM (
+		  		SELECT ROWNUM RNUM, A.*
+				  FROM (
+				  		SELECT
+					   QNA_NO
+					 , QNA_TITLE
+					 , ENR_DATE
+					 , ANS_CONTENT
+				  FROM QNA
+				 WHERE MEM_NO = ?
+			  ORDER BY
+			  	 	   ENR_DATE DESC
+				  	 	) A
+		  		)
+		   WHERE RNUM BETWEEN ? AND ?
+	</entry>
+
+	<entry key="selectMyQnaListCount">
+		SELECT
+			   COUNT(*) COUNT
+		  FROM QNA
+		 WHERE MEM_NO = ?
+	</entry>
+	
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT
+		FROM QNA
+	</entry>
+
+	<entry key="selectList">
+		SELECT *
+		FROM(
+    		SELECT ROWNUM RNUM, A.*
+    		FROM(
+        		SELECT
+            		QNA_NO,
+                    QNA_CATEGORY,
+                    QNA_TITLE,
+            		M.MEM_NAME MEM_NAME,
+            		ENR_DATE,
+                    ANS_CONTENT
+        		FROM
+            		QNA Q
+        		JOIN MEMBER M ON ( Q.MEM_NO = M.MEM_NO )
+    		ORDER BY
+        		ENR_DATE DESC) A
+        		)
+    		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="selectQna">
+		SELECT 
+    		QNA_NO,
+            QNA_CATEGORY,
+    		QNA_TITLE,
+            M.MEM_NAME MEM_NAME,
+    		QNA_CONTENT,
+    		ENR_DATE 
+    	FROM QNA Q
+    	JOIN MEMBER M ON (Q.MEM_NO=M.MEM_NO)
+    	WHERE QNA_NO = ?
+	</entry>
+	<entry key="selectBoardImage">
+		SELECT
+		 	IMG_NO,
+		 	IMG_PATH,
+		 	POST_CATEGORY,
+		 	POST_NO
+		FROM IMAGE
+		WHERE POST_CATEGORY = 1
+		AND POST_NO = ?
+	</entry>
+
+</properties>

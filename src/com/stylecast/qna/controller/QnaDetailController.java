@@ -1,4 +1,4 @@
-package com.stylecast.notice.controller;
+package com.stylecast.qna.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.stylecast.common.model.vo.BoardImage;
-import com.stylecast.notice.model.service.NoticeService;
-import com.stylecast.notice.model.vo.Notice;
+import com.stylecast.qna.model.service.QnaService;
+import com.stylecast.qna.model.vo.Qna;
 
 /**
- * Servlet implementation class NoticeDetailController
+ * Servlet implementation class QnaDetailController
  */
-@WebServlet("/detail.no")
-public class NoticeDetailController extends HttpServlet {
+@WebServlet("/detail.qna")
+public class QnaDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDetailController() {
+    public QnaDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,21 +33,17 @@ public class NoticeDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int noticeNo = Integer.parseInt(request.getParameter("nno"));
+		int qnaNo = Integer.parseInt(request.getParameter("qno"));
 		
-		NoticeService nService = new NoticeService();
-		
-		int result = nService.increaseCount(noticeNo);
-		
-		if(result > 0) {
-			Notice n = nService.selectNotice(noticeNo);
+		QnaService qService = new QnaService();
 
-			ArrayList<BoardImage> imgList = new NoticeService().selectBoardImageList(noticeNo);
+		Qna q = qService.selectQna(qnaNo);
 			
-			request.setAttribute("n", n);
-			request.setAttribute("imgList", imgList);
-			request.getRequestDispatcher("views/notice/noticeDetail.jsp").forward(request, response);
-		}
+		ArrayList<BoardImage> imgList = new QnaService().selectBoardImageList(qnaNo);
+			
+		request.setAttribute("q",q);
+		request.setAttribute("imgList",imgList);
+		request.getRequestDispatcher("views/qna/qnaDetail.jsp").forward(request, response);
 		
 	}
 

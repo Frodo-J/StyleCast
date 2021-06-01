@@ -1,4 +1,4 @@
-package com.stylecast.notice.controller;
+package com.stylecast.daily.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,21 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.stylecast.common.model.vo.BoardImage;
-import com.stylecast.notice.model.service.NoticeService;
-import com.stylecast.notice.model.vo.Notice;
+import com.stylecast.daily.model.service.DailyService;
+import com.stylecast.daily.model.vo.Daily;
+import com.stylecast.daily.model.vo.DailyCM;
+import com.stylecast.daily.model.vo.Item;
 
 /**
- * Servlet implementation class NoticeDetailController
+ * Servlet implementation class dailyDetailController
  */
-@WebServlet("/detail.no")
-public class NoticeDetailController extends HttpServlet {
+@WebServlet("/detail.da")
+public class dailyDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDetailController() {
+    public dailyDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,23 +33,18 @@ public class NoticeDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		int noticeNo = Integer.parseInt(request.getParameter("nno"));
-		
-		NoticeService nService = new NoticeService();
-		
-		int result = nService.increaseCount(noticeNo);
-		
-		if(result > 0) {
-			Notice n = nService.selectNotice(noticeNo);
 
-			ArrayList<BoardImage> imgList = new NoticeService().selectBoardImageList(noticeNo);
+		int dailyNo = Integer.parseInt(request.getParameter("dno"));
+	
+		Daily d = new DailyService().selectDailyDetail(dailyNo);
+		ArrayList<Item> iList = new DailyService().selectDailyItem(dailyNo);
+		ArrayList<DailyCM> cList = new DailyService().selectDailyCM(dailyNo);
 			
-			request.setAttribute("n", n);
-			request.setAttribute("imgList", imgList);
-			request.getRequestDispatcher("views/notice/noticeDetail.jsp").forward(request, response);
-		}
-		
+		request.setAttribute("d", d);
+		request.setAttribute("iList", iList);
+		request.setAttribute("cList", cList);
+		request.getRequestDispatcher("views/daily/dailyDetailView.jsp").forward(request, response);
+	
 	}
 
 	/**

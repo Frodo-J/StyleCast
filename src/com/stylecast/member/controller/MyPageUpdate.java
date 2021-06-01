@@ -6,8 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.stylecast.member.mode.service.MemberService;
+import com.stylecast.member.service.MemberService;
 import com.stylecast.member.vo.Member;
 
 /**
@@ -32,14 +33,30 @@ public class MyPageUpdate extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
+		String userId = request.getParameter("userId");
 		String userName = request.getParameter("userName");
 		String email = request.getParameter("email");
 		String gender = request.getParameter("gender");
-		String userPwd = (request.getParameter("userPwd") == null) ? request.getParameter("userPwd2") : request.getParameter("userNewPwd");
+		String userPwd = (request.getParameter("userNewPwd") == "") ? request.getParameter("userPwd") : request.getParameter("userNewPwd");
 		
-		Member m = new Member(userName, email, gender);
+		Member m = new Member(userId, userPwd, userName, email, gender);
 		
-		new com.stylecast.member.service.MemberService().updateMember(m);
+		// 수정한 회원의 정보
+		Member updateMem = new MemberService().updateMember(m);
+		
+		if(updateMem == null) { // 정보 수정 실패
+			
+			request.setAttribute("errorMsg", "회원 정보 수정에 실패했습니다.");
+			request.getRequestDispatcher("view/common/errorPage.jsp").forward(request, response);;
+		
+		}else { // 정보 수정 성공
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("loginUser", updateMem);
+			session.setAttribute("alertMsg", "성공적으로 회원 정보를 수정했습니다.");
+			
+			response.sendRedirect(request.getContextPath() + "/myPage.me");
+		}
 	}
 
 	/**

@@ -14,16 +14,16 @@ import com.stylecast.notice.model.service.NoticeService;
 import com.stylecast.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class NoticeDetailController
+ * Servlet implementation class NoticeUpdateFormController
  */
-@WebServlet("/detail.no")
-public class NoticeDetailController extends HttpServlet {
+@WebServlet("/updateForm.no")
+public class NoticeUpdateFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDetailController() {
+    public NoticeUpdateFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,19 +35,14 @@ public class NoticeDetailController extends HttpServlet {
 		// TODO Auto-generated method stub
 		int noticeNo = Integer.parseInt(request.getParameter("nno"));
 		
-		NoticeService nService = new NoticeService();
+		Notice n = new NoticeService().selectNotice(noticeNo);
 		
-		int result = nService.increaseCount(noticeNo);
+		ArrayList<BoardImage> list = new NoticeService().selectBoardImageList(noticeNo);
 		
-		if(result > 0) {
-			Notice n = nService.selectNotice(noticeNo);
-
-			ArrayList<BoardImage> imgList = new NoticeService().selectBoardImageList(noticeNo);
-			
-			request.setAttribute("n", n);
-			request.setAttribute("imgList", imgList);
-			request.getRequestDispatcher("views/notice/noticeDetail.jsp").forward(request, response);
-		}
+		request.setAttribute("list", list);
+		request.setAttribute("n", n);
+		
+		request.getRequestDispatcher("views/notice/noticeUpdate.jsp").forward(request, response);
 		
 	}
 

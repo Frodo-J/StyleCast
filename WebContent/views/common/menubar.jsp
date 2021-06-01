@@ -7,6 +7,12 @@
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	
 	String alertMsg = (String)session.getAttribute("alertMsg");
+	String adminYN = "N";
+	String memName = null;
+	if(loginUser!=null){
+		adminYN = loginUser.getAdminYN();
+		memName = loginUser.getMemName();
+	}
 %>
 <!DOCTYPE html>
 <html >
@@ -31,7 +37,6 @@
     
     <style>
         
-       
         .wrap{
             width:1200px; 
             height:1300px;  
@@ -187,6 +192,7 @@
     </style>
 </head>
 <body>
+
 	<script>
 		var msg = "<%= alertMsg %>";
 		// var msg = "메세지" / "null"
@@ -198,6 +204,7 @@
 			<% session.removeAttribute("alertMsg"); %>
 		}
 	</script>
+
     <div class="wrap">
         <div id="header">
             <div id="header_1">
@@ -205,18 +212,18 @@
             </div>
 
             <div id="header_2">
-                <div id="daily"><a href=""><font size="5px">Daily</font></a></div>
+                <div id="daily"><a href="<%=contextPath%>/list.da?currentPage=1"><font size="5px">Daily</font></a></div>
                 <div id="trending"><a href=""><font size="5px">Trending</font></a></div>
-                <div id="qna"><a href=""><font size="5px">QnA</font></a></div>
-                <div id="notice"><a href="<%= contextPath %>/list.no?currentPage=1"><font size="5px">Notice</font></a></div>
+                <div id="qna"><a href="<%= contextPath %>/list.qna?currentPage=1"><font size="5px" id="font_qna">QnA</font></a></div>
+                <div id="notice"><a href="<%= contextPath %>/list.no?currentPage=1"><font size="5px" id="font_notice">Notice</font></a></div>
             </div>
             
-            <script>
+            <!--  <script>
                 $("#header_2 a").click(function(){
                     $("#header_2 a").css("color", "black");
                     $(this).css("color", "rgb(241, 196, 15)");
                 })
-            </script>
+            </script>-->
 
             <div id="header_3">
                 <div class="search-box">

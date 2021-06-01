@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.Date, java.text.SimpleDateFormat"%>
+<%
+	Date nowTime = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+%>
+
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,6 +79,11 @@
                 }
                 
             }
+
+        	function goBack(){
+        		window.history.back();
+        	}
+
     </script>
 
     <style>
@@ -132,6 +143,10 @@
         #image_lists img{
             margin: 2px;
         }
+        #font_notice{
+        	color: rgb(241, 196, 15);
+        
+        } 
         
     </style>
     
@@ -152,19 +167,21 @@
             <div id="head_box">
                 <h3 id="head_of_notice">Notice</h3>
             </div>
+            <form action="<%= contextPath %>/insert.no" id="enroll-form" method="post" enctype="multipart/form-data">
             <div id="detail_box">
+            	<input type="hidden" name="userNo" value="<%= loginUser.getMemNo() %>">
                 <table class="table">
                     <tr>
-                        <th width=13%>제목</td>
-                        <td width=57%><input type="text" style="font-weight:300" placeholder="제목을 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"></td>
-                        <th width=10%>작성일자</td>
-                        <td width=20%>2021-05-02</td>
+                        <th width=13%>제목</th>
+                        <td width=57%><input type="text" name="title" style="font-weight:300" placeholder="제목을 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required></td>
+                        <th width=10%>작성일자</th>
+                        <td width=20%><%= sf.format(nowTime) %></td>
                     </tr>
                     <tr>
                         <th>내용</th>
                         <td colspan="3">
                             <div id="notice_contents">
-                                <textarea class="form-control" placeholder="내용을 입력해주세요" id="floatingTextarea2" style="height: 100%; font-weight:300"></textarea>
+                                <textarea class="form-control" name="content" placeholder="내용을 입력해주세요" id="floatingTextarea2" style="height: 100%; font-weight:300"></textarea>
                             </div>
                         </td>
                     </tr>
@@ -172,7 +189,7 @@
                         <th>이미지1</th>
                         <td colspan="3">
                             <div id="input_file" class="input-group">
-                                <input type="file" class="form-control" id="input-img1" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,1);">
+                                <input type="file" class="form-control" id="input-img1" name="image1" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,1);">
                             </div>
                         </td>
                     </tr>
@@ -180,7 +197,7 @@
                         <th>이미지2</th>
                         <td colspan="3">
                             <div id="input_file" class="input-group">
-                                <input type="file" class="form-control" id="input-img2" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,2);">
+                                <input type="file" class="form-control" id="input-img2" name="image2" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,2);">
                             </div>
                         </td>
                     </tr>
@@ -188,7 +205,7 @@
                         <th>이미지3</th>
                         <td colspan="3">
                             <div id="input_file" class="input-group">
-                                <input type="file" class="form-control" id="input-img3" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,3);">
+                                <input type="file" class="form-control" id="input-img3" name="image3" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,3);">
                             </div>
                         </td>
                     </tr>
@@ -206,9 +223,10 @@
                 </table>
             </div>
             <div id="button_box">
-                <button id="notice_cancel" type="button" class="btn btn-secondary">취소</button>
-                <button id="notice_submit" type="button" class="btn btn-primary">등록</button>
+                <button id="notice_cancel" type="button" class="btn btn-secondary" onclick="goBack();">취소</button>
+                <button id="notice_submit" type="submit" class="btn btn-primary" >등록</button>
             </div>
+            </form>
         </div>
 
     </div>
