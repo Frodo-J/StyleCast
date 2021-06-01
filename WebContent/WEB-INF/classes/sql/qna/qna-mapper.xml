@@ -60,7 +60,7 @@
     		QNA_TITLE,
             M.MEM_NAME MEM_NAME,
     		QNA_CONTENT,
-    		ENR_DATE 
+    		ENR_DATE
     	FROM QNA Q
     	JOIN MEMBER M ON (Q.MEM_NO=M.MEM_NO)
     	WHERE QNA_NO = ?
@@ -74,6 +74,15 @@
 		FROM IMAGE
 		WHERE POST_CATEGORY = 1
 		AND POST_NO = ?
+	</entry>
+	<entry key="selectQnaAnswer">
+		SELECT 
+            M.MEM_NAME ANS_ADMIN,
+            ANS_CONTENT,
+            TO_CHAR(ANS_DATE, 'YYYY/MM/DD') ANS_DATE
+    	FROM QNA Q
+    	JOIN MEMBER M ON (Q.MEM_ADMIN=M.MEM_NO)
+    	WHERE QNA_NO = ?
 	</entry>
 
 </properties>

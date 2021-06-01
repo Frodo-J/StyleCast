@@ -73,6 +73,17 @@ public class QnaService {
 		return imgList;
 	}
 
+	public Qna selectQnaAnswer(int qnaNo) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		Qna qAnswer = new QnaDao().selectQnaAnswer(conn,qnaNo);
+		System.out.println("selectQnaAnswer: " + qAnswer);
+		close(conn);
+		return qAnswer;
+	}
+
+
+
 
 
 }

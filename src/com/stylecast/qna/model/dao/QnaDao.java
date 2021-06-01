@@ -9,9 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+
 import com.stylecast.common.model.vo.BoardImage;
 import com.stylecast.common.model.vo.PageInfo;
-import com.stylecast.notice.model.vo.Notice;
 import com.stylecast.qna.model.vo.Qna;
 
 import static com.stylecast.common.JDBCTemplate.*;
@@ -177,8 +177,7 @@ public class QnaDao {
 							   rset.getString("qna_title"),
 							   rset.getString("mem_name"),
 							   rset.getString("qna_content"),
-							   rset.getDate("enr_date")
-							   );
+							   rset.getDate("enr_date"));
 			}
 			
 			
@@ -222,6 +221,37 @@ public class QnaDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public Qna selectQnaAnswer(Connection conn, int qnaNo) {
+		// TODO Auto-generated method stub
+		Qna qAnswer = new Qna();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectQnaAnswer");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qnaNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				qAnswer = new Qna(
+							rset.getString("ans_admin"),
+							rset.getString("ans_content"),
+							rset.getString("ans_date")
+						);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return qAnswer;
 	}
 
 	

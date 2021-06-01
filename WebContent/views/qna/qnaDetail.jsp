@@ -225,23 +225,62 @@
                       </div>
                       <div class="card-body">
                         <div class="input-group mb-3">
+                        <%if(loginUser.getAdminYN().equals("Y")){ %>
                             <input type="text" class="form-control" placeholder="답변 내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
-                            <button class="btn btn-secondary" type="button" id="button-addon2">Button</button>
+                            <button class="btn btn-secondary" type="button" id="button-addon2">작성</button>
+                        <% }else{%>
+                        	 <input type="text" class="form-control" placeholder="관리자만 입력 가능합니다." aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
+                            <button class="btn btn-secondary" type="button" id="button-addon2" disabled>작성</button>
+                        <% } %>
                         </div>
-                        <table class="table">
+                        <table class="table" id="reply-area">
                             <tbody>
-                                <tr>
+                                <!-- <tr>
                                     <td width="10%"><b>admin</b></td>
                                     <td width="65%">안녕하세요 문의 답변입니다. Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance.</td>
                                     <td width="15%" align="right"><img src="<%=contextPath %>/resources/images/clock.png">2021.05.11</td>
                                     <td width="10%"><a href="#" class="link-secondary">삭제</a></td>
-                                </tr>
-
+                                </tr> -->
                             </tbody>
                         </table>
                     	</div>
                 	</div>  
             	</div>
+            	<script>
+            	$(function(){
+            		selectReplyList();
+            		
+            		setInterval(selectReplyList, 1000);
+            	})
+            	
+            	function selectReplyList(){
+            		$.ajax({
+            			url:"alist.qna",
+            			data:{qno:<%=q.getQnaNo()%>}, 
+            			success:function(qAnswer){
+            				console.log(qAnswer); // [{}, {}, ..]  |  []
+            				var result = "";
+            				if(qAnswer.ansContent == null){
+            					result = "<tr> <td colspan="+ "4" +"> 등록된 공지사항이 없습니다.</td> </tr>";
+            				}else{
+            					result = "<tr>"
+			                        +    "<td width=" + "10%" + "><b>" + qAnswer.memAdminName + "</b></td>"
+			                        +    "<td width=" + "65%" + ">" + qAnswer.ansContent + "</td>"
+			                        +    "<td width=" + "15%" + " align = right>" + "<img src='<%=contextPath %>/resources/images/clock.png'>"+ qAnswer.ansDate2 + "</td>"
+			                        +    "<td width="+ "5%" + "><a href="+ "#" +" class=" + "link-secondary>삭제</a></td>"
+			                        + "</tr>";
+            				}
+            				//$("#reply-area tbody tr td:eq(0)").html(qAnswer.memAdminName);
+            				//$("#reply-area tbody tr td:eq(1)").html(qAnswer.ansContent);
+            				//$("#reply-area tbody tr td:eq(2)").html(qAnswer.ansDate);
+            				$("#reply-area tbody").html(result);
+            			},error:function(){
+            				console.log("댓글리스트 조회용 ajax통신 실패");
+            			}
+            		})
+            	}
+            	
+            	</script>
         	</div>
     	</div>
     </div>

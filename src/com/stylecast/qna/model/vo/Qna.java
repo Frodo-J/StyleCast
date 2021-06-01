@@ -11,8 +11,10 @@ public class Qna {
 	private String qnaContent;
 	private Date enrDate;
 	private int memAdmin;
+	private String memAdminName;
 	private String ansContent;
 	private Date ansDate;
+	private String ansDate2;
 	private String qnaCategory;
 	
 	public Qna() {
@@ -76,8 +78,44 @@ public class Qna {
 		this.qnaContent = qnaContent;
 		this.enrDate = enrDate;
 	}
-	
-	
+
+	public Qna(int qnaNo, String qnaCategory, String qnaTitle, String memName, String qnaContent, Date enrDate, String memAdminName,
+			String ansContent, Date ansDate) {
+		// TODO Auto-generated constructor stub
+		this.qnaNo = qnaNo;
+		this.qnaCategory = qnaCategory;
+		this.qnaTitle = qnaTitle;
+		this.memName = memName;
+		this.qnaContent = qnaContent;
+		this.enrDate = enrDate;
+		this.memAdminName = memAdminName;
+		this.ansContent = ansContent;
+		this.ansDate = ansDate;
+	}
+
+	public Qna(int qnaNo, int memNo, String memName, String qnaTitle, String qnaContent, Date enrDate, int memAdmin,
+			String memAdminName, String ansContent, Date ansDate, String ansDate2, String qnaCategory) {
+		super();
+		this.qnaNo = qnaNo;
+		this.memNo = memNo;
+		this.memName = memName;
+		this.qnaTitle = qnaTitle;
+		this.qnaContent = qnaContent;
+		this.enrDate = enrDate;
+		this.memAdmin = memAdmin;
+		this.memAdminName = memAdminName;
+		this.ansContent = ansContent;
+		this.ansDate = ansDate;
+		this.ansDate2 = ansDate2;
+		this.qnaCategory = qnaCategory;
+	}
+
+	public Qna(String memAdminName, String ansContent, String ansDate2) {
+		super();
+		this.memAdminName = memAdminName;
+		this.ansContent = ansContent;
+		this.ansDate2 = ansDate2;
+	}
 
 	public int getQnaNo() {
 		return qnaNo;
@@ -159,6 +197,24 @@ public class Qna {
 
 	public void setMemName(String memName) {
 		this.memName = memName;
+	}
+
+	public String getMemAdminName() {
+		return memAdminName;
+	}
+
+	public void setMemAdminName(String memAdminName) {
+		this.memAdminName = memAdminName;
+	}
+	
+	
+
+	public String getAnsDate2() {
+		return ansDate2;
+	}
+
+	public void setAnsDate2(String ansDate2) {
+		this.ansDate2 = ansDate2;
 	}
 
 	@Override
