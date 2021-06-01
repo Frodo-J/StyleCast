@@ -253,6 +253,28 @@
             		setInterval(selectReplyList, 1000);
             	})
             	
+            	function deleteAnswer(){
+            		$.ajax({
+            			url:"adelete.qna",
+            			data:{
+            				qno:<%=q.getQnaNo()%>
+            			},
+            			type:"post",
+            			success:function(result){
+            				console.log("deleteAnswer실행");
+            				if(result > 0){ // 댓글작성 성공 => 갱신된 댓글 리스트 조회
+            					alert("성공적으로 삭제 되었습니다!");
+            					selectReplyList();
+            					$("#answerContent").val("");
+            					$("#answerContent").attr("placeholder","답변 내용을 입력하세요");
+            				}
+            				
+            			},error:function(){
+            				console.log("댓글 작성용 ajax 통신실패");
+            			}
+            		});
+            	}
+            	
             	function updateAnswer(){
             		$.ajax({
             			url:"ainsert.qna",
@@ -285,11 +307,12 @@
             				if(qAnswer.ansContent == null){
             					result = "<tr> <td colspan="+ "4" +"> 등록된 공지사항이 없습니다.</td> </tr>";
             				}else{
+            					$("#answerContent").attr("placeholder","여기에 다시 답변을 달면 답변이 수정됩니다.");
             					result = "<tr>"
 			                        +    "<td width=" + "10%" + "><b>" + qAnswer.memAdminName + "</b></td>"
 			                        +    "<td width=" + "65%" + ">" + qAnswer.ansContent + "</td>"
 			                        +    "<td width=" + "15%" + " align = right>" + "<img src='<%=contextPath %>/resources/images/clock.png'>"+ qAnswer.ansDate2 + "</td>"
-			                        +    "<td width="+ "5%" + "><a href="+ "#" +" class=" + "link-secondary>삭제</a></td>"
+			                        +    "<td width="+ "5%" + "><a href="+ "#" +" class=" + "link-secondary onclick="+ "deleteAnswer();" + ">삭제</a></td>"
 			                        + "</tr>";
             				}
             				//$("#reply-area tbody tr td:eq(0)").html(qAnswer.memAdminName);
