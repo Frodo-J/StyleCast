@@ -161,6 +161,37 @@ public class QnaService {
 		return bImage;
 	}
 
+	public int updateQna(Qna q) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		
+		int result = new QnaDao().updateQna(conn,q);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public int updateBoardImages(BoardImage bImage) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		
+		int result = 1;
+		if(bImage != null) { // 새로 첨부된 파일 있을 경우 
+			if(bImage.getImgNo() != 0) { // 기존 첨부파일 있을 경우
+				result = new QnaDao().updateBoardImage(conn,bImage);
+			}else { // 기존 첨부파일이 없을 경우
+				System.out.println("서비스의 첨부파일이 없을 경우: " + bImage);
+				result = new QnaDao().insertNewBoardImage(conn,bImage);
+			}
+			
+		}
+		
+		return result;
+	}
+
 
 
 
