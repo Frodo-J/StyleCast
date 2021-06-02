@@ -164,4 +164,31 @@ public class MemberDao {
 		return memPwd;
 	}
 	
+	public int idCheck(Connection conn, String chekId) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("idCheck");
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, chekId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+	
+	
+	
+	
 }

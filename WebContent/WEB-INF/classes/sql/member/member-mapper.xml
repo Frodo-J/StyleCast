@@ -112,6 +112,15 @@
 		   AND ENT_YN = 'N'
 		   AND ADMIN_YN = 'N'
 	</entry>
+	
+	<entry key="idCheck">
+		SELECT 
+		       COUNT(*)
+		  FROM 
+		       MEMBER
+		 WHERE 
+		 	   MEM_ID = ?
+	</entry>
 
 
 </properties>
