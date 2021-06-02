@@ -30,21 +30,14 @@
     <!--돋보기 이미지end-->
     <!--font-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500&family=Noto+Serif+KR:wght@300;500&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
     <!--font end-->
     <title>Document</title>
     
     <style>
         
-        .wrap{
-            width:1200px; 
-            height:1300px;  
-            margin: auto; 
-            font-family:'Noto Sans KR', sans-serif;
-            }
-
-        .wrap>div{width:100%;}
-        #header{height:12%;}
+        
+        #header{height:156px; width:1200px; margin: auto; font-family: 'Noto Sans KR', sans-serif;}
 
         #header>div{float:left;}
 
@@ -202,9 +195,15 @@
 			// 안그러면 menubar.jsp가 로딩될때마다 매번 alert가 계속 뜸
 			<% session.removeAttribute("alertMsg"); %>
 		}
+		
+		function searchData(){ // 검색창 enter시 검색하는 기능
+			document.getElementById("search-form").submit();
+		}
+		function formSubmit(){
+				document.getElementById("search-form").submit();
+		}	
 	</script>
 
-    <div class="wrap">
         <div id="header">
             <div id="header_1">
                 <a href="<%= contextPath %>"><img id="logoimg"src="<%=contextPath %>/resources/images/logo.jpg"></a>
@@ -212,42 +211,37 @@
 
             <div id="header_2">
                 <div id="daily"><a href="<%=contextPath%>/list.da?currentPage=1"><font size="5px">Daily</font></a></div>
-                <div id="trending"><a href="<%=contextPath%>/list.th"><font size="5px">Trending</font></a></div>
+                <div id="trending"><a href=""><font size="5px">Trending</font></a></div>
                 <div id="qna"><a href="<%= contextPath %>/list.qna?currentPage=1"><font size="5px" id="font_qna">QnA</font></a></div>
                 <div id="notice"><a href="<%= contextPath %>/list.no?currentPage=1"><font size="5px" id="font_notice">Notice</font></a></div>
             </div>
-            
-            <!--  <script>
-                $("#header_2 a").click(function(){
-                    $("#header_2 a").css("color", "black");
-                    $(this).css("color", "rgb(241, 196, 15)");
-                })
-            </script>-->
 
             <div id="header_3">
-                <div class="search-box">
-                    <input type="text" class="search-txt" name=""placeholder="Type to search">
-                    <a class="search-btn" href="#">
-                      <i class="fas fa-search"></i>
-                    </a>
-                </div>
+            	<form id="search-form" name="search-form" action="<%= contextPath %>/search.ma?currentPage=1" method="post" onsubmit="return false">
+	                <div class="search-box">
+	                    <input type="text" class="search-txt" name="search_text" placeholder="Type to search" onkeypress="if(event.keyCode == 13){searchData();}" />
+	                    <a class="search-btn" href="#" onclick="formSubmit(); return false;">
+	                      <i class="fas fa-search"></i>
+	                    </a>
+	                </div>
+                </form>
             </div>
             
             <div id="header_4">
                 
                <% if(loginUser == null){ %>
-                	<button type="button" id="login" onclick="joinPage();" class="btn btn-dark">로그인/가입</button>
+                	<button type="button" id="login" onclick="loginPage();" class="btn btn-dark">로그인/가입</button>
                <% }else{ %>
   
 	     		<ul id="navi">
 	              	<li>
 	                    <div>
 	                    <% if(loginUser.getMemId().equals("admin")) { %>
-	                        <a id="profile">
+	                        <a id="profile" href="">
 	                            <img src="<%=contextPath %>/resources/images/prof.PNG" class="rounded-circle">
 	                        </a>
 	                    <% }else { %>
-	                    	<a id="profile">
+	                    	<a id="profile" href="">
 	                            <img src="<%=contextPath %>/resources/images/prof.PNG" class="rounded-circle">
 	                        </a>
 	                    <% } %>
@@ -263,8 +257,8 @@
 	          
                 <% } %>
                 <script>
-                	function joinPage(){
-                		location.href = "<%=contextPath%>/joinPage.me";
+                	function loginPage(){
+                		location.href = "<%=contextPath%>/loginPage.me";
                 	}
                 </script>
              
@@ -276,7 +270,6 @@
 
             <div id="header_6">
             </div>
-        
-    </div>
+        </div>
 </body>
 </html>

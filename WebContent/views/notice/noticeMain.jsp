@@ -109,8 +109,8 @@
 </head>
 <body>
     
-    <div class="wrap">
     	<%@ include file="../common/menubar.jsp" %>
+    <div class="wrap">
         <!--  <div id="header">
             <div id="header_1">로고</div>
             <div id="header_2">메뉴바</div>

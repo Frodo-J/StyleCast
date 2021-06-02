@@ -105,11 +105,45 @@ public class DailyService {
 		}
 		close(conn);
 		return result;
-		
-		
-		
-		
-		
 	}
+	
+	public int searchListCount(String text) {
+		Connection conn = getConnection();
+		int listCount = 0;
+		if(text.equals("daily_content")) {
+			listCount = new DailyDao().selectDailyCountByContent(conn, text);
+		}else if(text.equals("tag")) {
+			listCount = new DailyDao().selectDailyCountByTag(conn, text);
+		}
+		close(conn);
+		
+		return listCount;
+	}
+	
+	public ArrayList<Daily> searchDailyList(PageInfo pi, String text){
+		Connection conn = getConnection();
+		ArrayList<Daily> list = null;
+		if(text.equals("daily_content")) {
+			list = new DailyDao().selectDailyByContent(conn, pi, text);
+		}else if(text.equals("tag")) {
+			list = new DailyDao().selectDailyByTag(conn, pi, text);
+		}
+		close(conn);
+		
+		return list;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

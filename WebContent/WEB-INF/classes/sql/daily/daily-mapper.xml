@@ -144,4 +144,94 @@
 		   AND DAILY_NO = ?
 	</entry>
 	
+	<entry key="selectDailyCountByContent">
+		SELECT COUNT(*) COUNT
+		FROM DAILY
+		WHERE DAILY_CONTENT LIKE '%'||?||'%'
+	</entry>
+	
+	<entry key="selectDailyCountByTag">
+		SELECT COUNT(*) COUNT
+		FROM DAILY
+		WHERE TAG LIKE '%'||?||'%'
+	</entry>
+	
+	<entry key="selectDailyByContent">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		                SELECT
+                               DAILY_NO
+                             , MEM_NO
+                             , DAILY_CONTENT
+                             , ENR_DATE
+                             , DAILY_IMG
+                             , MEM_NAME
+                             , PROF_IMG
+		                  FROM DAILY
+                          JOIN MEMBER USING (MEM_NO)
+                         WHERE DAILY_CONTENT LIKE '%'||?||'%'
+		                 ORDER
+		                    BY ENR_DATE DESC)A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectDailyByContent">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		                SELECT
+                               DAILY_NO
+                             , MEM_NO
+                             , DAILY_CONTENT
+                             , ENR_DATE
+                             , DAILY_IMG
+                             , MEM_NAME
+                             , PROF_IMG
+		                  FROM DAILY
+                          JOIN MEMBER USING (MEM_NO)
+                         WHERE DAILY_CONTENT LIKE '%'||?||'%'
+		                 ORDER
+		                    BY ENR_DATE DESC)A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectDailyByTag">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		                SELECT
+                               DAILY_NO
+                             , MEM_NO
+                             , DAILY_CONTENT
+                             , ENR_DATE
+                             , DAILY_IMG
+                             , MEM_NAME
+                             , PROF_IMG
+		                  FROM DAILY
+                          JOIN MEMBER USING (MEM_NO)
+                         WHERE TAG LIKE '%'||?||'%'
+		                 ORDER
+		                    BY ENR_DATE DESC)A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </properties>
