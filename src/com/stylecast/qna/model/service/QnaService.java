@@ -33,7 +33,6 @@ public class QnaService {
 	}
 
 	public ArrayList<Qna> selectList(PageInfo pi) {
-		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		ArrayList<Qna> list = new QnaDao().selectList(conn,pi);
 		close(conn);
@@ -42,7 +41,6 @@ public class QnaService {
 	}
 
 	public int selectListCount() {
-		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		int listCount = new QnaDao().selectListCount(conn);
 		
@@ -54,7 +52,6 @@ public class QnaService {
 
 
 	public Qna selectQna(int qnaNo) {
-		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		Qna q = new QnaDao().selectQna(conn,qnaNo);
 		close(conn);
@@ -63,7 +60,6 @@ public class QnaService {
 	}
 
 	public ArrayList<BoardImage> selectBoardImageList(int qnaNo) {
-		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		
 		ArrayList<BoardImage> imgList = new QnaDao().selectBoardImageList(conn,qnaNo);
@@ -72,7 +68,7 @@ public class QnaService {
 	}
 
 	public Qna selectQnaAnswer(int qnaNo) {
-		// TODO Auto-generated method stub
+		
 		Connection conn = getConnection();
 		Qna qAnswer = new QnaDao().selectQnaAnswer(conn,qnaNo);
 		close(conn);
@@ -80,7 +76,7 @@ public class QnaService {
 	}
 
 	public int updateQnaAnswer(Qna q) {
-		// TODO Auto-generated method stub
+		
 		Connection conn = getConnection();
 		int result = new QnaDao().updateQnaAnswer(conn,q);
 		if(result > 0 ) {
@@ -94,7 +90,6 @@ public class QnaService {
 	}
 
 	public int deleteQnaAnswer(int qnaNo) {
-		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		int result = new QnaDao().deleteQnaAnswer(conn,qnaNo);
 		if(result > 0 ) {
@@ -108,7 +103,6 @@ public class QnaService {
 	}
 
 	public int insertQna(Qna q, ArrayList<BoardImage> list) {
-		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		
 		int result1 = new QnaDao().insertQna(conn, q);
