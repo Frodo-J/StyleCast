@@ -70,7 +70,7 @@
         }
         #qna_lists{
             width: 80%;
-            height: 65%;
+            height: 725px;
             margin: auto;
         }
         #search_box{
@@ -87,7 +87,7 @@
         }
         #write_box{
             width: 80%;
-            height: 3%;
+            height: 70px;
             margin: auto;
         }
         #write_box_inner{
