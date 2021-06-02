@@ -6,6 +6,7 @@ public class ThemePost {
 	private int dailyNo;
 	
 	private String dailyImg;
+	private int count;
 	
 	public ThemePost() {}
 
@@ -16,6 +17,13 @@ public class ThemePost {
 	}
 
 	
+	public ThemePost(int dailyNo, String dailyImg, int count) {
+		super();
+		this.dailyNo = dailyNo;
+		this.dailyImg = dailyImg;
+		this.count = count;
+	}
+
 	public ThemePost(int dailyNo, String dailyImg) {
 		super();
 		this.dailyNo = dailyNo;
@@ -46,9 +54,18 @@ public class ThemePost {
 		this.dailyImg = dailyImg;
 	}
 
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
 	@Override
 	public String toString() {
-		return "ThemePost [themeNo=" + themeNo + ", dailyNo=" + dailyNo + ", dailyImg=" + dailyImg + "]";
+		return "ThemePost [themeNo=" + themeNo + ", dailyNo=" + dailyNo + ", dailyImg=" + dailyImg + ", count=" + count
+				+ "]";
 	}
 
 	

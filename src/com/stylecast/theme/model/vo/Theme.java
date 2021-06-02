@@ -32,6 +32,19 @@ public class Theme {
 		this.themeSubtitle = themeSubtitle;
 	}
 
+	public Theme(String themeTitle, String themeTitleColor, String themeSubtitle) {
+		super();
+		this.themeTitle = themeTitle;
+		this.themeTitleColor = themeTitleColor;
+		this.themeSubtitle = themeSubtitle;
+	}
+
+	public Theme(int themeNo, String themeTitle) {
+		super();
+		this.themeNo = themeNo;
+		this.themeTitle = themeTitle;
+	}
+
 	public int getThemeNo() {
 		return themeNo;
 	}

@@ -39,6 +39,12 @@ public class Daily {
 		this.profImg = profImg;
 	}
 
+	public Daily(int dailyNo, String dailyImg) {
+		super();
+		this.dailyNo = dailyNo;
+		this.dailyImg = dailyImg;
+	}
+
 	public int getDailyNo() {
 		return dailyNo;
 	}

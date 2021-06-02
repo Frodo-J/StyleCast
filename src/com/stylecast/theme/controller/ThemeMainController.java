@@ -14,16 +14,16 @@ import com.stylecast.theme.model.vo.Theme;
 import com.stylecast.theme.model.vo.ThemePost;
 
 /**
- * Servlet implementation class ThemeListController
+ * Servlet implementation class ThemeMainController
  */
-@WebServlet("/list.to")
-public class ThemeListController extends HttpServlet {
+@WebServlet("/list.th")
+public class ThemeMainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ThemeListController() {
+    public ThemeMainController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,17 +32,18 @@ public class ThemeListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		int tno = Integer.parseInt(request.getParameter("tpage"));
 	
-		Theme t = new ThemeService().selectThemeOthers(tno);
+		Theme t = new ThemeService().selectThemeMonthly();
+		
+		int tno = t.getThemeNo();
 		ArrayList<ThemePost> plist = new ThemeService().selectThemePost(tno);
-		ArrayList<Theme> tlist = new ThemeService().selectThemeListOthers(tno); 
+		
+		ArrayList<Theme> tlist = new ThemeService().selectThemeList(); 
 		
 		request.setAttribute("t", t);
 		request.setAttribute("plist", plist);
 		request.setAttribute("tlist", tlist);
-		request.getRequestDispatcher("views/trending/trendingListView.jsp").forward(request, response);
+		request.getRequestDispatcher("views/trending/trendingMainView.jsp").forward(request, response);
 	
 	}
 

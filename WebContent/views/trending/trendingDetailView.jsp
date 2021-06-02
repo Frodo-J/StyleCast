@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.text.SimpleDateFormat" %>
+	pageEncoding="UTF-8"
+	import="java.util.ArrayList, com.stylecast.theme.model.vo.*, com.stylecast.daily.model.vo.*, java.text.SimpleDateFormat"%>
+<%
+	Daily d = (Daily)request.getAttribute("d");
+	// 데일리번호, 회원번호, 데일리내용, 작성일, 이미지경로, 태그, 회원닉네임, 프로필이미지경로
+	Theme m = (Theme)request.getAttribute("m");
+	ArrayList<Item> iList = (ArrayList<Item>)request.getAttribute("iList");
+	ArrayList<Daily> dlist = (ArrayList<Daily>)request.getAttribute("dlist");
+	
+	String tag = d.getTag();
+	String[] tags = tag.split("#");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +36,8 @@ div {
 
 #content {
 	height: 88%;
+	font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
 }
 
 #content>div {
@@ -85,13 +98,13 @@ div {
 	position: absolute;
 }
 
-#profile {
+#profile_img {
 	width: 70px;
 	height: 70px;
 	left: 10px;
 }
 
-#profile_img {
+#profile_img img {
 	width: 100%;
 	height: 100%;
 }
@@ -100,7 +113,7 @@ div {
 	top: 23px;
 	left: 90px;
 	font-size: 17px;
-	font-weight: 600;
+	font-weight: 500;
 }
 
 #like {
@@ -111,7 +124,7 @@ div {
 }
 
 #like_button {
-	background: url("resources/react_icon/sun.svg") no-repeat;
+	background: url("resources/images/react_icon/sun.svg") no-repeat;
 	background-size: cover;
 	position: absolute;
 	border: 0px;
@@ -134,7 +147,7 @@ div {
 }
 
 #bookmark_button {
-	background: url("resources/react_icon/bookmark.svg") no-repeat;
+	background: url("resources/images/react_icon/bookmark.svg") no-repeat;
 	background-size: cover;
 	position: absolute;
 	border: 0px;
@@ -153,7 +166,7 @@ div {
 	width: 75px;
 	height: 20px;
 	font-size: 13px;
-	font-weight: 700;
+	font-weight: 500;
 	top: 41px;
 	right: 15px;
 	text-align: right;
@@ -163,7 +176,7 @@ div {
 	width: 75px;
 	height: 20px;
 	font-size: 13px;
-	font-weight: 700;
+	font-weight: 500;
 	top: 61px;
 	right: 15px;
 	text-align: right;
@@ -195,7 +208,7 @@ div {
 	top: 260px;
 	left: 10px;
 	font-size: 16px;
-	font-weight: 600;
+	font-weight: 500;
 }
 
 #item {
@@ -249,7 +262,13 @@ div {
 #bottom_title {
 	width: 30%;
 	font-size: 18px;
-	font-weight: 600;
+	font-weight: 500;
+	margin-top: 30px;
+	margin-left: 100px;
+}
+
+#other_wrapper {
+	position: absolute;
 	margin-top: 30px;
 	margin-left: 100px;
 }
@@ -258,8 +277,7 @@ div {
 	width: 230px;
 	height: 300px;
 	float: left;
-	margin-top: 30px;
-	margin-left: 25px;
+	margin-right: 25px;
 }
 
 .theme_post>img {
@@ -270,18 +288,14 @@ div {
 	border-radius: 3%;;
 }
 
-#theme_p1 {
-	margin-left: 100px;
-}
-
 #like_button:hover {
-	background: url("resources/react_icon/sun_yellow.svg") no-repeat;
+	background: url("resources/images/react_icon/sun_yellow.svg") no-repeat;
 	background-size: cover;
 	cursor: pointer;
 }
 
 #bookmark_button:hover {
-	background: url("resources/react_icon/bookmark_blue.svg") no-repeat;
+	background: url("resources/images/react_icon/bookmark_blue.svg") no-repeat;
 	background-size: cover;
 	cursor: pointer;
 }
@@ -307,24 +321,29 @@ div {
 </head>
 <body>
 
-	<div class="wrap">
-		
-		<%@ include file="../common/menubar.jsp"%>
-		<% SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy.MM.dd"); %> 
-		
+	<%@ include file="../common/menubar.jsp"%>
 
+	<div class="wrap">
+
+		<% SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy.MM.dd"); %>
+		<% if(loginUser != null) { %>
+		<input type="hidden" id="loginUserNo"
+			value="<%=loginUser.getMemNo()%>">
+		<% } %>
 		<div id="content">
 			<div id="content_1">
 				<div id="img_box">
-					<img src="resources/img_codi5.jpg" alt="">
+					<img src="<%= d.getDailyImg() %>" alt="">
 				</div>
 			</div>
 			<div id="content_2">
 				<div id="daily_post">
-					<div id="profile">
-						<img id="profile_img" src="resources/profile.png" alt="">
+					<div id="profile_img">
+						<img src="<%= d.getProfImg() %>">
 					</div>
-					<div id="userid">nickname</div>
+					<div id="userid"><%= d.getMemName() %></div>
+					<% if(loginUser != null) { %>
+					<!-- 로그인 유저 -->
 					<div id="like">
 						<input type="button" name="" id="like_button">
 						<div>215</div>
@@ -333,40 +352,57 @@ div {
 						<input type="button" name="" id="bookmark_button">
 						<div>117</div>
 					</div>
-					<div id="date">simpleDateFormat.format()21. 04. 01</div>
-					<div id="post_no">No. 1</div>
-					<div id="post_content">í¬ì¤í¸ ë´ì©</div>
+					<% }else { %>
+					<!-- 비로그인 유저 -->
+					<div id="like">
+						<input type="button" name="" id="like_button"
+							data-bs-toggle="modal" data-bs-target="#logoutUserModal">
+						<div>215</div>
+					</div>
+					<div id="bookmark">
+						<input type="button" name="" id="bookmark_button"
+							data-bs-toggle="modal" data-bs-target="#logoutUserModal">
+						<div>117</div>
+					</div>
+					<% } %>
+					<div id="date"><%= simpleDateFormat.format(d.getEnrDate()) %></div>
+					<div id="post_no">
+						No.
+						<%= d.getDailyNo() %></div>
+					<div id="post_content"><%= d.getDailyContent() %></div>
 					<div id="tag">
-						<a href="">#ìì¼ì½ë</a> <a href="">#ì½í¼í¬ì¸ </a> <a
-							href="">#íëì</a> <a href="">#í°ì</a>
+
+						<% for(int i=1; i<tags.length; i++) { %>
+						<a href="">#<%= tags[i] %></a>
+						<% } %>
 					</div>
 					<hr id="line">
-					<div id="item_title">ì½ëì ì¬ì©ë ìì´í</div>
+					<div id="item_title">코디에 사용된 아이템</div>
 					<div id="item">
-						<div class="item_info">
-							<img src="resources/cloth_icon/top.svg" alt="">
-							<div>ì¸í¼ë°© í´ëì ìì¼</div>
+						<% for(Item it : iList) { %>
+						<div class="item_info"
+							onclick="location.href='<%= it.getItemLink() %>';">
+							<% if (it.getItemCategory().equals("상의")) {%>
+							<img src="resources/images/cloth_icon/top.svg">
+							<% }else if(it.getItemCategory().equals("하의")) {%>
+							<img src="resources/images/cloth_icon/bottom.svg">
+							<% }else if(it.getItemCategory().equals("신발")) {%>
+							<img src="resources/images/cloth_icon/shoes.svg">
+							<% }else if(it.getItemCategory().equals("기타")) {%>
+							<img src="resources/images/cloth_icon/etc.svg">
+							<% } %>
+							<div><%= it.getItemName() %></div>
 						</div>
-						<div class="item_info">
-							<img src="resources/cloth_icon/top.svg" alt="">
-							<div>Uë¥ ê·¸ë ì´ ëí¸</div>
-						</div>
-						<div class="item_info">
-							<img src="resources/cloth_icon/bottom.svg" alt="">
-							<div>íì´í¸ ì½í¼ í¬ì¸ </div>
-						</div>
-						<div class="item_info">
-							<img src="resources/cloth_icon/shoes.svg" alt="">
-							<div>íì´í¸ íë« ìì¦</div>
-						</div>
-						<div class="item_info">
-							<img src="resources/cloth_icon/etc.svg" alt="">
-							<div>ë³¼ë ì¤ë² ì´ì´ë§</div>
-						</div>
+						<% } %>
 					</div>
 				</div>
-				<% if (loginUser != null) { %>
-				<!-- 작성자 본인이 아닌 회원일 때 -->
+				<% if(loginUser != null && loginUser.getMemNo() == d.getMemNo()) { %>
+				<!-- 작성자 본인일 때 -->
+				<button class="btn btn-secondary btn-sm">수정</button>
+				<button class="delete btn btn-secondary btn-sm"
+					data-bs-toggle="modal" data-bs-target="#deleteModal">삭제</button>
+				<% }else if (loginUser != null) { %>
+				<!-- 작성자 본인이 아닐 때 -->
 				<button id="report_bt" class="report btn btn-secondary btn-sm"
 					data-bs-toggle="modal" data-bs-target="#reportModal">신고</button>
 				<input type="hidden" name="loginUser"
@@ -376,18 +412,14 @@ div {
 				<% } %>
 			</div>
 			<div id="content_3">
-				<div id="bottom_title">ë² ì¤í¸ 30 íë§ì ë¤ë¥¸ ê²ìê¸</div>
-				<div id="theme_p1" class="theme_post">
-					<img src="resources/img_codi6.jpg" alt="">
-				</div>
-				<div class="theme_post">
-					<img src="resources/img_codi22.jpg" alt="">
-				</div>
-				<div class="theme_post">
-					<img src="resources/img_codi10.jpg" alt="">
-				</div>
-				<div class="theme_post">
-					<img src="resources/img_codi23.jpg" alt="">
+				<div id="bottom_title">'<%= m.getThemeTitle() %>' 테마의 다른 코디</div>
+				<div id="other_wrapper">
+					<% for(Daily a : dlist) { %>
+						<div class="theme_post">
+							<input type="hidden" value="<%= a.getDailyNo() %>">
+							<img src="<%= a.getDailyImg() %>">
+						</div>
+					<% } %>
 				</div>
 			</div>
 		</div>
@@ -431,7 +463,7 @@ div {
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- 비로그인 유저 action 클릭 Modal -->
 	<div class="modal fade" id="logoutUserModal" tabindex="-1"
 		aria-labelledby="logoutUserModalLabel" aria-hidden="true">
@@ -457,15 +489,20 @@ div {
 
 	<script>
 
+	    // daily click action
+	    $(".theme_post").on('click', function(){
+	        $(location).attr("href", "<%=contextPath%>/detail.th?tno=" + <%= m.getThemeNo() %> + "&dno=" + $(this).children().eq(0).val());
+	    });
+	    
         // 신고 양식 textarea 비활성화
         $(document).ready(function(){
         $("input:radio[name=report_category]").click(function(){
-            if($("input[name=report_category]:checked").val() == "ê¸°í"){
+            if($("input[name=report_category]:checked").val() == "기타"){
                 $("#report_text").attr("disabled",false);
-            }else if($("input[name=report_category]:checked").val() == "ìì¤ ë° ë¹ë°©" || 
-                     $("input[name=report_category]:checked").val() == "ì§ëì¹ íë³´ì± ë´ì©" ||
-                     $("input[name=report_category]:checked").val() == "íì¤ì¤ë¬ì" ||
-                     $("input[name=report_category]:checked").val() == "ì¸ì¤ì ì"){
+            }else if($("input[name=report_category]:checked").val() == "욕설 및 비방" || 
+                     $("input[name=report_category]:checked").val() == "지나친 홍보성 내용" ||
+                     $("input[name=report_category]:checked").val() == "혐오스러움" ||
+                     $("input[name=report_category]:checked").val() == "외설적임"){
                 $("#report_text").attr("disabled",true);
             }
         })
