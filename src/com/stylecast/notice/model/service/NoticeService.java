@@ -9,7 +9,8 @@ import com.stylecast.common.model.vo.BoardImage;
 import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.notice.model.dao.NoticeDao;
 import com.stylecast.notice.model.vo.Notice;
-import com.stylecast.qna.model.vo.Qna;
+import com.stylecast.qna.model.dao.QnaDao;
+
 
 public class NoticeService {
 
@@ -213,6 +214,27 @@ public class NoticeService {
 		close(conn);
 		
 		return listCount;
+	}
+
+	public ArrayList<BoardImage> selectBoardImagePath(int noticeNo) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		ArrayList<BoardImage> bImage = new NoticeDao().selectBoardImagePath(conn,noticeNo);
+		close(conn);
+		return bImage;
+	}
+
+	public int deleteBoardImage(int noticeNo) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		int result = new NoticeDao().deleteBoardImage(conn,noticeNo);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
 
