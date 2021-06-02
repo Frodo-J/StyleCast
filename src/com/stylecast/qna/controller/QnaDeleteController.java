@@ -37,10 +37,9 @@ public class QnaDeleteController extends HttpServlet {
 		int qnaNo = Integer.parseInt(request.getParameter("qno"));
 		String savePath = request.getSession().getServletContext().getRealPath("/");
 		
-		int imgCount = new QnaService().selectBoardImageCount(qnaNo);
 		ArrayList<BoardImage> imgList = new QnaService().selectBoardImagePath(qnaNo);
 		int result1 = 1;
-		if(imgCount > 0){
+		if(imgList.isEmpty()==false){
 			for(int i=0; i<imgList.size(); i++) {
 				new File(savePath + imgList.get(i).getImgPath()).delete();
 			}

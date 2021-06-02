@@ -139,12 +139,6 @@
 		FROM QNA
 		WHERE QNA_NO = ?
 	</entry>
-	<entry key="selectBoardImageCount">
-		SELECT COUNT(*) COUNT
-		FROM IMAGE
-		WHERE POST_CATEGORY = 1
-		AND POST_NO = ?
-	</entry>
 	<entry key="deleteBoardImage">
 		DELETE
 		FROM IMAGE

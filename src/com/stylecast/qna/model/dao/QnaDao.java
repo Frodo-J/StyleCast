@@ -360,29 +360,6 @@ public class QnaDao {
 		return result;
 	}
 
-	public int selectBoardImageCount(Connection conn, int qnaNo) {
-		int count = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectBoardImageCount");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, qnaNo);
-			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				count = rset.getInt("count");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return count;
-	}
 
 	public int deleteBoardImage(Connection conn, int qnaNo) {
 		// TODO Auto-generated method stub

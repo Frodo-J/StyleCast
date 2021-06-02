@@ -139,19 +139,6 @@ public class QnaService {
 		return result1;
 	}
 
-	public int selectBoardImageCount(int qnaNo) {
-		// TODO Auto-generated method stub
-		Connection conn = getConnection();
-		int result = new QnaDao().selectBoardImageCount(conn,qnaNo);
-		
-		if(result > 0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
-		close(conn);
-		return result;
-	}
 
 	public int deleteBoardImage(int qnaNo) {
 		// TODO Auto-generated method stub
