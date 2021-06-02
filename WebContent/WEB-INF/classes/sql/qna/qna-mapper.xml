@@ -100,5 +100,39 @@
 			ANS_DATE = NULL
 		WHERE QNA_NO = ?
 	</entry>
+	<entry key="insertQna">
+		INSERT INTO QNA(
+			QNA_NO,
+            MEM_NO,
+            QNA_TITLE,
+			QNA_CONTENT,
+			ENR_DATE,
+            QNA_CATEGORY)
+		VALUES(
+			SEQ_QNA.nextval,
+			?,
+			?,
+            ?,
+			SYSDATE,
+            ?
+		)
+	</entry>
+	<entry key="insertBoardImageList">
+		INSERT
+		INTO IMAGE
+		(
+			IMG_NO
+		, IMG_PATH
+		, POST_CATEGORY
+		, POST_NO
+		)
+		VALUES
+		(
+			SEQ_IMG.NEXTVAL
+			, ?
+			, 1
+			, SEQ_QNA.CURRVAL
+		)
+	</entry>
 
 </properties>
