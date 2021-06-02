@@ -52,7 +52,10 @@
         #content_3{width:30%; height:6%; float: left;}
         #content_4{width:30%; height:42%; float:left;}
         #content_5{width:100%; height:35%; float: right;} */
-
+		
+		.wrap{width:1200px; height:1300px;  margin: auto;}
+        .wrap>div{width:100%;}
+		
         #content {
                 font-family: 'Noto Sans KR', sans-serif;
                 font-weight: 300;
@@ -110,9 +113,8 @@
     </style>
 </head>
 <body>
-    
+    <%@ include file="../common/menubar.jsp" %>
     <div class="wrap">
-    	<%@ include file="../common/menubar.jsp" %>
         <!--  <div id="header">
             <div id="header_1">로고</div>
             <div id="header_2">메뉴바</div>

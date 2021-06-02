@@ -26,11 +26,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
     <!--font end-->
     <style>
-        /* div:not(#head_box,#head_of_qna,#qna_lists,#search_box,#img_btn,#input_search,#write_box,#write_box_inner,#page_box){border: 1px solid gray; box-sizing: border-box;}
+        /*div:not(#head_box,#head_of_qna,#qna_lists,#search_box,#img_btn,#input_search,#write_box,#write_box_inner,#page_box){border: 1px solid gray; box-sizing: border-box;}*/
         .wrap{width:1200px; height:1300px;  margin: auto;}
-
-        .wrap>div{width:100%;} */
-        /* #header{height:12%;} */
+        .wrap>div{width:100%;}
+        
+        /* #header{height:12%;} 
         #content{height:88%;}
 
         /* #header>div{height:100%; float:left;}
@@ -105,8 +105,8 @@
 </head>
 <body>
     <!-- 1페이지당 15개글이 최대-->
+    <%@ include file="../common/menubar.jsp" %>
     <div class="wrap">
-    	<%@ include file="../common/menubar.jsp" %>
         <!-- <div id="header">
             <div id="header_1">로고</div>
             <div id="header_2">메뉴바</div>
@@ -116,7 +116,7 @@
         
         <div id="content">
             <div id="head_box">
-                <h2 id="head_of_qna">Qna</h2>
+                <h3 id="head_of_qna">Qna</h3>
             </div>
             <div id="qna_lists">
                 <div id="search_box" action="<%= contextPath %>/search.qna?currentPage=1" method="post">

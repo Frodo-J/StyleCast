@@ -97,7 +97,10 @@
             }
     </script>
 
-    <style>        
+    <style>
+    	.wrap{width:1200px; height:1300px;  margin: auto;}
+        .wrap>div{width:100%;}
+            
        	#content{
                 font-family: 'Noto Sans KR', sans-serif;
                 font-weight: 300;
@@ -142,7 +145,7 @@
     
 </head>
 <body>
-    
+     <%@ include file="../common/menubar.jsp" %>
     <div class="wrap">
     <!--  
         <div id="header">
@@ -152,7 +155,6 @@
             <div id="header_4">로그인</div>
         </div>
        -->
-        <%@ include file="../common/menubar.jsp" %>
         <div id="content">
             <div id="head_box">
                 <h3 id="head_of_notice">Notice</h3>
