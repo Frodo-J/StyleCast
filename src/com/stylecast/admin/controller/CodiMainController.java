@@ -44,7 +44,7 @@ public class CodiMainController extends HttpServlet {
 		int endPage;
 		
 		// 총 게시글 갯수
-		listCount = new NoticeService().selectListCount();
+		listCount = new CodiService().selectListCount();
 		
 		// 사용자가 요청한 페이지 ( 현재 페이지)
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -53,7 +53,7 @@ public class CodiMainController extends HttpServlet {
 		pageLimit = 10;
 		
 		// boardLimit : 한 페이지 내에 보여질 게시글 최대 갯수
-		boardLimit = 15;
+		boardLimit = 6;
 		
 		//maxPage : 제일 마지막 페이지수 ( 총 페이지 수)
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);

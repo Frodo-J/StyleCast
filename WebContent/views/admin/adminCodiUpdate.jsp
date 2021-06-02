@@ -1,7 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="com.stylecast.admin.model.vo.*"%>
+<%
+	Codi c = (Codi)request.getAttribute("c");
+%>
 <!DOCTYPE html>
-<html lang="kr">
-    <head>
-        <meta charset="UTF-8">
+<html>
+<head>
+<meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
@@ -181,15 +186,14 @@
                 height: 30%;
             }
         </style>
-    </head>
-    <body>
-        <!--참고하면 좋은 글-->
-        <!--modal form submit에 관한 글-->
-        <!-- https://codevang.tistory.com/287 -->
-        <!--자바스크립트문으로 form전송 -->
-        <!--https://all-record.tistory.com/172-->
-        <div class="wrap">
-
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<%@ include file="../common/menubar.jsp" %>
+	
+	<div class="wrap">
+	
             <div id="header"></div>
 
             <div id="content">
@@ -217,7 +221,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="">트렌딩관리</a>
+                                <a href="<%= request.getContextPath() %>/codilist.ad?currentPage=1">트렌딩관리</a>
                             </h4>
                         </div>
                         <div>
@@ -248,53 +252,114 @@
                         <div id="codi_box">
                             <div id="codi_flex_box">
                                 <div id="img_box">
-                                    <img id="codi_img" src=""/>
+                                    <img name="imgPath" id="codi_img" src="<%=c.getImgPath()%>"/>
                                 </div>
                                 <div id="select_box">
                                     <div id="codi_table_box">
                                         <table>
-                                            <tr height="30px">
-                                                <th width="30%">성별</th>
-                                                <td width="40%"><input
-                                                    class="form-check-input"
-                                                    type="radio"
-                                                    name="flexRadioDefault"
-                                                    id="flexRadioDefault1"
-                                                    checked="checked">
-                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                        남성
-                                                    </label>
-                                                </td>
-                                                <td>
-                                                    <input
-                                                        class="form-check-input"
-                                                        type="radio"
-                                                        name="flexRadioDefault"
-                                                        id="flexRadioDefault1"
-                                                        width="100px">
-                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                        여성
-                                                    </label>
-                                                </td>
-                                            </tr>
+                                        	<% if(c.getGender().equals("M")){ %>
+	                                            <tr height="30px">
+	                                                <th width="30%">성별</th>
+	                                                <td width="40%"><input
+	                                                    class="form-check-input"
+	                                                    type="radio"
+	                                                    name="flexRadioDefault"
+	                                                    id="flexRadioDefault1"
+	                                                    checked="checked">
+	                                                    <label class="form-check-label" for="flexRadioDefault1">
+	                                                       	 남성
+	                                                    </label>
+	                                                </td>
+	                                                <td>
+	                                                    <input
+	                                                        class="form-check-input"
+	                                                        type="radio"
+	                                                        name="flexRadioDefault"
+	                                                        id="flexRadioDefault1"
+	                                                        width="100px">
+	                                                    <label class="form-check-label" for="flexRadioDefault1">
+	                                                       	 여성
+	                                                    </label>
+	                                                </td>
+	                                            </tr>
+	                                            <% }else{ %>
+	                                            	<tr height="30px">
+	                                                <th width="30%">성별</th>
+	                                                <td width="40%"><input
+	                                                    class="form-check-input"
+	                                                    type="radio"
+	                                                    name="flexRadioDefault"
+	                                                    id="flexRadioDefault1">
+	                                                    <label class="form-check-label" for="flexRadioDefault1">
+	                                                       	 남성
+	                                                    </label>
+	                                                </td>
+	                                                <td>
+	                                                    <input
+	                                                        class="form-check-input"
+	                                                        type="radio"
+	                                                        name="flexRadioDefault"
+	                                                        id="flexRadioDefault1"
+	                                                        width="100px"
+	                                                        checked="checked">
+	                                                    <label class="form-check-label" for="flexRadioDefault1">
+	                                                       	 여성
+	                                                    </label>
+	                                                </td>
+	                                            </tr>
+	                                            <% } %>
                                             <tr height="150px">
-                                                <th>날씨</th>
-                                                <td colspan="2">
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option value="1" selected="selected">sunny</option>
-                                                        <option value="2">cloud</option>
-                                                        <option value="3">rain</option>
-                                                        <option value="4">snow</option>
-                                                    </select>
-                                                </td>
+                                            	<% if(c.getRecWeather().equals("sunny")){ %>
+	                                                <th>날씨</th>
+	                                                <td colspan="2">
+	                                                    <select name="weather" class="form-select" aria-label="Default select example">
+	                                                        <option value="1" selected="selected">sunny</option>
+	                                                        <option value="2">cloud</option>
+	                                                        <option value="3">rain</option>
+	                                                        <option value="4">snow</option>
+	                                                    </select>
+	                                                </td>
+	                                        	<% }else if(c.getRecWeather().equals("cloud")){ %>
+	                                        		<th>날씨</th>
+	                                                <td colspan="2">
+	                                                    <select name="weather" class="form-select" aria-label="Default select example">
+	                                                        <option value="1">sunny</option>
+	                                                        <option value="2" selected="selected">cloud</option>
+	                                                        <option value="3">rain</option>
+	                                                        <option value="4">snow</option>
+	                                                    </select>
+	                                                </td>
+	                                        	<% }else if(c.getRecWeather().equals("rain")){ %>
+	                                        		<th>날씨</th>
+	                                                <td colspan="2">
+	                                                    <select name="weather" class="form-select" aria-label="Default select example">
+	                                                        <option value="1" >sunny</option>
+	                                                        <option value="2">cloud</option>
+	                                                        <option value="3" selected="selected">rain</option>
+	                                                        <option value="4">snow</option>
+	                                                    </select>
+	                                                </td>
+	                                        	<% }else{ %>
+	                                        		<th>날씨</th>
+	                                                <td colspan="2">
+	                                                    <select name="weather" class="form-select" aria-label="Default select example">
+	                                                        <option value="1">sunny</option>
+	                                                        <option value="2">cloud</option>
+	                                                        <option value="3">rain</option>
+	                                                        <option value="4" selected="selected">snow</option>
+	                                                    </select>
+	                                                </td>
+	                                        	<% } %>
                                             </tr>
                                             <tr height="50px">
                                                 <th>온도</th>
                                                 <td colspan="2"><input
                                                     class="form-control"
                                                     type="text"
+                                                    name="hTemp"
                                                     placeholder="최고기온"
-                                                    aria-label="default input example"></td>
+                                                    aria-label="default input example"
+                                                    value="<%=c.getRecHighT() %>"></td>
 
                                             </tr>
                                             <tr>
@@ -302,8 +367,10 @@
                                                 <td colspan="2"><input
                                                     class="form-control"
                                                     type="text"
+                                                    name=""
                                                     placeholder="최저기온"
-                                                    aria-label="default input example"></td>
+                                                    aria-label="default input example"
+                                                    value="<%=c.getRecLowT() %>"></td>
                                             </tr>
                                             <tr style="display: none;">
                                                 <th>이미지1</th>
@@ -315,7 +382,7 @@
                                                             id="input-img1"
                                                             aria-describedby="inputGroupFileAddon04"
                                                             aria-label="Upload"
-                                                            onchange="loadImg(this,1);">
+                                                            onchange="loadImg(this,1);" >
                                                     </div>
                                                 </td>
                                             </tr>
@@ -369,8 +436,8 @@
                             </div>
                             <div id="codi_submit_box">
                                 <div id="codi_button_box">
-                                    <button type="button" class="btn btn-secondary" id="codi_btn_delete">취소</button>
-                                    <button type="button" class="btn btn-primary" id="codi_btn_submit" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">작성</button>
+                                    <a href="<%=request.getContextPath() %>/codilist.ad?currentPage=1" type="button" class="btn btn-secondary" id="codi_btn_delete">취소</a>
+                                    <button type="button" class="btn btn-primary" id="codi_btn_submit" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">수정</button>
                                 </div>
                             </div>
                         </div>
@@ -395,7 +462,7 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    코디를 업데이트하시겠습니까?
+                                    코디를 수정하시겠습니까?
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
@@ -427,7 +494,7 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    적용되었습니다!
+                                    수정되었습니다!
                                 </div>
                                 <div class="modal-footer">
                                     <button
@@ -444,9 +511,6 @@
                 </div>
 
             </div>
-        </div>
-
-    </div>
-
+	
 </body>
 </html>

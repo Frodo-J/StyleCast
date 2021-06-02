@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import com.stylecast.admin.model.dao.CodiDao;
 import com.stylecast.admin.model.vo.Codi;
 import com.stylecast.common.model.vo.PageInfo;
+import com.stylecast.daily.model.dao.DailyDao;
+import com.stylecast.daily.model.vo.Daily;
 
 public class CodiService {
 	
-	public int selectListCount1() {
+	public int selectListCount() {
 		Connection conn = getConnection();
-		int listCount = new CodiDao().selectListCount1(conn);
+		int listCount = new CodiDao().selectListCount(conn);
 
 		close(conn);
 		return listCount;
@@ -27,6 +29,14 @@ public class CodiService {
 		close(conn);
 		return list;
 		
+	}
+	
+	public Codi selectCodiUpdate(int codiNo) {
+		Connection conn = getConnection();
+		Codi c = new CodiDao().selectCodiUpdate(conn, codiNo);
+		
+		close(conn);
+		return c;
 	}
 	
 }

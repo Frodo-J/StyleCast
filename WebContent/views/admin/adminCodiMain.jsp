@@ -298,12 +298,14 @@
                         <div id="codi_box">
                         	<% for(Codi c : list){ %>
                             <div class="thumbnail" align="center">
-                                <input type="hidden" value="">
+                            	<a href="<%= request.getContextPath() %>/codiUpDate.ad?cno=<%=c.getCodiNo() %>" style="text-decoration:none; color:black">
+                                <input type="hidden" value="<%= c.getCodiNo() %>">
                                 <img src="<%= c.getImgPath() %>" width="190" height="200">
                                 <p>
-                                    <b><%= c.getRecWeather() %>/<%= c.getRecLowT() %>/<%= c.getRecHighT() %>
+                                    <b><%= c.getRecWeather() %>/<%= c.getRecLowT() %>/<%= c.getRecHighT() %>/<%=c.getGender() %>
                                     </b>
                                 </p>
+                                </a>
                             </div>
                             <% } %>
                             <!-- 
@@ -356,7 +358,7 @@
                         <div id="write_box">
                             <div id="write_box_inner">
                                 <!-- 사용자일경우 안보이게-->
-                                <button type="button" class="btn btn-primary">코디 추가</button>
+                                <a type="button" class="btn btn-primary" href ="<%= request.getContextPath() %>/codiCreat.ad">코디 추가</a>
                             </div>
                         </div>
                         <br>

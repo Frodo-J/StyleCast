@@ -1,7 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="kr">
-    <head>
-        <meta charset="UTF-8">
+<html>
+<head>
+<meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
@@ -181,14 +183,11 @@
                 height: 30%;
             }
         </style>
-    </head>
-    <body>
-        <!--참고하면 좋은 글-->
-        <!--modal form submit에 관한 글-->
-        <!-- https://codevang.tistory.com/287 -->
-        <!--자바스크립트문으로 form전송 -->
-        <!--https://all-record.tistory.com/172-->
-        <div class="wrap">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<div class="wrap">
 
             <div id="header"></div>
 
@@ -217,7 +216,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="">트렌딩관리</a>
+                                <a href="<%= request.getContextPath() %>/codilist.ad?currentPage=1">트렌딩관리</a>
                             </h4>
                         </div>
                         <div>
@@ -236,17 +235,20 @@
                 </script>
 
                 <div id="form">
+                	
                     <!-- <h2 style="text-align: center;"> <b>회원관리</b> </h2> -->
                     <!-- <br> <div id="line2"></div> -->
-
+					
                     <div id="content_of_form">
                         <div id="blank_box">
                             <h5>
                                 <b>날씨 및 코디</b>
                             </h5>
                         </div>
-                        <div id="codi_box">
+                        
+                        <form action="<%= request.getContextPath() %>/insertCodi.ad" id="codi_box" method="post" enctype="multipart/form-data">
                             <div id="codi_flex_box">
+                            
                                 <div id="img_box">
                                     <img id="codi_img" src=""/>
                                 </div>
@@ -262,7 +264,7 @@
                                                     id="flexRadioDefault1"
                                                     checked="checked">
                                                     <label class="form-check-label" for="flexRadioDefault1">
-                                                        남성
+                                                       	 남성
                                                     </label>
                                                 </td>
                                                 <td>
@@ -273,7 +275,7 @@
                                                         id="flexRadioDefault1"
                                                         width="100px">
                                                     <label class="form-check-label" for="flexRadioDefault1">
-                                                        여성
+                                                        	여성
                                                     </label>
                                                 </td>
                                             </tr>
@@ -364,15 +366,18 @@
                                         }
                                     </script>
 
-                                </div>
-
+                                		</div>
+                                		
+                                	</div>
+								
                             </div>
                             <div id="codi_submit_box">
                                 <div id="codi_button_box">
-                                    <button type="button" class="btn btn-secondary" id="codi_btn_delete">취소</button>
-                                    <button type="button" class="btn btn-primary" id="codi_btn_submit" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">수정</button>
+                                    <a type="button" class="btn btn-secondary" id="codi_btn_delete" href= "<%= request.getContextPath() %>/codilist.ad?currentPage=1">취소</a>
+                                    <a type="button" class="btn btn-primary" id="codi_btn_submit" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">작성</a>
                                 </div>
                             </div>
+                            </form>
                         </div>
                     </div>
                     <!-- Modal -->
@@ -395,7 +400,7 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    코디를 수정하시겠습니까?
+                                   	 코디를 업데이트하시겠습니까?
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
@@ -427,7 +432,7 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    수정되었습니다!
+                                    	적용되었습니다!
                                 </div>
                                 <div class="modal-footer">
                                     <button
@@ -440,13 +445,10 @@
                         </div>
                     </div>
                     <br>
-
                 </div>
 
             </div>
-        </div>
 
-    </div>
-
+	
 </body>
 </html>

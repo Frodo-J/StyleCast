@@ -2,11 +2,11 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	
-	<entry key="selectListCount1">
+	<entry key="selectListCount">
 		SELECT COUNT(*) COUNT
 		FROM CODI
 	</entry>
-
+	
 	<entry key="SelectCodiList">
 		SELECT *
 		FROM(
@@ -23,5 +23,132 @@
 		             )A
 		     )
 		     WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	
+	<entry key="SelectCodiListM">
+		SELECT *
+		FROM(
+		        SELECT ROWNUM RNUM, A.* 
+		        FROM(
+		            SELECT 
+		                   CODI_NO
+		                 , GENDER
+		                 , IMG_PATH
+		                 , REC_WEATHER
+		                 , REC_LOWT
+		                 , REC_HIGHT
+		                 FROM CODI
+		                 WHERE GENDER = 'M'
+		             )A
+		     )
+		     WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="SelectCodiListMRain">
+		SELECT *
+		FROM(
+		        SELECT ROWNUM RNUM, A.* 
+		        FROM(
+		            SELECT 
+		                   CODI_NO
+		                 , GENDER
+		                 , IMG_PATH
+		                 , REC_WEATHER
+		                 , REC_LOWT
+		                 , REC_HIGHT
+		                 FROM CODI
+		                 WHERE GENDER = 'M' REC_WEATHER = RAIN || REC_WEATHER = SNOW
+		             )A
+		     )
+		     WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="SelectCodiListMClear">
+		SELECT *
+		FROM(
+		        SELECT ROWNUM RNUM, A.* 
+		        FROM(
+		            SELECT 
+		                   CODI_NO
+		                 , GENDER
+		                 , IMG_PATH
+		                 , REC_WEATHER
+		                 , REC_LOWT
+		                 , REC_HIGHT
+		                 FROM CODI
+		                 WHERE GENDER = 'M' REC_WEATHER = SUNNY || REC_WEATHER = CLOUD
+		             )A
+		     )
+		     WHERE RNUM BETWEEN ? AND ?
+	</entry>
+
+	<entry key="SelectCodiListF">
+		SELECT *
+		FROM(
+		        SELECT ROWNUM RNUM, A.* 
+		        FROM(
+		            SELECT 
+		                   CODI_NO
+		                 , GENDER
+		                 , IMG_PATH
+		                 , REC_WEATHER
+		                 , REC_LOWT
+		                 , REC_HIGHT
+		                 FROM CODI
+		                 WHERE GENDER = 'F'
+		             )A
+		     )
+		     WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="SelectCodiListFRain">
+		SELECT *
+		FROM(
+		        SELECT ROWNUM RNUM, A.* 
+		        FROM(
+		            SELECT 
+		                   CODI_NO
+		                 , GENDER
+		                 , IMG_PATH
+		                 , REC_WEATHER
+		                 , REC_LOWT
+		                 , REC_HIGHT
+		                 FROM CODI
+		                 WHERE GENDER = 'F' REC_WEATHER = RAIN || REC_WEATHER = SNOW
+		             )A
+		     )
+		     WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="SelectCodiListFClear">
+		SELECT *
+		FROM(
+		        SELECT ROWNUM RNUM, A.* 
+		        FROM(
+		            SELECT 
+		                   CODI_NO
+		                 , GENDER
+		                 , IMG_PATH
+		                 , REC_WEATHER
+		                 , REC_LOWT
+		                 , REC_HIGHT
+		                 FROM CODI
+		                 WHERE GENDER = 'F' REC_WEATHER = SUNNY || REC_WEATHER = CLOUD
+		             )A
+		     )
+		     WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectCodiUpdate">
+		SELECT 
+		       CODI_NO
+		     , GENDER
+		     , IMG_PATH
+		     , REC_WEATHER
+		     , REC_LOWT
+		     , REC_HIGHT
+		  FROM CODI
+		 WHERE CODI_NO = ?
 	</entry>
 </properties>

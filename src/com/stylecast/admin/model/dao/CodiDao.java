@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import com.stylecast.admin.model.vo.Codi;
 import com.stylecast.common.model.vo.PageInfo;
+import com.stylecast.daily.model.vo.Daily;
 
 public class CodiDao {
 	
@@ -26,11 +27,11 @@ public class CodiDao {
 		}
 	}
 	
-	public int selectListCount1(Connection conn) {
+	public int selectListCount(Connection conn) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectListCount1");
+		String sql = prop.getProperty("selectListCount");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -89,5 +90,36 @@ public class CodiDao {
 			
 			return list;
 		}
+	
+	public Codi selectCodiUpdate(Connection conn, int codiNo) {
+		Codi c = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCodiUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, codiNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				c = new Codi(rset.getInt("codi_no"),
+							 rset.getString("gender"),
+							 rset.getString("img_path"),
+							 rset.getString("rec_weather"),
+							 rset.getString("rec_lowt"),
+							 rset.getString("rec_hight"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return c;
+	}
 	
 }
