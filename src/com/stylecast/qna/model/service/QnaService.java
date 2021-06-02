@@ -125,6 +125,42 @@ public class QnaService {
 		
 	}
 
+	public int deleteQna(int qnaNo) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		int result1 = new QnaDao().deleteQna(conn,qnaNo);
+		
+		if(result1 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1;
+	}
+
+
+	public int deleteBoardImage(int qnaNo) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		int result = new QnaDao().deleteBoardImage(conn,qnaNo);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public ArrayList<BoardImage> selectBoardImagePath(int qnaNo) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		ArrayList<BoardImage> bImage = new QnaDao().selectBoardImagePath(conn,qnaNo);
+		close(conn);
+		return bImage;
+	}
+
 
 
 

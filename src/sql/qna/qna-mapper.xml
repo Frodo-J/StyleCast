@@ -134,5 +134,21 @@
 			, SEQ_QNA.CURRVAL
 		)
 	</entry>
-
+	<entry key="deleteQna">
+		DELETE
+		FROM QNA
+		WHERE QNA_NO = ?
+	</entry>
+	<entry key="deleteBoardImage">
+		DELETE
+		FROM IMAGE
+		WHERE POST_CATEGORY = 1
+		AND POST_NO = ?
+	</entry>
+	<entry key="selectBoardImagePath">
+		SELECT IMG_PATH
+		FROM IMAGE
+		WHERE POST_CATEGORY = 1
+		AND POST_NO = ?
+	</entry>
 </properties>

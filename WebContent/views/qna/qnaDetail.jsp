@@ -41,7 +41,8 @@
         #content_3{width:30%; height:6%; float: left;}
         #content_4{width:30%; height:42%; float:left;}
         #content_5{width:100%; height:35%; float: right;} */
-
+		.wrap{width:1200px; height:1300px;  margin: auto;}
+        .wrap>div{width:100%;}
         
         #content {
             font-family: 'Noto Sans KR', sans-serif;
@@ -93,7 +94,7 @@
     </style>
 </head>
 <body>
-    
+    <%@ include file="../common/menubar.jsp" %>
     <div class="wrap">
     <!--  
         <div id="header">
@@ -102,10 +103,9 @@
             <div id="header_3">검색</div>
             <div id="header_4">로그인</div>
         </div>-->
-        <%@ include file="../common/menubar.jsp" %>
         <div id="content">
             <div id="head_box">
-                <h2 id="head_of_qna">Qna</h2>
+                <h3 id="head_of_qna">Qna</h3>
             </div>
             <div id="detail_box">
                 <table class="table">
@@ -205,11 +205,11 @@
                                         	삭제되었습니다!
                                     </div>
                                     <div class="modal-footer">
-                                        <!--  <button
+                                      <button
                                             class="btn btn-primary"
                                             data-bs-toggle="modal"
                                             data-bs-dismiss="modal"
-                                            onclick="location.href='<%//=contextPath%>/delete.no?nno=<%//=q.getQnaNo()%>';">확인</button>-->
+                                            onclick="location.href='<%=contextPath%>/delete.qna?qno=<%=q.getQnaNo()%>';">확인</button>
                                     </div>
                                 </div>
                             </div>
@@ -305,7 +305,7 @@
             				console.log(qAnswer); // [{}, {}, ..]  |  []
             				var result = "";
             				if(qAnswer.ansContent == null){
-            					result = "<tr> <td colspan="+ "4" +"> 등록된 공지사항이 없습니다.</td> </tr>";
+            					result = "<tr> <td colspan="+ "4" +"> 등록된 답변이 없습니다.</td> </tr>";
             				}else{
             					$("#answerContent").attr("placeholder","여기에 다시 답변을 달면 답변이 수정됩니다.");
             					result = "<tr>"

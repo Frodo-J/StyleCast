@@ -89,7 +89,7 @@
     <style>
     	/*
         div:not(#head_box, #detail_box,#notice_contents,#button_box,#notice_main,#image_lists,#input_file,#radio_box,#pwd_box ){border: 1px solid gray; box-sizing: border-box;}
-        .wrap{width:1200px; height:1300px;  margin: auto;}
+      	.wrap{width:1200px; height:1300px;  margin: auto;}
 
         .wrap>div{width:100%;}
         #header{height:12%;}
@@ -108,6 +108,8 @@
         #content_4{width:30%; height:42%; float:left;}
         #content_5{width:100%; height:35%; float: right;} */
 
+        .wrap{width:1200px; height:1300px;  margin: auto;}
+        .wrap>div{width:100%;}
         
         #content{
             font-family: 'Noto Sans KR', sans-serif;
@@ -160,7 +162,8 @@
     
 </head>
 <body>
-    
+
+	<%@ include file="../common/menubar.jsp" %>    
     <div class="wrap">
     <!-- 
         <div id="header">
@@ -170,7 +173,6 @@
             <div id="header_4">로그인</div> 
         </div>
          -->
-         <%@ include file="../common/menubar.jsp" %>
         <div id="content">
             <div id="head_box">
                 <h3 id="head_of_notice">Q&A</h3>
