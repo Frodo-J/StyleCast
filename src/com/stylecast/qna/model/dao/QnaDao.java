@@ -410,6 +410,73 @@ public class QnaDao {
 		return list;
 	}
 
+	public int updateQna(Connection conn, Qna q) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateQna");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, q.getQnaTitle());
+			pstmt.setString(2, q.getQnaContent());
+			pstmt.setString(3, q.getQnaCategory());
+			pstmt.setInt(4, q.getQnaNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("updateQnaDao : " + result);
+		return result;
+	}
+
+	public int updateBoardImage(Connection conn, BoardImage bImage) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateBoardImage");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bImage.getImgPath());
+			pstmt.setInt(2,bImage.getImgNo());
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertNewBoardImage(Connection conn, BoardImage bImage) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertNewBoardImage");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,bImage.getImgPath());
+			pstmt.setInt(2, bImage.getPostNo());
+			
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 	
 
 }

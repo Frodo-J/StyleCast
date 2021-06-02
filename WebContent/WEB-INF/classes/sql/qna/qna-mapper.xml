@@ -151,4 +151,38 @@
 		WHERE POST_CATEGORY = 1
 		AND POST_NO = ?
 	</entry>
+	<entry key="updateQna">
+		UPDATE
+		       QNA
+		   SET 
+		   	   QNA_TITLE = ? 
+		     , QNA_CONTENT = ?
+		     , QNA_CATEGORY = ?
+		 WHERE QNA_NO = ?
+	</entry>
+	<entry key="updateBoardImage">
+		UPDATE
+			IMAGE
+		SET IMG_PATH = ?
+		WHERE POST_CATEGORY =1
+		AND IMG_NO = ?
+	</entry>
+	<entry key="insertNewBoardImage">
+		INSERT
+			INTO IMAGE
+			(
+				IMG_NO
+			,	IMG_PATH
+			,	POST_CATEGORY
+			,	POST_NO
+			)
+			VALUES
+			(
+				SEQ_IMG.NEXTVAL
+				,?
+				,1
+				,?
+			)
+			
+	</entry>
 </properties>
