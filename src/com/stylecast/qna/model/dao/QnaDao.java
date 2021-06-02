@@ -294,6 +294,52 @@ public class QnaDao {
 		return result;
 	}
 
+	public int insertQna(Connection conn, Qna q) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertQna");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, q.getMemNo());
+			pstmt.setString(2, q.getQnaTitle());
+			pstmt.setString(3, q.getQnaContent());
+			pstmt.setString(4, q.getQnaCategory());
+
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertBoardImageList(Connection conn, ArrayList<BoardImage> list) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertBoardImageList");
+		
+		try {
+			for(BoardImage bImage : list) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, bImage.getImgPath());
+				
+				result = pstmt.executeUpdate();
+			}
+		
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("insertBoardDao : " + result);
+		
+		return result;
+	}
+
 	
 
 }

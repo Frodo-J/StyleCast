@@ -187,7 +187,7 @@
                 <div id="write_box_inner">
                     <!-- 로그인 안한 사용자일경우 안보이게-->
                     <% if(loginUser != null){ %>
-                    	<button type="button" class="btn btn-secondary btn-sm">글작성</button>
+                    	<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='<%=contextPath%>/createForm.qna';">글작성</button>
                 	<%} %>
                 </div>
             </div>

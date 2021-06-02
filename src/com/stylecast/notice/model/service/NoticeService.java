@@ -9,6 +9,7 @@ import com.stylecast.common.model.vo.BoardImage;
 import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.notice.model.dao.NoticeDao;
 import com.stylecast.notice.model.vo.Notice;
+import com.stylecast.qna.model.vo.Qna;
 
 public class NoticeService {
 
@@ -88,7 +89,12 @@ public class NoticeService {
 		
 		Connection conn = getConnection();
 		int result1 = new NoticeDao().insertNotice(conn,n);
-		int result2 = new NoticeDao().insertBoardImageList(conn,list);
+		int result2 = 1;
+		
+		if(list.isEmpty()==false) {
+			 result2 = new NoticeDao().insertBoardImageList(conn,list);
+		}
+		
 		if(result1>0 && result2>0) {
 			commit(conn);
 		}else {
@@ -208,6 +214,7 @@ public class NoticeService {
 		
 		return listCount;
 	}
+
 
 		
 

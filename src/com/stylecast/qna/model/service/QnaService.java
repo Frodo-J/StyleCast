@@ -57,7 +57,6 @@ public class QnaService {
 		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		Qna q = new QnaDao().selectQna(conn,qnaNo);
-		System.out.println(q);
 		close(conn);
 		
 		return q;
@@ -69,7 +68,6 @@ public class QnaService {
 		
 		ArrayList<BoardImage> imgList = new QnaDao().selectBoardImageList(conn,qnaNo);
 		close(conn);
-		System.out.println(imgList);
 		return imgList;
 	}
 
@@ -85,7 +83,6 @@ public class QnaService {
 		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		int result = new QnaDao().updateQnaAnswer(conn,q);
-		System.out.println("updateQnaAnswer" + result);
 		if(result > 0 ) {
 			commit(conn);
 		}else {
@@ -108,6 +105,30 @@ public class QnaService {
 		
 		close(conn);
 		return 0;
+	}
+
+	public int insertQna(Qna q, ArrayList<BoardImage> list) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		
+		int result1 = new QnaDao().insertQna(conn, q);
+		
+		int result2 = 1;
+		if(list.isEmpty()==false) {
+			result2 = new QnaDao().insertBoardImageList(conn,list);
+		}
+		
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result1 * result2;
+		
 	}
 
 
