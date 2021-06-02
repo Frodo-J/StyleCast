@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import="java.util.ArrayList, com.stylecast.main.model.vo.MainSelectDaily, com.stylecast.main.model.vo.MainSelectCodiM"%>
 <%
 	ArrayList<MainSelectDaily> dailylist = (ArrayList<MainSelectDaily>)request.getAttribute("list");
-	//ArrayList<MainSelectCodiM> codilist = (ArrayList<MainSelectCodi>)request.getAttribute("list");
+	//ArrayList<MainSelectCodiM> codilist = (ArrayList<MainSelectCodiM>)request.getAttribute("listC");
 %>
 <!DOCTYPE html>
 <html lang="kr">
@@ -147,10 +147,13 @@
                 <div id="codi">
                     <b><font size="5px">오늘의 코디</font></b>  
                </div>
+               
                 <div id="codi_img">
-                    <div id="codi_1"><img id="codi_img_1" src="<%=contextPath %>/resources/codi_upfiles/codi1.jpg" alt="" width="280px" height="380px"></div>
-                    <div id="codi_2"><img id="codi_img_2" src="<%=contextPath %>/resources/codi_upfiles/codi2.jpg" alt="" width="280px" height="380px"></div>
+                	
+                    <div id="codi_1>"><img id="codi_img_1" src="" alt="" width="280px" height="380px"></div>
+                    
                 </div>    
+                
             </div>
             <div id="content_3">
                 <button  id="changeGender" onclick="toggleImg()">

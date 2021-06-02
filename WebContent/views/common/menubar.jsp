@@ -25,21 +25,13 @@
     <!--돋보기 이미지end-->
     <!--font-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500&family=Noto+Serif+KR:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
     <!--font end-->
     <title>Document</title>
     
     <style>
         
-        .wrap{
-            width:1200px; 
-            height:1300px;  
-            margin: auto; 
-            font-family:'Noto Sans KR', sans-serif;
-            }
-
-        .wrap>div{width:100%;}
-        #header{height:12%;}
+        #header{height:156px; width:"1200px";}
 
         #header>div{float:left;}
 

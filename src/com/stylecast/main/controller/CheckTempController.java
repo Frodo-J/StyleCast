@@ -35,11 +35,11 @@ public class CheckTempController extends HttpServlet {
 		double NowTemp = Double.parseDouble(request.getParameter("Temp"));
 		String weather = request.getParameter("Weather");
 		
-		ArrayList<MainSelectCodiM> list = new MainService().MainSelectCodiM();
-		request.setAttribute("list", list);
+		ArrayList<MainSelectCodiM> listC = new MainService().MainSelectCodiM(NowTemp);
+		request.setAttribute("listC", listC);
 		
 		System.out.println(NowTemp);
-		System.out.println(list);
+		System.out.println(listC);
 		
 		//System.out.println(NowTemp);
 		//System.out.println(Weather);
@@ -48,7 +48,7 @@ public class CheckTempController extends HttpServlet {
 		//System.out.println(list);
 		
 		
-		request.getRequestDispatcher("views/main/mainPage.jsp").forward(request, response);
+		//request.getRequestDispatcher("views/main/mainPage.jsp").forward(request, response);
 		
 	}
 

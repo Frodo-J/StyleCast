@@ -22,13 +22,13 @@ public class MainService {
 		
 	}
 	
-	public ArrayList<MainSelectCodiM> MainSelectCodiM(){
+	public ArrayList<MainSelectCodiM> MainSelectCodiM(double NowTemp){
 		
 		Connection conn = getConnection();
-		ArrayList<MainSelectCodiM> list = new MainDao().MainSelectCodiM(conn, 0);
+		ArrayList<MainSelectCodiM> listC = new MainDao().MainSelectCodiM(conn, NowTemp);
 		
 		close(conn);
-		return list;
+		return listC;
 	}
 	
 	

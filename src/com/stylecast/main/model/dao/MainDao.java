@@ -55,19 +55,19 @@ public class MainDao {
 		
 	}
 	
-	public ArrayList<MainSelectCodiM> MainSelectCodiM(Connection conn, int Nowtemp){
-		ArrayList<MainSelectCodiM> list = new ArrayList<>();
+	public ArrayList<MainSelectCodiM> MainSelectCodiM(Connection conn, double Nowtemp){
+		ArrayList<MainSelectCodiM> listC = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("MainSelectCodiM");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, Nowtemp);
+			pstmt.setDouble(1, Nowtemp);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new MainSelectCodiM(rset.getInt("codi_no"),
+				listC.add(new MainSelectCodiM(rset.getInt("codi_no"),
 								    	 	 rset.getString("img_path")));
 			}
 			
@@ -78,7 +78,7 @@ public class MainDao {
 			close(pstmt);
 		}
 		
-		return list;
+		return listC;
 		
 	}
 	
