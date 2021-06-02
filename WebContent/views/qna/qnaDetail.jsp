@@ -209,7 +209,7 @@
                                             class="btn btn-primary"
                                             data-bs-toggle="modal"
                                             data-bs-dismiss="modal"
-                                            onclick="location.href='<%//=contextPath%>/delete.qna?qno=<%=q.getQnaNo()%>';">확인</button>-->
+                                            onclick="location.href='<%=contextPath%>/delete.qna?qno=<%=q.getQnaNo()%>';">확인</button>
                                     </div>
                                 </div>
                             </div>
