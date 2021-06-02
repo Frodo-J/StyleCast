@@ -32,7 +32,7 @@ public class CheckTempController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int NowTemp = Integer.parseInt(request.getParameter("Temp"));
+		double NowTemp = Double.parseDouble(request.getParameter("Temp"));
 		String weather = request.getParameter("Weather");
 		
 		ArrayList<MainSelectCodiM> list = new MainService().MainSelectCodiM();
