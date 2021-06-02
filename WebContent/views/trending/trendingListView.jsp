@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8" import="com.stylecast.theme.model.vo.*, java.util.ArrayList"%>
 <%
 	Theme t = (Theme)request.getAttribute("t");
-	ArrayList<ThemePost> tlist = (ArrayList<ThemePost>)request.getAttribute("tlist");
+	ArrayList<ThemePost> plist = (ArrayList<ThemePost>)request.getAttribute("plist");
+	ArrayList<Theme> tlist = (ArrayList<Theme>)request.getAttribute("tlist");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +29,8 @@ div {
 
 #content {
 	height: 88%;
+	font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
 }
 
 #content_1 {
@@ -53,9 +56,9 @@ div {
 
 #title {
 	width: 60%;
-	font-size: 30px;
-	font-weight: 700;
-	margin-top: 26px;
+	font-size: 28px;
+	font-weight: 600;
+	margin-top: 25px;
 	margin-left: 42px;
 	float: left;
 }
@@ -64,8 +67,8 @@ div {
 	width: auto;
 	height: auto;
 	font-size: 15px;
-	font-weight: 700;
-	margin: 40px 0px 0px 280px;
+	font-weight: 600;
+	margin: 39px 0px 0px 315px;
 	text-align: center;
 	float: left;
 }
@@ -98,12 +101,12 @@ div {
 .like_count {
 	width: 60%;
 	font-size: 16px;
-	font-weight: 700;
+	font-weight: 500;
 	color: white;
 	text-shadow: 1px 1px 2px gray;
 	position: absolute;
-	left: 12px;
-	bottom: 20px;
+	left: 15px;
+	bottom: 21px;
 }
 
 .like_button {
@@ -114,7 +117,7 @@ div {
 	height: 40px;
 	position: absolute;
 	right: 12px;
-	bottom: 10px;
+	bottom: 12px;
 }
 
 .theme {
@@ -126,32 +129,20 @@ div {
 	color: rgb(40, 40, 40);
 }
 
-#theme_1 {
-	border: 2px solid lightgreen;
-}
-
-#theme_2 {
-	border: 2px solid lightsteelblue;
-}
-
-#theme_3 {
-	border: 2px solid lightsalmon;
-}
-
 .theme_title {
-	font-size: 30px;
-	font-weight: 700;
+	font-size: 28px;
+	font-weight: 600;
 	position: absolute;
-	left: 20px;
-	top: 24px;
+	left: 40px;
+	top: 20px;
 }
 
 .theme_week {
 	font-size: 15px;
-	font-weight: 700;
+	font-weight: 600;
 	position: absolute;
-	right: 20px;
-	top: 35px;
+	right: 28px;
+	top: 33px;
 }
 
 .post:hover {
@@ -186,51 +177,75 @@ div {
 </head>
 <body>
 
+	<%@ include file="../common/menubar.jsp"%>
+
 	<div class="wrap">
 	
-		<%@ include file="../common/menubar.jsp"%>
-
 		<div id="content">
 			<div id="content_1">
 				<div id="title_content" style="border:2px solid <%= t.getThemeTitleColor() %>">
 					<div id="title"><%= t.getThemeTitle() %></div>
-					<div id="week"><%= t.getThemeSubtitle() %></div>
+					<div id="week"><%= t.getThemeSubtitle() %></div>
 					<input type="hidden" id="themeNo" name="tno" value="<%= t.getThemeNo() %>">
 				</div>
 				<div id="post_content">
-					<% for(ThemePost tp : tlist) { %>
+					<% for(ThemePost tp : plist) { %>
 					<div class="post">
-						<img src="<%= tp.getDailyImg() %>">
 						<input type="hidden" value="<%= tp.getDailyNo() %>">
-						<div class="like_count">받은 좋아요 0</div>
-						<input type="button" class="like_button"></input>
+						<input type="hidden" value="<%= t.getThemeNo() %>">
+						<img src="<%= tp.getDailyImg() %>">
+						<div class="like_count">받은 좋아요 <%= tp.getCount() %></div>
+						<% if(loginUser != null) { %>
+							<input type="button" class="like_button"></input>
+						<% }else { %>
+							<input type="button" class="like_button" data-bs-toggle="modal" data-bs-target="#logoutUserModal"></input>
+						<% } %>
 					</div>
 					<% } %>
 				</div>
 			</div>
 
 			<div id="content_2">
-				<div class="theme" id="theme_1">
-					<div class="theme_title">제목</div>
-					<div class="theme_week">4월 4주차</div>
-				</div>
-				<div class="theme" id="theme_2">
-					<div class="theme_title">ì¤íì¼ë¦¬ì ë¬´ì±ì ì½ë</div>
-					<div class="theme_week">4ì 3ì£¼ì°¨</div>
-				</div>
-				<div class="theme" id="theme_3">
-					<div class="theme_title">ê°ì ê¸° ìì¼ ì½ë</div>
-					<div class="theme_week">4ì 2ì£¼ì°¨</div>
-				</div>
+				<!-- 베스트와 현재 테마번호를 제외한 나머지 테마 반복문-->
+				<% for(Theme th : tlist) { %>
+					<div class="theme" style="border: 2px solid <%= th.getThemeTitleColor() %>" 
+						 onclick="location.href='<%=contextPath%>/list.to?tpage=' + <%= th.getThemeNo() %>">
+						<input type="hidden" value="<%= th.getThemeNo() %>">
+						<div class="theme_title"><%= th.getThemeTitle() %></div>
+						<div class="theme_week"><%= th.getThemeSubtitle() %></div>
+					</div>
+				<% } %>
 			</div>
 		</div>
 	</div>
 
+    <!-- 비로그인 유저 action 클릭 Modal-->
+    <div class="modal fade" id="logoutUserModal" tabindex="-1" aria-labelledby="logoutUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="logoutUserModalLabel">로그인 요청</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>로그인 후 이용가능한 서비스입니다. 로그인 하시겠습니까?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+              <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/loginPage.me'">확인</button>
+            </div>
+          </div>
+        </div>
+    </div>
 
 	<script>
 	
-	$(document).ready(function(){
-	});
+    // daily click action
+    $(".post").click(function(){
+        if(event.target.className=='like_button') return;
+        $(location).attr("href", "<%=contextPath%>/detail.th?tno=" + <%= t.getThemeNo() %> + "&dno=" + $(this).children().eq(0).val());
+    });
+    
 	</script>
 </body>
 </html>

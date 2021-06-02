@@ -9,21 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.stylecast.daily.model.service.DailyService;
+import com.stylecast.daily.model.vo.Daily;
+import com.stylecast.daily.model.vo.Item;
 import com.stylecast.theme.model.service.ThemeService;
 import com.stylecast.theme.model.vo.Theme;
-import com.stylecast.theme.model.vo.ThemePost;
 
 /**
- * Servlet implementation class ThemeListController
+ * Servlet implementation class ThemeDetailController
  */
-@WebServlet("/list.to")
-public class ThemeListController extends HttpServlet {
+@WebServlet("/detail.th")
+public class ThemeDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ThemeListController() {
+    public ThemeDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,16 +35,19 @@ public class ThemeListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int tno = Integer.parseInt(request.getParameter("tpage"));
-	
-		Theme t = new ThemeService().selectThemeOthers(tno);
-		ArrayList<ThemePost> plist = new ThemeService().selectThemePost(tno);
-		ArrayList<Theme> tlist = new ThemeService().selectThemeListOthers(tno); 
+		int dno = Integer.parseInt(request.getParameter("dno"));
+		int tno = Integer.parseInt(request.getParameter("tno"));
 		
-		request.setAttribute("t", t);
-		request.setAttribute("plist", plist);
-		request.setAttribute("tlist", tlist);
-		request.getRequestDispatcher("views/trending/trendingListView.jsp").forward(request, response);
+		Daily d = new DailyService().selectDailyDetail(dno);
+		Theme m = new ThemeService().selectThemeInfo(tno);
+		ArrayList<Item> iList = new DailyService().selectDailyItem(dno);
+		ArrayList<Daily> dlist = new ThemeService().selectOtherPost(dno, tno);
+		
+		request.setAttribute("d", d);
+		request.setAttribute("m", m);
+		request.setAttribute("iList", iList);
+		request.setAttribute("dlist", dlist);
+		request.getRequestDispatcher("views/trending/trendingDetailView.jsp").forward(request, response);
 	
 	}
 
