@@ -28,6 +28,10 @@
     <!--돋보기 이미지-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
     <!--돋보기 이미지end-->
+    <!--font-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+    <!--font end-->
     <title>Document</title>
     
     <style>
