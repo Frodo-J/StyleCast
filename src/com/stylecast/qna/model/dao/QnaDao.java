@@ -498,7 +498,7 @@ public class QnaDao {
 			close(rset);
 			close(pstmt);
 		}
-		
+		System.out.println("QnaDao : SelectListCoutnByQnaTitle: " + listCount);
 		return listCount;
 	}
 
@@ -524,7 +524,7 @@ public class QnaDao {
 					close(rset);
 					close(pstmt);
 				}
-				
+				System.out.println("QnaDao : SelectListCoutnByQnaContent: " + listCount);
 				return listCount;
 	}
 
@@ -560,45 +560,6 @@ public class QnaDao {
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectListByQnaTitle");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-			int endRow = startRow + pi.getBoardLimit() -1;
-			
-			pstmt.setString(1, text);
-			pstmt.setInt(2,startRow);
-			pstmt.setInt(3, endRow);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new Qna(rset.getInt("qna_no"),
-						rset.getString("qna_category"),
-						rset.getString("qna_title"),
-						rset.getString("mem_name"),
-						rset.getDate("enr_date"),
-						rset.getString("ans_content")
-						));
-			}
-			
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
-	}
-
-	public ArrayList<Qna> selectListByQnaContent(Connection conn, PageInfo pi, String text) {
-		// TODO Auto-generated method stub
-		ArrayList<Qna> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectListByQnaContent");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

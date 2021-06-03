@@ -76,6 +76,8 @@ public class QnaSearchController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
+		System.out.println(currentPage);
+		System.out.println(pi);
 		
 		ArrayList<Qna> list = new QnaService().selectSearchList(pi,category,text);
 		request.setAttribute("list", list);

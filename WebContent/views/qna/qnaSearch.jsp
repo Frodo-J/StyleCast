@@ -136,7 +136,6 @@
                 <div id="search_box" >
                     <select class="form-select" name="search_category" id="search_category">
                         <option selected value="qna_title">제목</option>
-                        <option value="qna_content">내용</option>
                         <option value="mem_name">작성자</option>
                     </select>
                     <input id="input_search" class="form-control" type="text" placeholder="검색내용" name="search_text" value="<%=text%>"/>
@@ -217,7 +216,7 @@
             		<% for(int p=startPage; p<=endPage; p++){ %>
             	
             			<% if(p != currentPage){ %>
-	            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.no?currentPage=<%= p %>&&search_category=<%=category%>&&search_text=<%=text%>';"><%= p %></button>
+	            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/search.qna?currentPage=<%= p %>&&search_category=<%=category%>&&search_text=<%=text%>';"><%= p %></button>
 	            		<% }else { %>
 	            			<button type="button" class="btn btn-outline-secondary" disabled><%= p %></button>
             			<% } %>
@@ -225,7 +224,7 @@
             		<% } %>
 
 				<% if(currentPage != maxPage){ %>
-            		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.no?currentPage=<%=currentPage+1%>&&search_category=<%=category%>&&search_text=<%=text%>';"> &gt; </button>
+            		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/search.qna?currentPage=<%=currentPage+1%>&&search_category=<%=category%>&&search_text=<%=text%>';"> &gt; </button>
 				<% } %>
 			
         	</div>

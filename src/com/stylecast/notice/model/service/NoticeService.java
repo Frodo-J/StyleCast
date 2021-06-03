@@ -196,7 +196,7 @@ public class NoticeService {
 			listCount = new NoticeDao().selectListCountByNoticeTitle(conn,text);
 		}else if(category.equals("notice_content")) {
 			listCount = new NoticeDao().selectListCountByNoticeContent(conn,text);
-		}else if(category.contentEquals("mem_name")) {
+		}else if(category.equals("mem_name")) {
 			listCount = new NoticeDao().selectListCountByMemName(conn,text);
 		}
 		

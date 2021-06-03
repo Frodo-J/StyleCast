@@ -196,11 +196,9 @@ public class QnaService {
 		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		int listCount =0;
-		if(category.equals("notice_title")) {
+		if(category.equals("qna_title")) {
 			listCount = new QnaDao().selectListCountByQnaTitle(conn,text);
-		}else if(category.equals("notice_content")) {
-			listCount = new QnaDao().selectListCountByQnaContent(conn,text);
-		}else if(category.contentEquals("mem_name")) {
+		}else if(category.equals("mem_name")) {
 			listCount = new QnaDao().selectListCountByMemName(conn,text);
 		}
 		
@@ -214,12 +212,7 @@ public class QnaService {
 		Connection conn = getConnection();
 		ArrayList<Qna> list = null;
 		if(category.equals("qna_title")) {
-			System.out.println("qna_title진입");
-			System.out.println(pi);
-			System.out.println(text);
 			list = new QnaDao().selectListByQnaTitle(conn,pi,text);
-		}else if(category.equals("notice_content")) {
-			list = new QnaDao().selectListByQnaContent(conn,pi,text);
 		}else if(category.contentEquals("mem_name")) {
 			list = new QnaDao().selectListByMemName(conn,pi,text);
 		}

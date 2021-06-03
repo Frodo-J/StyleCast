@@ -123,7 +123,6 @@
                 <div id="search_box" >
                     <select class="form-select" name="search_category">
                         <option selected value="qna_title">제목</option>
-                        <option value="qna_content">내용</option>
                         <option value="mem_name">작성자</option>
                     </select>
                     <input id="input_search" class="form-control" type="text" placeholder="검색내용" name="search_text">
