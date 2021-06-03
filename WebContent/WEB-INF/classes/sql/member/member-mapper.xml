@@ -66,6 +66,14 @@
 	   AND ENT_YN = 'N'
 	</entry>
 	
+	<entry key="updateMember">
+	UPADATE
+			MEMBER
+		SET ENT_YN = 'Y'
+		  , ENT_DATE = SYSDATE
+	 WHERE MEM_ID = ?
+	</entry>
+	
 	<entry key="insertBookmark">
 	INSERT INTO BOOKMARK(
 						 MEM_NO
@@ -102,7 +110,23 @@
 	  ORDER BY ENR_DATE DESC
 	</entry>
 
-
-
+	<entry key="selectMyLikeList">
+		SELECT
+			   DAILY_NO
+			 , MEM_NO
+			 , DAILY_CONTENT
+			 , ENR_DATE
+			 , DAILY_IMG
+			 , MEM_NAME
+			 , PROF_IMG
+		  FROM DAILY
+	      JOIN MEMBER USING (MEM_NO)
+	     WHERE DAILY_NO IN (
+	     				    SELECT DAILY_NO
+							  FROM DAILY_LIKE
+							 WHERE MEM_NO = ?
+						    )
+	  ORDER BY ENR_DATE DESC
+	</entry>
 
 </properties>

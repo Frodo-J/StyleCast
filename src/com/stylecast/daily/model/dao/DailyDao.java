@@ -302,5 +302,373 @@ public class DailyDao {
 
 		return listCount;
 	}
+
+	public int checkLiked(Connection conn, int memNo, int dailyNo) {
+
+		int likeYN = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkLiked");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, dailyNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				likeYN = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return likeYN;
+	}
+
+	public int checkBookmark(Connection conn, int memNo, int dailyNo) {
+
+		int bookmarkYN = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkBookmark");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, dailyNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				bookmarkYN = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return bookmarkYN;
+	}
+
+	public int selectLikedCount(Connection conn, int dailyNo) {
+		
+		int likeCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectLikedCount");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dailyNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				likeCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return likeCount;
+	}
+
+	public int selectBookmarkCount(Connection conn, int dailyNo) {
+		
+		int bookmarkCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectBookmarkCount");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dailyNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				bookmarkCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return bookmarkCount;
+	}
+
+	public int selectMyBookmarkListCount(Connection conn, int memNo) {
+		
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMyBookmarkListCount");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return count;
+	}
+
+	public int[] selectLikedCountList(Connection conn, PageInfo pi) {
+		
+		int[] likeCount = new int[pi.getBoardLimit()];
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectLikedCountList");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			int i = 0;
+			
+			while(rset.next()) {
+				likeCount[i] = rset.getInt("daily_count");
+				i++;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return likeCount;
+	}
+
+	public int[] selectBookmarkCountList(Connection conn, PageInfo pi) {
+		
+		int[] bookmarkCount = new int[pi.getBoardLimit()];
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectBookmarkCountList");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			int i = 0;
+			
+			while(rset.next()) {
+				bookmarkCount[i] = rset.getInt("bookmark_count");
+				i++;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return bookmarkCount;
+	}
+
+	public int insertLike(Connection conn, int memNo, int dailyNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertLike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, dailyNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteLike(Connection conn, int memNo, int dailyNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteLike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, dailyNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int[] selectLikedCountList(Connection conn, int memNo, int count) {
+		
+		int[] likeCount = new int[count];
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMyLikedCountList");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			int i = 0;
+			
+			while(rset.next()) {
+				likeCount[i] = rset.getInt("daily_count");
+				i++;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return likeCount;
+	}
+
+	public int[] selectBookmarkCountList(Connection conn, int memNo, int count) {
+		int[] bookmarkCount = new int[count];
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMyBookmarkCountList");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			int i = 0;
+			
+			while(rset.next()) {
+				bookmarkCount[i] = rset.getInt("daily_count");
+				i++;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return bookmarkCount;
+	}
+
+	public int[] selectLikedCountBk(Connection conn, int memNo, int count) {
+		
+		int[] likeCount = new int[count];
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectLikedCountBk");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			int i = 0;
+			
+			while(rset.next()) {
+				likeCount[i] = rset.getInt("daily_count");
+				i++;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return likeCount;
+	}
+
+	public int[] selectBookmarkCountBk(Connection conn, int memNo, int count) {
+		int[] bookmarkCount = new int[count];
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectBookmarkCountBk");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			int i = 0;
+			
+			while(rset.next()) {
+				bookmarkCount[i] = rset.getInt("daily_count");
+				i++;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return bookmarkCount;
+	}
+	
+	
 	
 }

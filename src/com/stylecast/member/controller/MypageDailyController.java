@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.daily.model.service.DailyService;
 import com.stylecast.daily.model.vo.Daily;
+import com.stylecast.member.service.MemberService;
 import com.stylecast.member.vo.Member;
 
 /**
@@ -50,8 +51,24 @@ public class MypageDailyController extends HttpServlet {
 			
 			// 데일리글 전체 조회
 			ArrayList<Daily> list = new DailyService().selectMyDailyList(memNo);
+	
+			int[] likeCount = new DailyService().selectLikedCountList(memNo);
+			int[] bookmarkCount = new DailyService().selectBookmarkCountList(memNo);
+			
+			int i = 0;
+			
+			for(Daily d : list) {
+				d.setLikeCount(likeCount[i]);
+				d.setBookmarkCount(bookmarkCount[i]);;
+				i++;
+			}
+			
+			ArrayList<Daily> bList = new MemberService().selectMyBookmarkList(memNo);
+			ArrayList<Daily> lList = new MemberService().selectMyLikeList(memNo);
 			
 			request.setAttribute("list", list);
+			request.setAttribute("bList", bList);
+			request.setAttribute("lList", lList);
 			
 			request.getRequestDispatcher("views/mypage/mypageDaily.jsp").forward(request, response);
 		}

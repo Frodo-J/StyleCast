@@ -14,7 +14,25 @@ public class Daily {
 	private String memName;
 	private String profImg;
 	
+	private int likeCount;
+	private int bookmarkCount;
+	
 	public Daily() {}
+	
+	public Daily(int dailyNo, int memNo, String dailyContent, Date enrDate, String dailyImg, String tag, String memName,
+			String profImg, int likeCount, int bookmarkCount) {
+		super();
+		this.dailyNo = dailyNo;
+		this.memNo = memNo;
+		this.dailyContent = dailyContent;
+		this.enrDate = enrDate;
+		this.dailyImg = dailyImg;
+		this.tag = tag;
+		this.memName = memName;
+		this.profImg = profImg;
+		this.likeCount = likeCount;
+		this.bookmarkCount = bookmarkCount;
+	}
 
 	public Daily(int dailyNo, int memNo, String dailyContent, Date enrDate, String dailyImg, String tag) {
 		super();
@@ -101,6 +119,22 @@ public class Daily {
 
 	public void setProfImg(String profImg) {
 		this.profImg = profImg;
+	}
+	
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+
+	public int getBookmarkCount() {
+		return bookmarkCount;
+	}
+
+	public void setBookmarkCount(int bookmarkCount) {
+		this.bookmarkCount = bookmarkCount;
 	}
 
 	@Override

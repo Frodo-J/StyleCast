@@ -1,4 +1,4 @@
-package com.stylecast.member.controller;
+package com.stylecast.daily.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -15,13 +15,13 @@ import com.stylecast.member.vo.Member;
  * Servlet implementation class BookmarkDeleteController
  */
 @WebServlet("/bookmarkDelete.do")
-public class BookmarkDeleteController extends HttpServlet {
+public class AjaxBookmarkDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BookmarkDeleteController() {
+    public AjaxBookmarkDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,6 +31,19 @@ public class BookmarkDeleteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		int memNo = Integer.parseInt(request.getParameter("memNo"));
+		int dailyNo = Integer.parseInt(request.getParameter("dailyNo"));
+		
+		//System.out.println(memNo + ", " + dailyNo);
+		
+		int result = new MemberService().deleteBookmark(memNo, dailyNo);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+		response.getWriter().print(result);
+		
+		
+		/*
 		HttpSession session = request.getSession();
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
@@ -46,6 +59,7 @@ public class BookmarkDeleteController extends HttpServlet {
 			
 		}else { // 에러페이지
 		}
+		*/
 	}
 
 	/**

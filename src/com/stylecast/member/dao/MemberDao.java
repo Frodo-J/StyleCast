@@ -164,6 +164,28 @@ public class MemberDao {
 		return memPwd;
 	}
 
+	public int deleteMember(Connection conn, String memId) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteMember");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 	public int insertBookmark(Connection conn, int memNo, int dailyNo) {
 		
 		int result = 0;
@@ -244,7 +266,43 @@ public class MemberDao {
 		
 		return list;
 	}
-	
+
+	public ArrayList<Daily> selectMyLikeList(Connection conn, int memNo) {
+		
+		ArrayList<Daily> list = new ArrayList<Daily>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMyLikeList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Daily d = new Daily();
+				
+				d.setDailyNo(rset.getInt("daily_no"));
+				d.setMemNo(rset.getInt("mem_no"));
+				d.setDailyContent(rset.getString("daily_content"));
+				d.setEnrDate(rset.getDate("enr_date"));
+				d.setDailyImg(rset.getString("daily_img"));
+				d.setMemName(rset.getString("mem_name"));
+				d.setProfImg(rset.getString("prof_img"));
+				
+				list.add(d);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 	
 	
 }

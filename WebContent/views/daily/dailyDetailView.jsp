@@ -6,6 +6,12 @@
 	ArrayList<Item> iList = (ArrayList<Item>)request.getAttribute("iList");
 	ArrayList<DailyCM> cList = (ArrayList<DailyCM>)request.getAttribute("cList");
 	
+	int likeYN = (int)request.getAttribute("likeYN");
+	int bookmarkYN = (int)request.getAttribute("bookmarkYN");
+	
+	int likeCount = (int)request.getAttribute("likeCount");
+	int bookmarkCount = (int)request.getAttribute("bookmarkCount");
+	
 	String tag = d.getTag();
 	String[] tags = tag.split("#");
 %>
@@ -39,10 +45,14 @@
         #userid{top:23px; left: 90px; font-size: 17px; font-weight: 600;}
         
         #like{width:64px; height:30px; top:5px; right: 75px;}
+        /*
         #like_button{background: url("resources/images/react_icon/sun.svg") no-repeat; background-size: cover; position: absolute; border:0px; width:30px; height: 30px;}
+        */
         #like>div{position: absolute; top:3px; left: 35px; font-size: 14px;}
         #bookmark{width:60px; height:30px; top:5px; right: 11px;}
+        /*
         #bookmark_button{background: url("resources/images/react_icon/bookmark.svg") no-repeat; background-size: cover; position: absolute; border:0px; width:30px; height: 30px;}
+        */
         #bookmark>div{position: absolute; top:3px; left: 31px; font-size: 14px;}
         #date{width:75px; height: 20px; font-size:13px; font-weight: 700; top:41px; right:15px; text-align: right;}
         #post_no{width: 75px; height: 20px; font-size: 13px; font-weight: 700; top:61px; right:15px; text-align: right;}
@@ -77,10 +87,7 @@
         .comment_delete{background: url("resources/images/react_icon/delete.svg") no-repeat;  background-size: cover; margin: 18px 0px 15px 630px; border:0px; width: 25px; height:25px; margin-top: 15px; float: left; visibility: hidden;}
         .comment_none{background: url("resources/images/react_icon/none.svg") no-repeat;  background-size: cover; margin: 18px 0px 15px 630px; border:0px; width: 25px; height:25px; margin-top: 15px; float: left; visibility: hidden;}
         .comment_date{font-size: 14px; font-weight: 600; margin-top: 18px; margin-left: 12px;}
-
-        #like_button:hover{background: url("resources/images/react_icon/sun_yellow.svg") no-repeat;  background-size: cover; cursor: pointer;}
-        #bookmark_button:hover{background: url("resources/images/react_icon/bookmark_blue.svg") no-repeat;  background-size: cover; cursor: pointer;}
-
+        
         .comment_report:hover{background: url("resources/images/react_icon/flag_red.svg") no-repeat;  background-size: cover; cursor: pointer;}
         .comment_delete:hover{background: url("resources/images/react_icon/delete_red.svg") no-repeat;  background-size: cover; cursor: pointer;}
 
@@ -112,22 +119,38 @@
                     <% if(loginUser != null) { %>
                     <!-- 로그인 유저 -->
                     <div id="like">
-                        <input type="button" name="" id="like_button">
-                        <div>215</div>
+                    	<%if(likeYN > 0){ %> <!-- 좋아요 등록o -->
+                        	<input type="button" name="" id="like_button"
+                        	style="background: url('resources/images/react_icon/sun_yellow.svg') no-repeat; background-size: cover; position: absolute; border:0px; width:30px; height: 30px;">
+                        	<div><%=likeCount %></div>
+                        <%}else{ %> <!-- 좋아요 등록x -->
+                        	<input type="button" name="" id="like_button"
+                        	style="background: url('resources/images/react_icon/sun.svg') no-repeat; background-size: cover; position: absolute; border:0px; width:30px; height: 30px;">
+                        	<div><%=likeCount %></div>
+                        <%} %>
                     </div>
                     <div id="bookmark">
-                        <input type="button" name="" id="bookmark_button">
-                        <div>117</div>
+                    	<%if(bookmarkYN > 0){ %> <!-- 북마크 등록o -->
+                        	<input type="button" name="" id="bookmark_button"
+                        	style="background: url('resources/images/react_icon/bookmark_blue.svg') no-repeat; background-size: cover; position: absolute; border:0px; width:30px; height: 30px;">
+                        	<div><%=bookmarkCount %></div>
+                        <% }else{ %> <!-- 북마크 등록x -->
+                        	<input type="button" name="" id="bookmark_button"
+                        	style="background: url('resources/images/react_icon/bookmark.svg') no-repeat; background-size: cover; position: absolute; border:0px; width:30px; height: 30px;">
+                        	<div><%=bookmarkCount %></div>
+                        <%} %>
                     </div>
                     <% }else { %>
                     <!-- 비로그인 유저 -->
                     <div id="like">
-                        <input type="button" name="" id="like_button" data-bs-toggle="modal" data-bs-target="#logoutUserModal">
-                        <div>215</div>
+                        <input type="button" name="" id="like_button"
+                        style="background: url('resources/images/react_icon/sun.svg') no-repeat; background-size: cover; position: absolute; border:0px; width:30px; height: 30px;">
+                        <div><%=likeCount %></div>
                     </div>
                     <div id="bookmark">
-                        <input type="button" name="" id="bookmark_button" data-bs-toggle="modal" data-bs-target="#logoutUserModal">
-                        <div>117</div>
+                        <input type="button" name="" id="bookmark_button"
+                        style="background: url('resources/images/react_icon/bookmark.svg') no-repeat; background-size: cover; position: absolute; border:0px; width:30px; height: 30px;">
+                        <div><%=bookmarkCount %></div>
                     </div>
                     <% } %>
                     <div id="date"><%= d.getEnrDate() %></div>
@@ -216,6 +239,183 @@
             </div>
         </div>
     </div>
+    
+    <script>
+
+		var lStatus = <%=likeYN%>;
+		var bStatus = <%=bookmarkYN%>;
+	
+	    $(function(){
+	    	selectLbCount();
+	    	selectLbYn();
+		})
+    </script>
+    
+    <!-- 북마크수 조회 -->
+    <script>
+    	function selectLbCount(){
+    		
+    		<% if(loginUser != null) {%>
+    			console.log("dd");
+    			$.ajax({
+            		url:"bookmarkCount.do",
+            		data:{
+            			memNo:<%=loginUser.getMemNo()%>,
+            			dailyNo:<%=d.getDailyNo()%>
+            		},
+            		type:"post",
+            		success:function(daily){ // 성공시 실행 함수
+        				$("#like>div").html(daily.likeCount);
+        				$("#bookmark>div").html(daily.bookmarkCount);
+            		},error:function(){ // 실패시 실행 함수
+            			console.log("좋아요/북마크수 조회 실패");
+            		}
+            	})
+            <%} %>
+    	}
+    </script>
+    
+    
+    
+    <!-- 북마크 여부 확인 -->
+    <script>
+    	function selectLbYn(){
+    		<% if(loginUser != null) {%>
+	    		$.ajax({
+	    			url:"bookmarkYn.do",
+	        		data:{
+	        			memNo:<%=loginUser.getMemNo()%>,
+	        			dailyNo:<%=d.getDailyNo()%>
+	        		},
+	        		type:"post",
+	        		success:function(daily){ // 성공시 실행 함수
+	        			if(daily.likeCount > 0){
+	        				$("#like>input").css({"background" : "url('resources/images/react_icon/sun_yellow.svg') no-repeat"
+			  								 , "background-size" : "cover"
+						       				 , "position" : "absolute"
+						       				 , "border" : "0px"
+						       				 , "width" : "30px"
+						       				 , "height" : "30px"});
+	        			}else{
+	        				$("#like>input").css({"background" : "url('resources/images/react_icon/sun.svg') no-repeat"
+			       							 , "background-size" : "cover"
+						       				 , "position" : "absolute"
+						       				 , "border" : "0px"
+						       				 , "width" : "30px"
+						       				 , "height" : "30px"});
+	        			}
+	        		
+	        			if(daily.bookmarkCount > 0){
+	        				$("#bookmark>input").css("background", "url('resources/images/react_icon/bookmark_blue.svg') no-repeat")
+							       				 .css("background-size", "cover")
+							       				 .css("position", "absolute")
+							       				 .css("border", "0px")
+							       				 .css("width", "30px")
+							       				 .css("height", "30px");
+	        			}else{
+	        				$("#bookmark>input").css("background", "url('resources/images/react_icon/bookmark.svg') no-repeat")
+							       				 .css("background-size", "cover")
+							       				 .css("position", "absolute")
+							       				 .css("border", "0px")
+							       				 .css("width", "30px")
+							       				 .css("height", "30px");
+	        			}
+	        			
+	    				lStatus = daily.likeCount;
+	    				bStatus = daily.bookmarkCount;
+	        		},error:function(){ // 실패시 실행 함수
+	        			console.log("좋아요/북마크 여부 조회 실패");
+	        		}
+	    		})
+            <%} %>
+    	}
+    </script>
+    
+    <!-- 좋아요 등록 / 삭제 -->
+    <script>
+	    $("#like_button").click(function(){
+	    	<% if(loginUser == null) {%>
+	    		alert("로그인한 회원만 가능한 서비스입니다.");
+	    	<%}else { %>
+		    	if(lStatus > 0){ // 좋아요 삭제
+		    		$.ajax({
+		        		url:"likeDelete.do",
+		        		data:{
+		        			memNo:<%=loginUser.getMemNo()%>,
+		        			dailyNo:<%=d.getDailyNo()%>
+		        		},
+		        		type:"post",
+		        		success:function(result){ // 성공시 실행 함수
+		        			console.log(result + "삭제");
+		        			selectLbCount();
+		        			selectLbYn();
+		        		},error:function(){ // 실패시 실행 함수
+		        			alert("좋아요 삭제에 실패했습니다.");
+		        		}
+		        	});
+		    	}else{ // 좋아요 등록
+		    		$.ajax({
+		        		url:"like.do",
+		        		data:{
+		        			memNo:<%=loginUser.getMemNo()%>,
+		        			dailyNo:<%=d.getDailyNo()%>
+		        		},
+		        		type:"post",
+		        		success:function(result){ // 성공시 실행 함수
+		        			console.log(result + "등록");
+		        			selectLbCount();
+		        			selectLbYn();
+		        		},error:function(){ // 실패시 실행 함수
+		        			alert("좋아요 등록에 실패했습니다.");
+		        		}
+		        	});
+		    	}
+		    <%} %>
+		})
+    </script>
+    
+    <!-- 북마크 등록 / 삭제 -->
+    <script>
+	    $("#bookmark_button").click(function(){
+	    	<% if(loginUser == null) {%>
+    			alert("로그인한 회원만 가능한 서비스입니다.");
+    		<%}else { %>
+		    	if(bStatus > 0){ // 북마크 삭제
+		    		$.ajax({
+		        		url:"bookmarkDelete.do",
+		        		data:{
+		        			memNo:<%=loginUser.getMemNo()%>,
+		        			dailyNo:<%=d.getDailyNo()%>
+		        		},
+		        		type:"post",
+		        		success:function(result){ // 성공시 실행 함수
+		        			console.log(result + "삭제");
+		        			selectLbCount();
+		        			selectLbYn();
+		        		},error:function(){ // 실패시 실행 함수
+		        			alert("북마크 삭제에 실패했습니다.");
+		        		}
+		        	});
+		    	}else{ // 북마크 등록
+		    		$.ajax({
+		        		url:"bookmark.do",
+		        		data:{
+		        			memNo:<%=loginUser.getMemNo()%>,
+		        			dailyNo:<%=d.getDailyNo()%>
+		        		},
+		        		type:"post",
+		        		success:function(result){ // 성공시 실행 함수
+		        			console.log(result + "등록");
+		        			selectLbCount();
+		        			selectLbYn();
+		        		},error:function(){ // 실패시 실행 함수
+		        			alert("북마크 등록에 실패했습니다.");
+		        		}
+		        	});
+		    	}
+		    <%} %>
+		})
+    </script>
 
     <!-- 게시글 신고 Modal -->
     <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">

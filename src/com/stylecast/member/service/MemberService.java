@@ -48,6 +48,17 @@ public class MemberService {
 		return memPwd;
 	}
 
+	public int deleteMember(String memId) {
+
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().deleteMember(conn, memId);
+		close(conn);
+		
+		return result;
+		
+	}
+
 	public int insertBookmark(int memNo, int dailyNo) {
 		
 		Connection conn = getConnection();
@@ -73,6 +84,16 @@ public class MemberService {
 		Connection conn = getConnection();
 		
 		ArrayList<Daily> list = new MemberDao().selectMyBookmarkList(conn, memNo);
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Daily> selectMyLikeList(int memNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Daily> list = new MemberDao().selectMyLikeList(conn, memNo);
 		close(conn);
 		
 		return list;
