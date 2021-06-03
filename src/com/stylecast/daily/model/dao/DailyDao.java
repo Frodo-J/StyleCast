@@ -279,15 +279,16 @@ public class DailyDao {
 		
 	}
 	
-	public int selectDailyCountByContent(Connection conn, String text) {
+	public int selectDailyCount(Connection conn, String text) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectDailyCountByContent");
+		String sql = prop.getProperty("selectDailyCount");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, text);
+			pstmt.setString(2, text);
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				listCount = rset.getInt("count");
@@ -301,34 +302,12 @@ public class DailyDao {
 		return listCount;
 	}
 	
-	public int selectDailyCountByTag(Connection conn, String text) {
-		int listCount = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectDailyCountByTag");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, text);
-			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				listCount = rset.getInt("count");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return listCount;
-	}
-	
-	public ArrayList<Daily> selectDailyByContent(Connection conn, PageInfo pi, String text){
+	public ArrayList<Daily> selectDaily(Connection conn, PageInfo pi, String text){
 		ArrayList<Daily> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectDailyByContent");
+		String sql = prop.getProperty("selectDaily");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -336,8 +315,9 @@ public class DailyDao {
 			int endRow = startRow + pi.getBoardLimit() -1;
 			
 			pstmt.setString(1, text);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
+			pstmt.setString(2, text);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -361,43 +341,7 @@ public class DailyDao {
 		return list;
 	}
 	
-	public ArrayList<Daily> selectDailyByTag(Connection conn, PageInfo pi, String text){
-		ArrayList<Daily> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectDailyByTag");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-			int endRow = startRow + pi.getBoardLimit() -1;
-			
-			pstmt.setString(1, text);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new Daily(rset.getInt("daily_no"),
-								   rset.getInt("mem_no"),
-								   rset.getString("daily_content"),
-								   rset.getDate("enr_date"),
-								   rset.getString("daily_img"),
-								   rset.getString("tag"),
-								   rset.getString("mem_name"),
-								   rset.getString("prof_img")));
-			}
-					
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
-	}
+
 	
 	
 	
