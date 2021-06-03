@@ -192,6 +192,42 @@ public class QnaService {
 		return result;
 	}
 
+	public int selectListCount(String category, String text) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		int listCount =0;
+		if(category.equals("notice_title")) {
+			listCount = new QnaDao().selectListCountByQnaTitle(conn,text);
+		}else if(category.equals("notice_content")) {
+			listCount = new QnaDao().selectListCountByQnaContent(conn,text);
+		}else if(category.contentEquals("mem_name")) {
+			listCount = new QnaDao().selectListCountByMemName(conn,text);
+		}
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<Qna> selectSearchList(PageInfo pi, String category, String text) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		ArrayList<Qna> list = null;
+		if(category.equals("qna_title")) {
+			System.out.println("qna_title진입");
+			System.out.println(pi);
+			System.out.println(text);
+			list = new QnaDao().selectListByQnaTitle(conn,pi,text);
+		}else if(category.equals("notice_content")) {
+			list = new QnaDao().selectListByQnaContent(conn,pi,text);
+		}else if(category.contentEquals("mem_name")) {
+			list = new QnaDao().selectListByMemName(conn,pi,text);
+		}
+		close(conn);
+		
+		return list;
+	}
+
 
 
 
