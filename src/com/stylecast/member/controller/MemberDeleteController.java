@@ -9,19 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.stylecast.member.service.MemberService;
-import com.stylecast.member.vo.Member;
 
 /**
- * Servlet implementation class MyPageUpdate
+ * Servlet implementation class MemberDeleteController
  */
-@WebServlet("/update.me")
-public class MyPageUpdate extends HttpServlet {
+@WebServlet("/delete.me")
+public class MemberDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPageUpdate() {
+    public MemberDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,32 +29,22 @@ public class MyPageUpdate extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		request.setCharacterEncoding("UTF-8");
 		
-		String userId = request.getParameter("userId");
-		String userName = request.getParameter("userName");
-		String email = request.getParameter("email");
-		String gender = request.getParameter("gender");
-		String userPwd = (request.getParameter("userNewPwd") == "") ? request.getParameter("userPwd") : request.getParameter("userNewPwd");
+		String memId = request.getParameter("userId");
 		
-		Member m = new Member(userId, userPwd, userName, email, gender);
+		int result = new MemberService().deleteMember(memId);
 		
-		// 수정한 회원의 정보
-		Member updateMem = new MemberService().updateMember(m);
-		
-		if(updateMem == null) { // 정보 수정 실패
-			
-			request.setAttribute("errorMsg", "회원 정보 수정에 실패했습니다.");
-			request.getRequestDispatcher("view/common/errorPage.jsp").forward(request, response);
-		
-		}else { // 정보 수정 성공
-			
+		if(result > 0 ) { // 탈퇴 처리 성공
 			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", updateMem);
-			session.setAttribute("alertMsg", "성공적으로 회원 정보를 수정했습니다.");
+			session.setAttribute("alertMsg", "탈퇴 완료하였습니다.");
 			
-			response.sendRedirect(request.getContextPath() + "/myPage.me");
+			response.sendRedirect(request.getContextPath());
+			
+		} else { // 탈퇴 처리 실패
+			request.setAttribute("errorMsg", "탈퇴 처리에 실패했습니다.");
+			request.getRequestDispatcher("view/common/errorPage.jsp").forward(request, response);
 		}
 	}
 

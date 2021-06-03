@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectMyReplyList">
+		SELECT *
+		  FROM (
+		  		SELECT ROWNUM RNUM, A.*
+				  FROM (
+				  		SELECT
+					   CM_NO
+					 , DAILY_NO
+					 , CM_CONTENT
+					 , ENR_DATE
+				  FROM DAILY_CM
+				 WHERE MEM_NO = ?
+			  ORDER BY
+			  	 	   ENR_DATE DESC
+				  	 	) A
+		  		)
+		   WHERE RNUM BETWEEN ? AND ?
+	</entry>
+
+	<entry key="selectMyQnaListCount">
+		SELECT
+			   COUNT(*) COUNT
+		  FROM DAILY_CM
+		 WHERE MEM_NO = ?
+	</entry>
+
+</properties>

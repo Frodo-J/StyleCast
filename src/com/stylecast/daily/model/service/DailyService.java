@@ -80,6 +80,127 @@ public class DailyService {
 		close(conn);
 		return cList;
 	}
+
+	public ArrayList<Daily> selectMyDailyList(int memNo) {
+		
+		Connection conn = getConnection();
+		ArrayList<Daily> list = new DailyDao().selectMyDailyList(conn, memNo);
+		close(conn);
+		
+		return list;
+	}
+
+	public int selectMyDailyListCount(int memNo) {
+		
+		Connection conn = getConnection();
+		int listCount = new DailyDao().selectMyDailyListCount(conn, memNo);
+		close(conn);
+		return listCount;
+	}
+
+	public int checkLiked(int memNo, int dailyNo) {
+		
+		Connection conn = getConnection();
+		int likeYN = new DailyDao().checkLiked(conn, memNo, dailyNo);
+		close(conn);
+		return likeYN;
+	}
+
+	public int checkBookmark(int memNo, int dailyNo) {
+		
+		Connection conn = getConnection();
+		int bookmarkYN = new DailyDao().checkBookmark(conn, memNo, dailyNo);
+		close(conn);
+		return bookmarkYN;
+	}
+
+	public int selectLikedCount(int dailyNo) {
+		
+		Connection conn = getConnection();
+		int likeCount = new DailyDao().selectLikedCount(conn, dailyNo);
+		close(conn);
+		return likeCount;
+	}
+
+	public int selectBookmarkCount(int dailyNo) {
+		
+		Connection conn = getConnection();
+		int bookmarkCount = new DailyDao().selectBookmarkCount(conn, dailyNo);
+		close(conn);
+		return bookmarkCount;
+	}
+
+	public int[] selectLikedCountList(PageInfo pi) {
+		
+		Connection conn = getConnection();
+		int[] likeCount = new DailyDao().selectLikedCountList(conn, pi);
+		close(conn);
+		return likeCount;
+	}
+
+	public int[] selectBookmarkCountList(PageInfo pi) {
+		
+		Connection conn = getConnection();
+		int[] bookmarkCount = new DailyDao().selectBookmarkCountList(conn, pi);
+		close(conn);
+		return bookmarkCount;
+	}
+
+	public int insertLike(int memNo, int dailyNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = new DailyDao().insertLike(conn, memNo, dailyNo);
+		close(conn);
+		
+		return result;
+	}
+
+	public int deleteLike(int memNo, int dailyNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = new DailyDao().deleteLike(conn, memNo, dailyNo);
+		close(conn);
+		
+		return result;
+	}
+
+	public int[] selectLikedCountList(int memNo) {
+		
+		Connection conn = getConnection();
+		int count = new DailyDao().selectMyDailyListCount(conn, memNo);
+		int[] likeCount = new DailyDao().selectLikedCountList(conn, memNo, count);
+		close(conn);
+		return likeCount;
+	}
+
+	public int[] selectBookmarkCountList(int memNo) {
+		
+		Connection conn = getConnection();
+		int count = new DailyDao().selectMyDailyListCount(conn, memNo);
+		int[] bookmarkCount = new DailyDao().selectBookmarkCountList(conn, memNo, count);
+		close(conn);
+		return bookmarkCount;
+	}
+
+	public int[] selectLikedCountBk(int memNo) {
+		
+		Connection conn = getConnection();
+		int count = new DailyDao().selectMyBookmarkListCount(conn, memNo);
+		int[] likeCount = new DailyDao().selectLikedCountBk(conn, memNo, count);
+		close(conn);
+		return likeCount;
+	}
+
+	public int[] selectBookmarkCountBk(int memNo) {
+		
+		Connection conn = getConnection();
+		int count = new DailyDao().selectMyBookmarkListCount(conn, memNo);
+		int[] bookmarkCount = new DailyDao().selectBookmarkCountBk(conn, memNo, count);
+		close(conn);
+		return bookmarkCount;
+	}
 	
 	public int insertDailyCM(DailyCM cm) {
 		Connection conn = getConnection();
