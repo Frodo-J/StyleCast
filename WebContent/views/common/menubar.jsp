@@ -30,7 +30,7 @@
     <!--돋보기 이미지end-->
     <!--font-->
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500&family=Noto+Serif+KR:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&family=Noto+Serif+KR:wght@300;500&display=swap" rel="stylesheet">
     <!--font end-->
     <title>Document</title>
     

@@ -27,6 +27,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
     <!--font end-->
+    <!--jQuery-->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!--jQuery end-->
     <style>
         /*div:not(#head_box,#head_of_qna,#qna_lists,#search_box,#img_btn,#input_search,#write_box,#write_box_inner,#page_box){border: 1px solid gray; box-sizing: border-box;}*/
         .wrap{width:1200px; height:1300px;  margin: auto;}
@@ -135,7 +139,7 @@
                         <option value="qna_content">내용</option>
                         <option value="mem_name">작성자</option>
                     </select>
-                    <input id="input_search" class="form-control" type="text" placeholder="검색내용" name="search_text" value="<%=text%>">
+                    <input id="input_search" class="form-control" type="text" placeholder="검색내용" name="search_text" value="<%=text%>"/>
                     <button id="img_btn" type="submit"><img src="<%=contextPath %>/resources/images/loupe.png"></button> 
                 </div>
                 </form>
