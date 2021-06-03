@@ -81,6 +81,7 @@
         	font-size: 25px;
         	font-weight: bold;
         	margin-left : 60px;
+        	margin-top : 30px;
         	display:inline-block;
         }
         #result{
@@ -97,7 +98,7 @@
 	    <div class="wrap">
 	        <div id="content">
 	            <div id="head_box" style="text-align:left">
-	                <p id="textResult"><%= text %></p>
+	                <p id="textResult">"<%= text %>"</p>
 	                <p id="result" style="display: inline-block;">&nbsp;&nbsp;검색 결과</p>
 	            </div>
 	            <div id="daily_wrapper">
