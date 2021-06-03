@@ -10,6 +10,7 @@
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +29,10 @@
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap"
         rel="stylesheet">
     <!--font end-->
+    <!--jQuery-->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!--jQuery end-->
     <style>
     /*
         div:not(#head_box,#head_of_notice,#notice_lists,#search_box,#img_btn,#input_search,#admin_box,#admin_box_inner,#page_box){border: 1px solid gray; box-sizing: border-box;}
@@ -110,7 +115,15 @@
         
         } 
         
+        
     </style>
+     <script>
+		$(function(){
+			console.log("<%=category%>");
+			$("#search_category").val("<%=category%>").prop("selected",true);
+		})
+    
+    </script>
 </head>
 <body>
     <%@ include file="../common/menubar.jsp" %>
@@ -129,12 +142,12 @@
             <div id="notice_lists">
             	<form id="search-form" action="<%= contextPath %>/search.no?currentPage=1" method="post">
                 <div id="search_box">
-                    <select class="form-select" name="search_category">
+                    <select class="form-select" name="search_category" id="search_category">
                         <option selected value="notice_title">제목</option>
                         <option value="notice_content">내용</option>
                         <option value="mem_name">작성자</option>
                     </select>
-                    <input id="input_search" class="form-control" type="text" placeholder="검색내용" name="search_text">
+                    <input id="input_search" class="form-control" type="text" placeholder="검색내용" name="search_text" value="<%=text%>">
                     <button id="img_btn" type="submit"><img src="<%=contextPath %>/resources/images/loupe.png"></button> 
                 </div>
                 </form>
