@@ -9,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.stylecast.main.model.service.MainService;
 import com.stylecast.main.model.vo.MainSelectCodiM;
 
 /**
  * Servlet implementation class CheckTempController
  */
-@WebServlet("/tempCheck.ma")
-public class CheckTempController extends HttpServlet {
+@WebServlet("/tempCheckM.ma")
+public class CheckTempControllerM extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckTempController() {
+    public CheckTempControllerM() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,10 +37,11 @@ public class CheckTempController extends HttpServlet {
 		String weather = request.getParameter("Weather");
 		
 		ArrayList<MainSelectCodiM> listC = new MainService().MainSelectCodiM(NowTemp);
-		request.setAttribute("listC", listC);
+		//request.setAttribute("listC", listC);
 		
 		System.out.println(NowTemp);
 		System.out.println(listC);
+		System.out.println(weather);
 		
 		//System.out.println(NowTemp);
 		//System.out.println(Weather);
@@ -50,6 +52,11 @@ public class CheckTempController extends HttpServlet {
 		
 		//request.getRequestDispatcher("views/main/mainPage.jsp").forward(request, response);
 		
+		
+		response.setContentType("application/json; charset=utf-8");
+		
+		
+		new Gson().toJson(listC, response.getWriter());
 	}
 
 	/**

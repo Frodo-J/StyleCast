@@ -7,6 +7,12 @@
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	
 	String alertMsg = (String)session.getAttribute("alertMsg");
+	String adminYN = "N";
+	String memName = null;
+	if(loginUser!=null){
+		adminYN = loginUser.getAdminYN();
+		memName = loginUser.getMemName();
+	}
 %>
 <!DOCTYPE html>
 <html >
@@ -21,17 +27,17 @@
     <!--bootstrap end-->
     <!--돋보기 이미지-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
-    <link rel="stylesheet" href="style.css">
     <!--돋보기 이미지end-->
     <!--font-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
     <!--font end-->
     <title>Document</title>
     
     <style>
         
-        #header{height:156px; width:"1200px";}
+        
+        #header{height:156px; width:1300px; margin: auto; font-family: 'Noto Sans KR', sans-serif;}
 
         #header>div{float:left;}
 
@@ -191,7 +197,7 @@
 		}
 	</script>
 
-    <div class="wrap">
+    
         <div id="header">
             <div id="header_1">
                 <a href="<%= contextPath %>"><img id="logoimg"src="<%=contextPath %>/resources/images/logo.jpg"></a>
@@ -223,18 +229,18 @@
             <div id="header_4">
                 
                <% if(loginUser == null){ %>
-                	<button type="button" id="login" onclick="loginPage();" class="btn btn-dark">로그인/가입</button>
+                	<button type="button" id="login" onclick="joinPage();" class="btn btn-dark">로그인/가입</button>
                <% }else{ %>
   
 	     		<ul id="navi">
 	              	<li>
 	                    <div>
 	                    <% if(loginUser.getMemId().equals("admin")) { %>
-	                        <a id="profile" href="">
+	                        <a id="profile">
 	                            <img src="<%=contextPath %>/resources/images/prof.PNG" class="rounded-circle">
 	                        </a>
 	                    <% }else { %>
-	                    	<a id="profile" href="">
+	                    	<a id="profile">
 	                            <img src="<%=contextPath %>/resources/images/prof.PNG" class="rounded-circle">
 	                        </a>
 	                    <% } %>
@@ -250,8 +256,8 @@
 	          
                 <% } %>
                 <script>
-                	function loginPage(){
-                		location.href = "<%=contextPath%>/loginPage.me";
+                	function joinPage(){
+                		location.href = "<%=contextPath%>/joinPage.me";
                 	}
                 </script>
              
@@ -263,7 +269,7 @@
 
             <div id="header_6">
             </div>
-        
-    </div>
+        </div>
+    
 </body>
 </html>

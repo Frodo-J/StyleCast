@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import="java.util.ArrayList, com.stylecast.main.model.vo.MainSelectDaily, com.stylecast.main.model.vo.MainSelectCodiM"%>
 <%
 	ArrayList<MainSelectDaily> dailylist = (ArrayList<MainSelectDaily>)request.getAttribute("list");
-	//ArrayList<MainSelectCodiM> codilist = (ArrayList<MainSelectCodiM>)request.getAttribute("listC");
+	
 %>
 <!DOCTYPE html>
 <html lang="kr">
@@ -151,6 +151,7 @@
                 <div id="codi_img">
                 	
                     <div id="codi_1>"><img id="codi_img_1" src="" alt="" width="280px" height="380px"></div>
+                    <div id="codi_2>"><img id="codi_img_2" src="" alt="" width="280px" height="380px"></div>
                     
                 </div>    
                 
@@ -169,11 +170,9 @@
                     var img1 = document.getElementById("codi_img_1");
                     var img2 = document.getElementById("codi_img_2");
                     if(cnt%2==1){
-                        img1.src = "<%=contextPath %>/resources/codi_upfiles/codi3.jpg";
-                        img2.src = "<%=contextPath %>/resources/codi_upfiles/codi4.jpg";
+                    	callTemp2();
                     }else{
-                        img1.src = "<%=contextPath %>/resources/codi_upfiles/codi1.jpg";
-                        img2.src = "<%=contextPath %>/resources/codi_upfiles/codi2.jpg";
+                    	callTemp1();
                     }
                     cnt++;
                 }
@@ -199,25 +198,52 @@
                               $("#Temp").attr("value", NowTemp);
                               $("#weather").attr("value", Weather);
 
-           // *****************
-           callTemp();
+					           // *****************
+					           callTemp1();
                           }
                       });
                    
-                     function callTemp() {
+                     function callTemp1() {
                           var Temp = $('#Temp').val();
                           var Weather = $('#weather').val();
                          $.ajax({
                              type:"GET",
-                             url:"tempCheck.ma",
-                             dataType:"html",
+                             url:"tempCheckM.ma",
+                             
                              data:{
                             	 Temp : Temp,
                             	 Weather : Weather
-                             },
+                             },success: function(listC){
+                            	 console.log(listC);
+                            	 
+                            	 $("#codi_img_1").attr("src", listC[0].imgPath + "jpg");
+                            	 $("#codi_img_2").attr("src", listC[1].imgPath + "jpg");
+                            	 
+                            	 
+                             }
                          });
                      }
                      
+                     function callTemp2() {
+                         var Temp = $('#Temp').val();
+                         var Weather = $('#weather').val();
+                        $.ajax({
+                            type:"GET",
+                            url:"tempCheckF.ma",
+                            
+                            data:{
+                           	 Temp : Temp,
+                           	 Weather : Weather
+                            },success: function(listF){
+                           	 console.log(listF);
+                           	 
+                           	 $("#codi_img_1").attr("src", listF[0].imgPath + "jpg");
+                           	 $("#codi_img_2").attr("src", listF[1].imgPath + "jpg");
+                           	 
+                           	 
+                            }
+                        });
+                    }
                       
                </script>
                 <div id="todayweather"><img id="todayweathericon" src="" alt="" width="134px" height="134px"></div>
