@@ -261,7 +261,9 @@
                 		location.href = "<%=contextPath%>/loginPage.me";
                 	}
                 </script>
-            </div>       
+            </div>
+            <div id="header_6">
+           	</div>       
         </div>
 </body>
 </html>
