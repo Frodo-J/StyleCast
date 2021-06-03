@@ -157,15 +157,15 @@ div {
 	float: left;
 	font-size: 12px;
 	font-weight: 500;
-	margin: 0px 0px 1px 28px;
+	margin: 1px 0px 1px 28px;
 }
 
 .text {
 	float: left;
-	font-size: 12px;
+	font-size: 13px;
 	width: 140px;
-	height: 34px;
-	margin: 4px 0px;
+	height: 38px;
+	margin: 3px 0px;
 	overflow: hidden;
 }
 
@@ -174,7 +174,7 @@ div {
 	background: url("resources/images/react_icon/plus.svg") no-repeat;
 	width: 24px;
 	height: 24px;
-	margin: 8px 5px 0px 5px;
+	margin: 12px 5px 0px 5px;
 	border: 0px;
 }
 
@@ -182,7 +182,7 @@ div {
 	float: left;
 	width: 200px;
 	height: 26px;
-	margin: 10px 26px 15px 34px;
+	margin: 7px 26px 7px 34px;
 }
 
 .react>div {
@@ -257,7 +257,6 @@ div {
 					<div class="daily_img">
 						<img src="<%= contextPath %>/<%= d.getDailyImg() %>" alt="">
 						<div class="action_hover">
-							<!-- 로그인시 가능하도록 설정해야함 -->
 							<% if(loginUser != null) { %>
 							<div class="action">
 								<input type="button" class="like">
@@ -335,7 +334,7 @@ div {
 				<div id="navigation">
 					<ul class="pagination">
 						<li class="page-item">
-							<% if(currentPage != 1) { %> <a class="page-link"
+							<% if(currentPage != 1) { %> <a class="page-link prevPage"
 							href="<%=contextPath%>/list.da?currentPage=<%=currentPage-1%>"
 							aria-label="Previous"> <span aria-hidden="true">&lt;</span>
 						</a> <% } %>
@@ -348,7 +347,7 @@ div {
 						</li>
 						<% } %>
 						<li class="page-item">
-							<% if (currentPage != maxPage) { %> <a class="page-link"
+							<% if (currentPage != maxPage) { %> <a class="page-link nextPage"
 							href="<%=contextPath%>/list.da?currentPage=<%=currentPage+1%>"
 							aria-label="Next"> <span aria-hidden="true">&gt;</span>
 						</a> <% } %>
@@ -373,7 +372,6 @@ div {
 				<div class="modal-body">
 					<form action="<%=contextPath%>/report.da" method="post"
 						style="line-height: 30px;">
-						<!-- 회원번호, 피신고회원번호, 내용(널러블), 게시판카테고리(0), 데일리번호, 신고카테고리 -->
 						<input type="hidden" id="memNo" name="memNo" value=""> <input
 							type="hidden" id="rMemNo" name="rMemNo" value=""> <input
 							type="hidden" id="dailyNo" name="dailyNo" value=""> <input
