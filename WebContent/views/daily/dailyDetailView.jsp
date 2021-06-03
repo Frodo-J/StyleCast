@@ -424,9 +424,9 @@ div {
 </head>
 <body>
 
+		<%@ include file="../common/menubar.jsp"%>
 	<div class="wrap">
 
-		<%@ include file="../common/menubar.jsp"%>
 		<% SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy.MM.dd"); %>
 		<% if(loginUser != null) { %>
 		<input type="hidden" id="loginUserNo"

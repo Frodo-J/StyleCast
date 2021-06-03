@@ -105,11 +105,39 @@ public class DailyService {
 		}
 		close(conn);
 		return result;
-		
-		
-		
-		
-		
 	}
+	
+	public int searchListCount(String text) {
+		Connection conn = getConnection();
+		int listCount = 0;
+		listCount = new DailyDao().selectDailyCount(conn, text);
+		
+		close(conn);
+		
+		return listCount;
+	}
+	
+	public ArrayList<Daily> searchDailyList(PageInfo pi, String text){
+		Connection conn = getConnection();
+		ArrayList<Daily> list = null;
+			list = new DailyDao().selectDaily(conn, pi, text);
+
+		close(conn);
+		
+		return list;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
