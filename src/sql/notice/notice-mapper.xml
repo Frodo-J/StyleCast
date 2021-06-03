@@ -181,7 +181,7 @@
 			
 	</entry>
 	
-	<entry key="selectListByNoticeNo">
+	<entry key="selectListByNoticeTitle">
 		SELECT *
 		FROM(
     		SELECT ROWNUM RNUM, A.*
@@ -263,5 +263,16 @@
 		WHERE STATUS = 'Y'
 		AND M.MEM_NAME LIKE '%'||?||'%'
 	</entry>
-	
+	<entry key="selectBoardImagePath">
+		SELECT IMG_PATH
+		FROM IMAGE
+		WHERE POST_CATEGORY = 0
+		AND POST_NO = ?
+	</entry>
+	<entry key="deleteBoardImage">
+		DELETE
+		FROM IMAGE
+		WHERE POST_CATEGORY = 0
+		AND POST_NO = ?
+	</entry>
 </properties>

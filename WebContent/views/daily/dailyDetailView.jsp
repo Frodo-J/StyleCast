@@ -35,6 +35,8 @@ div {
 
 #content {
 	height: 88%;
+	font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
 }
 
 #content>div {
@@ -110,7 +112,7 @@ div {
 	top: 23px;
 	left: 90px;
 	font-size: 17px;
-	font-weight: 600;
+	font-weight: 500;
 }
 
 #like {
@@ -163,7 +165,7 @@ div {
 	width: 75px;
 	height: 20px;
 	font-size: 13px;
-	font-weight: 700;
+	font-weight: 500;
 	top: 41px;
 	right: 15px;
 	text-align: right;
@@ -173,7 +175,7 @@ div {
 	width: 75px;
 	height: 20px;
 	font-size: 13px;
-	font-weight: 700;
+	font-weight: 500;
 	top: 61px;
 	right: 15px;
 	text-align: right;
@@ -205,7 +207,7 @@ div {
 	top: 260px;
 	left: 10px;
 	font-size: 16px;
-	font-weight: 600;
+	font-weight: 500;
 }
 
 #item {
@@ -268,8 +270,8 @@ div {
 }
 
 #comment_count span {
-	font-size: 16px;
-	font-weight: 700;
+	font-size: 17px;
+	font-weight: 500;
 }
 
 #comment_write {
@@ -320,7 +322,7 @@ div {
 .comment_id {
 	margin-top: 17px;
 	margin-left: 10px;
-	font-weight: 600;
+	font-weight: 500;
 	width: 105px;
 	height: 30px;
 	overflow: hidden;
@@ -376,7 +378,7 @@ div {
 
 .comment_date {
 	font-size: 14px;
-	font-weight: 600;
+	font-weight: 500;
 	margin-top: 18px;
 	margin-left: 12px;
 }

@@ -1,6 +1,5 @@
-package com.stylecast.notice.controller;
+package com.stylecast.qna.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -11,19 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.stylecast.common.model.vo.BoardImage;
-import com.stylecast.notice.model.service.NoticeService;
+import com.stylecast.qna.model.service.QnaService;
+import com.stylecast.qna.model.vo.Qna;
 
 /**
- * Servlet implementation class NoticeDeleteController
+ * Servlet implementation class QnaUpdateFormController
  */
-@WebServlet("/delete.no")
-public class NoticeDeleteController extends HttpServlet {
+@WebServlet("/updateForm.qna")
+public class QnaUpdateFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDeleteController() {
+    public QnaUpdateFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,26 +33,16 @@ public class NoticeDeleteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int noticeNo = Integer.parseInt(request.getParameter("nno"));
-		String savePath = request.getSession().getServletContext().getRealPath("/");
+		int qnaNo = Integer.parseInt(request.getParameter("qno"));
 		
-		ArrayList<BoardImage> imgList = new NoticeService().selectBoardImagePath(noticeNo);
-		int result1 = 1;
-		if(imgList.isEmpty()==false){
-			for(int i=0; i<imgList.size(); i++) {
-				new File(savePath + imgList.get(i).getImgPath()).delete();
-			}
-			result1 = new NoticeService().deleteBoardImage(noticeNo);
-		}
+		Qna q = new QnaService().selectQna(qnaNo);
 		
-		int result2 = new NoticeService().deleteNotice(noticeNo);
+		ArrayList<BoardImage> list = new QnaService().selectBoardImageList(qnaNo);
 		
-		if(result1 * result2 > 0) {
-			response.sendRedirect(request.getContextPath() + "/list.no?currentPage=1");
-		}else {
-			//에러페이지
-		}
+		request.setAttribute("list", list);
+		request.setAttribute("q", q);
 		
+		request.getRequestDispatcher("views/qna/qnaUpdate.jsp").forward(request, response);
 	}
 
 	/**

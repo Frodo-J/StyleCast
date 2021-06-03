@@ -1,4 +1,4 @@
-package com.stylecast.notice.controller;
+package com.stylecast.qna.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,19 +11,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.stylecast.common.model.vo.BoardImage;
-import com.stylecast.notice.model.service.NoticeService;
+import com.stylecast.qna.model.service.QnaService;
 
 /**
- * Servlet implementation class NoticeDeleteController
+ * Servlet implementation class QnaDeleteController
  */
-@WebServlet("/delete.no")
-public class NoticeDeleteController extends HttpServlet {
+@WebServlet("/delete.qna")
+public class QnaDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDeleteController() {
+    public QnaDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,22 +33,24 @@ public class NoticeDeleteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int noticeNo = Integer.parseInt(request.getParameter("nno"));
+		
+		int qnaNo = Integer.parseInt(request.getParameter("qno"));
 		String savePath = request.getSession().getServletContext().getRealPath("/");
 		
-		ArrayList<BoardImage> imgList = new NoticeService().selectBoardImagePath(noticeNo);
+		ArrayList<BoardImage> imgList = new QnaService().selectBoardImagePath(qnaNo);
 		int result1 = 1;
 		if(imgList.isEmpty()==false){
 			for(int i=0; i<imgList.size(); i++) {
 				new File(savePath + imgList.get(i).getImgPath()).delete();
 			}
-			result1 = new NoticeService().deleteBoardImage(noticeNo);
+			result1 = new QnaService().deleteBoardImage(qnaNo);
 		}
 		
-		int result2 = new NoticeService().deleteNotice(noticeNo);
+		int result2 = new QnaService().deleteQna(qnaNo);
+		
 		
 		if(result1 * result2 > 0) {
-			response.sendRedirect(request.getContextPath() + "/list.no?currentPage=1");
+			response.sendRedirect(request.getContextPath() + "/list.qna?currentPage=1");
 		}else {
 			//에러페이지
 		}

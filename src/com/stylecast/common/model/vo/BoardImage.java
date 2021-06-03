@@ -20,6 +20,11 @@ public class BoardImage {
 		this.postNo = postNo;
 	}
 	
+	public BoardImage(String imgPath) {
+		// TODO Auto-generated constructor stub
+		this.imgPath = imgPath;
+	}
+
 	public int getImgNo() {
 		return imgNo;
 	}

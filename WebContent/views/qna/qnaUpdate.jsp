@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList,com.stylecast.common.model.vo.* ,com.stylecast.notice.model.vo.*"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.stylecast.common.model.vo.*, com.stylecast.qna.model.vo.*"%>
 <%
-	ArrayList<BoardImage> list = (ArrayList<BoardImage>)request.getAttribute("list");
-	Notice n = (Notice)request.getAttribute("n");
+ArrayList<BoardImage> list = (ArrayList<BoardImage>)request.getAttribute("list");
+	Qna q = (Qna)request.getAttribute("q");
 	int[] bNo = new int[3];
 	String[] bPath = new String[3];
 	for(int i=0; i<list.size(); i++){
@@ -12,10 +12,7 @@
 				bNo[i] = list.get(i).getImgNo();
 				bPath[i] = request.getContextPath() +"/" + list.get(i).getImgPath();
 			}
-			
 	}
-		
-	
 	
 %>
 <!DOCTYPE html>
@@ -31,16 +28,19 @@
     <!--bootstrap end-->
     <!--font-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
     <!--font end-->
     <!--jQuery-->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!--jQuery end-->
-
+	
     <script>
+        $(document).ready(function(){
+            $("#header").load("menubar2.html");
+        });
+ 
+
             
             $(function(){
                 
@@ -55,7 +55,7 @@
                 })
             })
         
-			
+
             function loadImg(inputFile, num){
                 // inputFile : 현재 변화가 생긴 input type="file" 요소객체
                 // num : 몇번째 input요소인지 확인 후 해당 그영역에 미리보기하기위해서
@@ -89,21 +89,46 @@
                     case 3: $("#img3").attr("src", null); break;
                     }
                 }
-			
-           function goBack(){
-            	window.history.back();
+                
             }
-       
-            }
+            
+            function goBack(){
+        		window.history.back();
+        	}
     </script>
 
     <style>
-    	.wrap{width:1200px; height:1300px;  margin: auto;}
+    	/*
+        div:not(#head_box, #detail_box,#notice_contents,#button_box,#notice_main,#image_lists,#input_file,#radio_box,#pwd_box ){border: 1px solid gray; box-sizing: border-box;}
+      	.wrap{width:1200px; height:1300px;  margin: auto;}
+
         .wrap>div{width:100%;}
-            
-       	#content{
-                font-family: 'Noto Sans KR', sans-serif;
-                font-weight: 300;
+        #header{height:12%;}
+        #content{height:88%;}
+
+        #header>div{height:100%; float:left;}
+        #header_1{width:22%;}
+        #header_2{width:48%;}
+        #header_3{width:20%;}
+        #header_4{width:10%;}
+        */
+
+        /* #content_1{width:100%; height:17%;}
+        #content_2{width:70%; height:48%; float: left;}
+        #content_3{width:30%; height:6%; float: left;}
+        #content_4{width:30%; height:42%; float:left;}
+        #content_5{width:100%; height:35%; float: right;} */
+
+        .wrap{width:1200px; height:1300px;  margin: auto;}
+        .wrap>div{width:100%;}
+        
+        #content{
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: 300;
+        }
+
+        .form-select{
+            width: 50%;
         }
 
         #head_of_notice{
@@ -114,6 +139,7 @@
         }
         #detail_box{
             width: 80%;
+            height: 80%;
             margin: auto;
             margin-top: 20px;
         }
@@ -137,41 +163,64 @@
         #image_lists img{
             margin: 2px;
         }
-        #font_notice{
+        #font_qna{
         	color: rgb(241, 196, 15);
         
         } 
+
+        
     </style>
+    <script>
+	$(function(){
+		console.log("<%=q.getQnaCategory()%>");
+		$("#qna_category").val("<%=q.getQnaCategory()%>").prop("selected",true);
+	})
+    
+    </script>
     
 </head>
 <body>
-     <%@ include file="../common/menubar.jsp" %>
+
+	<%@ include file="../common/menubar.jsp" %>    
     <div class="wrap">
-    <!--  
+    <!-- 
         <div id="header">
-            <div id="header_1">로고</div>
+            <!-- <div id="header_1">로고</div>
             <div id="header_2">메뉴바</div>
             <div id="header_3">검색</div>
-            <div id="header_4">로그인</div>
+            <div id="header_4">로그인</div> 
         </div>
-       -->
+         -->
         <div id="content">
             <div id="head_box">
-                <h3 id="head_of_notice">Notice</h3>
+                <h3 id="head_of_notice">Q&A</h3>
             </div>
-            <form action="<%= contextPath %>/update.no" id="enroll-form" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="nno" value="<%=n.getNoticeNo()%>"/>
+            <form action="<%=contextPath %>/update.qna" id="update-form" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="qno" value="<%=q.getQnaNo() %>" />
             <div id="detail_box">
+            	<input type="hidden" name="userNo" value="<%= loginUser.getMemNo() %>">
                 <table class="table">
                     <tr>
-                        <th width=13%>제목</th>
-                        <td colspan="3"><input type="text" name="title" value="<%=n.getNoticeTitle()%>" style="font-weight:300" placeholder="제목을 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required></td>
+                        <th width=10%>구분</td>
+                        <td width=50% colspan="3">
+                            <select class="form-select" id="qna_category" name="qna_category" aria-label="Default select example">
+                                <option value="가입/로그인">가입/로그인</option>
+                                <option value="데일리/코디">데일리코디</option>
+                                <option value="오류/버그">오류/버그</option>
+                                <option value="기타/문의">기타/문의</option>
+                                <option value="건의사항">건의사항</option>
+                          </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>제목</th>
+                        <td colspan="3"><input type="text" name="title" value="<%=q.getQnaTitle() %>" placeholder="제목을 입력해주세요" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"></td>
                     </tr>
                     <tr>
                         <th>내용</th>
                         <td colspan="3">
                             <div id="notice_contents">
-                                <textarea class="form-control" name="content" placeholder="내용을 입력해주세요" id="floatingTextarea2" style="height: 100%; font-weight:300"><%= n.getNoticeContent() %></textarea>
+                                <textarea class="form-control" name="content" placeholder="내용을 입력해주세요" id="floatingTextarea2" style="height: 100%"><%= q.getQnaContent() %></textarea>
                             </div>
                         </td>
                     </tr>
@@ -180,7 +229,7 @@
                         <td colspan="3">
                             <div id="input_file" class="input-group">
                             	<input type="hidden" name="originImageNo1" value="<%=bNo[0] %>"/>
-                                <input type="file" class="form-control" name="image1" id="input-img1" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,1);">
+                                <input type="file" class="form-control" id="input-img1" name="image1" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,1);">
                             </div>
                         </td>
                     </tr>
@@ -188,8 +237,8 @@
                         <th>이미지2</th>
                         <td colspan="3">
                             <div id="input_file" class="input-group">
-                            	<input type="hidden" name="originImageNo2" value="<%=bNo[1] %>"/>
-                                <input type="file" class="form-control" name="image2" id="input-img2" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,2);">
+                                <input type="hidden" name="originImageNo2" value="<%=bNo[1] %>"/>
+                                <input type="file" class="form-control" id="input-img2" name="image2" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,2);">
                             </div>
                         </td>
                     </tr>
@@ -198,7 +247,7 @@
                         <td colspan="3">
                             <div id="input_file" class="input-group">
                             	<input type="hidden" name="originImageNo3" value="<%=bNo[2] %>"/>
-                                <input type="file" class="form-control" name="image3" id="input-img3" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,3);">
+                                <input type="file" class="form-control" id="input-img3" name="image3" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,3);">
                             </div>
                         </td>
                     </tr>
@@ -209,9 +258,9 @@
                             	<input type="hidden" name="originFilePath1" value="<%=bPath[0] %>"/>
                      			<input type="hidden" name="originFilePath2" value="<%=bPath[1] %>"/>
                      			<input type="hidden" name="originFilePath3" value="<%=bPath[2] %>"/>
-                            	<img id="img1" name="img1" width="200" height="150" src="<%=bPath[0]%>" onerror="javascript:this.src='<%=contextPath %>/resources/images/add.png'"/>
-                            	<img id="img2" name="img2" width="200" height="150" src="<%=bPath[1]%>" onerror="javascript:this.src='<%=contextPath %>/resources/images/add.png'"/>
-                            	<img id="img3" name="img3" width="200" height="150" src="<%=bPath[2]%>" onerror="javascript:this.src='<%=contextPath %>/resources/images/add.png'"/>
+                                <img id="img1" name="img1" width="200" height="150" src="<%=bPath[0]%>" onerror="javascript:this.src='<%=contextPath %>/resources/images/add.png'"/>
+                                <img id="img2" name="img2" width="200" height="150" src="<%=bPath[1]%>" onerror="javascript:this.src='<%=contextPath %>/resources/images/add.png'"/>
+                                <img id="img3" name="img3" width="200" height="150" src="<%=bPath[2]%>" onerror="javascript:this.src='<%=contextPath %>/resources/images/add.png'"/>
                             </div>
                         </td>
                     </tr>
@@ -219,7 +268,7 @@
                 </table>
             </div>
             <div id="button_box">
-                <button id="notice_cancel" type="button" class="btn btn-secondary" onclick="location.href='<%=contextPath%>/detail.no?nno=<%=n.getNoticeNo()%>';">취소</button>
+                <button id="notice_cancel" type="button" class="btn btn-secondary" onclick="location.href='<%=contextPath%>/detail.qna?qno=<%=q.getQnaNo()%>';">취소</button>
                 <button id="notice_submit" type="submit" class="btn btn-primary">수정</button>
             </div>
             </form>

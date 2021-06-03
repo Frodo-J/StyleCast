@@ -10,22 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.stylecast.common.model.vo.PageInfo;
-
-
 import com.stylecast.qna.model.service.QnaService;
 import com.stylecast.qna.model.vo.Qna;
 
 /**
- * Servlet implementation class QnaListController
+ * Servlet implementation class QnaSearchController
  */
-@WebServlet("/list.qna")
-public class QnaListController extends HttpServlet {
+@WebServlet("/search.qna")
+public class QnaSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnaListController() {
+    public QnaSearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,6 +33,7 @@ public class QnaListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
 		int listCount;
 		int currentPage;
 		int pageLimit;
@@ -44,11 +43,19 @@ public class QnaListController extends HttpServlet {
 		int startPage;
 		int endPage;
 		
+		// 여기서 작업
+		//사용자가 선택한 카테고리
+		String category = request.getParameter("search_category");
+		
+		//사용자가 입력한 검색내용
+		String text = request.getParameter("search_text");
+		
 		// 총 게시글 갯수
-		listCount = new QnaService().selectListCount();
+		listCount = new QnaService().selectListCount(category,text);
 		
 		// 사용자가 요청한 페이지 ( 현재 페이지)
-		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+	    currentPage = Integer.parseInt(request.getParameter("currentPage"));
+
 		
 		// pageLimit : 하단에 보여질 페이징바의 페이지 최대 갯수(페이지 목록들 몇개)
 		pageLimit = 10;
@@ -68,13 +75,14 @@ public class QnaListController extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		ArrayList<Qna> list = new QnaService().selectList(pi);
 		
-		//ArrayList<Notice> list = new NoticeService().selectNoticeList();
 		
+		ArrayList<Qna> list = new QnaService().selectSearchList(pi,category,text);
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
-		request.getRequestDispatcher("views/qna/qnaMain.jsp").forward(request,response);
+		request.setAttribute("text", text);
+		request.setAttribute("category", category);
+		request.getRequestDispatcher("views/qna/qnaSearch.jsp").forward(request,response);
 	}
 
 	/**

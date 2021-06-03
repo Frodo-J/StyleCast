@@ -69,7 +69,8 @@ public class Qna {
 		this.enrDate = enrDate;
 		this.ansContent = ansContent;
 	}
-	
+
+
 	public Qna(int qnaNo, String qnaCategory, String qnaTitle, String memName, String qnaContent, Date enrDate) {
 		this.qnaNo = qnaNo;
 		this.qnaCategory = qnaCategory;
@@ -117,6 +118,7 @@ public class Qna {
 		this.ansDate2 = ansDate2;
 	}
 
+	
 	public int getQnaNo() {
 		return qnaNo;
 	}
