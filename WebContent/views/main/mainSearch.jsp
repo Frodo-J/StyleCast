@@ -163,7 +163,7 @@
 					  <ul class="pagination">
 					    <li class="page-item">
 							<% if(currentPage != 1) { %>
-				            	<a class="page-link" href="<%=contextPath%>/list.da?currentPage=<%=currentPage-1%>" aria-label="Previous">
+				            	<a class="page-link" href="<%=contextPath%>/search.ma?currentPage=<%=currentPage-1%>&&search_text=<%=text%>" aria-label="Previous">
 							        <span aria-hidden="true">&lt;</span>
 		      					</a>
 							<% } %>
@@ -171,7 +171,7 @@
 			            <% for(int p=startPage; p<=endPage; p++) { %>
 							<li class="page-item">
 								<% if(p != currentPage) { %>
-					            	<a class="page-link" href="<%=contextPath%>/list.da?currentPage=<%= p %>"><%= p %></a>
+					            	<a class="page-link" href="<%=contextPath%>/search.ma?currentPage=<%= p %>&&search_text=<%=text%>"><%= p %></a>
 					            <% }else { %>
 					            	<a class="page-link" href = "#"><%= p %></a>
 				            	<% } %>
@@ -179,7 +179,7 @@
 			            <% } %>
 						<li class="page-item">
 							<% if (currentPage != maxPage) { %>
-				            	<a class="page-link" href="<%=contextPath%>/list.da?currentPage=<%=currentPage+1%>" aria-label="Next">
+				            	<a class="page-link" href="<%=contextPath%>/search.ma?currentPage=<%=currentPage+1%>&&search_text=<%=text%>" aria-label="Next">
 		        					<span aria-hidden="true">&gt;</span>
 		        				</a>
 							<% } %>
