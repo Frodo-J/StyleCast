@@ -21,6 +21,16 @@
 		) WHERE <![CDATA[ROWNUM <= 2 ]]>
 	</entry>
 	
+	<entry key="MainSelectCodiMR">
+		SELECT * FROM(
+			SELECT 
+			       CODI_NO
+			     , IMG_PATH
+			FROM CODI
+			WHERE ? BETWEEN REC_LOWT AND REC_HIGHT AND GENDER='M' AND WEATHER = 'SONW' || WEATHER = 'RAIN'
+		) WHERE <![CDATA[ROWNUM <= 2 ]]>
+	</entry>
+	
 	<entry key="MainSelectCodiF">
 		SELECT * FROM(
 			SELECT 
@@ -28,6 +38,16 @@
 			     , IMG_PATH
 			FROM CODI
 			WHERE ? BETWEEN REC_LOWT AND REC_HIGHT AND GENDER='F'
+		) WHERE <![CDATA[ROWNUM <= 2 ]]>
+	</entry>
+	
+	<entry key="MainSelectCodiFR">
+		SELECT * FROM(
+			SELECT 
+			       CODI_NO
+			     , IMG_PATH
+			FROM CODI
+			WHERE ? BETWEEN REC_LOWT AND REC_HIGHT AND GENDER='F' AND WEATHER = 'SONW' || WEATHER = 'RAIN'
 		) WHERE <![CDATA[ROWNUM <= 2 ]]>
 	</entry>
 	

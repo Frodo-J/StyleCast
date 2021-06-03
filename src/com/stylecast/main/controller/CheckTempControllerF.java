@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.stylecast.main.model.service.MainService;
 import com.stylecast.main.model.vo.MainSelectCodiF;
+import com.stylecast.main.model.vo.MainSelectCodiFR;
 
 /**
  * Servlet implementation class CheckTempController
@@ -36,27 +37,15 @@ public class CheckTempControllerF extends HttpServlet {
 		double NowTemp = Double.parseDouble(request.getParameter("Temp"));
 		String weather = request.getParameter("Weather");
 		
-		ArrayList<MainSelectCodiF> listF = new MainService().MainSelectCodiF(NowTemp);
-		//request.setAttribute("listC", listC);
-		
-		System.out.println(NowTemp);
-		System.out.println(listF);
-		System.out.println(weather);
-		
-		//System.out.println(NowTemp);
-		//System.out.println(Weather);
-		
-		
-		//System.out.println(list);
-		
-		
-		//request.getRequestDispatcher("views/main/mainPage.jsp").forward(request, response);
-		
-		
-		response.setContentType("application/json; charset=utf-8");
-		
-		
-		new Gson().toJson(listF, response.getWriter());
+		if(weather.equals("rain") || weather.equals("snow")) {
+			ArrayList<MainSelectCodiFR> listC = new MainService().MainSelectCodiFR(NowTemp);
+			response.setContentType("application/json; charset=utf-8");
+			new Gson().toJson(listC, response.getWriter());
+		}else {
+			ArrayList<MainSelectCodiF> listC = new MainService().MainSelectCodiF(NowTemp);
+			response.setContentType("application/json; charset=utf-8");
+			new Gson().toJson(listC, response.getWriter());
+		}
 	}
 
 	/**

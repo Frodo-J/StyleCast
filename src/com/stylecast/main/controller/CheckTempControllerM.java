@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.stylecast.main.model.service.MainService;
 import com.stylecast.main.model.vo.MainSelectCodiM;
+import com.stylecast.main.model.vo.MainSelectCodiMR;
 
 /**
  * Servlet implementation class CheckTempController
@@ -36,12 +37,20 @@ public class CheckTempControllerM extends HttpServlet {
 		double NowTemp = Double.parseDouble(request.getParameter("Temp"));
 		String weather = request.getParameter("Weather");
 		
-		ArrayList<MainSelectCodiM> listC = new MainService().MainSelectCodiM(NowTemp);
+		if(weather.equals("rain") || weather.equals("snow")) {
+			ArrayList<MainSelectCodiMR> listC = new MainService().MainSelectCodiMR(NowTemp);
+			response.setContentType("application/json; charset=utf-8");
+			new Gson().toJson(listC, response.getWriter());
+		}else {
+			ArrayList<MainSelectCodiM> listC = new MainService().MainSelectCodiM(NowTemp);
+			response.setContentType("application/json; charset=utf-8");
+			new Gson().toJson(listC, response.getWriter());
+		}
 		//request.setAttribute("listC", listC);
 		
-		System.out.println(NowTemp);
-		System.out.println(listC);
-		System.out.println(weather);
+//		System.out.println(NowTemp);
+//		System.out.println(listC);
+//		System.out.println(weather);
 		
 		//System.out.println(NowTemp);
 		//System.out.println(Weather);
@@ -53,10 +62,7 @@ public class CheckTempControllerM extends HttpServlet {
 		//request.getRequestDispatcher("views/main/mainPage.jsp").forward(request, response);
 		
 		
-		response.setContentType("application/json; charset=utf-8");
 		
-		
-		new Gson().toJson(listC, response.getWriter());
 	}
 
 	/**
