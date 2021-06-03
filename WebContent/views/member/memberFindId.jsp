@@ -13,6 +13,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>StyleCast</title>
     <style>
+    	.wrap{width:1200px; height:1300px; margin: auto;}
+        .wrap>div{width:100%;}
+        #content{
+        		height:88%;
+        		font-family: 'Noto Sans KR', sans-serif;
+                font-weight: 300;
+        		}
         #find{
             margin: auto;
             width: 80%;
@@ -25,21 +32,21 @@
     </style>
 </head>
 <body>
-	<div class="wrap">
 		<%@ include file="../common/menubar.jsp" %>
-	        
-	        <div id="find">
-	            <form action="<%=contextPath %>/findId.me" id="find_form" method="post">
-	                <p>
-	                    <h6 style="font-weight: bold;">ID가 기억나지 않으세요?</h6>
-	                    <br>
-	                    &nbsp; 이메일 <input type="email" class="form-control" name="email" placeholder="your@email.com" required>
-	                </p>
-	                <br>
-	                <input type="submit" value="ID 찾기" class="btn btn-dark">
-	
-	            </form>
-	
+	<div class="wrap">
+	        <div id="content">
+		        <div id="find">
+		            <form action="<%=contextPath %>/findId.me" id="find_form" method="post">
+		                <p>
+		                    <h6 style="font-weight: bold;">ID가 기억나지 않으세요?</h6>
+		                    <br>
+		                    &nbsp; 이메일 <input type="email" class="form-control" name="email" placeholder="your@email.com" required>
+		                </p>
+		                <br>
+		                <input type="submit" value="ID 찾기" class="btn btn-dark">
+		
+		            </form>
+		        </div>
 	        </div>
 	    </div>
 </body>
