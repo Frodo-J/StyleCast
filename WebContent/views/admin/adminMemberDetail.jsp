@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="kr">
     <head>
@@ -33,6 +35,7 @@
 
             * {
                 font-family: 'Noto Sans KR', sans-serif;
+                font-weight: 300;
             }
 
             .wrap {
@@ -136,6 +139,7 @@
         <!-- https://codevang.tistory.com/287 -->
         <!--자바스크립트문으로 form전송 -->
         <!--https://all-record.tistory.com/172-->
+        <%@ include file="../common/menubar.jsp" %>
         <div class="wrap">
 
             <div id="header"></div>
