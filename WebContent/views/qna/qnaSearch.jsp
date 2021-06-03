@@ -222,8 +222,9 @@
             			<% } %>
             	
             		<% } %>
+				<% if(currentPage== 1 && maxPage == 0 && endPage == 0){ %>
 
-				<% if(currentPage != maxPage){ %>
+				<%}else if(currentPage != maxPage){ %>
             		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/search.qna?currentPage=<%=currentPage+1%>&&search_category=<%=category%>&&search_text=<%=text%>';"> &gt; </button>
 				<% } %>
 			
