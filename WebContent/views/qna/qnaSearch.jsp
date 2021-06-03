@@ -4,6 +4,8 @@
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Qna> list = (ArrayList<Qna>)request.getAttribute("list");
+	String category = (String)request.getAttribute("category");
+	String text = (String)request.getAttribute("text");
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -102,6 +104,13 @@
         	color: rgb(241, 196, 15);
         }
     </style>
+    <script>
+	$(function(){
+		console.log("<%=category%>");
+		$("#search_category").val("<%=category%>").prop("selected",true);
+	})
+    
+    </script>
 </head>
 <body>
     <!-- 1페이지당 15개글이 최대-->
@@ -121,12 +130,12 @@
             <div id="qna_lists">
             	<form action="<%= contextPath %>/search.qna?currentPage=1" method="post">
                 <div id="search_box" >
-                    <select class="form-select" name="search_category">
+                    <select class="form-select" name="search_category" id="search_category">
                         <option selected value="qna_title">제목</option>
                         <option value="qna_content">내용</option>
                         <option value="mem_name">작성자</option>
                     </select>
-                    <input id="input_search" class="form-control" type="text" placeholder="검색내용" name="search_text">
+                    <input id="input_search" class="form-control" type="text" placeholder="검색내용" name="search_text" value="<%=text%>">
                     <button id="img_btn" type="submit"><img src="<%=contextPath %>/resources/images/loupe.png"></button> 
                 </div>
                 </form>
@@ -142,7 +151,7 @@
                       <tbody>
                       <%if(list.isEmpty()){ %>
                       	<tr>
-                      		<td colspan="6">존재하는 문의글이 없습니다</td>
+                      		<td colspan="6">검색어와 일치하는 문의글이 없습니다.</td>
                       	</tr>
                       <% }else{ %>
                       	<% for(Qna q : list){ %>
@@ -198,13 +207,13 @@
              	<div align="center" class="btn-group me-2" role="group" aria-label="First group">
 
 					<% if(currentPage != 1){ %>
-            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.no?currentPage=<%=currentPage-1%>';"> &lt; </button>
+            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/search.qna?currentPage=<%=currentPage-1%>&&search_category=<%=category%>&&search_text=<%=text%>';"> &lt; </button>
 					<% } %>
 
             		<% for(int p=startPage; p<=endPage; p++){ %>
             	
             			<% if(p != currentPage){ %>
-	            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.no?currentPage=<%= p %>';"><%= p %></button>
+	            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.no?currentPage=<%= p %>&&search_category=<%=category%>&&search_text=<%=text%>';"><%= p %></button>
 	            		<% }else { %>
 	            			<button type="button" class="btn btn-outline-secondary" disabled><%= p %></button>
             			<% } %>
@@ -212,7 +221,7 @@
             		<% } %>
 
 				<% if(currentPage != maxPage){ %>
-            		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.no?currentPage=<%=currentPage+1%>';"> &gt; </button>
+            		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.no?currentPage=<%=currentPage+1%>&&search_category=<%=category%>&&search_text=<%=text%>';"> &gt; </button>
 				<% } %>
 			
         	</div>

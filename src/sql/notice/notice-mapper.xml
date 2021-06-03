@@ -181,7 +181,7 @@
 			
 	</entry>
 	
-	<entry key="selectListByNoticeNo">
+	<entry key="selectListByNoticeTitle">
 		SELECT *
 		FROM(
     		SELECT ROWNUM RNUM, A.*
