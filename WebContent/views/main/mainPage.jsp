@@ -1,9 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.stylecast.main.model.vo.MainSelectDaily, com.stylecast.main.model.vo.MainSelectCodiM"%>
+<%
+	ArrayList<MainSelectDaily> dailylist = (ArrayList<MainSelectDaily>)request.getAttribute("list");
+	
+%>
 <!DOCTYPE html>
-<html>
+<html lang="kr">
 <head>
-<meta charset="UTF-8">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!--bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -22,7 +29,6 @@
             height:1144px;  
             margin: auto; font-family:'Noto Sans KR', sans-serif;
             }
-
         .wrap>div{
             width:100%;
             }
@@ -30,10 +36,7 @@
             height:100%; 
             position: relative;
             }
-
         
-
-
         #content_1{
             width:57%; 
             height:50%; 
@@ -58,13 +61,12 @@
         #codi_2{
             margin-left: 40px;
             }
-
         #content_3{
             width:10%; 
             height:50%; 
             float: left;
             }
-        #change{
+        #changeGender{
             height:50px; 
             width:50px; 
             padding:0px; 
@@ -73,10 +75,9 @@
             border:none;
             background-color: darkgray;
             }
-        #change:hover{
+        #changeGender:hover{
             background-color: gray;
             }
-
         #content_4{
             width:33%; 
             height:50%; 
@@ -100,7 +101,6 @@
             height:20%; 
             text-align:center; 
             }
-
         #content_5{
             width:100%;
             height:35%;
@@ -115,80 +115,158 @@
             }
         #dailycontent{
             height:70%;
+            width:100%;
+            float:left; 
             }
         #dailycontent>div{
-            height:80%; 
+            height:240px; 
             float:left; 
-            width:20%; 
+            width:240px; 
             margin-left:60px;
             }
-        #dailycontent>div>img{
-            height:80%; 
+        #dailycontent>div>div{
+        	height:240px; 
             float:left; 
-            width:80%;
+            width:240px; 
+        }
+        #dailycontent img{
+            height:240px; 
+            float:left; 
+            width:240px;
             }
-
     </style>
 </head>
+
 <body>
-    
+
     <%@ include file="../common/menubar.jsp" %>
     
     <div class="wrap">
-
         <div id="content">
             <div id="content_1">
                 <div id="codi">
                     <b><font size="5px">오늘의 코디</font></b>  
                </div>
+               
                 <div id="codi_img">
-                    <div id="codi_1"><img id="codi_img_1" src="<%=contextPath %>/resources/codi_upfiles/codi1.jpg" alt="" width="280px" height="380px"></div>
-                    <div id="codi_2"><img id="codi_img_2" src="<%=contextPath %>/resources/codi_upfiles/codi2.jpg" alt="" width="280px" height="380px"></div>
+                	
+                    <div id="codi_1>"><img id="codi_img_1" src="" alt="" width="280px" height="380px"></div>
+                    <div id="codi_2>"><img id="codi_img_2" src="" alt="" width="280px" height="380px"></div>
+                    
                 </div>    
+                
             </div>
             <div id="content_3">
-                <button  id="change" onclick="toggleImg()">
+                <button  id="changeGender" onclick="toggleImg()">
                     <img src="<%=contextPath %>/resources/images/changebutton.png" alt="" width="100%" height="100%">
                 </button>
             </div>
-
             <script>
+            
                 var cnt = 1;
                 function toggleImg() {
+                	
+                	
                     var img1 = document.getElementById("codi_img_1");
                     var img2 = document.getElementById("codi_img_2");
-
                     if(cnt%2==1){
-                        img1.src = "<%=contextPath %>/resources/codi_upfiles/codi3.jpg";
-                        img2.src = "<%=contextPath %>/resources/codi_upfiles/codi4.jpg";
+                    	callTemp2();
                     }else{
-                        img1.src = "<%=contextPath %>/resources/codi_upfiles/codi1.jpg";
-                        img2.src = "<%=contextPath %>/resources/codi_upfiles/codi2.jpg";
+                    	callTemp1();
                     }
                     cnt++;
                 }
               </script>
 
+			
             <div id="content_4">
-                <div id="todayweather"><img src="img/sunny.png" alt="" width="134px" height="134px"></div>
-                <div id="todaytemp"><b>5/17ì&nbsp&nbsp5Ë/20Ë </b></div>
-                <div id="location"><b><font size="7px" >Seoul</font></b></div>   
+
+            	<script>
+                  var apiURI = "http://api.openweathermap.org/data/2.5/weather?q=seoul&appid=1edf4d31ce3af918461e6292d0fd5669&units=metric";
+                      $.ajax({
+                          url: apiURI,
+                          dataType: "json",
+                          type: "GET",
+                          async: "false",
+                          success: function(resp) {
+                             
+                             NowTemp = resp.main.temp;
+                             Weather = resp.weather[0].main;
+                             imgURL = "http://openweathermap.org/img/w/" + resp.weather[0].icon + ".png";
+                              $("#todaytemp").text("현재온도 : "+(resp.main.temp) + "°C");
+                              $("#todayweathericon").attr("src", imgURL);
+                              $("#Temp").attr("value", NowTemp);
+                              $("#weather").attr("value", Weather);
+
+					           // *****************
+					           callTemp1();
+                          }
+                      });
+                   
+                     function callTemp1() {
+                          var Temp = $('#Temp').val();
+                          var Weather = $('#weather').val();
+                         $.ajax({
+                             type:"GET",
+                             url:"tempCheckM.ma",
+                             
+                             data:{
+                            	 Temp : Temp,
+                            	 Weather : Weather
+                             },success: function(listC){
+                            	 console.log(listC);
+                            	 
+                            	 $("#codi_img_1").attr("src", listC[0].imgPath + "jpg");
+                            	 $("#codi_img_2").attr("src", listC[1].imgPath + "jpg");
+                            	 
+                            	 
+                             }
+                         });
+                     }
+                     
+                     function callTemp2() {
+                         var Temp = $('#Temp').val();
+                         var Weather = $('#weather').val();
+                        $.ajax({
+                            type:"GET",
+                            url:"tempCheckF.ma",
+                            
+                            data:{
+                           	 Temp : Temp,
+                           	 Weather : Weather
+                            },success: function(listF){
+                           	 console.log(listF);
+                           	 
+                           	 $("#codi_img_1").attr("src", listF[0].imgPath + "jpg");
+                           	 $("#codi_img_2").attr("src", listF[1].imgPath + "jpg");
+                           	 
+                           	 
+                            }
+                        });
+                    }
+                      
+               </script>
+                <div id="todayweather"><img id="todayweathericon" src="" alt="" width="134px" height="134px"></div>
+                <div id="todaytemp"  class="ctemp"></div>
+                <div id="location"><b><font size="7px" >Seoul</font></b></div>
+                <input type="hidden" id="Temp" value="">
+                <input type="hidden" id="weather" value="">
             </div>
-            
+
+		
+
             <div id="content_5">
                 <div id="daily">
                      <b><font size="5px">데일리</font></b>  
                 </div>
+				
                 <div id="dailycontent">
-                    <div id="best1"><a href=""><img src="<%=contextPath %>/resources/daily_upfiles/dailybest1.jpg" alt=""></a></div>
-                    <div id="best2"><a href=""><img src="<%=contextPath %>/resources/daily_upfiles/dailybest2.jpg" alt=""></a></div>
-                    <div id="best3"><a href=""><img src="<%=contextPath %>/resources/daily_upfiles/dailybest3.jpg" alt=""></a></div>
-                    <div id="best4"><a href=""><img src="<%=contextPath %>/resources/daily_upfiles/dailybest4.jpg" alt=""></a></div>
+                <% for(MainSelectDaily m : dailylist){ %>
+                	<div id="newDaily"><a href=""><img src="<%= m.getDailyImg() %>" alt=""></a></div>
+                <% } %>
                 </div>
             </div>
         </div>
-
     </div>
-
 </body>
 </html>

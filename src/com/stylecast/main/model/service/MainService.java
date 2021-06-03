@@ -1,7 +1,7 @@
 package com.stylecast.main.model.service;
 
-import static com.stylecast.common.JDBCTemplate.close;
-import static com.stylecast.common.JDBCTemplate.getConnection;
+
+import static com.stylecast.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
