@@ -246,7 +246,7 @@
                                 <b>날씨 및 코디</b>
                             </h5>
                         </div>
-                        <form id="codi_box" action="<%= request.getContextPath() %>/enrollForm.co" method="post" enctype="multipart/form-data">
+                        <form id="codi_box" action="<%= request.getContextPath() %>/enrollForm.co" method="post" >
                             <div id="codi_flex_box">
                                 <div id="img_box">
                                     <img id="codi_img" src=""/>

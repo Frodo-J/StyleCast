@@ -260,7 +260,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="">게시글관리</a>
+                                <a href="<%=request.getContextPath()%>/rptList.adm?brCategory=0 ">게시글관리</a>
                             </h4>
                         </div>
                     </div>

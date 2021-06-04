@@ -60,6 +60,8 @@ public class CodiInsertController extends HttpServlet {
 //		System.out.println(highT);
 //		System.out.println(imgPath);
 		
+		c.setImgPath("resources/codi_upfiles/");
+		
 		int result = new AdminService().insertCodi(c);
 		
 		response.sendRedirect("/codilist.ad?currentPage=1");
