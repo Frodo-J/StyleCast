@@ -6,12 +6,12 @@ public class Codi {
 	private String gender;
 	private String imgPath;
 	private String recWeather;
-	private String recLowT;
-	private String recHighT;
+	private int recLowT;
+	private int recHighT;
 	
 	public Codi() {}
 	
-	public Codi(int codiNo, String gender, String imgPath, String recWeather, String recLowT, String recHighT) {
+	public Codi(int codiNo, String gender, String imgPath, String recWeather, int recLowT, int recHighT) {
 		super();
 		this.codiNo = codiNo;
 		this.gender = gender;
@@ -69,25 +69,25 @@ public class Codi {
 
 
 
-	public String getRecLowT() {
+	public int getRecLowT() {
 		return recLowT;
 	}
 
 
 
-	public void setRecLowT(String recLowT) {
+	public void setRecLowT(int recLowT) {
 		this.recLowT = recLowT;
 	}
 
 
 
-	public String getRecHighT() {
+	public int getRecHighT() {
 		return recHighT;
 	}
 
 
 
-	public void setRecHighT(String recHighT) {
+	public void setRecHighT(int recHighT) {
 		this.recHighT = recHighT;
 	}
 

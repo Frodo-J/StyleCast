@@ -151,4 +151,27 @@
 		  FROM CODI
 		 WHERE CODI_NO = ?
 	</entry>
+	
+	<entry key="insertCodi">
+		INSERT
+		  INTO CODI
+		  (
+		    CODI_NO
+		  , GENDER
+		  , IMG_PATH
+		  , REC_WEATHER
+		  , REC_LOWT
+		  , REC_HIGHT
+		  )
+		  VALUES
+		  (
+		    SEQ_CODI.NEXTVAL
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  )
+	</entry>
+	
 </properties>

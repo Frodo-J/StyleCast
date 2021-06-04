@@ -6,17 +6,15 @@ import static com.stylecast.common.JDBCTemplate.getConnection;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.stylecast.admin.model.dao.CodiDao;
+import com.stylecast.admin.model.dao.AdminDao;
 import com.stylecast.admin.model.vo.Codi;
 import com.stylecast.common.model.vo.PageInfo;
-import com.stylecast.daily.model.dao.DailyDao;
-import com.stylecast.daily.model.vo.Daily;
 
-public class CodiService {
+public class AdminService {
 	
 	public int selectListCount() {
 		Connection conn = getConnection();
-		int listCount = new CodiDao().selectListCount(conn);
+		int listCount = new AdminDao().selectListCount(conn);
 
 		close(conn);
 		return listCount;
@@ -24,7 +22,7 @@ public class CodiService {
 
 	public ArrayList<Codi> selectCodiList(PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<Codi> list = new CodiDao().SelectCodiList(conn, pi);
+		ArrayList<Codi> list = new AdminDao().SelectCodiList(conn, pi);
 		
 		close(conn);
 		return list;
@@ -33,7 +31,7 @@ public class CodiService {
 	
 	public Codi selectCodiUpdate(int codiNo) {
 		Connection conn = getConnection();
-		Codi c = new CodiDao().selectCodiUpdate(conn, codiNo);
+		Codi c = new AdminDao().selectCodiUpdate(conn, codiNo);
 		
 		close(conn);
 		return c;

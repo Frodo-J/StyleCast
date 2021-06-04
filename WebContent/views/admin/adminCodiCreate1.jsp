@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
         <!--bootstrap-->
@@ -209,14 +209,14 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="<%= request.getContextPath() %>/codilist.ad?currentPage=1">
+                                <a href="">
                                     <b>메인관리</b>
                                 </a>
                             </h4>
                         </div>
                         <div>
                             <h4>
-                                <a href="">트렌딩관리</a>
+                                <a href="<%= request.getContextPath() %>/codilist.ad?currentPage=1">트렌딩관리</a>
                             </h4>
                         </div>
                         <div>
@@ -235,17 +235,20 @@
                 </script>
 
                 <div id="form">
+                	
                     <!-- <h2 style="text-align: center;"> <b>회원관리</b> </h2> -->
                     <!-- <br> <div id="line2"></div> -->
-
+					
                     <div id="content_of_form">
                         <div id="blank_box">
                             <h5>
                                 <b>날씨 및 코디</b>
                             </h5>
                         </div>
-                        <form id="codi_box" action="<%= request.getContextPath() %>/enrollForm.co" method="post">
+                        
+                        <form action="<%= request.getContextPath() %>/insertCodi.ad" id="codi_box" method="post" enctype="multipart/form-data">
                             <div id="codi_flex_box">
+                            
                                 <div id="img_box">
                                     <img id="codi_img" src=""/>
                                 </div>
@@ -257,21 +260,19 @@
                                                 <td width="40%"><input
                                                     class="form-check-input"
                                                     type="radio"
-                                                    name="gender"
+                                                    name="flexRadioDefault"
                                                     id="flexRadioDefault1"
-                                                    value="M"
                                                     checked="checked">
-                                                    <label class="form-check-label" for="flexRadioDefault1" >
-                                                       	남성
+                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                       	 남성
                                                     </label>
                                                 </td>
                                                 <td>
                                                     <input
                                                         class="form-check-input"
                                                         type="radio"
-                                                        name="gender"
+                                                        name="flexRadioDefault"
                                                         id="flexRadioDefault1"
-                                                        value="F"
                                                         width="100px">
                                                     <label class="form-check-label" for="flexRadioDefault1">
                                                         	여성
@@ -281,11 +282,11 @@
                                             <tr height="150px">
                                                 <th>날씨</th>
                                                 <td colspan="2">
-                                                    <select name="weather" class="form-select" aria-label="Default select example">
-                                                        <option value="SUNNY" selected="selected">sunny</option>
-                                                        <option value="CLOUD">cloud</option>
-                                                        <option value="RAIN">rain</option>
-                                                        <option value="SNOW">snow</option>
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option value="1" selected="selected">sunny</option>
+                                                        <option value="2">cloud</option>
+                                                        <option value="3">rain</option>
+                                                        <option value="4">snow</option>
                                                     </select>
                                                 </td>
                                             </tr>
@@ -294,7 +295,6 @@
                                                 <td colspan="2"><input
                                                     class="form-control"
                                                     type="text"
-                                                    name="highT"
                                                     placeholder="최고기온"
                                                     aria-label="default input example"></td>
 
@@ -304,7 +304,6 @@
                                                 <td colspan="2"><input
                                                     class="form-control"
                                                     type="text"
-                                                    name="lowT"
                                                     placeholder="최저기온"
                                                     aria-label="default input example"></td>
                                             </tr>
@@ -316,7 +315,6 @@
                                                             type="file"
                                                             class="form-control"
                                                             id="input-img1"
-                                                            name = "imgPath"
                                                             aria-describedby="inputGroupFileAddon04"
                                                             aria-label="Upload"
                                                             onchange="loadImg(this,1);">
@@ -368,16 +366,19 @@
                                         }
                                     </script>
 
-                                </div>
-
+                                		</div>
+                                		
+                                	</div>
+								
                             </div>
                             <div id="codi_submit_box">
                                 <div id="codi_button_box">
-                                    <button type="button" class="btn btn-secondary" id="codi_btn_delete" onclick="history.back();">취소</button>
-                                    <button type="submit" class="btn btn-primary" id="codi_btn_submit" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" >작성</button>
+                                    <a type="button" class="btn btn-secondary" id="codi_btn_delete" href= "<%= request.getContextPath() %>/codilist.ad?currentPage=1">취소</a>
+                                    <a type="button" class="btn btn-primary" id="codi_btn_submit" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">작성</a>
                                 </div>
                             </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                     <!-- Modal -->
                     <div
@@ -399,12 +400,11 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    	코디를 업데이트하시겠습니까?
+                                   	 코디를 업데이트하시겠습니까?
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                                     <button
-                                    	type="button"
                                         class="btn btn-primary"
                                         data-bs-target="#exampleModalToggle2"
                                         data-bs-toggle="modal"
@@ -439,17 +439,16 @@
                                         class="btn btn-primary"
                                         data-bs-toggle="modal"
                                         data-bs-dismiss="modal"
-                                        onclick="history.back();">확인</button>
+                                        onclick="blackMem(mem_detail)">확인</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <br>
-
                 </div>
 
             </div>
-        </div>
+
 	
 </body>
 </html>

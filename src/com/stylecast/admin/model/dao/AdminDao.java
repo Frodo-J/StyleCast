@@ -15,13 +15,13 @@ import com.stylecast.admin.model.vo.Codi;
 import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.daily.model.vo.Daily;
 
-public class CodiDao {
+public class AdminDao {
 	
 	private Properties prop = new Properties();
 	
-	public CodiDao() {
+	public AdminDao() {
 		try {
-			prop.loadFromXML(new FileInputStream( CodiDao.class.getResource("/sql/admin/admin-mapper.xml").getPath() ));
+			prop.loadFromXML(new FileInputStream( AdminDao.class.getResource("/sql/admin/admin-mapper.xml").getPath() ));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -75,8 +75,8 @@ public class CodiDao {
 					c.setGender(rset.getString("gender"));
 					c.setImgPath(rset.getString("img_path"));
 					c.setRecWeather(rset.getString("rec_weather"));
-					c.setRecLowT(rset.getString("rec_lowt"));
-					c.setRecHighT(rset.getString("rec_hight"));
+					c.setRecLowT(rset.getInt("rec_lowt"));
+					c.setRecHighT(rset.getInt("rec_hight"));
 					
 					list.add(c);
 				}
@@ -108,8 +108,8 @@ public class CodiDao {
 							 rset.getString("gender"),
 							 rset.getString("img_path"),
 							 rset.getString("rec_weather"),
-							 rset.getString("rec_lowt"),
-							 rset.getString("rec_hight"));
+							 rset.getInt("rec_lowt"),
+							 rset.getInt("rec_hight"));
 			}
 			
 		} catch (SQLException e) {

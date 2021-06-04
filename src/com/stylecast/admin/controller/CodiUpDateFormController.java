@@ -1,7 +1,6 @@
 package com.stylecast.admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,9 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.stylecast.admin.model.service.CodiService;
+import com.stylecast.admin.model.service.AdminService;
 import com.stylecast.admin.model.vo.Codi;
-import com.sun.xml.internal.ws.api.message.Attachment;
 
 
 /**
@@ -36,7 +34,7 @@ public class CodiUpDateFormController extends HttpServlet {
 		
 		int codiNo = Integer.parseInt(request.getParameter("cno"));
 		
-		Codi c = new CodiService().selectCodiUpdate(codiNo);
+		Codi c = new AdminService().selectCodiUpdate(codiNo);
 		
 		
 		request.setAttribute("c", c);

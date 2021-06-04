@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class CodiInsertController
  */
-@WebServlet("/CodiInsertController")
+@WebServlet("/enrollForm.co")
 public class CodiInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -26,8 +26,21 @@ public class CodiInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		request.setCharacterEncoding("UTF-8");
+		
+		String gender = request.getParameter("gender");
+		String weather = request.getParameter("weather");
+		int lowT = Integer.parseInt(request.getParameter("lowT"));
+		int highT = Integer.parseInt(request.getParameter("highT"));
+		String imgPath = request.getParameter("imgPath");
+		
+		System.out.println(gender);
+		System.out.println(weather);
+		System.out.println(lowT);
+		System.out.println(highT);
+		System.out.println(imgPath);
+		
 	}
 
 	/**

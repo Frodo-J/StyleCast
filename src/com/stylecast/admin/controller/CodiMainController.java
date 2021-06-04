@@ -9,10 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.stylecast.admin.model.service.CodiService;
+import com.stylecast.admin.model.service.AdminService;
 import com.stylecast.admin.model.vo.Codi;
 import com.stylecast.common.model.vo.PageInfo;
-import com.stylecast.notice.model.service.NoticeService;
 
 /**
  * Servlet implementation class CodiMainController
@@ -44,7 +43,7 @@ public class CodiMainController extends HttpServlet {
 		int endPage;
 		
 		// 총 게시글 갯수
-		listCount = new CodiService().selectListCount();
+		listCount = new AdminService().selectListCount();
 		
 		// 사용자가 요청한 페이지 ( 현재 페이지)
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -68,7 +67,7 @@ public class CodiMainController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		ArrayList<Codi> list = new CodiService().selectCodiList(pi);
+		ArrayList<Codi> list = new AdminService().selectCodiList(pi);
 		
 		
 		//ArrayList<Notice> list = new NoticeService().selectNoticeList();
