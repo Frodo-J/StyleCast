@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="selectListCount">
+	<entry key="selectBlackListNCount">
 		SELECT COUNT(*) COUNT
 		FROM MEMBER
-		WHERE BLACK_YN = ?
+		WHERE BLACK_YN LIKE 'N'
 	</entry>
-	<entry key="selectMemberList">
+	<entry key="selectBlackListYCount">
+		SELECT COUNT(*) COUNT
+		FROM MEMBER
+	</entry>
+	<entry key="selectMemberListBlackN">
 		SELECT *
 		FROM(
     		SELECT ROWNUM RNUM, A.*
@@ -21,7 +25,26 @@
         		FROM
             		MEMBER
     		WHERE
-        		BLACK_YN= ?
+        		BLACK_YN LIKE 'N'
+    		ORDER BY
+        		WARNING DESC, MEM_NO ASC) A
+        		)
+    		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+		<entry key="selectMemberListBlackY">
+		SELECT *
+		FROM(
+    		SELECT ROWNUM RNUM, A.*
+    		FROM(
+        		SELECT
+            		 MEM_NO,
+                     MEM_EMAIL,
+                     MEM_ID,
+                     MEM_NAME,
+                     BLACK_YN,
+                     WARNING
+        		FROM
+            		MEMBER
     		ORDER BY
         		WARNING DESC, MEM_NO ASC) A
         		)

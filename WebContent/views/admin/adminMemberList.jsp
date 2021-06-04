@@ -8,6 +8,7 @@
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
+	String blackListYN = request.getParameter("blackListYN");
 %>
 <!DOCTYPE html>
 <html lang="kr">
@@ -141,6 +142,11 @@
             #prof{height: 17%;width: 99%; float: left;}
             #prof div, #menu div{width: 100%;}
         </style>
+    	<script>
+    	$(function(){
+    		console.log("<%=blackListYN%>");
+    	})
+    	</script>
     </head>
     <body>
         <!--참고하면 좋은 글-->
@@ -188,6 +194,8 @@
                         $("#menu a").css("font-weight", "normal");
                         $(this).css("font-weight", "bold");
                     })
+                    
+                    
                 </script>
 
                 <div id="form">
@@ -211,12 +219,30 @@
                             </div>
                             <div id="black_box">
                                 <div class="form-check form-switch">
+                                	<%if(blackListYN.equals("Y")){ %>
+                             		<%=blackListYN %>
                                     <label class="form-check-label" for="flexSwitchCheckDefault">
                                         <b>블랙회원 보이기 OFF/ON</b>
                                     </label>
-                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                    <input class="form-check-input" type="checkbox" name="blackYN" id="flexSwitchCheckDefault" checked onclick="goToBlackN();"/>
+                                	<%}else if(blackListYN.equals("N")){ %>
+                                		<%=blackListYN %>
+                                		<label class="form-check-label" for="flexSwitchCheckDefault">
+                                        <b>블랙회원 보이기 OFF/ON</b>
+                                    	</label>
+                                    <input class="form-check-input" type="checkbox" name="blackYN" id="flexSwitchCheckDefault" onclick="goToBlackY();" />
+                                	<%} %>
                                 </div>
                             </div>
+                            <script>
+                            	function goToBlackN(){
+                            		location.href = "<%=contextPath%>/memlist.adm?blackListYN=N&&currentPage=1";
+                            	}
+                            	
+                            	function goToBlackY(){
+                            		location.href = "<%=contextPath%>/memlist.adm?blackListYN=Y&&currentPage=1";
+                            	}
+                            </script>
                         </div>
                         <div id="table_box">
                             <form name="mem_detail">
@@ -458,7 +484,6 @@
                                     .eq(1)
                                     .text();
                                 console.log(no);
-
                             });
 
                             function blackMem(formName) {
@@ -474,13 +499,13 @@
                             <div align="center" class="btn-group me-2" role="group" aria-label="First group">
 
 							<% if(currentPage != 1){ %>
-            					<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/memlist.adm?currentPage=<%=currentPage-1%>';"> &lt; </button>
+            					<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/memlist.adm?blackListYN=<%=blackListYN%>&&currentPage=<%=currentPage-1%>';"> &lt; </button>
 							<% } %>
 
             				<% for(int p=startPage; p<=endPage; p++){ %>
             	
             					<% if(p != currentPage){ %>
-	            					<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/memlist.adm?currentPage=<%= p %>';"><%= p %></button>
+	            					<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/memlist.adm?blackListYN=<%=blackListYN%>&&currentPage=<%= p %>';"><%= p %></button>
 	            				<% }else { %>
 	            					<button type="button" class="btn btn-outline-secondary" disabled><%= p %></button>
             					<% } %>
@@ -489,7 +514,7 @@
 						<% if(currentPage == 1 && maxPage == 0 && endPage == 0){ %>
 						
 						<% } else if(currentPage != maxPage){ %>
-            				<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/memlist.adm?currentPage=<%=currentPage+1%>';"> &gt; </button>
+            				<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/memlist.adm?blackListYN=<%=blackListYN%>&&currentPage=<%=currentPage+1%>';"> &gt; </button>
 						<% } %>
 			
         					</div>
