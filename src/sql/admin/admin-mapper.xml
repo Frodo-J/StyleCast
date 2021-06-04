@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="selectListCount">
+	<entry key="selectBlackListNCount">
 		SELECT COUNT(*) COUNT
 		FROM MEMBER
-		WHERE BLACK_YN = ?
+		WHERE BLACK_YN LIKE 'N'
 	</entry>
-	<entry key="selectMemberList">
+	<entry key="selectBlackListYCount">
+		SELECT COUNT(*) COUNT
+		FROM MEMBER
+	</entry>
+	<entry key="selectMemberListBlackN">
 		SELECT *
 		FROM(
     		SELECT ROWNUM RNUM, A.*
@@ -21,112 +25,11 @@
         		FROM
             		MEMBER
     		WHERE
-        		BLACK_YN= ?
+        		BLACK_YN LIKE 'N'
     		ORDER BY
-        		WARNING DESC, MEM_NO ASC) A
+        		BLACK_YN DESC, WARNING DESC, MEM_NO ASC) A
         		)
     		WHERE RNUM BETWEEN ? AND ?
 	</entry>
-	
-	<entry key="selectReportList">
-		SELECT RPT.*, MB.MEM_ID AS "RMEM_ID"
-        FROM  (
-                    SELECT
-                           RPT_NO
-                         , MEM_ID
-                         , RMEM_NO
-                         , CONTENT
-                         , R.ENR_DATE
-                         , DAILY_NO
-                         , RPT_CATEGORY
-                         , CM_NO
-                      FROM REPORT R
-                      JOIN MEMBER M ON (R.MEM_NO = M.MEM_NO)
-                     WHERE R.STATUS = 'N'
-                       AND BR_CATEGORY = ?
-                  ORDER BY R.ENR_DATE DESC) RPT
-        JOIN MEMBER MB ON (RPT.RMEM_NO = MB.MEM_NO)
-        ORDER BY RPT.ENR_DATE DESC
-	</entry>
-	
-	<entry key="deleteReport">
-		UPDATE REPORT
-		SET STATUS = 'Y'
-		WHERE RPT_NO IN (?)
-	</entry>
-	
-	<entry key="processReport">
-		UPDATE MEMBER
-		   SET WARNING = WARNING + 1
-	  	 WHERE MEM_NO IN (SELECT RMEM_NO
-		                    FROM REPORT
-		                   WHERE RPT_NO IN(?))
-	</entry>
-	
-	<entry key="selectReportListByMemId">
-		SELECT RPT.*, MB.MEM_ID AS "RMEM_ID"
-        FROM  (
-                    SELECT
-                           RPT_NO
-                         , MEM_ID
-                         , RMEM_NO
-                         , CONTENT
-                         , R.ENR_DATE
-                         , DAILY_NO
-                         , RPT_CATEGORY
-                         , CM_NO
-                      FROM REPORT R
-                      JOIN MEMBER M ON (R.MEM_NO = M.MEM_NO)
-                     WHERE R.STATUS = 'N'
-                       AND BR_CATEGORY = ?
-                  ORDER BY R.ENR_DATE DESC) RPT
-        JOIN MEMBER MB ON (RPT.RMEM_NO = MB.MEM_NO)
-        WHERE RPT.MEM_ID = ?
-        ORDER BY RPT.ENR_DATE DESC
-	</entry>
-	
-	<entry key="selectReportListByRmemId">
-		SELECT RPT.*, MB.MEM_ID AS "RMEM_ID"
-        FROM  (
-                    SELECT
-                           RPT_NO
-                         , MEM_ID
-                         , RMEM_NO
-                         , CONTENT
-                         , R.ENR_DATE
-                         , DAILY_NO
-                         , RPT_CATEGORY
-                         , CM_NO
-                      FROM REPORT R
-                      JOIN MEMBER M ON (R.MEM_NO = M.MEM_NO)
-                     WHERE R.STATUS = 'N'
-                       AND BR_CATEGORY = ?
-                  ORDER BY R.ENR_DATE DESC) RPT
-        JOIN MEMBER MB ON (RPT.RMEM_NO = MB.MEM_NO)
-        WHERE MB.MEM_ID = ?
-        ORDER BY RPT.ENR_DATE DESC
-	</entry>
-	
-	<entry key="selectReportListByRptCategory">
-		SELECT RPT.*, MB.MEM_ID AS "RMEM_ID"
-        FROM  (
-                    SELECT
-                           RPT_NO
-                         , MEM_ID
-                         , RMEM_NO
-                         , CONTENT
-                         , R.ENR_DATE
-                         , DAILY_NO
-                         , RPT_CATEGORY
-                         , CM_NO
-                      FROM REPORT R
-                      JOIN MEMBER M ON (R.MEM_NO = M.MEM_NO)
-                     WHERE R.STATUS = 'N'
-                       AND BR_CATEGORY = ?
-                  ORDER BY R.ENR_DATE DESC) RPT
-        JOIN MEMBER MB ON (RPT.RMEM_NO = MB.MEM_NO)
-        WHERE RPT_CATEGORY LIKE '%'||?||'%'
-        ORDER BY RPT.ENR_DATE DESC
-	</entry>
-	
+
 </properties>
