@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.stylecast.common.model.vo.PageInfo, com.stylecast.member.vo.Member, java.util.ArrayList" %>
+<%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html lang="kr">
     <head>
@@ -33,7 +42,7 @@
                 box-sizing: border-box;
             }
 
-            * {
+            #content {
                 font-family: 'Noto Sans KR', sans-serif;
                 font-weight: 300;
             }
@@ -142,20 +151,18 @@
         <%@ include file="../common/menubar.jsp" %>
         <div class="wrap">
 
-            <div id="header"></div>
-
             <div id="content">
                 <div id="side">
 
                     <div id="line"></div>
                     <div id="prof">
-                        <div id="prof_img" align="center"><img src="images/prof.PNG"></div>
+                        <div id="prof_img" align="center"><img src="<%=contextPath %>/resources/images/prof.PNG"></div>
                         <div id="prof_nick" align="center"><b>닉네임</b></div>
                     </div>
                     <div id="menu">
                         <div>
                             <h4>
-                                <a href=""><b>회원관리</b></a>
+                                <a href="<%=contextPath%>/memlist.adm?blackListYN=N&&currentPage=1"><b>회원관리</b></a>
                             </h4>
                         </div>
                         <div>
@@ -200,7 +207,7 @@
                                     <option value="3">닉네임</option>
                                 </select>
                                 <input id="input_search" class="form-control" type="text" placeholder="검색내용">
-                                <button id="img_btn" type="button"><img src="images/loupe.png"></button>
+                                <button id="img_btn" type="button"><img src="<%=contextPath%>/resources/images/loupe.png"></button>
                             </div>
                             <div id="black_box">
                                 <div class="form-check form-switch">
@@ -224,9 +231,30 @@
                                         <th>블랙 적용/해제</th>
                                     </thead>
                                     <tbody>
+                                    	<% if(list.isEmpty()) { %>
+                                    		<tr> <td colspan="7"> 멤버가 없습니다. </td></tr> 
+                                    	<% }else{ %>
+                                    		<% for(Member m : list){%>
+                                    		<tr>
+                                            		<td><%=m.getWarning() %>번</td>
+                                            		<td><%=m.getMemNo() %></td>
+                                            		<td><%=m.getEmail() %></td>
+                                            		<td><%=m.getMemId() %></td>
+                                            		<td><%=m.getMemName() %></td>
+                                            		<td><%=m.getBlackYN() %></td>
+                                            		<td align="center">
+                                                		<button
+                                                    		type="button"
+                                                    		class="btn btn-secondary btn-sm black_btn"
+                                                    		data-bs-toggle="modal"
+                                                    		data-bs-target="#exampleModalToggle">블랙 적용</button>
+                                            		</td>
+                                        		</tr>
+                                    		<% } %>
+                                    	<% } %>
                                         <!--검색 결과가 없을 경우 아래의 tr만 보이게-->
                                         <!-- <tr> <td colspan="7">검색 결과가 없습니다.</td> </tr> -->
-                                        <tr>
+                                        <!--  <tr>
                                             <td>2번</td>
                                             <td>1121</td>
                                             <td>abcadf1232@naver.com</td>
@@ -375,7 +403,7 @@
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#exampleModalToggle">블랙 적용</button>
                                             </td>
-                                        </tr>
+                                        </tr> -->
 
                                     </tbody>
                                 </table>
@@ -442,30 +470,31 @@
                             }
                         </script>
                         <br>
-                        <div id="page_box">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">1</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">2</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">3</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">&raquo;</a>
-                                    </li>
-                                </ul>
-                            </nav>
+                        <div id="page_box" class="text-center">
+                            <div align="center" class="btn-group me-2" role="group" aria-label="First group">
+
+							<% if(currentPage != 1){ %>
+            					<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/memlist.adm?currentPage=<%=currentPage-1%>';"> &lt; </button>
+							<% } %>
+
+            				<% for(int p=startPage; p<=endPage; p++){ %>
+            	
+            					<% if(p != currentPage){ %>
+	            					<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/memlist.adm?currentPage=<%= p %>';"><%= p %></button>
+	            				<% }else { %>
+	            					<button type="button" class="btn btn-outline-secondary" disabled><%= p %></button>
+            					<% } %>
+            	
+            				<% } %>
+						<% if(currentPage == 1 && maxPage == 0 && endPage == 0){ %>
+						
+						<% } else if(currentPage != maxPage){ %>
+            				<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/memlist.adm?currentPage=<%=currentPage+1%>';"> &gt; </button>
+						<% } %>
+			
+        					</div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
 
