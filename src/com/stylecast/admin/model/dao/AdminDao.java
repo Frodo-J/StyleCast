@@ -74,8 +74,8 @@ public class AdminDao {
 					c.setGender(rset.getString("gender"));
 					c.setImgPath(rset.getString("img_path"));
 					c.setRecWeather(rset.getString("rec_weather"));
-					c.setRecLowT(rset.getString("rec_lowt"));
-					c.setRecHighT(rset.getString("rec_hight"));
+					c.setRecLowT(rset.getInt("rec_lowt"));
+					c.setRecHighT(rset.getInt("rec_hight"));
 					
 					list.add(c);
 				}
@@ -107,8 +107,8 @@ public class AdminDao {
 							 rset.getString("gender"),
 							 rset.getString("img_path"),
 							 rset.getString("rec_weather"),
-							 rset.getString("rec_lowt"),
-							 rset.getString("rec_hight"));
+							 rset.getInt("rec_lowt"),
+							 rset.getInt("rec_hight"));
 			}
 			
 		} catch (SQLException e) {
@@ -131,8 +131,8 @@ public class AdminDao {
 			pstmt.setString(1, c.getGender());
 			pstmt.setString(2, c.getImgPath());
 			pstmt.setString(3, c.getRecWeather());
-			pstmt.setString(4, c.getRecLowT());
-			pstmt.setString(5, c.getRecHighT());
+			pstmt.setInt(4, c.getRecLowT());
+			pstmt.setInt(5, c.getRecHighT());
 			
 			result = pstmt.executeUpdate();
 			

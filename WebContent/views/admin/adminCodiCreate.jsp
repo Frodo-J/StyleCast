@@ -246,7 +246,7 @@
                                 <b>날씨 및 코디</b>
                             </h5>
                         </div>
-                        <form id="codi_box" action="<%= request.getContextPath() %>/enrollForm.co" method="post" >
+                        <form id="codi_box" action="<%= request.getContextPath() %>/enrollForm.co" method="post" enctype="multipart/form-data">
                             <div id="codi_flex_box">
                                 <div id="img_box">
                                     <img id="codi_img" src=""/>
@@ -318,7 +318,7 @@
                                                             type="file"
                                                             class="form-control"
                                                             id="input-img1"
-                                                            name = "imgPath"
+                                                            name ="imgPath"
                                                             aria-describedby="inputGroupFileAddon04"
                                                             aria-label="Upload"
                                                             onchange="loadImg(this,1);">

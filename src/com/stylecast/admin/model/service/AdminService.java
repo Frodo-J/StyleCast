@@ -1,7 +1,6 @@
 package com.stylecast.admin.model.service;
 
-import static com.stylecast.common.JDBCTemplate.close;
-import static com.stylecast.common.JDBCTemplate.getConnection;
+import static com.stylecast.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -39,9 +38,15 @@ public class AdminService {
 	
 	public int insertCodi(Codi c) {
 		Connection conn = getConnection();
-		int result1 = new AdminDao().insertCodi(conn, c);
+		int result = new AdminDao().insertCodi(conn, c);
 		
-		return result1;
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 		
 	}
 	

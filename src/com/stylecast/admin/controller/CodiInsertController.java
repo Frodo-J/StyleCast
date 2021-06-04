@@ -8,8 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 import com.oreilly.servlet.MultipartRequest;
-import com.stylecast.admin.model.service.AdminService;
 import com.stylecast.admin.model.vo.Codi;
 import com.stylecast.common.MyFileRenamePolicy;
 
@@ -35,37 +36,40 @@ public class CodiInsertController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		int maxSize = 10 * 1024 * 1024;
 		
-		String savePath = request.getSession().getServletContext().getRealPath("/resources/codi_upfiles/");
-		
-		MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-		
-		Codi c = new Codi();
-		c.setGender(multiRequest.getParameter("gender"));
-		c.setImgPath(multiRequest.getParameter("imgPath"));
-		c.setRecWeather(multiRequest.getParameter("weather"));
-		c.setRecLowT (multiRequest.getParameter("lowT"));
-		c.setRecHighT (multiRequest.getParameter("highT"));
-		
-//		String gender = request.getParameter("gender");
-//		String weather = request.getParameter("weather");
-//		int lowT = Integer.parseInt(request.getParameter("lowT"));
-//		int highT = Integer.parseInt(request.getParameter("highT"));
-//		String imgPath = request.getParameter("imgPath");
-		
-//		System.out.println(gender);
-//		System.out.println(weather);
-//		System.out.println(lowT);
-//		System.out.println(highT);
-//		System.out.println(imgPath);
-		
-		c.setImgPath("resources/codi_upfiles/");
-		
-		int result = new AdminService().insertCodi(c);
-		
-		response.sendRedirect("/codilist.ad?currentPage=1");
-		
+		if(ServletFileUpload.isMultipartContent(request)) {
+			
+			int maxSize = 10 * 1024 * 1024;
+			
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/codi_upfiles/");
+			//System.out.println(savePath);
+			
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			
+			String gender = multiRequest.getParameter("gender");
+			String weather = multiRequest.getParameter("weather");
+			int lowT = Integer.parseInt(multiRequest.getParameter("lowT"));
+			int highT = Integer.parseInt(multiRequest.getParameter("highT"));
+			String imgPath = multiRequest.getFilesystemName("imgPath");
+			
+//			System.out.println(gender);
+//			System.out.println(weather);
+//			System.out.println(lowT);
+//			System.out.println(highT);
+//			System.out.println(imgPath);
+			
+			Codi c = new Codi();
+	    	c.setGender(gender);
+			c.setImgPath(imgPath);
+			c.setRecHighT(highT);
+			c.setRecLowT(lowT);
+			c.setRecWeather(weather);
+			
+			//System.out.println(c.getImgPath());
+			
+			response.sendRedirect(request.getContextPath() + "/codilist.ad?currentPage=1");
+			
+		}
 	}
 
 	/**
