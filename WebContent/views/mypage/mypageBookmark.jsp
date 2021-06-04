@@ -69,7 +69,8 @@
         #prof div, #menu div{width: 100%;}
         #menu a{color: black; text-decoration: none;}
 
-        #prof_img{height: 70%; padding: 20px;}
+        #prof_img{height: 70%; padding: 20px; /*border: solid 1px red;*/}
+        #prof_img>img{width: 100px; height: 100px;}
 
         #write>div{font-size: 13px; padding-left: 20px; margin-top: 8px;}
         #menu>div{margin-bottom: 15px;}
@@ -87,7 +88,8 @@
             float:left;
         }
 
-        #prof-img{width: 35%;}
+        #prof-img{width: 35%; /*border: solid 1px red;*/}
+        #prof-img>img{width: 100px; height: 100px;}
         #prof-delete{height: 30px;}
         #prof-input{width: 65%;}
 
@@ -162,6 +164,9 @@
                     </div>
                     <div><a href="<%= request.getContextPath() %>/bookmark.me" style="font-weight: bold;">북마크</a></div>
                     <div><a href="<%= request.getContextPath() %>/myMember.me">개인정보 수정</a></div>
+                    <% if(loginUser != null && loginUser.getAdminYN().equals("Y")){ %>
+                    	<div><a href="<%= request.getContextPath() %>">관리자 페이지</a></div>
+                    <% } %>
                 </div>
             </div>
 

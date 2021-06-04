@@ -69,7 +69,8 @@
         #prof div, #menu div{width: 100%;}
         #menu a{color: black; text-decoration: none;}
 
-        #prof_img{height: 70%; padding: 20px;}
+        #prof_img{height: 70%; padding: 20px; /*border: solid 1px red;*/}
+        #prof_img>img{width: 100px; height: 100px;}
 
         #write>div{font-size: 13px; padding-left: 20px; margin-top: 8px;}
         #menu>div{margin-bottom: 15px;}
@@ -87,7 +88,8 @@
             float:left;
         }
 
-        #prof-img{width: 35%;}
+        #prof-img{width: 35%; /*border: solid 1px red;*/}
+        #prof-img>img{width: 100px; height: 100px;}
         #prof-delete{height: 30px;}
         #prof-input{width: 65%;}
 
@@ -149,8 +151,8 @@
                 <div id="line"></div>
                 
                 <div id="prof">
-                    <div id="prof_img" align="center"><img src="resources/prof.png"></div>
-                    <div id="prof_nick" align="center">닉네임</div>
+                    <div id="prof_img" align="center"><img src="<%= contextPath %>/<%= loginUser.getProfImg() %>"></div>
+                    <div id="prof_nick" align="center"><%= loginUser.getMemName() %></div>
                 </div>
 
                 <div id="menu">
@@ -162,6 +164,9 @@
                     </div>
                     <div><a href="<%= request.getContextPath() %>/bookmark.me">북마크</a></div>
                     <div><a href="<%= request.getContextPath() %>/myMember.me">개인정보 수정</a></div>
+                    <% if(loginUser != null && loginUser.getAdminYN().equals("Y")){ %>
+                    	<div><a href="<%= request.getContextPath() %>">관리자 페이지</a></div>
+                    <% } %>
                 </div>
             </div>
 
@@ -174,12 +179,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="prof-body" align="center">
-                        <form action="" method="post" style="line-height: 30px;">
+                        <form action="<%= contextPath %>/updateProf.me" method="post" style="line-height: 30px;">
                             <div id="prof-img">
-                                <img src="resources/prof.png">
+                                <img src="<%= contextPath %>/<%= loginUser.getProfImg() %>">
                                 <button id="prof-delete" class="btn btn-light btn-sm">삭제</button>
                             </div>
                             <div id="prof-input"><input type="file" name="userProfImg"></div>  
+                            <input type="hidden" name="memId" value="<%=loginUser.getMemId()%>">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width: 90px; margin: auto;">취소</button>
                             &emsp;&emsp;
                             <button type="button" class="btn btn-primary" onclick="" style="width: 90px;">등록</button>
