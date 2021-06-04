@@ -150,8 +150,8 @@
                
                 <div id="codi_img">
                 	
-                    <div id="codi_1>"><img id="codi_img_1" src="" alt="" width="280px" height="380px"></div>
-                    <div id="codi_2>"><img id="codi_img_2" src="" alt="" width="280px" height="380px"></div>
+                    <div id="codi_1"><img id="codi_img_1" src="" alt="" width="280px" height="380px"></div>
+                    <div id="codi_2"><img id="codi_img_2" src="" alt="" width="280px" height="380px"></div>
                     
                 </div>    
                 
@@ -262,7 +262,8 @@
 				
                 <div id="dailycontent">
                 <% for(MainSelectDaily m : dailylist){ %>
-                	<div id="newDaily"><a href=""><img src="<%= m.getDailyImg() %>" alt=""></a></div>
+                	<div id="newDaily"><a href="<%=contextPath %>/detail.da?dno=<%= m.getDailyNo() %>"><img src="<%= m.getDailyImg() %>" alt=""></a></div>
+                	<input type="hidden" id="dno" value="<%= m.getDailyNo() %>">
                 <% } %>
                 </div>
             </div>
