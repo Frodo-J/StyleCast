@@ -183,7 +183,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="">게시글관리</a>
+                                <a href="<%=request.getContextPath()%>/rptList.adm?brCategory=0">게시글관리</a>
                             </h4>
                         </div>
                     </div>
@@ -269,11 +269,19 @@
                                             		<td><%=m.getMemName() %></td>
                                             		<td><%=m.getBlackYN() %></td>
                                             		<td align="center">
+                                            		<% if(m.getBlackYN().equals("N")){%>
                                                 		<button
                                                     		type="button"
                                                     		class="btn btn-secondary btn-sm black_btn"
                                                     		data-bs-toggle="modal"
                                                     		data-bs-target="#exampleModalToggle">블랙 적용</button>
+                                                    <%}else if(m.getBlackYN().equals("Y")){ %>
+                                                    	<button
+                                                    		type="button"
+                                                    		class="btn btn-secondary btn-sm black_btn"
+                                                    		data-bs-toggle="modal"
+                                                    		data-bs-target="#exampleModalNoneBK">블랙 해제</button>
+                                                    <%} %>
                                             		</td>
                                         		</tr>
                                     		<% } %>
@@ -312,14 +320,50 @@
                                   적용되었습니다!
                                 </div>
                                 <div class="modal-footer">
-                                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal" onclick="blackMem(mem_detail)">확인</button>
+                                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal" onclick="yBlackMem(mem_detail)">확인</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        <!-- 모달 끝 -->
+                        
+                       	 <!-- Modal -->
+                        <div class="modal fade" id="exampleModalNoneBK" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalToggleLabel"><b>블랙 해제</b></h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  정말 블랙을 해제 하시겠습니까?
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                  <button class="btn btn-primary" data-bs-target="#exampleModalNoneBK2" data-bs-toggle="modal" data-bs-dismiss="modal">적용하기</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal fade" id="exampleModalNoneBK2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalToggleLabel2"><b>확인창</b></h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  해제되었습니다!
+                                </div>
+                                <div class="modal-footer">
+                                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal" onclick="nBlackMem(mem_detail)">확인</button>
                                 </div>
                               </div>
                             </div>
                           </div>
                         <script>
                             //no는 전달된 회원번호를 의미합니다.
-                            var no = 0;
+                            var memNo = 0;
                             $('.black_btn').click(function() {
                                 var btn = $(this);
                                 var tr = btn
@@ -327,13 +371,20 @@
                                     .parent();
                                 var td = tr.children();
 
-                                no = td
+                                memNo = td
                                     .eq(1)
                                     .text();
-                                console.log(no);
+                                console.log(memNo);
                             });
 
-                            function blackMem(formName) {
+                            function yBlackMem(formName) {
+                                console.log("전달된 no는 " + memNo);
+                                formName.action = "<%= contextPath %>/updateblacky.adm?memNo=" + memNo;
+                                formName.method = "post";
+                                formName.submit();
+
+                            }
+                            function nBlackMem(formName) {
                                 console.log("전달된 no는 " + no);
                                 formName.action = "";
                                 formName.method = "post";

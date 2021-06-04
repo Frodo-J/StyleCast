@@ -193,4 +193,24 @@ private Properties prop = new Properties();
 		return list;
 	}
 
+	public int updateMemberBlackY(Connection conn, int memNo) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMemberBlackY");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }

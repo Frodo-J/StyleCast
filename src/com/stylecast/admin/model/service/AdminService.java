@@ -38,4 +38,19 @@ public class AdminService {
 		return list;
 	}
 
+	public int updateMemberBlackY(int memNo) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		int result = new AdminDao().updateMemberBlackY(conn, memNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
 }

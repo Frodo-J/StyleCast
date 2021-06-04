@@ -50,4 +50,10 @@
         		)
     		WHERE RNUM BETWEEN ? AND ?
 	</entry>
+	<entry key="updateMemberBlackY">
+		UPDATE
+			MEMBER
+		SET BLACK_YN = 'Y'
+		WHERE MEM_NO = ?
+	</entry>
 </properties>
