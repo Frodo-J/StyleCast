@@ -187,6 +187,8 @@
 </head>
 <body>
 	
+	<%@ include file="../common/menubar.jsp" %>
+	
 	<div class="wrap">
 
             <div id="header"></div>

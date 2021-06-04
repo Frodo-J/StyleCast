@@ -37,4 +37,12 @@ public class AdminService {
 		return c;
 	}
 	
+	public int insertCodi(Codi c) {
+		Connection conn = getConnection();
+		int result1 = new AdminDao().insertCodi(conn, c);
+		
+		return result1;
+		
+	}
+	
 }

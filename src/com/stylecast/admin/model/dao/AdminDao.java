@@ -13,7 +13,6 @@ import java.util.Properties;
 
 import com.stylecast.admin.model.vo.Codi;
 import com.stylecast.common.model.vo.PageInfo;
-import com.stylecast.daily.model.vo.Daily;
 
 public class AdminDao {
 	
@@ -75,8 +74,8 @@ public class AdminDao {
 					c.setGender(rset.getString("gender"));
 					c.setImgPath(rset.getString("img_path"));
 					c.setRecWeather(rset.getString("rec_weather"));
-					c.setRecLowT(rset.getInt("rec_lowt"));
-					c.setRecHighT(rset.getInt("rec_hight"));
+					c.setRecLowT(rset.getString("rec_lowt"));
+					c.setRecHighT(rset.getString("rec_hight"));
 					
 					list.add(c);
 				}
@@ -108,8 +107,8 @@ public class AdminDao {
 							 rset.getString("gender"),
 							 rset.getString("img_path"),
 							 rset.getString("rec_weather"),
-							 rset.getInt("rec_lowt"),
-							 rset.getInt("rec_hight"));
+							 rset.getString("rec_lowt"),
+							 rset.getString("rec_hight"));
 			}
 			
 		} catch (SQLException e) {
@@ -120,6 +119,31 @@ public class AdminDao {
 		}
 		
 		return c;
+	}
+	
+	public int insertCodi(Connection conn, Codi c) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertCodi");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, c.getGender());
+			pstmt.setString(2, c.getImgPath());
+			pstmt.setString(3, c.getRecWeather());
+			pstmt.setString(4, c.getRecLowT());
+			pstmt.setString(5, c.getRecHighT());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
 	}
 	
 }
