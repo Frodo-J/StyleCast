@@ -15,10 +15,15 @@ public class Report {
 	private String rptCategory;
 	private int cmNo;
 	
+	private String memId;
+	private String rMemId;
+	
 	public Report() {}
+	
+	
 
 	public Report(int rptNo, int memNo, int rMemNo, String content, Date enrDate, String status, int brCategory,
-			int dailyNo, String rptCategory, int cmNo) {
+			int dailyNo, String rptCategory, int cmNo, String memId, String rMemId) {
 		super();
 		this.rptNo = rptNo;
 		this.memNo = memNo;
@@ -30,8 +35,24 @@ public class Report {
 		this.dailyNo = dailyNo;
 		this.rptCategory = rptCategory;
 		this.cmNo = cmNo;
+		this.memId = memId;
+		this.rMemId = rMemId;
 	}
-
+	
+	public Report(int rptNo, String content, Date enrDate, int brCategory, int dailyNo, String rptCategory, int cmNo,
+			String memId, String rMemId) {
+		super();
+		this.rptNo = rptNo;
+		this.content = content;
+		this.enrDate = enrDate;
+		this.brCategory = brCategory;
+		this.dailyNo = dailyNo;
+		this.rptCategory = rptCategory;
+		this.cmNo = cmNo;
+		this.memId = memId;
+		this.rMemId = rMemId;
+	}
+	
 	public int getRptNo() {
 		return rptNo;
 	}
@@ -112,12 +133,27 @@ public class Report {
 		this.cmNo = cmNo;
 	}
 
+	public String getMemId() {
+		return memId;
+	}
+
+	public void setMemId(String memId) {
+		this.memId = memId;
+	}
+
+	public String getrMemId() {
+		return rMemId;
+	}
+
+	public void setrMemId(String rMemId) {
+		this.rMemId = rMemId;
+	}
+
 	@Override
 	public String toString() {
 		return "Report [rptNo=" + rptNo + ", memNo=" + memNo + ", rMemNo=" + rMemNo + ", content=" + content
 				+ ", enrDate=" + enrDate + ", status=" + status + ", brCategory=" + brCategory + ", dailyNo=" + dailyNo
-				+ ", rptCategory=" + rptCategory + ", cmNo=" + cmNo + "]";
+				+ ", rptCategory=" + rptCategory + ", cmNo=" + cmNo + ", memId=" + memId + ", rMemId=" + rMemId + "]";
 	}
-	
 	
 }

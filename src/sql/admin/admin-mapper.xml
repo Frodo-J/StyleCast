@@ -31,29 +31,5 @@
         		)
     		WHERE RNUM BETWEEN ? AND ?
 	</entry>
-		<entry key="selectMemberListBlackY">
-		SELECT *
-		FROM(
-    		SELECT ROWNUM RNUM, A.*
-    		FROM(
-        		SELECT
-            		 MEM_NO,
-                     MEM_EMAIL,
-                     MEM_ID,
-                     MEM_NAME,
-                     BLACK_YN,
-                     WARNING
-        		FROM
-            		MEMBER
-    		ORDER BY
-        		BLACK_YN DESC, WARNING DESC, MEM_NO ASC) A
-        		)
-    		WHERE RNUM BETWEEN ? AND ?
-	</entry>
-	<entry key="updateMemberBlackY">
-		UPDATE
-			MEMBER
-		SET BLACK_YN = 'Y'
-		WHERE MEM_NO = ?
-	</entry>
+
 </properties>
