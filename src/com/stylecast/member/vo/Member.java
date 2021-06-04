@@ -40,8 +40,16 @@ public class Member {
 		this.profImg = profImg;
 	}
 
-	
-	
+	public Member(int memNo, String memId, String memName, String email, String blackYN, int warning) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memName = memName;
+		this.email = email;
+		this.blackYN = blackYN;
+		this.warning = warning;
+	}
+
 	public Member(String memId, String email, String memPwd, String memName, String gender) {
 		super();
 		this.memId = memId;
