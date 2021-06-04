@@ -27,7 +27,7 @@
     		WHERE
         		BLACK_YN LIKE 'N'
     		ORDER BY
-        		WARNING DESC, MEM_NO ASC) A
+        		BLACK_YN DESC, WARNING DESC, MEM_NO ASC) A
         		)
     		WHERE RNUM BETWEEN ? AND ?
 	</entry>
@@ -46,8 +46,14 @@
         		FROM
             		MEMBER
     		ORDER BY
-        		WARNING DESC, MEM_NO ASC) A
+        		BLACK_YN DESC, WARNING DESC, MEM_NO ASC) A
         		)
     		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="updateMemberBlackY">
+		UPDATE
+			MEMBER
+		SET BLACK_YN = 'Y'
+		WHERE MEM_NO = ?
 	</entry>
 </properties>

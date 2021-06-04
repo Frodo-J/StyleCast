@@ -183,7 +183,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="">게시글관리</a>
+                                <a href="<%=request.getContextPath()%>/rptList.adm?brCategory=0">게시글관리</a>
                             </h4>
                         </div>
                     </div>
@@ -220,15 +220,13 @@
                             <div id="black_box">
                                 <div class="form-check form-switch">
                                 	<%if(blackListYN.equals("Y")){ %>
-                             		<%=blackListYN %>
                                     <label class="form-check-label" for="flexSwitchCheckDefault">
-                                        <b>블랙회원 보이기 OFF/ON</b>
+                                        <b>블랙회원도 보이기 ON</b>
                                     </label>
                                     <input class="form-check-input" type="checkbox" name="blackYN" id="flexSwitchCheckDefault" checked onclick="goToBlackN();"/>
                                 	<%}else if(blackListYN.equals("N")){ %>
-                                		<%=blackListYN %>
                                 		<label class="form-check-label" for="flexSwitchCheckDefault">
-                                        <b>블랙회원 보이기 OFF/ON</b>
+                                        <b>블랙회원도 보이기 OFF</b>
                                     	</label>
                                     <input class="form-check-input" type="checkbox" name="blackYN" id="flexSwitchCheckDefault" onclick="goToBlackY();" />
                                 	<%} %>
@@ -269,168 +267,23 @@
                                             		<td><%=m.getMemName() %></td>
                                             		<td><%=m.getBlackYN() %></td>
                                             		<td align="center">
+                                            		<% if(m.getBlackYN().equals("N")){%>
                                                 		<button
                                                     		type="button"
                                                     		class="btn btn-secondary btn-sm black_btn"
                                                     		data-bs-toggle="modal"
                                                     		data-bs-target="#exampleModalToggle">블랙 적용</button>
+                                                    <%}else if(m.getBlackYN().equals("Y")){ %>
+                                                    	<button
+                                                    		type="button"
+                                                    		class="btn btn-secondary btn-sm black_btn"
+                                                    		data-bs-toggle="modal"
+                                                    		data-bs-target="#exampleModalNoneBK">블랙 해제</button>
+                                                    <%} %>
                                             		</td>
                                         		</tr>
                                     		<% } %>
                                     	<% } %>
-                                        <!--검색 결과가 없을 경우 아래의 tr만 보이게-->
-                                        <!-- <tr> <td colspan="7">검색 결과가 없습니다.</td> </tr> -->
-                                        <!--  <tr>
-                                            <td>2번</td>
-                                            <td>1121</td>
-                                            <td>abcadf1232@naver.com</td>
-                                            <td>asdafsda</td>
-                                            <td>에코</td>
-                                            <td>N</td>
-                                            <td align="center">
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-secondary btn-sm black_btn"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModalToggle">블랙 적용</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1번</td>
-                                            <td>211</td>
-                                            <td>samoc@naver.com</td>
-                                            <td>adasd1</td>
-                                            <td>아메리카노</td>
-                                            <td>N</td>
-                                            <td align="center">
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-secondary btn-sm black_btn"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModalToggle">블랙 적용</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>0번</td>
-                                            <td>1</td>
-                                            <td>red@naver.com</td>
-                                            <td>sd1</td>
-                                            <td>배고파</td>
-                                            <td>N</td>
-                                            <td align="center">
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-secondary btn-sm black_btn"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModalToggle">블랙 적용</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>0번</td>
-                                            <td>2</td>
-                                            <td>kain@naver.com</td>
-                                            <td>sfa11</td>
-                                            <td>토비</td>
-                                            <td>N</td>
-                                            <td align="center">
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-secondary btn-sm black_btn"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModalToggle">블랙 적용</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>0번</td>
-                                            <td>3</td>
-                                            <td>saf@naver.com</td>
-                                            <td>a1</td>
-                                            <td>바바</td>
-                                            <td>N</td>
-                                            <td align="center">
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-secondary btn-sm black_btn"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModalToggle">블랙 적용</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>0번</td>
-                                            <td>4</td>
-                                            <td>oc@naver.com</td>
-                                            <td>dasd1</td>
-                                            <td>포동</td>
-                                            <td>N</td>
-                                            <td align="center">
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-secondary btn-sm black_btn"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModalToggle">블랙 적용</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>0번</td>
-                                            <td>5</td>
-                                            <td>ocnmuseum@naver.com</td>
-                                            <td>ada1</td>
-                                            <td>코코아</td>
-                                            <td>N</td>
-                                            <td align="center">
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-secondary btn-sm black_btn"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModalToggle">블랙 적용</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>0번</td>
-                                            <td>7</td>
-                                            <td>lalala@naver.com</td>
-                                            <td>adas1</td>
-                                            <td>퉁퉁이</td>
-                                            <td>N</td>
-                                            <td align="center">
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-secondary btn-sm black_btn"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModalToggle">블랙 적용</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>0번</td>
-                                            <td>9</td>
-                                            <td>afoc@naver.com</td>
-                                            <td>adasd1</td>
-                                            <td>타코</td>
-                                            <td>N</td>
-                                            <td align="center">
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-secondary btn-sm black_btn"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModalToggle">블랙 적용</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>0번</td>
-                                            <td>11</td>
-                                            <td>af2411@naver.com</td>
-                                            <td>adasd1</td>
-                                            <td>핏짜</td>
-                                            <td>N</td>
-                                            <td align="center">
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-secondary btn-sm black_btn"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModalToggle">블랙 적용</button>
-                                            </td>
-                                        </tr> -->
-
                                     </tbody>
                                 </table>
                             </form>
@@ -465,14 +318,50 @@
                                   적용되었습니다!
                                 </div>
                                 <div class="modal-footer">
-                                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal" onclick="blackMem(mem_detail)">확인</button>
+                                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal" onclick="yBlackMem(mem_detail)">확인</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        <!-- 모달 끝 -->
+                        
+                       	 <!-- Modal -->
+                        <div class="modal fade" id="exampleModalNoneBK" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalToggleLabel"><b>블랙 해제</b></h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  정말 블랙을 해제 하시겠습니까?
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                  <button class="btn btn-primary" data-bs-target="#exampleModalNoneBK2" data-bs-toggle="modal" data-bs-dismiss="modal">적용하기</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal fade" id="exampleModalNoneBK2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalToggleLabel2"><b>확인창</b></h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  해제되었습니다!
+                                </div>
+                                <div class="modal-footer">
+                                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal" onclick="nBlackMem(mem_detail)">확인</button>
                                 </div>
                               </div>
                             </div>
                           </div>
                         <script>
                             //no는 전달된 회원번호를 의미합니다.
-                            var no = 0;
+                            var memNo = 0;
                             $('.black_btn').click(function() {
                                 var btn = $(this);
                                 var tr = btn
@@ -480,13 +369,20 @@
                                     .parent();
                                 var td = tr.children();
 
-                                no = td
+                                memNo = td
                                     .eq(1)
                                     .text();
-                                console.log(no);
+                                console.log(memNo);
                             });
 
-                            function blackMem(formName) {
+                            function yBlackMem(formName) {
+                                console.log("전달된 no는 " + memNo);
+                                formName.action = "<%= contextPath %>/updateblacky.adm?memNo=" + memNo;
+                                formName.method = "post";
+                                formName.submit();
+
+                            }
+                            function nBlackMem(formName) {
                                 console.log("전달된 no는 " + no);
                                 formName.action = "";
                                 formName.method = "post";
