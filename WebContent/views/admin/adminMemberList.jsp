@@ -220,15 +220,13 @@
                             <div id="black_box">
                                 <div class="form-check form-switch">
                                 	<%if(blackListYN.equals("Y")){ %>
-                             		<%=blackListYN %>
                                     <label class="form-check-label" for="flexSwitchCheckDefault">
-                                        <b>블랙회원 보이기 OFF/ON</b>
+                                        <b>블랙회원도 보이기 ON</b>
                                     </label>
                                     <input class="form-check-input" type="checkbox" name="blackYN" id="flexSwitchCheckDefault" checked onclick="goToBlackN();"/>
                                 	<%}else if(blackListYN.equals("N")){ %>
-                                		<%=blackListYN %>
                                 		<label class="form-check-label" for="flexSwitchCheckDefault">
-                                        <b>블랙회원 보이기 OFF/ON</b>
+                                        <b>블랙회원도 보이기 OFF</b>
                                     	</label>
                                     <input class="form-check-input" type="checkbox" name="blackYN" id="flexSwitchCheckDefault" onclick="goToBlackY();" />
                                 	<%} %>
