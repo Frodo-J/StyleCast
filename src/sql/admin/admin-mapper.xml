@@ -27,7 +27,7 @@
     		WHERE
         		BLACK_YN LIKE 'N'
     		ORDER BY
-        		WARNING DESC, MEM_NO ASC) A
+        		BLACK_YN DESC, WARNING DESC, MEM_NO ASC) A
         		)
     		WHERE RNUM BETWEEN ? AND ?
 	</entry>
@@ -46,7 +46,7 @@
         		FROM
             		MEMBER
     		ORDER BY
-        		WARNING DESC, MEM_NO ASC) A
+        		BLACK_YN DESC, WARNING DESC, MEM_NO ASC) A
         		)
     		WHERE RNUM BETWEEN ? AND ?
 	</entry>
