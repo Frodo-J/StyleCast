@@ -45,6 +45,7 @@ public class AdminMemberListController extends HttpServlet {
 		// 블랙 조회 여부
 		String blackListYN = request.getParameter("blackListYN");
 		
+		
 		// 총 회원수
 		listCount = new AdminService().selectListCount(blackListYN);
 		
@@ -75,6 +76,8 @@ public class AdminMemberListController extends HttpServlet {
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
+		request.setAttribute("blackListYN", blackListYN);
+		System.out.println(blackListYN);
 		request.getRequestDispatcher("views/admin/adminMemberList.jsp").forward(request,response);
 	}
 
