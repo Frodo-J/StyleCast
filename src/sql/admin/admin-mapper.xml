@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectListCount">
+		SELECT
+		       COUNT(*) COUNT
+		  FROM THEME
+	</entry>
+	
+	<entry key="selectThemeList">
+		SELECT
+		       THEME_NO
+		     , THEME_TITLE
+		     , THEME_TITLE_COLOR
+		     , THEME_SUBTITLE
+		     , ENR_DATE
+		     , STATUS
+		  FROM THEME
+	</entry>
+
+
+</properties>
