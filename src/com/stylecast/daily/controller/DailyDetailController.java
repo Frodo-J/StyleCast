@@ -36,18 +36,13 @@ public class DailyDetailController extends HttpServlet {
 	 */
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
+	    HttpSession session = request.getSession();
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		int dailyNo = Integer.parseInt(request.getParameter("dno"));
 	
 		Daily d = new DailyService().selectDailyDetail(dailyNo);
 		ArrayList<Item> iList = new DailyService().selectDailyItem(dailyNo);
-<<<<<<<< HEAD:src/com/stylecast/daily/controller/DailyDetailController.java
-			
-		request.setAttribute("d", d);
-		request.setAttribute("iList", iList);
-========
 		ArrayList<DailyCM> cList = new DailyService().selectDailyCM(dailyNo);
 		
 		int likeYN = 0;
@@ -71,7 +66,6 @@ public class DailyDetailController extends HttpServlet {
 		request.setAttribute("bookmarkYN", bookmarkYN);
 		request.setAttribute("likeCount", likeCount);
 		request.setAttribute("bookmarkCount", bookmarkCount);
->>>>>>>> feature/mypage/daily:src/com/stylecast/daily/controller/dailyDetailController.java
 		request.getRequestDispatcher("views/daily/dailyDetailView.jsp").forward(request, response);
 	
 	}
