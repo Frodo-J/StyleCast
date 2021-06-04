@@ -129,6 +129,11 @@
                 float: right;
                 margin-bottom:10px;
             }
+            
+            #table_box tr:hover{
+            cursor: pointer;
+            }
+            
             #prof_img{height: 70%; padding: 20px;}
             #prof{height: 17%;width: 99%; float: left;}
             #prof div, #menu div{width: 100%;}
@@ -161,7 +166,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="<%= contextPath %>/admin.tr?currentPage=1"><b>트렌딩관리</b></a>
+                                <a href="<%= contextPath %>/trdlist.adm?currentPage=1"><b>트렌딩관리</b></a>
                             </h4>
                         </div>
                         <div>
@@ -184,7 +189,7 @@
                         <div id="blank_box">트렌딩 관리</div>
                         <div id="control_box">
                             <div id="add_box">
-                                    <button type="button" onclick = "location.href = '상세경로'" id="add" class="btn btn-primary ">추가</button>
+                            	<button type="button" id="add" onclick="location.href='<%=contextPath%>/createForm.tr'" class="btn btn-primary">작성</button>
                             </div>
                         </div>
                         <div id="table_box">
@@ -198,7 +203,8 @@
                                     </thead>
                                     <tbody>
                                     	<% for(Theme t : list) { %>
-	                                        <tr>
+	                                        <tr class="theme_select">
+	                                        	<input type="hidden" value="<%= t.getThemeNo() %>">
 	                                            <td><%= t.getThemeNo() %></td>
 	                                            <td><%= t.getThemeTitle() %></td>
 	                                            <td><%= t.getThemeSubtitle() %></td>
@@ -212,35 +218,38 @@
                                     </tbody>
                                 </table>
                             </form>
-
                         </div>
-
+						
+						<script>
+					        $(".theme_select").click(function(){
+					            $(location).attr("href", "<%=contextPath%>/modifyForm.tr?tno=" + $(this).children().eq(0).val());
+					        });
+						</script>
+						
                         <br>
 
-						<div id="navigation">
-							<ul class="pagination">
-								<li class="page-item">
-									<% if(currentPage != 1) { %> <a class="page-link prevPage"
-									href="<%=contextPath%>/admin.tr?currentPage=<%=currentPage-1%>"
-									aria-label="Previous"> <span aria-hidden="true">&lt;</span>
-								</a> <% } %>
-								</li>
-								<% for(int p=startPage; p<=endPage; p++) { %>
-								<li class="page-item">
-									<% if(p != currentPage) { %> <a class="page-link"
-									href="<%=contextPath%>/admin.tr?currentPage=<%= p %>"><%= p %></a>
-									<% }else { %> <a class="page-link" href="#"><%= p %></a> <% } %>
-								</li>
+						<div id="page_box" class="text-center">
+			             	<div align="center" class="btn-group me-2" role="group" aria-label="First group">
+			
+								<% if(currentPage != 1){ %>
+			            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/trdlist.adm?currentPage=<%=currentPage-1%>';"> &lt; </button>
 								<% } %>
-								<li class="page-item">
-									<% if (currentPage != maxPage) { %> <a class="page-link nextPage"
-									href="<%=contextPath%>/admin.tr?currentPage=<%=currentPage+1%>"
-									aria-label="Next"> <span aria-hidden="true">&gt;</span>
-								</a> <% } %>
-								</li>
-							</ul>
-		
-						</div>
+			
+			            		<% for(int p=startPage; p<=endPage; p++){ %>
+			            	
+			            			<% if(p != currentPage){ %>
+				            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/trdlist.adm?currentPage=<%= p %>';"><%= p %></button>
+				            		<% }else { %>
+				            			<button type="button" class="btn btn-outline-secondary" disabled><%= p %></button>
+			            			<% } %>
+			            	
+			            		<% } %>
+			
+							<% if(currentPage != maxPage){ %>
+			            		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/trdlist.adm?currentPage=<%=currentPage+1%>';"> &gt; </button>
+							<% } %>
+						
+			        	</div>
 
                     </div>
 

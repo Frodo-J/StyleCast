@@ -9,6 +9,64 @@
 	</entry>
 	
 	<entry key="selectThemeList">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+                        SELECT
+                               THEME_NO
+                             , THEME_TITLE
+                             , THEME_TITLE_COLOR
+                             , THEME_SUBTITLE
+                             , ENR_DATE
+                             , STATUS
+                          FROM THEME
+                         ORDER
+                            BY ENR_DATE DESC
+		               )A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+
+	<entry key="insertTheme">
+		INSERT
+		  INTO THEME
+		  (
+		    THEME_NO
+		  , THEME_TITLE
+		  , THEME_TITLE_COLOR
+		  , THEME_SUBTITLE
+		  , ENR_DATE
+		  , STATUS
+		  )
+		VALUES
+		  (
+		    SEQ_THEME.NEXTVAL
+		  , ?
+		  , ?
+		  , ?
+		  , SYSDATE
+		  , ?
+		  )
+	</entry>
+	
+	<entry key="selectThemeNo">
+		SELECT
+		       SEQ_THEME.CURRVAL AS THEME_NO
+		  FROM DUAL
+	</entry>
+	
+	<entry key="updateTheme">
+		UPDATE
+		       THEME
+		   SET THEME_TITLE = ?
+		     , THEME_TITLE_COLOR = ?
+		     , THEME_SUBTITLE = ?
+		     , STATUS = ?
+		 WHERE THEME_NO = ?
+	</entry>
+	
+	<entry key="selectTheme">
 		SELECT
 		       THEME_NO
 		     , THEME_TITLE
@@ -17,7 +75,6 @@
 		     , ENR_DATE
 		     , STATUS
 		  FROM THEME
+		 WHERE THEME_NO = ?
 	</entry>
-
-
 </properties>

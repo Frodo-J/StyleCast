@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.stylecast.theme.model.vo.*"%>
+<%
+	Theme t = (Theme)request.getAttribute("t");
+%>
 <!DOCTYPE html>
 <html lang="kr">
     <head>
@@ -139,7 +142,7 @@
                 width:330px;
                 height: 40px;
                 top:30px;
-                left: 70px;
+                left: 60px;
             }
             
             #theme_name {
@@ -207,20 +210,25 @@
                 width: 150px;
                 height: 150px;
             }
-            #codi{
+            .codi{
                 width:200px;
                 height: 240px;
                 float: left;
                 margin-left:53px;
                 margin-top: 20px;
             }
-            #codi>img{
+            .codi>img{
                 width: 200px;
                 height: 200px;
             }
-            #codi>button{
+            .codi>button{
                 margin-top: 3px;
                 margin-left: 55px;
+            }
+            
+            #add_none{
+            	margin-top: 50px;
+            	margin-left: 240px;
             }
 
             #add_btn{
@@ -232,16 +240,17 @@
                 margin-top: 5px; 
                 margin-right:5px;
             }
-
+            
             #prof_img{height: 70%; padding: 20px;}
             #prof{height: 17%;width: 99%; float: left;}
             #prof div, #menu div{width: 100%;}
         </style>
     </head>
     <body>
-        <div class="wrap">
+    
+		<%@ include file="../common/menubar.jsp"%>
 
-            <div id="header"></div>
+        <div class="wrap">
 
             <div id="content">
                 <div id="side">
@@ -254,7 +263,7 @@
                     <div id="menu">
                         <div>
                             <h4>
-                                <a href=""><b>회원관리</b></a>
+                                <a href="">회원관리</a>
                             </h4>
                         </div>
                         <div>
@@ -264,7 +273,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="">트렌딩관리</a>
+                                <a href="<%= contextPath %>/trdlist.adm?currentPage=1"><b>트렌딩관리</b></a>
                             </h4>
                         </div>
                         <div>
@@ -288,9 +297,10 @@
                         <div id="blank_box">트렌딩 관리</div>
                         <div id="control_box">
                             <div id="control_head">
-                                <form action="" id="theme_info">
+                                <form action="<%= contextPath %>/update.tr" method="post" id="theme_info">
                                     <div id="title_box">
-                                        <input id="theme_name" class="form-control" type="text" placeholder="제목">
+                                        <input id="theme_name" name="title" class="form-control" type="text" placeholder="제목" required value="<%= t.getThemeTitle() %>">
+                                		<input type="hidden" name="theme_no" value="<%= t.getThemeNo() %>">
                                     </div>
                                     <div id="select_box">
                                         <select name="month" class="form-select form-select-sm">
@@ -319,11 +329,17 @@
                                     </div> 
                                     <div id="check_box" class="form-check form-switch"> 
                                         <div><b>비공개/공개</b></div>
-                                        <input type="checkbox" class="form-check-input" name="status">
+                                        <% if(t.getStatus().equals("Y")) { %>
+	                                        <input type="checkbox" id="status" class="form-check-input" checked>
+	                                        <input type="hidden" name="status" value="">
+                                        <% }else { %>
+                                        	<input type="checkbox" id="status" class="form-check-input">
+                                        	<input type="hidden" name="status" value="">
+                                        <% } %>
                                     </div>
                                     <div id="color_box">
                                         <div><b>테마 색상</b></div>
-                                        <input type="color" id="theme_color" name="color" class="form-control form-control-color">
+                                        <input type="color" id="theme_color" name="color" class="form-control form-control-color" value="<%= t.getThemeTitleColor() %>">
                                     </div>
                                     <div id="submit_button">
                                         <button type="submit" class="btn btn-primary">적용</button>
@@ -332,37 +348,59 @@
                             </div>
                             <div id="add_box">
 
+								<div id="add_none"><p>&emsp;&emsp;&ensp;테마에 추가된 데일리 게시글이 없습니다.<p></div>
                                     <script>
-                                        $(function(){
-                                            $("#add_btn").click(function(){
-                                                addRow();
-                                            });
-                                        });
 
+                                        
+                                        $(document).ready(function(){
+                                        	$("#add_btn").on('click', function(){
+                                                addRow();
+                                        		
+	                            			if($(".codi").length){
+	                                            $("#add_none").remove();
+	                            			}
+
+	                                        });
+                                        });
+                                        
                                         function addRow(){
 
-                                            var html="<div id=\"codi\"><img src=\"img/codi4.jpg\" alt=\"\"><button name=\"del_btn\" type=\"button\" class=\"btn btn-secondary\" onClick=\"javascript:delRow(this);\">삭제하기</button>"
+                                            var html="<div class=\"codi\"><img src=\"img/codi4.jpg\" alt=\"\"><button name=\"del_btn\" type=\"button\" class=\"btn btn-secondary\" onClick=\"javascript:delRow(this);\">삭제하기</button>"
                                             $("#add_box").append(html);              
                                         }
 
                                         function delRow(object){
-                                            var index=$("#codi[name=del_btn]").index(object);
-                                            $("#codi").eq(index).remove();
+                                            var index = $("#codi[name=del_btn]").index(object);
+                                            var none = "<div id='add_none'><p>&emsp;&emsp;&ensp;테마에 추가된 데일리 게시글이 없습니다.<p></div>"
+                                            $(".codi").eq(index).remove();
+											if($(".codi").length == 0) {
+	                            				$("#add_box").append(none);
+	                            			}
                                         }
                                     </script>
       
                             </div>
                         </div>
                         <button type="button" id="add_btn" class="btn btn-secondary">항목추가</button>
-                        <button type="button" id="return_btn" class="btn btn-secondary">목록</button> 
-
+                        <button type="button" id="return_btn" class="btn btn-secondary" onclick="location.href='<%= contextPath %>/trdlist.adm?currentPage=1'">목록</button> 
 
                     </div>
-
                 </div>
             </div>
-
         </div>
 
+		<script>
+		
+			// 컬러 인풋 값 설정
+			$(document).ready(function(){
+				if($("input[id=status]").is(":checked")){
+					$("input[name=status]").val('Y');
+				}else{
+					$("input[name=status]").val('N');
+				}
+			});
+			
+
+		</script>
     </body>
 </html>

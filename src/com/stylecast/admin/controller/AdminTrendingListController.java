@@ -16,7 +16,7 @@ import com.stylecast.theme.model.vo.Theme;
 /**
  * Servlet implementation class AdminTrendingListController
  */
-@WebServlet("/admin.tr")
+@WebServlet("/trdlist.adm")
 public class AdminTrendingListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -64,10 +64,6 @@ public class AdminTrendingListController extends HttpServlet {
 		request.setAttribute("list", list);
 		
 		request.getRequestDispatcher("views/admin/adminTrendingListView.jsp").forward(request, response);
-		
-		System.out.println(pi);
-		System.out.println(list);
-	
 	
 	}
 

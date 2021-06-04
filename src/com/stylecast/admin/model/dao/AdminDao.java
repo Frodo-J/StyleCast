@@ -88,4 +88,107 @@ public class AdminDao {
 		
 		return list;
 	}
+	
+	public int insertTheme(Connection conn, Theme t) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertTheme");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, t.getThemeTitle());
+			pstmt.setString(2, t.getThemeTitleColor());
+			pstmt.setString(3, t.getThemeSubtitle());
+			pstmt.setString(4, t.getStatus());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		if(result > 0) {
+			PreparedStatement pstmt2 = null;
+			ResultSet rset = null;
+			String sql2 = prop.getProperty("selectThemeNo");
+			
+			try {
+				pstmt2 = conn.prepareStatement(sql2);
+				rset = pstmt2.executeQuery();
+				
+				if(rset.next()) {
+					result = rset.getInt("theme_no");
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt2);
+			}
+			
+			return result;
+		}else {
+			return result;
+		}
+	}
+	
+	public int updateTheme(Connection conn, Theme t) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateTheme");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, t.getThemeTitle());
+			pstmt.setString(2, t.getThemeTitleColor());
+			pstmt.setString(3, t.getThemeSubtitle());
+			pstmt.setString(4, t.getStatus());
+			pstmt.setInt(5, t.getThemeNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+	
+	public Theme selectTheme(Connection conn, int tno) {
+		Theme t = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTheme");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				t = new Theme(rset.getInt("theme_no"),
+							  rset.getString("theme_title"),
+							  rset.getString("theme_title_color"),
+							  rset.getString("theme_subtitle"),
+							  rset.getDate("enr_date"),
+							  rset.getString("status"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return t;
+	}
+
 }

@@ -225,6 +225,11 @@ div {
 	margin-top: 970px;
 	margin-left: 500px;
 }
+
+#font_daily{
+	color: rgb(241, 196, 15);
+}
+	        
 </style>
 <!-- bootstrap -->
 <link
@@ -331,30 +336,28 @@ div {
 				<% } %>
 
 				<!-- 페이징바 -->
-				<div id="navigation">
-					<ul class="pagination">
-						<li class="page-item">
-							<% if(currentPage != 1) { %> <a class="page-link prevPage"
-							href="<%=contextPath%>/list.da?currentPage=<%=currentPage-1%>"
-							aria-label="Previous"> <span aria-hidden="true">&lt;</span>
-						</a> <% } %>
-						</li>
-						<% for(int p=startPage; p<=endPage; p++) { %>
-						<li class="page-item">
-							<% if(p != currentPage) { %> <a class="page-link"
-							href="<%=contextPath%>/list.da?currentPage=<%= p %>"><%= p %></a>
-							<% }else { %> <a class="page-link" href="#"><%= p %></a> <% } %>
-						</li>
+				<div id="navigation" class="text-center">
+	             	<div align="center" class="btn-group me-2" role="group" aria-label="First group">
+	
+						<% if(currentPage != 1){ %>
+	            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.da?currentPage=<%=currentPage-1%>';"> &lt; </button>
 						<% } %>
-						<li class="page-item">
-							<% if (currentPage != maxPage) { %> <a class="page-link nextPage"
-							href="<%=contextPath%>/list.da?currentPage=<%=currentPage+1%>"
-							aria-label="Next"> <span aria-hidden="true">&gt;</span>
-						</a> <% } %>
-						</li>
-					</ul>
-
-				</div>
+	
+	            		<% for(int p=startPage; p<=endPage; p++){ %>
+	            	
+	            			<% if(p != currentPage){ %>
+		            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.da?currentPage=<%= p %>';"><%= p %></button>
+		            		<% }else { %>
+		            			<button type="button" class="btn btn-outline-secondary" disabled><%= p %></button>
+	            			<% } %>
+	            	
+	            		<% } %>
+	
+					<% if(currentPage != maxPage){ %>
+	            		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.da?currentPage=<%=currentPage+1%>';"> &gt; </button>
+					<% } %>
+				
+	        	</div>
 			</div>
 		</div>
 	</div>

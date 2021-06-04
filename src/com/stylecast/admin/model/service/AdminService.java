@@ -8,8 +8,6 @@ import java.util.ArrayList;
 
 import com.stylecast.admin.model.dao.AdminDao;
 import com.stylecast.common.model.vo.PageInfo;
-import com.stylecast.daily.model.dao.DailyDao;
-import com.stylecast.daily.model.vo.Daily;
 import com.stylecast.theme.model.vo.Theme;
 
 public class AdminService {
@@ -26,5 +24,26 @@ public class AdminService {
 		ArrayList<Theme> list = new AdminDao().selectThemeList(conn, pi);
 		close(conn);
 		return list;
+	}
+	
+	public int insertTheme(Theme t) {
+		Connection conn = getConnection();
+		int result = new AdminDao().insertTheme(conn, t);
+		close(conn);
+		return result;
+	}
+	
+	public int updateTheme(Theme t) {
+		Connection conn = getConnection();
+		int result = new AdminDao().updateTheme(conn, t);
+		close(conn);
+		return result;
+	}
+	
+	public Theme selectTheme(int tno) {
+		Connection conn = getConnection();
+		Theme t = new AdminDao().selectTheme(conn, tno);
+		close(conn);
+		return t;
 	}
 }
