@@ -126,7 +126,7 @@
                     <div><a href="<%= request.getContextPath() %>/bookmark.me">북마크</a></div>
                     <div><a href="<%= request.getContextPath() %>/myMember.me" style="font-weight: bold;">개인정보 수정</a></div>
                     <% if(loginUser != null && loginUser.getAdminYN().equals("Y")){ %>
-                    	<div><a href="<%= request.getContextPath() %>">관리자 페이지</a></div>
+                    	<div><a href="<%= request.getContextPath() %>/memlist.adm?blackListYN=N&&currentPage=1">관리자 페이지</a></div>
                     <% } %>
                 </div>
             </div>
