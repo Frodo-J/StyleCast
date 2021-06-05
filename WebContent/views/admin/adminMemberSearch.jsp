@@ -151,11 +151,6 @@
     	</script>
     </head>
     <body>
-        <!--참고하면 좋은 글-->
-        <!--modal form submit에 관한 글-->
-        <!-- https://codevang.tistory.com/287 -->
-        <!--자바스크립트문으로 form전송 -->
-        <!--https://all-record.tistory.com/172-->
         <%@ include file="../common/menubar.jsp" %>
         <div class="wrap">
 
@@ -208,11 +203,6 @@
     			</script>
 
                 <div id="form">
-                    <!-- <h2 style="text-align: center;">
-                        <b>회원관리</b>
-                    </h2> -->
-                    <!-- <br>
-                    <div id="line2"></div> -->
                     
                     <div id="content_of_form">
                         <div id="blank_box"><h5><b>회원관리</b></h5></div>

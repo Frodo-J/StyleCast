@@ -39,7 +39,6 @@
         <style>
 
             div {
-                /*border: 1px solid black;*/
                 box-sizing: border-box;
             }
 
@@ -142,18 +141,8 @@
             #prof{height: 17%;width: 99%; float: left;}
             #prof div, #menu div{width: 100%;}
         </style>
-    	<script>
-    	$(function(){
-    		console.log("<%=blackListYN%>");
-    	})
-    	</script>
     </head>
     <body>
-        <!--참고하면 좋은 글-->
-        <!--modal form submit에 관한 글-->
-        <!-- https://codevang.tistory.com/287 -->
-        <!--자바스크립트문으로 form전송 -->
-        <!--https://all-record.tistory.com/172-->
         <%@ include file="../common/menubar.jsp" %>
         <div class="wrap">
 
@@ -199,16 +188,11 @@
                 </script>
 
                 <div id="form">
-                    <!-- <h2 style="text-align: center;">
-                        <b>회원관리</b>
-                    </h2> -->
-                    <!-- <br>
-                    <div id="line2"></div> -->
                     
                     <div id="content_of_form">
                         <div id="blank_box"><h5><b>회원관리</b></h5></div>
                         <div id="control_box">
-                        	<form id="search-form" action="<%= contextPath %>/memsearch.adm?currentPage=1&&blackListYN="+<%=blackListYN %> method="post">
+                        	<form id="search-form" action="<%= contextPath %>/memsearch.adm?currentPage=1" method="post">
                             <div id="search_box">
                                 <select class="form-select" name="search_category">
                                     <option selected="selected" value="아이디">아이디</option>
