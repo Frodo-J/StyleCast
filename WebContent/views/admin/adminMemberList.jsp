@@ -137,7 +137,8 @@
             #black_box {
                 float: right;
             }
-            #prof_img{height: 70%; padding: 20px;}
+        	#prof_img>img{width: 100px; height: 100px;}
+            #prof_img{ height: 70%; padding: 20px;}
             #prof{height: 17%;width: 99%; float: left;}
             #prof div, #menu div{width: 100%;}
         </style>
@@ -151,7 +152,7 @@
 
                     <div id="line"></div>
                     <div id="prof">
-                        <div id="prof_img" align="center"><img src="<%=contextPath %>/resources/images/prof.PNG"></div>
+                        <div id="prof_img" align="center"><img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle"/></div>
                         <div id="prof_nick" align="center"><b><%=loginUser.getMemName()%></b></div>
                     </div>
                     <div id="menu">
