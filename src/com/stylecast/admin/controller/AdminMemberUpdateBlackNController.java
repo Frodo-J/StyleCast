@@ -6,8 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.stylecast.admin.model.service.AdminService;
+import com.stylecast.member.vo.Member;
 
 /**
  * Servlet implementation class AdminMemberUpdateBlackNController
@@ -30,15 +32,22 @@ public class AdminMemberUpdateBlackNController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("updateblackn진입");
-		int memNo = Integer.parseInt(request.getParameter("memNo"));
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		if(loginUser != null && loginUser.getAdminYN().equals("Y")) {
+			int memNo = Integer.parseInt(request.getParameter("memNo"));
 		
-		int result = new AdminService().updateMemberBlackN(memNo);
+			int result = new AdminService().updateMemberBlackN(memNo);
 		
 				
-		if(result > 0) {
-			response.sendRedirect("memlist.adm?blackListYN=N&&currentPage=1");
-		}else {
+			if(result > 0) {
+				response.sendRedirect("memlist.adm?blackListYN=N&&currentPage=1");
+			}else {
 			
+			}
+		}else {
+			session.setAttribute("alertMsg", "관리자만 접근 가능한 페이지입니다.");
+			response.sendRedirect(request.getContextPath());
 		}
 	}
 

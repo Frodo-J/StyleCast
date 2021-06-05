@@ -8,6 +8,8 @@ import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.theme.model.vo.Theme;
 import com.stylecast.daily.model.vo.Report;
 import com.stylecast.member.vo.Member;
+import com.stylecast.notice.model.dao.NoticeDao;
+import com.stylecast.notice.model.vo.Notice;
 
 import static com.stylecast.common.JDBCTemplate.*;
 
@@ -190,6 +192,37 @@ public class AdminService {
 		close(conn);
 		return listCount;
 
+	}
+
+	public int selectSearchListCount(String category, String text) {
+		Connection conn = getConnection();
+		int listCount =0;
+		if(category.equals("아이디")) {
+			listCount = new AdminDao().selectListCountByMemberId(conn,text);
+		}else if(category.equals("이메일")) {
+			listCount = new AdminDao().selectListCountByEmail(conn,text);
+		}else if(category.equals("닉네임")) {
+			listCount = new AdminDao().selectListCountByMemName(conn,text);
+		}
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<Member> selectSearchList(PageInfo pi, String category, String text) {
+		Connection conn = getConnection();
+		ArrayList<Member> list = null;
+		if(category.equals("아이디")) {
+			list = new AdminDao().selectListByMemberId(conn,pi,text);
+		}else if(category.equals("이메일")) {
+			list = new AdminDao().selectListByEmail(conn,pi,text);
+		}else if(category.contentEquals("닉네임")) {
+			list = new AdminDao().selectListByMemName(conn,pi,text);
+		}
+		close(conn);
+		
+		return list;
 	}
 
 }

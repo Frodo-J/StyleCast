@@ -14,17 +14,18 @@ import com.stylecast.admin.model.service.AdminService;
 import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.member.vo.Member;
 
+
 /**
- * Servlet implementation class AdminMemberListController
+ * Servlet implementation class AdminMemberSearch
  */
-@WebServlet("/memlist.adm")
-public class AdminMemberListController extends HttpServlet {
+@WebServlet("/memsearch.adm")
+public class AdminMemberSearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminMemberListController() {
+    public AdminMemberSearch() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,6 +35,8 @@ public class AdminMemberListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
+		
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
@@ -46,15 +49,22 @@ public class AdminMemberListController extends HttpServlet {
 		int startPage;
 		int endPage;
 		
-		// 블랙 조회 여부
-		String blackListYN = request.getParameter("blackListYN");
+		// 여기서 작업
+		// 블랙 유뮤
+		//String blackListYN = request.getParameter("blackListYN");
 		
+		//사용자가 선택한 카테고리
+		String category = request.getParameter("search_category");
 		
-		// 총 회원수
-		listCount = new AdminService().selectListCount(blackListYN);
+		//사용자가 입력한 검색내용
+		String text = request.getParameter("search_text");
+		
+		// 총 게시글 갯수
+		listCount = new AdminService().selectSearchListCount(category,text);
 		
 		// 사용자가 요청한 페이지 ( 현재 페이지)
-		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+	    currentPage = Integer.parseInt(request.getParameter("currentPage"));
+
 		
 		// pageLimit : 하단에 보여질 페이징바의 페이지 최대 갯수(페이지 목록들 몇개)
 		pageLimit = 10;
@@ -76,17 +86,20 @@ public class AdminMemberListController extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
 		if(loginUser != null && loginUser.getAdminYN().equals("Y")) {
-			ArrayList<Member> list = new AdminService().selectList(pi,blackListYN);
 		
+			ArrayList<Member> list = new AdminService().selectSearchList(pi,category,text);
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
-			request.setAttribute("blackListYN", blackListYN);
-		
-			request.getRequestDispatcher("views/admin/adminMemberList.jsp").forward(request,response);
+			request.setAttribute("text", text);
+			request.setAttribute("category", category);
+			
+			request.getRequestDispatcher("views/admin/adminMemberSearch.jsp").forward(request,response);
 		}else {
 			session.setAttribute("alertMsg", "관리자만 접근 가능한 페이지입니다.");
 			response.sendRedirect(request.getContextPath());
 		}
+		
+		
 	}
 
 	/**
