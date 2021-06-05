@@ -156,5 +156,11 @@
 	       UPDATE_DATE = SYSDATE
 	 WHERE MEM_ID = ?
 	</entry>
+	
+	<entry key="selectProfImg">
+	SELECT PROF_IMG
+	  FROM MEMBER
+	 WHERE MEM_NO = ?
+	</entry>
 
 </properties>

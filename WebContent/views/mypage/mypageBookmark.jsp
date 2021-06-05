@@ -150,6 +150,7 @@
                 <div id="prof">
                     <div id="prof_img" align="center"><img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle"></div>
                     <div id="prof_nick" align="center"><%= loginUser.getMemName() %></div>
+                    <input id="contextpath" type="hidden" value="<%= contextPath %>">
                 </div>
 
                 <div id="menu">
@@ -322,6 +323,28 @@
 			            $(location).attr("href", "<%=contextPath%>/detail.da?dno=" + $(this).children().eq(0).val());
 			        });
 			    </script>
+            	
+            	<script>
+            		// 프로필 이미지 갱신
+            		$(function(){
+            			
+            			var cp = $("#contextpath").val();
+            			
+            			$.ajax({
+			        		url:"profImgSelect.me",
+			        		data:{
+			        			memNo:<%=loginUser.getMemNo()%>
+			        		},
+			        		type:"post",
+			        		success:function(profImg){
+								$("#content #prof_img img").attr("src", cp + profImg);
+								$(".modal-content #prof-img img").attr("src", cp + profImg);
+			        		},error:function(){
+			        			console.log("프로필 이미지 불러오기 실패");
+			        		}
+			        	})
+            		})
+            	</script>
     
 			    <!-- 북마크 -->
 			    <script>
