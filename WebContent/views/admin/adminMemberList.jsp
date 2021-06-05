@@ -383,8 +383,8 @@
 
                             }
                             function nBlackMem(formName) {
-                                console.log("전달된 no는 " + no);
-                                formName.action = "";
+                                console.log("전달된 no는 " + memNo);
+                                formName.action = "<%= contextPath %>/updateblackn.adm?memNo=" + memNo;
                                 formName.method = "post";
                                 formName.submit();
 

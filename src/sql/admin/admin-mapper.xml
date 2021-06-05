@@ -240,7 +240,14 @@
         WHERE RPT_CATEGORY LIKE '%'||?||'%'
         ORDER BY RPT.ENR_DATE DESC
 	</entry>
-	
+  
+	<entry key="updateMemberBlackN">
+	UPDATE
+			MEMBER
+		SET BLACK_YN = 'N'
+		WHERE MEM_NO = ?
+  </entry>
+
 	<entry key="selectReportListCount">
 		SELECT COUNT(*) COUNT
 		FROM REPORT
