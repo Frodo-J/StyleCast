@@ -112,7 +112,7 @@
                 height: 8%;
             }
             #search_box {
-                width: 250px;
+                width: 170px;
                 display: inline-flex;
                 float: right;
                 margin-bottom: 10px;
@@ -133,6 +133,10 @@
                 height: 70%;
                 border-radius: 3px;
                 overflow-x: auto;
+            }
+            #submit{
+            	float: right;
+            	margin-right: 79px;
             }
             #codi_flex_box {
                 display: inline-flex;
@@ -206,7 +210,7 @@
                 margin-left: 12px;
             }
             #weather_select {
-                margin-right: 79px;
+                margin-right: 5px;
             }
             #page_box {
                 width: 90%;
@@ -283,18 +287,63 @@
                                 <b>날씨 및 코디</b>
                             </h5>
                         </div>
-                        <div id="control_box">
-                            <button type="button" class="btn btn-secondary" id="female_btn">여성</button>
-                            <button type="button" class="btn btn-secondary" id="male_btn">남성</button>
-
-                            <div id="search_box">
-                                <select class="form-select" id="weather_select">
-                                    <option selected="selected" value="1">날씨 전체 조회</option>
-                                    <option value="2">맑음/흐림</option>
-                                    <option value="3">비/눈</option>
-                                </select>
-                            </div>
-                        </div>
+                        <form id="control_box">
+                        	<table>
+	                            <tr height="30px">
+		                        	<th width="20%">성별</th>
+		                                    <td width="52px"><input
+		                                            class="form-check-input"
+		                                            type="radio"
+		                                            name="flexRadioDefault"
+		                                            id="flexRadioDefault1"
+		                                            value = "M"
+		                                        	checked="checked">
+		                                        <label class="form-check-label" for="flexRadioDefault1">
+		                                            	남성
+		                                        </label>
+		                                    </td>
+		                                    <td>
+		                                       	<input
+		                                        	class="form-check-input"
+		                                            type="radio"
+		                                            name="flexRadioDefault"
+		                                            id="flexRadioDefault1"
+		                                            value = "F"
+		                                            width="100px">
+		                                        <label class="form-check-label" for="flexRadioDefault1">
+		                                               	여성
+		                                    	</label>
+		                                	</td>
+		                                	<td>
+		                                       	<input
+		                                        	class="form-check-input"
+		                                            type="radio"
+		                                            name="flexRadioDefault"
+		                                            id="flexRadioDefault1"
+		                                            value = "ALL"
+		                                            width="100px">
+		                                        <label class="form-check-label" for="flexRadioDefault1">
+		                                               	모두
+		                                    	</label>
+		                                	</td>
+		                            	</tr>
+		                            	<tr>
+		                            		<div>
+		                            			<button id="submit" type="button" onclick="" class="btn btn-primary">적용</button>
+		                            		</div>
+			                            	<div id="search_box">
+				                                <select class="form-select" id="weather_select">
+				                                    <option selected="selected" value="1">날씨 전체 조회</option>
+				                                    <option value="2">맑음/흐림</option>
+				                                    <option value="3">비/눈</option>
+				                                </select>
+		                            		</div>
+		                            	</tr>
+                            	</table>
+                        </form>
+                        <script>
+                        	
+                        </script>
                         <div id="codi_box">
                         	<% for(Codi c : list){ %>
                             <div class="thumbnail" align="center">
@@ -389,70 +438,7 @@
                     </div>
 
                 </div>
-                <!-- Modal -->
-                <div
-                    class="modal fade"
-                    id="exampleModalToggle"
-                    aria-hidden="true"
-                    aria-labelledby="exampleModalToggleLabel"
-                    tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalToggleLabel">
-                                    <b>확인창</b>
-                                </h5>
-                                <button
-                                    type="button"
-                                    class="btn-close"
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                코디를 수정하시겠습니까?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                                <button
-                                    class="btn btn-primary"
-                                    data-bs-target="#exampleModalToggle2"
-                                    data-bs-toggle="modal"
-                                    data-bs-dismiss="modal">확인</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div
-                    class="modal fade"
-                    id="exampleModalToggle2"
-                    aria-hidden="true"
-                    aria-labelledby="exampleModalToggleLabel2"
-                    tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalToggleLabel2">
-                                    <b>확인창</b>
-                                </h5>
-                                <button
-                                    type="button"
-                                    class="btn-close"
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                	수정되었습니다!
-                            </div>
-                            <div class="modal-footer">
-                                <button
-                                    class="btn btn-primary"
-                                    data-bs-toggle="modal"
-                                    data-bs-dismiss="modal"
-                                    onclick="blackMem(mem_detail)">확인</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <br>
 
             </div>

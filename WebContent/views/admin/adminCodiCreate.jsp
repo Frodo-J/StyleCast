@@ -246,7 +246,7 @@
                                 <b>날씨 및 코디</b>
                             </h5>
                         </div>
-                        <form id="codi_box" name="CodiInsert" action="<%= contextPath %>/enrollForm.co" method="post" enctype="multipart/form-data">
+                        <form id="codi_box" name="CodiInsert" action="" method="" enctype="multipart/form-data">
                             <div id="codi_flex_box">
                                 <div id="img_box">
                                     <img id="codi_img" src=""/>
@@ -382,13 +382,7 @@
                         </form>
                     </div>
                     
-                    <script>
-						function clickInsert(CodiInsert) {
-							CodiInsert.action = "/enrollForm.co";
-							CodiInsert.method = "post";
-							CodiInsert.submit();
-						}
-					</script>
+                    
                     <!-- Modal -->
                     <div
                         class="modal fade"
@@ -418,8 +412,7 @@
                                         class="btn btn-primary"
                                         data-bs-target="#exampleModalToggle2"
                                         data-bs-toggle="modal"
-                                        data-bs-dismiss="modal
-                                        onclick="clickInsert(CodiInsert)">확인</button>
+                                        data-bs-dismiss="modal">확인</button>
                                 </div>
                             </div>
                         </div>
@@ -450,11 +443,21 @@
                                         class="btn btn-primary"
                                         data-bs-toggle="modal"
                                         data-bs-dismiss="modal"
-                                        onclick="history.back();">확인</button>
+                                        onclick="clickInsert(CodiInsert)">확인</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <script>
+						function clickInsert(CodiInsert) {
+							console.log("hi");
+							CodiInsert.action = "<%= contextPath %>/enrollForm.co";
+							CodiInsert.method = "post";
+							CodiInsert.enctype = "multipart/form-data";
+							CodiInsert.submit();
+							 
+						}
+					</script>
                     <br>
 
                 </div>

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class CodiCreateController
  */
-@WebServlet("/codiCreat.ad")
+@WebServlet("/codiCreate.ad")
 public class CodiCreateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
