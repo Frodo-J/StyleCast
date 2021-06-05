@@ -16,7 +16,6 @@ import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.theme.model.vo.Theme;
 import com.stylecast.daily.model.vo.Report;
 import com.stylecast.member.vo.Member;
-import com.stylecast.notice.model.vo.Notice;
 
 
 public class AdminDao {
@@ -66,7 +65,6 @@ public class AdminDao {
 				listCount = rset.getInt("count");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
@@ -129,7 +127,6 @@ public class AdminDao {
 				listCount = rset.getInt("count");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
       			close(rset);
@@ -153,7 +150,7 @@ public class AdminDao {
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
 			pstmt.setInt(1, startRow);
-      pstmt.setInt(2, endRow);
+			pstmt.setInt(2, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -178,7 +175,7 @@ public class AdminDao {
 	}
 
 	public ArrayList<Member> selectMemberListBlackN(Connection conn, PageInfo pi) {
-		// TODO Auto-generated method stub
+		
 		ArrayList<Member> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -216,7 +213,7 @@ public class AdminDao {
 	}
 
 	public ArrayList<Member> selectMemberListBlackY(Connection conn, PageInfo pi) {
-		// TODO Auto-generated method stub
+		
 		ArrayList<Member> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -393,7 +390,6 @@ public class AdminDao {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
-		//String sql = prop.getProperty("deleteReport");
 		String sql = "UPDATE REPORT SET STATUS = 'Y' WHERE RPT_NO IN (";
 
 		for(int i = 0; i<((rptNoArr.length)-1); i++) {
@@ -750,7 +746,6 @@ public class AdminDao {
 				listCount = rset.getInt("count");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
@@ -775,7 +770,6 @@ public class AdminDao {
 				listCount = rset.getInt("count");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
@@ -786,7 +780,6 @@ public class AdminDao {
 	}
 
 	public int selectListCountByMemName(Connection conn, String text) {
-		// TODO Auto-generated method stub
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

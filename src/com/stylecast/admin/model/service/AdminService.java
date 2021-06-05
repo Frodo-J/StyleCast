@@ -8,8 +8,6 @@ import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.theme.model.vo.Theme;
 import com.stylecast.daily.model.vo.Report;
 import com.stylecast.member.vo.Member;
-import com.stylecast.notice.model.dao.NoticeDao;
-import com.stylecast.notice.model.vo.Notice;
 
 import static com.stylecast.common.JDBCTemplate.*;
 
