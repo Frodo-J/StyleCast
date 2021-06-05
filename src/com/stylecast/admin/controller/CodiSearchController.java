@@ -27,6 +27,18 @@ public class CodiSearchController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String gender = request.getParameter("gender");
+		String weather = request.getParameter("weather");
+		
+		if(gender.equals("ALL") && weather.equals("ALL")) {
+			
+		}else if(gender.equals("ALL") && (weather.equals("CLEAR")) || weather.equals("RAIN")) {
+			
+		}else if((gender.equals("M") || gender.equals("F")) && weather.equals("ALL")) {
+			
+		}else {
+			
+		}
 		
 		
 	}
