@@ -183,7 +183,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="<%=request.getContextPath()%>/rptList.adm?brCategory=0">게시글관리</a>
+                                <a href="<%=contextPath%>/rptList.adm?brCategory=0&&currentPage=1">게시글관리</a>
                             </h4>
                         </div>
                     </div>
