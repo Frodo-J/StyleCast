@@ -65,6 +65,7 @@ public class NoticeDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
+			
 			if(rset.next()) {
 				listCount = rset.getInt("count");
 			}

@@ -191,7 +191,7 @@
 	
 	<div class="wrap">
 
-            <div id="header"></div>
+            
 
             <div id="content">
                 <div id="side">
@@ -246,7 +246,7 @@
                                 <b>날씨 및 코디</b>
                             </h5>
                         </div>
-                        <form id="codi_box" action="<%= contextPath %>/enrollForm.co" method="post" enctype="multipart/form-data">
+                        <form id="codi_box" name="CodiInsert" action="<%= contextPath %>/enrollForm.co" method="post" enctype="multipart/form-data">
                             <div id="codi_flex_box">
                                 <div id="img_box">
                                     <img id="codi_img" src=""/>
@@ -376,11 +376,19 @@
                             <div id="codi_submit_box">
                                 <div id="codi_button_box">
                                     <button type="button" class="btn btn-secondary" id="codi_btn_delete" onclick="history.back();">취소</button>
-                                    <button type="submit" class="btn btn-primary" id="codi_btn_submit" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" >작성</button>
+                                    <button type="button" class="btn btn-primary" id="codi_btn_submit" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" >작성</button>
                                 </div>
                             </div>
                         </form>
                     </div>
+                    
+                    <script>
+						function clickInsert(CodiInsert) {
+							CodiInsert.action = "/enrollForm.co";
+							CodiInsert.method = "post";
+							CodiInsert.submit();
+						}
+					</script>
                     <!-- Modal -->
                     <div
                         class="modal fade"
@@ -401,7 +409,7 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    	코디를 업데이트하시겠습니까?
+                                    	코디를 작성하시겠습니까?
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
@@ -410,7 +418,8 @@
                                         class="btn btn-primary"
                                         data-bs-target="#exampleModalToggle2"
                                         data-bs-toggle="modal"
-                                        data-bs-dismiss="modal">확인</button>
+                                        data-bs-dismiss="modal
+                                        onclick="clickInsert(CodiInsert)">확인</button>
                                 </div>
                             </div>
                         </div>
@@ -434,7 +443,7 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    	적용되었습니다!
+                                    	작성되었습니다!
                                 </div>
                                 <div class="modal-footer">
                                     <button

@@ -228,7 +228,7 @@
 
         <div class="wrap">
 
-            <div id="header"></div>
+            
 
             <div id="content">
                 <div id="side">
@@ -260,7 +260,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="<%=request.getContextPath()%>/rptList.adm?brCategory=0 ">게시글관리</a>
+                                <a href="<%=request.getContextPath()%>/rptList.adm?brCategory=0">게시글관리</a>
                             </h4>
                         </div>
                     </div>
@@ -302,8 +302,7 @@
                                 <input type="hidden" value="<%= c.getCodiNo() %>">
                                 <img src="<%= c.getImgPath() %>" width="190" height="200">
                                 <p>
-                                    <b><%= c.getRecWeather() %>/<%= c.getRecLowT() %>/<%= c.getRecHighT() %>/<%=c.getGender() %>
-                                    </b>
+                                    <b><%= c.getRecWeather() %>/<%= c.getRecLowT() %>/<%= c.getRecHighT() %>/<%=c.getGender() %></b>
                                 </p>
                                 </a>
                             </div>

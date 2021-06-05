@@ -194,7 +194,7 @@
 	
 	<div class="wrap">
 	
-            <div id="header"></div>
+            
 
             <div id="content">
                 <div id="side">
@@ -511,6 +511,7 @@
                 </div>
 
             </div>
+         </div> 
 	
 </body>
 </html>
