@@ -1,5 +1,6 @@
 package com.stylecast.admin.controller;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -11,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
+import com.stylecast.admin.model.service.AdminService;
 import com.stylecast.admin.model.vo.Codi;
 import com.stylecast.common.MyFileRenamePolicy;
+
 
 /**
  * Servlet implementation class CodiInsertController
@@ -60,15 +63,20 @@ public class CodiInsertController extends HttpServlet {
 			
 			Codi c = new Codi();
 	    	c.setGender(gender);
-			c.setImgPath(imgPath);
+			c.setImgPath("/StyleCast/resources/codi_upfiles/" + imgPath);
 			c.setRecHighT(highT);
 			c.setRecLowT(lowT);
 			c.setRecWeather(weather);
 			
 			//System.out.println(c.getImgPath());
 			
-			response.sendRedirect(request.getContextPath() + "/codilist.ad?currentPage=1");
+			int result = new AdminService().insertCodi(c);
 			
+			if(result>0) {
+				response.sendRedirect(request.getContextPath() + "/codilist.ad?currentPage=1");
+			}else {
+				new File(savePath + c.getImgPath()).delete();
+			}
 		}
 	}
 

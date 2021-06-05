@@ -211,7 +211,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="<%= request.getContextPath() %>/codilist.ad?currentPage=1">
+                                <a href="<%= contextPath %>/codilist.ad?currentPage=1">
                                     <b>메인관리</b>
                                 </a>
                             </h4>
@@ -223,7 +223,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="">게시글관리</a>
+                                <a href="<%=contextPath%>/rptList.adm?brCategory=0&&currentPage=1">게시글관리</a>
                             </h4>
                         </div>
                     </div>
@@ -246,7 +246,7 @@
                                 <b>날씨 및 코디</b>
                             </h5>
                         </div>
-                        <form id="codi_box" action="<%= request.getContextPath() %>/enrollForm.co" method="post" enctype="multipart/form-data">
+                        <form id="codi_box" action="<%= contextPath %>/enrollForm.co" method="post" enctype="multipart/form-data">
                             <div id="codi_flex_box">
                                 <div id="img_box">
                                     <img id="codi_img" src=""/>
