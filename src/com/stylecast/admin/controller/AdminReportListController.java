@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.stylecast.admin.model.service.AdminService;
+import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.daily.model.vo.Report;
 import com.stylecast.member.vo.Member;
 
@@ -36,16 +37,44 @@ public class AdminReportListController extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
+		int brCategory = Integer.parseInt(request.getParameter("brCategory"));
+		
+		int listCount;
+		int currentPage;
+		int pageLimit;
+		int boardLimit;
+		
+		int maxPage;
+		int startPage;
+		int endPage;
+		
+		listCount = new AdminService().selectReportListCount(brCategory);
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		pageLimit = 10;
+		boardLimit = 10;
+		
+		System.out.println(listCount);
+		
+		maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+		endPage = startPage + pageLimit - 1;
+				
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
 		// 관리자 여부 확인
 		if(loginUser != null && loginUser.getAdminYN().equals("Y")) {
 			
-			int brCategory = Integer.parseInt(request.getParameter("brCategory"));
+			ArrayList<Report> list = new AdminService().selectReportList(pi, brCategory);
 			
-			ArrayList<Report> list = new AdminService().selectReportList(brCategory);
+			System.out.println(list.size());
 
 			request.setAttribute("brCategory", brCategory);
 			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
 			request.getRequestDispatcher("views/admin/adminReportList.jsp").forward(request,response);
 			
 		}else {

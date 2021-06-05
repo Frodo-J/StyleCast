@@ -26,7 +26,7 @@
 	</entry>
 	
 	<entry key="updateMember">
-	UPADATE
+	UPDATE
 			MEMBER
 		SET MEM_PWD = ?
 		  , MEM_NAME = ?
@@ -58,6 +58,13 @@
 	   AND ENT_YN = 'N'
 	</entry>
 	
+	<entry key="deleteMember">
+	UPDATE MEMBER
+	   SET ENT_YN = 'Y',
+	       ENT_DATE = SYSDATE
+	 WHERE MEM_ID = ?
+	</entry>	
+	
 	<entry key="checkMember">
 	SELECT MEM_PWD
 	  FROM MEMBER
@@ -86,14 +93,6 @@
 	       , ?
 	       , ?
 	       )
-	</entry>
-	
-	<entry key="updateMember">
-	UPADATE
-			MEMBER
-		SET ENT_YN = 'Y'
-		  , ENT_DATE = SYSDATE
-	 WHERE MEM_ID = ?
 	</entry>
 	
 	<entry key="insertBookmark">

@@ -49,12 +49,49 @@ public class MemberService {
 		close(conn);
 		return memPwd;
 	}
+	
+	public Member updateMember(Member m) {
+		
+		Connection conn = getConnection();
+		int result = new MemberDao().updateMember(conn, m);
+		
+		Member updateMem = null;
+		if(result > 0) {
+			commit(conn);
+			
+			// 갱신된 회원 객체 다시 조회
+			updateMem = new MemberDao().selectMember(conn, m.getMemId());
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return updateMem;
+	}
+
+	public String checkMember(String memId) {
+		
+		Connection conn = getConnection();
+		
+		String memPwd = new MemberDao().checkMember(conn, memId);
+		close(conn);
+		
+		return memPwd;
+	}
 
 	public int deleteMember(String memId) {
 
 		Connection conn = getConnection();
 		
 		int result = new MemberDao().deleteMember(conn, memId);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
 		close(conn);
 		
 		return result;
@@ -66,6 +103,13 @@ public class MemberService {
 		Connection conn = getConnection();
 		
 		int result = new MemberDao().insertBookmark(conn, memNo, dailyNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
 		close(conn);
 		
 		return result;
@@ -76,6 +120,13 @@ public class MemberService {
 		Connection conn = getConnection();
 		
 		int result = new MemberDao().deleteBookmark(conn, memNo, dailyNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
 		close(conn);
 		
 		return result;

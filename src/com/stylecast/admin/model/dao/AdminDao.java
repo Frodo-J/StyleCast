@@ -214,17 +214,25 @@ private Properties prop = new Properties();
 		return result;
 	}
 
-	public ArrayList<Report> selectReportList(Connection conn, int brCategory) {
+	public ArrayList<Report> selectReportList(Connection conn, PageInfo pi, int brCategory) {
 		
 		ArrayList<Report> list = new ArrayList<Report>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectReportList");
+
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() -1;
+		
+		System.out.println(startRow);
+		System.out.println(endRow);
 		
 		try {
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, brCategory);
+			pstmt.setInt(2,startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -427,5 +435,120 @@ private Properties prop = new Properties();
 			close(conn);
 		}
 		return list;
+	}
+
+	public int selectReportListCount(Connection conn, int brCategory) {
+
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReportListCount");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, brCategory);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+	public int selectReportListCountByMemId(Connection conn, String text, int brCategory) {
+
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReportListCountByMemId");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, brCategory);
+			pstmt.setString(2, text);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+	public int selectReportListCountByRmemId(Connection conn, String text, int brCategory) {
+
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReportListCountByRmemId");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, brCategory);
+			pstmt.setString(2, text);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+	public int selectReportListCountByRptCategory(Connection conn, String text, int brCategory) {
+
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReportListCountByRptCategory");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, brCategory);
+			pstmt.setString(2, text);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
 	}
 }
