@@ -152,4 +152,19 @@ public class AdminService {
 		return result;
 	}
 
+	public int updateMemberBlackN(int memNo) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		System.out.println("updateMemberBlackN Service진입");
+		int result = new AdminDao().updateMemberBlackN(conn, memNo);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
 }

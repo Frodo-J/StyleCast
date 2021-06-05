@@ -13,11 +13,10 @@ import java.util.Properties;
 
 import com.stylecast.common.model.vo.PageInfo;
 
-import com.stylecast.daily.model.vo.Daily;
 import com.stylecast.theme.model.vo.Theme;
 import com.stylecast.daily.model.vo.Report;
 import com.stylecast.member.vo.Member;
-import com.stylecast.notice.model.vo.Notice;
+
 
 public class AdminDao {
 
@@ -589,6 +588,26 @@ public class AdminDao {
 			close(conn);
 		}
 		return list;
+	}
+
+	public int updateMemberBlackN(Connection conn, int memNo) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMemberBlackN");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("blackN dao 행 수: "+ result);
+		return result;
 	}
 
 }
