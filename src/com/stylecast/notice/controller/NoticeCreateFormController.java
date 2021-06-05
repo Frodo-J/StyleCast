@@ -6,6 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.stylecast.member.vo.Member;
 
 /**
  * Servlet implementation class NoticeEnrollFormController
@@ -26,8 +29,15 @@ public class NoticeCreateFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		
-		request.getRequestDispatcher("views/notice/noticeCreate.jsp").forward(request, response);
+		if(loginUser != null && loginUser.getAdminYN().equals("Y")) {
+			request.getRequestDispatcher("views/notice/noticeCreate.jsp").forward(request, response);
+		}else{
+			session.setAttribute("alertMsg", "관리자만 접근 가능한 페이지입니다.");
+			response.sendRedirect(request.getContextPath());
+		}
 	}
 
 	/**
