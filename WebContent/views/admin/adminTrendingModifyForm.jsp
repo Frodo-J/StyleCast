@@ -257,13 +257,13 @@
 
                     <div id="line"></div>
                     <div id="prof">
-                        <div id="prof_img" align="center"><img src="img/prof.PNG"></div>
-                        <div id="prof_nick" align="center"><b>닉네임</b></div>
+                        <div id="prof_img" align="center"><img src="<%=contextPath %>/resources/images/prof.PNG"></div>
+                        <div id="prof_nick" align="center">닉네임</div>
                     </div>
                     <div id="menu">
                         <div>
                             <h4>
-                                <a href="">회원관리</a>
+                                <a href="<%=contextPath%>/memlist.adm?blackListYN=N&&currentPage=1">회원관리</a>
                             </h4>
                         </div>
                         <div>
@@ -278,7 +278,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="">게시글관리</a>
+                                <a href="<%=request.getContextPath()%>/rptList.adm?brCategory=0">게시글관리</a>
                             </h4>
                         </div>
                     </div>
