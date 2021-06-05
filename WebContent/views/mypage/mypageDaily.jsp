@@ -45,11 +45,10 @@
             box-sizing: border-box;
         }
        
-        .wrap{width:1200px; height:1300px;  margin: auto;}
+        .wrap{width:1200px; height:1144px;  margin: auto;}
 
         #header, #content{width:100%;}
-        #header{height:12%;}
-        #content{height:88%; width: 90%; margin: auto;}
+        #content{height:100%; width: 90%; margin: auto;}
 
         #side, #mypage{float: left; height: 100%;}
         #side{width: 20%;}
@@ -142,8 +141,6 @@
 	<%@ include file="../common/menubar.jsp" %>
     
     <div class="wrap">
-
-        <div id="header"></div>
 
         <div id="content">
             <div id="side">

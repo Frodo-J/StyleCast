@@ -135,24 +135,30 @@
 	</entry>
 	
 	<entry key="selectReportList">
-		SELECT RPT.*, MB.MEM_ID AS "RMEM_ID"
-        FROM  (
-                    SELECT
-                           RPT_NO
-                         , MEM_ID
-                         , RMEM_NO
-                         , CONTENT
-                         , R.ENR_DATE
-                         , DAILY_NO
-                         , RPT_CATEGORY
-                         , CM_NO
-                      FROM REPORT R
-                      JOIN MEMBER M ON (R.MEM_NO = M.MEM_NO)
-                     WHERE R.STATUS = 'N'
-                       AND BR_CATEGORY = ?
-                  ORDER BY R.ENR_DATE DESC) RPT
-        JOIN MEMBER MB ON (RPT.RMEM_NO = MB.MEM_NO)
-        ORDER BY RPT.ENR_DATE DESC
+		SELECT *
+		FROM(
+    		SELECT ROWNUM RNUM, A.*
+    		FROM(
+                 SELECT RPT.*, MB.MEM_ID AS "RMEM_ID"
+                 FROM  (
+                        SELECT
+                               RPT_NO
+                             , MEM_ID
+                             , RMEM_NO
+                             , CONTENT
+                             , R.ENR_DATE
+                             , DAILY_NO
+                             , RPT_CATEGORY
+                             , CM_NO
+                          FROM REPORT R
+                          JOIN MEMBER M ON (R.MEM_NO = M.MEM_NO)
+                         WHERE R.STATUS = 'N'
+                           AND BR_CATEGORY = ?
+                      ORDER BY R.ENR_DATE DESC) RPT
+                    JOIN MEMBER MB ON (RPT.RMEM_NO = MB.MEM_NO)
+                ORDER BY RPT.ENR_DATE DESC) A
+        		)
+    		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
 	<entry key="deleteReport">
@@ -234,12 +240,67 @@
         WHERE RPT_CATEGORY LIKE '%'||?||'%'
         ORDER BY RPT.ENR_DATE DESC
 	</entry>
-	
+  
 	<entry key="updateMemberBlackN">
 	UPDATE
 			MEMBER
 		SET BLACK_YN = 'N'
 		WHERE MEM_NO = ?
+  </entry>
+
+	<entry key="selectReportListCount">
+		SELECT COUNT(*) COUNT
+		FROM REPORT
+		WHERE BR_CATEGORY = ?
+          AND STATUS = 'N'
+	</entry>
+	
+	<entry key="selectReportListCountByMemId">
+               SELECT COUNT(*)
+                FROM (
+                       SELECT
+                           RPT_NO
+                         , M.MEM_ID
+                         , RMEM_NO
+                         , CONTENT
+                         , R.ENR_DATE
+                         , DAILY_NO
+                         , RPT_CATEGORY
+                         , CM_NO
+                      FROM REPORT R
+                      JOIN MEMBER M ON (R.MEM_NO = M.MEM_NO)
+                     WHERE R.STATUS = 'N'
+                       AND BR_CATEGORY = ?
+                  ORDER BY R.ENR_DATE DESC) RPT
+                  WHERE MEM_ID = ?
+	</entry>
+	
+	<entry key="selectReportListCountByRmemId">
+               SELECT COUNT(*)
+                FROM (
+                       SELECT
+                           RPT_NO
+                         , M.MEM_ID
+                         , RMEM_NO
+                         , CONTENT
+                         , R.ENR_DATE
+                         , DAILY_NO
+                         , RPT_CATEGORY
+                         , CM_NO
+                      FROM REPORT R
+                      JOIN MEMBER M ON (R.RMEM_NO = M.MEM_NO)
+                     WHERE R.STATUS = 'N'
+                       AND BR_CATEGORY = ?
+                  ORDER BY R.ENR_DATE DESC) RPT
+                  WHERE MEM_ID = ?
+	</entry>
+	
+	<entry key="selectReportListCountByRptCategory">
+		SELECT COUNT(*) COUNT
+		FROM REPORT
+		WHERE BR_CATEGORY = ?
+          AND STATUS = 'N'
+		  AND RPT_CATEGORY LIKE '%'||?||'%'
 	</entry>
 
 </properties>

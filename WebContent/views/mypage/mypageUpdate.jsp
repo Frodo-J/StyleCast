@@ -148,7 +148,7 @@
 	<%
 		String memId = loginUser.getMemId();
 		String memPwd = loginUser.getMemPwd();
-		String memName = loginUser.getMemName();
+		String memName1 = loginUser.getMemName();
 		String email = loginUser.getEmail();
 		String gender = loginUser.getGender();
 	%>
@@ -162,7 +162,7 @@
                 <div id="line"></div>
                 
                 <div id="prof">
-                    <div id="prof_img" align="center"><img src="../../resources/images/prof.png"></div>
+                    <div id="prof_img" align="center"><img src="<%= contextPath %>/<%= loginUser.getProfImg() %>"></div>
                     <div id="prof_nick" align="center">닉네임</div>
                 </div>
 
@@ -252,16 +252,16 @@
                         </tr>
                         <tr>
                             <td><label class="form-label">닉네임</label></td>
-                            <td><input type="text" class="form-control form-control-sm" name="userName" value="<%=memName%>"></td>
+                            <td><input type="text" class="form-control form-control-sm" name="userName" value="<%=memName1%>"></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td><label class="form-label">성별</label></td>
                             <td colspan="2">
-                                <input type="radio" name="gender" id="male" value="m">
+                                <input type="radio" name="gender" id="male" value="M">
                                 <label for="male">남자</label>
                                 
-                                <input type="radio" name="gender" id="female" value="f">
+                                <input type="radio" name="gender" id="female" value="F">
                                 <label for="female">여자</label>
                             </td>
                         </tr>
@@ -279,15 +279,24 @@
                     </script>
 
                     <script>
-                        $(function(){
+                    	// 비밀번호 변경 체크
+                    	$("#newpass").change(function(){
                             if($("#newpass").val().length > 0){
                             	$("#newpass_check").attr("required", true);
-                            	
-                            	if($("#newpass").val() != $("#newpass_check").val()){
-                        			$("#form-button button[type='submit']").attr("disabled", true);
-                        		}
-                        	}
-                        })
+                        	}else{
+                    			$("#newpass_check").attr("required", false);
+                    		}
+                    	});
+                    	
+                    	$("#newpass_check").change(function(){
+                    		if($("#newpass").val() != $("#newpass_check").val()){
+                    			$("#form-button button[type='submit']").attr("disabled", true);
+                    		}else{
+                    			$("#form-button button[type='submit']").attr("disabled", false);
+                    		}
+                    	});
+                    	
+                    	
                     </script>
 
                     <br>

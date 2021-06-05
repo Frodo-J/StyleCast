@@ -99,6 +99,8 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateMember");
 		
+		System.out.println(m.getMemPwd() + ", " + m.getMemName() + ", " + m.getEmail() + ", " + m.getGender() + ", " + m.getMemId());
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, m.getMemPwd());
@@ -108,7 +110,7 @@ public class MemberDao {
 			pstmt.setString(5, m.getMemId());
 			
 			result = pstmt.executeUpdate();
-					
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -116,6 +118,34 @@ public class MemberDao {
 		}
 		
 		return result;
+	}
+
+	public String checkMember(Connection conn, String memId) {
+		
+		String memPwd = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkMember");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				memPwd = rset.getString("mem_pwd");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return memPwd;
 	}
 	
 	public String MemberFindId(Connection conn, String email) {
@@ -229,34 +259,6 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return updateMem;
-	}
-
-	public String checkMember(Connection conn, String memId) {
-		
-		String memPwd = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("checkMember");
-		
-		try {
-			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, memId);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				memPwd = rset.getString("mem_pwd");
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return memPwd;
 	}
 
 	public int deleteMember(Connection conn, String memId) {
