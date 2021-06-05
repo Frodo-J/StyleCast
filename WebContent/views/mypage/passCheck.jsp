@@ -109,8 +109,8 @@
                 <div id="line"></div>
                 
                 <div id="prof">
-                    <div id="prof_img" align="center"><img src="<%= contextPath %>/<%= loginUser.getProfImg() %>"></div>
-                    <div id="prof_nick" align="center">닉네임</div>
+                    <div id="prof_img" align="center"><img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle"></div>
+                    <div id="prof_nick" align="center"><%= loginUser.getMemName() %></div>
                 </div>
 
                 <div id="menu">
@@ -137,15 +137,16 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="prof-body" align="center">
-                        <form action="" method="post" style="line-height: 30px;">
+                        <form name="profImg_update" style="line-height: 30px;">
                             <div id="prof-img">
-                                <img src="resources/prof.png">
+                                <img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle">
                                 <button id="prof-delete" class="btn btn-light btn-sm">삭제</button>
                             </div>
                             <div id="prof-input"><input type="file" name="userProfImg"></div>  
+                            <input type="hidden" name="memId" value="<%=loginUser.getMemId()%>">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width: 90px; margin: auto;">취소</button>
                             &emsp;&emsp;
-                            <button type="button" class="btn btn-primary" onclick="" style="width: 90px;">등록</button>
+                            <button type="button" class="btn btn-primary" onclick="imgUpdate(profImg_update);" style="width: 90px;">등록</button>
                         </form>
                     </div>
                 </div>
@@ -157,6 +158,15 @@
                 $("#prof_img").click(function(){
                     $("#profModal").modal("show");
                 })
+            </script>
+            
+            <script>
+	            function imgUpdate(formName){
+	        		formName.action = "/StyleCast/updateProf.me";
+	        		formName.method = "post";
+	        		formName.enctype = "multipart/form-data";
+	        		formName.submit();
+	        	}
             </script>
 
             <div id="mypage">

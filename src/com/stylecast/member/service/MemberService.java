@@ -158,4 +158,20 @@ public class MemberService {
 		close(conn);
 		return count;
 	}
+
+	public int updateProfImg(Member mem) {
+		
+		Connection conn = getConnection();
+		int result = new MemberDao().updateProfImg(conn, mem);
+
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
 }

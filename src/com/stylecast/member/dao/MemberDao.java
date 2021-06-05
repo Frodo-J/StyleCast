@@ -400,6 +400,29 @@ public class MemberDao {
 		
 		return list;
 	}
+
+	public int updateProfImg(Connection conn, Member mem) {
+
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateProfImg");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mem.getProfImg());
+			pstmt.setString(2, mem.getMemId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 	
 	

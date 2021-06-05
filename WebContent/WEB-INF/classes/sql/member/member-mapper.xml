@@ -150,4 +150,11 @@
 	  ORDER BY ENR_DATE DESC
 	</entry>
 
+	<entry key="updateProfImg">
+	UPDATE MEMBER
+	   SET PROF_IMG = ?,
+	       UPDATE_DATE = SYSDATE
+	 WHERE MEM_ID = ?
+	</entry>
+
 </properties>

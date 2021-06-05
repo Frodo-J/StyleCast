@@ -21,7 +21,7 @@
 		   WHERE RNUM BETWEEN ? AND ?
 	</entry>
 
-	<entry key="selectMyQnaListCount">
+	<entry key="selectMyReplyListCount">
 		SELECT
 			   COUNT(*) COUNT
 		  FROM DAILY_CM
