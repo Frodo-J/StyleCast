@@ -295,11 +295,11 @@
 		                                            class="form-check-input"
 		                                            type="radio"
 		                                            name="flexRadioDefault"
-		                                            id="flexRadioDefault1"
-		                                            value = "M"
-		                                        	checked="checked">
+		                                            id="gender"
+		                                            value = "ALL"
+		                                            checked="checked">
 		                                        <label class="form-check-label" for="flexRadioDefault1">
-		                                            	남성
+		                                            	모두
 		                                        </label>
 		                                    </td>
 		                                    <td>
@@ -307,7 +307,7 @@
 		                                        	class="form-check-input"
 		                                            type="radio"
 		                                            name="flexRadioDefault"
-		                                            id="flexRadioDefault1"
+		                                            id="gender"
 		                                            value = "F"
 		                                            width="100px">
 		                                        <label class="form-check-label" for="flexRadioDefault1">
@@ -319,30 +319,48 @@
 		                                        	class="form-check-input"
 		                                            type="radio"
 		                                            name="flexRadioDefault"
-		                                            id="flexRadioDefault1"
-		                                            value = "ALL"
+		                                            id="gender"
+		                                            value = "M"
 		                                            width="100px">
 		                                        <label class="form-check-label" for="flexRadioDefault1">
-		                                               	모두
+		                                               	남자
 		                                    	</label>
 		                                	</td>
 		                            	</tr>
 		                            	<tr>
 		                            		<div>
-		                            			<button id="submit" type="button" onclick="" class="btn btn-primary">적용</button>
+		                            			<button id="submit" type="button" onclick="checkoption()" class="btn btn-primary">적용</button>
 		                            		</div>
 			                            	<div id="search_box">
 				                                <select class="form-select" id="weather_select">
-				                                    <option selected="selected" value="1">날씨 전체 조회</option>
-				                                    <option value="2">맑음/흐림</option>
-				                                    <option value="3">비/눈</option>
+				                                    <option selected="selected" value="ALL">날씨 전체 조회</option>
+				                                    <option value="CLEAR">맑음/흐림</option>
+				                                    <option value="RAIN">비/눈</option>
 				                                </select>
 		                            		</div>
 		                            	</tr>
                             	</table>
                         </form>
                         <script>
-                        	
+	                        function checkoption() {
+	                            var Weather = $('#weather_select').val();
+	                            var Gender = $('#gender').val();
+	                           $.ajax({
+	                               type:"GET",
+	                               url:"/searchCodi.ad",
+	                               data:{
+	                            	   Weather :  weather,
+	                            	   Gender : gender
+	                               },success: function(listF){
+	                              	 console.log(listF);
+	                              	 
+	                              	 $("#codi_img_1").attr("src", listF[0].imgPath + "jpg");
+	                              	 $("#codi_img_2").attr("src", listF[1].imgPath + "jpg");
+	                              	 
+	                              	 
+	                               }
+	                           });
+	                       	}
                         </script>
                         <div id="codi_box">
                         	<% for(Codi c : list){ %>

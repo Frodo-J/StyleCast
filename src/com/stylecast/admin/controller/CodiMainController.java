@@ -67,6 +67,7 @@ public class CodiMainController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
+		
 		ArrayList<Codi> list = new AdminService().selectCodiList(pi);
 		
 		

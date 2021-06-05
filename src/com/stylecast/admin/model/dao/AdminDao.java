@@ -90,6 +90,110 @@ public class AdminDao {
 			return list;
 		}
 	
+	public Codi selectCodiGender(Connection conn, PageInfo pi) {
+		Codi c = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("SelectCodiGender");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				c = new Codi(rset.getInt("codi_no"),
+							 rset.getString("gender"),
+							 rset.getString("img_path"),
+							 rset.getString("rec_weather"),
+							 rset.getInt("rec_lowt"),
+							 rset.getInt("rec_hight"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return c;
+	}
+	
+	public Codi selectCodiWeather(Connection conn, PageInfo pi) {
+		Codi c = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("SelectCodiListWeather");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			if(rset.next()) {
+				c = new Codi(rset.getInt("codi_no"),
+							 rset.getString("gender"),
+							 rset.getString("img_path"),
+							 rset.getString("rec_weather"),
+							 rset.getInt("rec_lowt"),
+							 rset.getInt("rec_hight"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return c;
+	}
+	
+	public Codi selectCodiBoth(Connection conn, PageInfo pi) {
+		Codi c = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("SelectCodiSearchBoth");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, endRow);
+			
+			if(rset.next()) {
+				c = new Codi(rset.getInt("codi_no"),
+							 rset.getString("gender"),
+							 rset.getString("img_path"),
+							 rset.getString("rec_weather"),
+							 rset.getInt("rec_lowt"),
+							 rset.getInt("rec_hight"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return c;
+	}
+	
 	public Codi selectCodiUpdate(Connection conn, int codiNo) {
 		Codi c = null;
 		PreparedStatement pstmt = null;
