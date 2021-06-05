@@ -30,7 +30,8 @@
     <!--돋보기 이미지end-->
     <!--font-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+
     <!--font end-->
     <title>Document</title>
     
@@ -210,8 +211,8 @@
             </div>
 
             <div id="header_2">
-                <div id="daily"><a href="<%=contextPath%>/list.da?currentPage=1"><font size="5px">Daily</font></a></div>
-                <div id="trending"><a href=""><font size="5px">Trending</font></a></div>
+                <div id="daily"><a href="<%=contextPath%>/list.da?currentPage=1"><font size="5px" id="font_daily">Daily</font></a></div>
+                <div id="trending"><a href="<%=contextPath%>/list.th"><font size="5px" id="font_trending">Trending</font></a></div>
                 <div id="qna"><a href="<%= contextPath %>/list.qna?currentPage=1"><font size="5px" id="font_qna">QnA</font></a></div>
                 <div id="notice"><a href="<%= contextPath %>/list.no?currentPage=1"><font size="5px" id="font_notice">Notice</font></a></div>
             </div>

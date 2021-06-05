@@ -171,15 +171,15 @@ div {
 	float: left;
 	font-size: 12px;
 	font-weight: 500;
-	margin: 0px 0px 1px 28px;
+	margin: 1px 0px 1px 28px;
 }
 
 .text {
 	float: left;
-	font-size: 12px;
+	font-size: 13px;
 	width: 140px;
-	height: 34px;
-	margin: 4px 0px;
+	height: 38px;
+	margin: 3px 0px;
 	overflow: hidden;
 }
 
@@ -188,7 +188,7 @@ div {
 	background: url("resources/images/react_icon/plus.svg") no-repeat;
 	width: 24px;
 	height: 24px;
-	margin: 8px 5px 0px 5px;
+	margin: 12px 5px 0px 5px;
 	border: 0px;
 }
 
@@ -196,7 +196,7 @@ div {
 	float: left;
 	width: 200px;
 	height: 26px;
-	margin: 10px 26px 15px 34px;
+	margin: 7px 26px 7px 34px;
 }
 
 .react>div {
@@ -239,6 +239,11 @@ div {
 	margin-top: 970px;
 	margin-left: 500px;
 }
+
+#font_daily{
+	color: rgb(241, 196, 15);
+}
+	        
 </style>
 <!-- bootstrap -->
 <link
@@ -271,7 +276,6 @@ div {
 					<div class="daily_img">
 						<img src="<%= contextPath %>/<%= d.getDailyImg() %>" alt="">
 						<div class="action_hover">
-							<!-- 로그인시 가능하도록 설정해야함 -->
 							<% if(loginUser != null) { %>
 							<div class="action">
 								<% int l = 0; %>
@@ -370,30 +374,28 @@ div {
 				<% } %>
 
 				<!-- 페이징바 -->
-				<div id="navigation">
-					<ul class="pagination">
-						<li class="page-item">
-							<% if(currentPage != 1) { %> <a class="page-link"
-							href="<%=contextPath%>/list.da?currentPage=<%=currentPage-1%>"
-							aria-label="Previous"> <span aria-hidden="true">&lt;</span>
-						</a> <% } %>
-						</li>
-						<% for(int p=startPage; p<=endPage; p++) { %>
-						<li class="page-item">
-							<% if(p != currentPage) { %> <a class="page-link"
-							href="<%=contextPath%>/list.da?currentPage=<%= p %>"><%= p %></a>
-							<% }else { %> <a class="page-link" href="#"><%= p %></a> <% } %>
-						</li>
+				<div id="navigation" class="text-center">
+	             	<div align="center" class="btn-group me-2" role="group" aria-label="First group">
+	
+						<% if(currentPage != 1){ %>
+	            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.da?currentPage=<%=currentPage-1%>';"> &lt; </button>
 						<% } %>
-						<li class="page-item">
-							<% if (currentPage != maxPage) { %> <a class="page-link"
-							href="<%=contextPath%>/list.da?currentPage=<%=currentPage+1%>"
-							aria-label="Next"> <span aria-hidden="true">&gt;</span>
-						</a> <% } %>
-						</li>
-					</ul>
-
-				</div>
+	
+	            		<% for(int p=startPage; p<=endPage; p++){ %>
+	            	
+	            			<% if(p != currentPage){ %>
+		            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.da?currentPage=<%= p %>';"><%= p %></button>
+		            		<% }else { %>
+		            			<button type="button" class="btn btn-outline-secondary" disabled><%= p %></button>
+	            			<% } %>
+	            	
+	            		<% } %>
+	
+					<% if(currentPage != maxPage){ %>
+	            		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.da?currentPage=<%=currentPage+1%>';"> &gt; </button>
+					<% } %>
+				
+	        	</div>
 			</div>
 		</div>
 	</div>
@@ -493,7 +495,6 @@ div {
 				<div class="modal-body">
 					<form action="<%=contextPath%>/report.da" method="post"
 						style="line-height: 30px;">
-						<!-- 회원번호, 피신고회원번호, 내용(널러블), 게시판카테고리(0), 데일리번호, 신고카테고리 -->
 						<input type="hidden" id="memNo" name="memNo" value=""> <input
 							type="hidden" id="rMemNo" name="rMemNo" value=""> <input
 							type="hidden" id="dailyNo" name="dailyNo" value=""> <input

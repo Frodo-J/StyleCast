@@ -145,6 +145,10 @@ div {
 	top: 33px;
 }
 
+#font_trending{
+	color: rgb(241, 196, 15);
+}
+
 .post:hover {
 	opacity: 0.8;
 	cursor: pointer;
