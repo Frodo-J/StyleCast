@@ -389,6 +389,10 @@ div {
 	margin-left: 12px;
 }
 
+#font_daily{
+	color: rgb(241, 196, 15);
+}
+
 #like_button:hover {
 	background: url("resources/images/react_icon/sun_yellow.svg") no-repeat;
 	background-size: cover;

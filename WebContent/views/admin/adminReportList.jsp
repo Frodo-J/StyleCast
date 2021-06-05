@@ -219,7 +219,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="">트렌딩관리</a>
+                                <a href="<%= contextPath %>/trdlist.adm?currentPage=1">트렌딩관리</a>
                             </h4>
                         </div>
                         <div>

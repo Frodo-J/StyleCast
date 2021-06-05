@@ -28,15 +28,6 @@
       GROUP BY T.DAILY_NO, DAILY_IMG
       ORDER BY COUNT DESC
 	</entry>
-	
-	<entry key="selectThemePost2">
-		SELECT
-		       DAILY_NO
-		     , DAILY_IMG
-		  FROM THEME_POST
-		  JOIN DAILY USING(DAILY_NO)
-		 WHERE THEME_NO = ?
-	</entry>
 
 	<entry key="selectThemeList">
 		SELECT
