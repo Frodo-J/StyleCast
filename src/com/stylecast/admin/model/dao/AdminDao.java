@@ -344,17 +344,25 @@ public class AdminDao {
 		return result;
 	}
 
-	public ArrayList<Report> selectReportList(Connection conn, int brCategory) {
+	public ArrayList<Report> selectReportList(Connection conn, PageInfo pi, int brCategory) {
 		
 		ArrayList<Report> list = new ArrayList<Report>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectReportList");
+
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() -1;
+		
+		System.out.println(startRow);
+		System.out.println(endRow);
 		
 		try {
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, brCategory);
+			pstmt.setInt(2,startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -590,5 +598,6 @@ public class AdminDao {
 		}
 		return list;
 	}
+
 
 }

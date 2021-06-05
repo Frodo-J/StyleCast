@@ -76,9 +76,9 @@ public class AdminService {
 		return list;
 	}
 
-	public ArrayList<Report> selectReportList(int brCategory) {
+	public ArrayList<Report> selectReportList(PageInfo pi, int brCategory) {
 		Connection conn = getConnection();
-		ArrayList<Report> list = new AdminDao().selectReportList(conn, brCategory);
+		ArrayList<Report> list = new AdminDao().selectReportList(conn, pi, brCategory);
 		close(conn);
 		return list;
 	}
@@ -150,6 +150,29 @@ public class AdminService {
 		close(conn);
 		
 		return result;
+	}
+
+	public int selectReportListCount(int brCategory) {
+		Connection conn = getConnection();
+		int listCount = new AdminDao().selectReportListCount(conn, brCategory);
+		close(conn);
+		return listCount;
+	}
+
+	public int selectSearchReportListCount(String category, String text, int brCategory) {
+		Connection conn = getConnection();
+		int listCount = 0;
+
+		if(category.equals("mem_id")) {
+			listCount = new AdminDao().selectReportListCountByMemId(conn, text, brCategory);
+		}else if(category.contentEquals("rmem_id")) {
+			listCount = new AdminDao().selectReportListCountByRmemId(conn, text, brCategory);
+		}else if(category.contentEquals("rpt_category")) {
+			listCount = new AdminDao().selectReportListCountByRptCategory(conn, text, brCategory);
+		}
+		
+		close(conn);
+		return listCount;
 	}
 
 }

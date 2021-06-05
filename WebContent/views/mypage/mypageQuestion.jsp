@@ -35,11 +35,10 @@
             box-sizing: border-box;
         }
        
-        .wrap{width:1200px; height:1300px;  margin: auto;}
+        .wrap{width:1200px; height:1144px;  margin: auto;}
 
         #header, #content{width:100%;}
-        #header{height:12%;}
-        #content{height:88%; width: 90%; margin: auto;}
+        #content{height:100%; width: 90%; margin: auto;}
 
         #side, #mypage{float: left; height: 100%;}
         #side{width: 20%;}
@@ -115,15 +114,13 @@
     
     <div class="wrap">
 
-        <div id="header"></div>
-
         <div id="content">
             <div id="side">
 
                 <div id="line"></div>
                 
                 <div id="prof">
-                    <div id="prof_img" align="center"><img src="resources/prof.png"></div>
+                    <div id="prof_img" align="center"><img src="<%= contextPath %>/<%= loginUser.getProfImg() %>"></div>
                     <div id="prof_nick" align="center">닉네임</div>
                 </div>
 
