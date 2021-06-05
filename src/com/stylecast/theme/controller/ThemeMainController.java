@@ -8,7 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.stylecast.daily.model.vo.Daily;
+import com.stylecast.member.service.MemberService;
+import com.stylecast.member.vo.Member;
 import com.stylecast.theme.model.service.ThemeService;
 import com.stylecast.theme.model.vo.Theme;
 import com.stylecast.theme.model.vo.ThemePost;
@@ -32,8 +36,21 @@ public class ThemeMainController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
 	
 		Theme t = new ThemeService().selectThemeMonthly();
+
+		ArrayList<Daily> lList = null;
+		
+		if(session.getAttribute("loginUser") == null) { // 로그인 전
+			lList = new ArrayList<Daily>();
+			
+		}else { // 로그인 후
+			Member loginUser = (Member)session.getAttribute("loginUser");
+			int memNo = loginUser.getMemNo();
+			lList = new MemberService().selectMyLikeList(memNo);
+		}
 		
 		int tno = t.getThemeNo();
 		ArrayList<ThemePost> plist = new ThemeService().selectThemePost(tno);
@@ -41,6 +58,7 @@ public class ThemeMainController extends HttpServlet {
 		ArrayList<Theme> tlist = new ThemeService().selectThemeList(); 
 		
 		request.setAttribute("t", t);
+		request.setAttribute("lList", lList);
 		request.setAttribute("plist", plist);
 		request.setAttribute("tlist", tlist);
 		request.getRequestDispatcher("views/trending/trendingMainView.jsp").forward(request, response);
