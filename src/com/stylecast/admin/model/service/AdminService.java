@@ -50,7 +50,6 @@ public class AdminService {
 
 
 	public int selectListCount(String blackListYN) {
-		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		int listCount = 0;
 		if(blackListYN.equals("N")) {
@@ -63,7 +62,6 @@ public class AdminService {
 	}
 
 	public ArrayList<Member> selectList(PageInfo pi, String blackListYN) {
-		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		ArrayList<Member> list = null;
 		if(blackListYN.equals("N")) {
@@ -138,7 +136,6 @@ public class AdminService {
 	}
 
 	public int updateMemberBlackY(int memNo) {
-		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		int result = new AdminDao().updateMemberBlackY(conn, memNo);
 		
@@ -154,7 +151,6 @@ public class AdminService {
 
 
 	public int updateMemberBlackN(int memNo) {
-		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		System.out.println("updateMemberBlackN Service진입");
 		int result = new AdminDao().updateMemberBlackN(conn, memNo);
