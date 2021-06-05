@@ -69,8 +69,6 @@ public class QnaListController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		ArrayList<Qna> list = new QnaService().selectList(pi);
-		System.out.println(list);
-		System.out.println(pi);
 		
 		//ArrayList<Notice> list = new NoticeService().selectNoticeList();
 		

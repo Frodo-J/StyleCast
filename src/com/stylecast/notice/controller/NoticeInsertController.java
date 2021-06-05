@@ -65,10 +65,7 @@ public class NoticeInsertController extends HttpServlet {
 					BoardImage bImage = new BoardImage();
 					
 					bImage.setImgPath("resources/notice_upfiles/" + multiRequest.getFilesystemName(key));
-					System.out.println("bImage.getimgPath(): " +bImage.getImgPath());
-					System.out.println("multi: "+ multiRequest.getOriginalFileName(key));
-					
-					
+
 					list.add(bImage);
 				}
 				

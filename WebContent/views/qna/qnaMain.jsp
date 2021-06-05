@@ -26,11 +26,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
     <!--font end-->
     <style>
-        /* div:not(#head_box,#head_of_qna,#qna_lists,#search_box,#img_btn,#input_search,#write_box,#write_box_inner,#page_box){border: 1px solid gray; box-sizing: border-box;}
+        /*div:not(#head_box,#head_of_qna,#qna_lists,#search_box,#img_btn,#input_search,#write_box,#write_box_inner,#page_box){border: 1px solid gray; box-sizing: border-box;}*/
         .wrap{width:1200px; height:1300px;  margin: auto;}
-
-        .wrap>div{width:100%;} */
-        /* #header{height:12%;} */
+        .wrap>div{width:100%;}
+        
+        /* #header{height:12%;} 
         #content{height:88%;}
 
         /* #header>div{height:100%; float:left;}
@@ -70,7 +70,7 @@
         }
         #qna_lists{
             width: 80%;
-            height: 65%;
+            height: 725px;
             margin: auto;
         }
         #search_box{
@@ -87,7 +87,7 @@
         }
         #write_box{
             width: 80%;
-            height: 3%;
+            height: 70px;
             margin: auto;
         }
         #write_box_inner{
@@ -105,8 +105,8 @@
 </head>
 <body>
     <!-- 1페이지당 15개글이 최대-->
+    <%@ include file="../common/menubar.jsp" %>
     <div class="wrap">
-    	<%@ include file="../common/menubar.jsp" %>
         <!-- <div id="header">
             <div id="header_1">로고</div>
             <div id="header_2">메뉴바</div>
@@ -116,18 +116,19 @@
         
         <div id="content">
             <div id="head_box">
-                <h2 id="head_of_qna">Qna</h2>
+                <h3 id="head_of_qna">Qna</h3>
             </div>
             <div id="qna_lists">
-                <div id="search_box" action="<%= contextPath %>/search.qna?currentPage=1" method="post">
+            	<form action="<%= contextPath %>/search.qna?currentPage=1" method="post">
+                <div id="search_box" >
                     <select class="form-select" name="search_category">
                         <option selected value="qna_title">제목</option>
-                        <option value="qna_content">내용</option>
                         <option value="mem_name">작성자</option>
                     </select>
                     <input id="input_search" class="form-control" type="text" placeholder="검색내용" name="search_text">
                     <button id="img_btn" type="submit"><img src="<%=contextPath %>/resources/images/loupe.png"></button> 
                 </div>
+                </form>
                 <table class="table table-hover text-center">
                     <thead class="table-light">
                         <th width="10%">번호</th>
@@ -140,7 +141,7 @@
                       <tbody>
                       <%if(list.isEmpty()){ %>
                       	<tr>
-                      		<td colspan="6">존재하는 공지사항이 없습니다</td>
+                      		<td colspan="6">존재하는 문의글이 없습니다</td>
                       	</tr>
                       <% }else{ %>
                       	<% for(Qna q : list){ %>
@@ -187,7 +188,7 @@
                 <div id="write_box_inner">
                     <!-- 로그인 안한 사용자일경우 안보이게-->
                     <% if(loginUser != null){ %>
-                    	<button type="button" class="btn btn-secondary btn-sm">글작성</button>
+                    	<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='<%=contextPath%>/createForm.qna';">글작성</button>
                 	<%} %>
                 </div>
             </div>

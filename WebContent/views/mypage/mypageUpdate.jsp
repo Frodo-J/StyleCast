@@ -47,8 +47,9 @@
         /* 사이드바 상세 css */
         #prof div, #menu div{width: 100%;}
         #menu a{color: black; text-decoration: none;}
-        
-        #prof_img{height: 70%; padding: 20px;}
+
+        #prof_img{height: 70%; padding: 20px; /*border: solid 1px red;*/}
+        #prof_img>img{width: 100px; height: 100px;}
 
         #write>div{font-size: 13px; padding-left: 20px; margin-top: 8px;}
         #menu>div{margin-bottom: 15px;}
@@ -66,7 +67,8 @@
             float:left;
         }
 
-        #prof-img{width: 35%;}
+        #prof-img{width: 35%; /*border: solid 1px red;*/}
+        #prof-img>img{width: 100px; height: 100px;}
         #prof-delete{height: 30px;}
         #prof-input{width: 65%;}
 
@@ -165,14 +167,17 @@
                 </div>
 
                 <div id="menu">
-                    <div id="write" style="font-weight: bold;">
-                        내가 쓴 글
+                    <div id="write">
+                        	내가 쓴 글
                         <div><a href="<%= request.getContextPath() %>/myPage.me">데일리</a></div>
-                        <div><a href="<%= request.getContextPath() %>/reply.me" style="font-weight: normal;">댓글</a></div>
-                        <div><a href="<%= request.getContextPath() %>//question.me?currentPage=1" style="font-weight: normal;">문의글</a></div>
+                        <div><a href="<%= request.getContextPath() %>/reply.me?currentPage=1">댓글</a></div>
+                        <div><a href="<%= request.getContextPath() %>/question.me?currentPage=1">문의글</a></div>
                     </div>
                     <div><a href="<%= request.getContextPath() %>/bookmark.me">북마크</a></div>
-                    <div><a href="<%= request.getContextPath() %>/myMember.me">개인정보 수정</a></div>
+                    <div><a href="<%= request.getContextPath() %>/myMember.me" style="font-weight: bold;">개인정보 수정</a></div>
+                    <% if(loginUser != null && loginUser.getAdminYN().equals("Y")){ %>
+                    	<div><a href="<%= request.getContextPath() %>/memlist.adm?blackListYN=N&&currentPage=1">관리자 페이지</a></div>
+                    <% } %>
                 </div>
             </div>
 
@@ -305,7 +310,7 @@
                 </script>
 
                 <div id="deleteBox">
-                    <form action="" method="post">
+                    <form action="delete.me" method="post">
                         <div id="delete-title">
                             <h3>StyleCast 회원탈퇴</h3>
                             StyleCast를 이용해주셔서 감사합니다.
@@ -322,6 +327,9 @@
 
                             탈퇴 후에는 동일한 아이디로 재가입할 수 없으며, 아이디와 데이터는 복구할 수 없습니다.<br>
                             게시판형 서비스에 남아 있는 게시글을 탈퇴 후 삭제할 수 없습니다.<br><br>
+                            
+                           	<input type="hidden" name="userId" value="<%=memId%>">
+                           	
 
                             <div>
                                 <input type="checkbox" id="delete-yn" required> <label for="delete-yn">안내 사항을 모두 확인했으며, 이에 동의합니다.</label>

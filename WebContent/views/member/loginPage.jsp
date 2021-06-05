@@ -49,8 +49,7 @@
 
         #enroll_form>h2{margin: auto; font-weight:bold; color: gray;}
 
-        #enroll_form_input_info>input[type = text], input[type = password]{width: 300px; height: 35px; margin: auto;}
-        #enroll_form_input_info>input[type = email]{width: 53%; height: 35px; margin-right: 115px;}
+        #enroll_form_input_info>input[type = text], input[type = password]{font-size: 11px; width: 300px; height: 35px; margin: auto;}
         #enroll_form_input_info>#emailAuthenticate{position: absolute; margin-left: -30%; width: 106px;}
 
         #enroll_form_input_info>#userId, #userPwd{margin-bottom: 8px;}

@@ -48,9 +48,13 @@
 
         #enroll_form>h2{margin: auto; font-weight:bold; color: gray;}
 
-        #enroll_form_input_info>input[type = text], input[type = password], [type = email]{width: 300px; height: 35px; margin: auto;}
+ 		
+        #enroll_form_input_info>input[type = text], [type = password], [type = email]{font-size:11px; width: 300px; height: 35px; margin: auto;}
 
-        #enroll_form_input_info>#memId, #memName{margin-bottom: 8px;}
+        #enroll_form_input_info>#memId{width: 62%; height: 35px; margin-right: 83px; display: inline-block;}
+        #enroll_form_input_info>#checkId{position: absolute; margin-left: -20%; bottom: 73.6%;}
+        
+        #enroll_form_input_info>#memName{margin-bottom: 8px;}
         #enroll_form_input_info>a{color: gray;}
         #enroll_form_input_info>h6{color: black; font-weight: bold;}
         #enroll_form_input_info>button:hover{cursor: pointer;}
@@ -60,7 +64,7 @@
 
 	    $(document).ready(function(){ 
 	        
-		    var numberOfImages=3; 
+		    var numberOfImages=3; 	
 		    var imageNum = Math.round(Math.random()*(numberOfImages-1))+1;
 		    var imgPath=('./resources/images/login_img/img_'+imageNum+'.jpg');
 		    $('#background').css('background-image', ('url("'+imgPath+'")'));
@@ -83,6 +87,8 @@
                     <form action="<%= contextPath %>/insert.me" id="enroll_form_input" method="post">
                         <div id="enroll_form_input_info">
                             <input type="text" id="memId" name="memId" class="form-control" placeholder="4~12자의 영문 대소문자와 숫자로만 입력" size="12" maxlength="12" required>
+                            <button type="button" class="btn btn-secondary btn-sm" id="checkId" onclick="idCheck();">중복확인</button>
+                            <br><br>
                             <input type="email" id="email" name="email" class="form-control" placeholder="E-mail" required>
                             <br>
                             <input type="password" id="memPwd1" name="memPwd" class="form-control" style="margin-bottom: 3px;" placeholder="비밀번호(6자 이상 영문/숫자/특수문자포함)" size="16" maxlength="16" required>
@@ -100,7 +106,7 @@
                             <input type="checkbox" class="form-check-input" name="form" id="serviceForm" value="serviceForm" required>
                             <a href="<%=contextPath%>/termsofUse.po" style="margin-right: 18%;">사용약관 동의</a>
                             <br><br>
-                            <button type="submit" class="btn btn-dark" onclick="formCheck();" style="width: 130px;">가입</button>
+                            <button type="submit" class="btn btn-dark" onclick="formCheck();" style="width: 130px;" disabled>가입</button>
                             <br><br>
                             <a href="<%=contextPath%>/loginPage.me">여기서 로그인</a>
                             <br>
@@ -155,8 +161,8 @@
 	            		        }	
 	            		    	if (!memPwd1.val() == memPwd2.val()) {
 	            		            alert("비밀번호가 일치 하지 않습니다.");
-	            		            objPwd1.focus();
-	            		            objPwd2.focus();
+	            		            memPwd1.focus();
+	            		            memPwd2.focus();
 	            		            return false;
 	            		        }
 	            		    	
@@ -185,6 +191,35 @@
 	            		        }
 	            	    	
 	            	    	}
+	                    
+	                    function idCheck(){
+	                    	var $memId = $("#enroll_form_input input[name=memId]");
+	                    	
+	                    	$.ajax({
+	                    		url:"idCheck.me",
+	                    		data:{checkId:$memId.val()},
+	                    		success:function(result){
+	                    		
+	                    			if(result == "NNNNN"){ // 사용불가
+	                    				
+	                    				alert("이미 존재하거나 탈퇴한 회원의 아이디입니다.")
+	                    				$memId.focus();
+	                    				
+	                    			}else{	// 사용가능
+	                    				
+	                    				if(confirm("사용가능한 아이디입니다. 사용하시겠습니까?")){ //사용
+										$("#enroll_form_input :submit").removeAttr("disabled");
+	                    				$memId.attr("readonly", true); 
+	                    					
+	                    				}else {
+	                    					$memId.focus();
+	                    				}
+	                    			}
+	                    		},error:function(){
+	                    			console.log("아이디중복체크용  ajax 통신실패");
+	                    		}
+	                    	})
+	                    }
                     </script>
                 </div>
             </div>

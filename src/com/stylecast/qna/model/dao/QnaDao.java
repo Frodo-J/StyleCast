@@ -20,16 +20,14 @@ public class QnaDao {
 	
 	private Properties prop = new Properties();
 	
-	public QnaDao() {
-		
-		String filename = QnaDao.class.getResource("/sql/qna/qna-mapper.xml").getPath();
-		
-		try {
-			prop.loadFromXML(new FileInputStream(filename));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	 public QnaDao() {
+
+	        try {
+	            prop.loadFromXML(new FileInputStream(QnaDao.class.getResource("/sql/qna/qna-mapper.xml").getPath()));
+	        }catch(IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
 	
 	public ArrayList<Qna> selectMyQnaList(Connection conn, int memNo, PageInfo pi){
 		
@@ -292,6 +290,343 @@ public class QnaDao {
 		}
 		
 		return result;
+	}
+
+	public int insertQna(Connection conn, Qna q) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertQna");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, q.getMemNo());
+			pstmt.setString(2, q.getQnaTitle());
+			pstmt.setString(3, q.getQnaContent());
+			pstmt.setString(4, q.getQnaCategory());
+
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertBoardImageList(Connection conn, ArrayList<BoardImage> list) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertBoardImageList");
+		
+		try {
+			for(BoardImage bImage : list) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, bImage.getImgPath());
+				result = pstmt.executeUpdate();
+			}
+		
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteQna(Connection conn, int qnaNo) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteQna");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qnaNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int deleteBoardImage(Connection conn, int qnaNo) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteBoardImage");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qnaNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<BoardImage> selectBoardImagePath(Connection conn, int qnaNo) {
+		// TODO Auto-generated method stub
+		ArrayList<BoardImage> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectBoardImagePath");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qnaNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new BoardImage(rset.getString("img_path")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int updateQna(Connection conn, Qna q) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateQna");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, q.getQnaTitle());
+			pstmt.setString(2, q.getQnaContent());
+			pstmt.setString(3, q.getQnaCategory());
+			pstmt.setInt(4, q.getQnaNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("updateQnaDao : " + result);
+		return result;
+	}
+
+	public int updateBoardImage(Connection conn, BoardImage bImage) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateBoardImage");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bImage.getImgPath());
+			pstmt.setInt(2,bImage.getImgNo());
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertNewBoardImage(Connection conn, BoardImage bImage) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertNewBoardImage");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,bImage.getImgPath());
+			pstmt.setInt(2, bImage.getPostNo());
+			
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int selectListCountByQnaTitle(Connection conn, String text) {
+		// TODO Auto-generated method stub
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCountByQnaTitle");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, text);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println("QnaDao : SelectListCoutnByQnaTitle: " + listCount);
+		return listCount;
+	}
+
+	public int selectListCountByQnaContent(Connection conn, String text) {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+				int listCount = 0;
+				PreparedStatement pstmt = null;
+				ResultSet rset = null;
+				String sql = prop.getProperty("selectListCountByQnaContent");
+				
+				try {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, text);
+					rset = pstmt.executeQuery();
+					if(rset.next()) {
+						listCount = rset.getInt("count");
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					close(rset);
+					close(pstmt);
+				}
+				System.out.println("QnaDao : SelectListCoutnByQnaContent: " + listCount);
+				return listCount;
+	}
+
+	public int selectListCountByMemName(Connection conn, String text) {
+		// TODO Auto-generated method stub
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCountByMemName");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, text);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<Qna> selectListByQnaTitle(Connection conn, PageInfo pi, String text) {
+		// TODO Auto-generated method stub
+		ArrayList<Qna> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectListByQnaTitle");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setString(1, text);
+			pstmt.setInt(2,startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Qna(rset.getInt("qna_no"),
+						rset.getString("qna_category"),
+						rset.getString("qna_title"),
+						rset.getString("mem_name"),
+						rset.getDate("enr_date"),
+						rset.getString("ans_content")
+						));
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Qna> selectListByMemName(Connection conn, PageInfo pi, String text) {
+		// TODO Auto-generated method stub
+		ArrayList<Qna> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectListByMemName");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setString(1, text);
+			pstmt.setInt(2,startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Qna(rset.getInt("qna_no"),
+						rset.getString("qna_category"),
+						rset.getString("qna_title"),
+						rset.getString("mem_name"),
+						rset.getDate("enr_date"),
+						rset.getString("ans_content")
+						));
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 
 	

@@ -33,7 +33,6 @@ public class QnaService {
 	}
 
 	public ArrayList<Qna> selectList(PageInfo pi) {
-		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		ArrayList<Qna> list = new QnaDao().selectList(conn,pi);
 		close(conn);
@@ -42,7 +41,6 @@ public class QnaService {
 	}
 
 	public int selectListCount() {
-		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		int listCount = new QnaDao().selectListCount(conn);
 		
@@ -54,27 +52,23 @@ public class QnaService {
 
 
 	public Qna selectQna(int qnaNo) {
-		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		Qna q = new QnaDao().selectQna(conn,qnaNo);
-		System.out.println(q);
 		close(conn);
 		
 		return q;
 	}
 
 	public ArrayList<BoardImage> selectBoardImageList(int qnaNo) {
-		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		
 		ArrayList<BoardImage> imgList = new QnaDao().selectBoardImageList(conn,qnaNo);
 		close(conn);
-		System.out.println(imgList);
 		return imgList;
 	}
 
 	public Qna selectQnaAnswer(int qnaNo) {
-		// TODO Auto-generated method stub
+		
 		Connection conn = getConnection();
 		Qna qAnswer = new QnaDao().selectQnaAnswer(conn,qnaNo);
 		close(conn);
@@ -82,10 +76,9 @@ public class QnaService {
 	}
 
 	public int updateQnaAnswer(Qna q) {
-		// TODO Auto-generated method stub
+		
 		Connection conn = getConnection();
 		int result = new QnaDao().updateQnaAnswer(conn,q);
-		System.out.println("updateQnaAnswer" + result);
 		if(result > 0 ) {
 			commit(conn);
 		}else {
@@ -97,7 +90,6 @@ public class QnaService {
 	}
 
 	public int deleteQnaAnswer(int qnaNo) {
-		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		int result = new QnaDao().deleteQnaAnswer(conn,qnaNo);
 		if(result > 0 ) {
@@ -108,6 +100,125 @@ public class QnaService {
 		
 		close(conn);
 		return 0;
+	}
+
+	public int insertQna(Qna q, ArrayList<BoardImage> list) {
+		Connection conn = getConnection();
+		
+		int result1 = new QnaDao().insertQna(conn, q);
+		
+		int result2 = 1;
+		if(list.isEmpty()==false) {
+			result2 = new QnaDao().insertBoardImageList(conn,list);
+		}
+		
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result1 * result2;
+		
+	}
+
+	public int deleteQna(int qnaNo) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		int result1 = new QnaDao().deleteQna(conn,qnaNo);
+		
+		if(result1 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1;
+	}
+
+
+	public int deleteBoardImage(int qnaNo) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		int result = new QnaDao().deleteBoardImage(conn,qnaNo);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public ArrayList<BoardImage> selectBoardImagePath(int qnaNo) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		ArrayList<BoardImage> bImage = new QnaDao().selectBoardImagePath(conn,qnaNo);
+		close(conn);
+		return bImage;
+	}
+
+	public int updateQna(Qna q) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		
+		int result = new QnaDao().updateQna(conn,q);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public int updateBoardImages(BoardImage bImage) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		
+		int result = 1;
+		if(bImage != null) { // 새로 첨부된 파일 있을 경우 
+			if(bImage.getImgNo() != 0) { // 기존 첨부파일 있을 경우
+				result = new QnaDao().updateBoardImage(conn,bImage);
+			}else { // 기존 첨부파일이 없을 경우
+				System.out.println("서비스의 첨부파일이 없을 경우: " + bImage);
+				result = new QnaDao().insertNewBoardImage(conn,bImage);
+			}
+			
+		}
+		
+		return result;
+	}
+
+	public int selectListCount(String category, String text) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		int listCount =0;
+		if(category.equals("qna_title")) {
+			listCount = new QnaDao().selectListCountByQnaTitle(conn,text);
+		}else if(category.equals("mem_name")) {
+			listCount = new QnaDao().selectListCountByMemName(conn,text);
+		}
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<Qna> selectSearchList(PageInfo pi, String category, String text) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		ArrayList<Qna> list = null;
+		if(category.equals("qna_title")) {
+			list = new QnaDao().selectListByQnaTitle(conn,pi,text);
+		}else if(category.contentEquals("mem_name")) {
+			list = new QnaDao().selectListByMemName(conn,pi,text);
+		}
+		close(conn);
+		
+		return list;
 	}
 
 

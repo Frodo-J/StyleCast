@@ -9,6 +9,8 @@ import com.stylecast.common.model.vo.BoardImage;
 import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.notice.model.dao.NoticeDao;
 import com.stylecast.notice.model.vo.Notice;
+import com.stylecast.qna.model.dao.QnaDao;
+
 
 public class NoticeService {
 
@@ -88,7 +90,12 @@ public class NoticeService {
 		
 		Connection conn = getConnection();
 		int result1 = new NoticeDao().insertNotice(conn,n);
-		int result2 = new NoticeDao().insertBoardImageList(conn,list);
+		int result2 = 1;
+		
+		if(list.isEmpty()==false) {
+			 result2 = new NoticeDao().insertBoardImageList(conn,list);
+		}
+		
 		if(result1>0 && result2>0) {
 			commit(conn);
 		}else {
@@ -132,25 +139,14 @@ public class NoticeService {
 		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		
-		int result1 = new NoticeDao().updateNotice(conn,n);
+		int result = new NoticeDao().updateNotice(conn,n);
 		
-//		int result2 = 1;
-//		if(bImage != null) { // 새로 첨부된 파일 있을 경우 
-//			if(bImage.getImgNo() != 0) { // 기존 첨부파일 있을 경우
-//				result2= new NoticeDao().updateBoardImage(conn,bImage);
-//			}else { // 기존 첨부파일이 없을 경우
-//				System.out.println("서비스의 첨부파일이 없을 경우: " + bImage);
-//				result2 = new NoticeDao().insertNewBoardImage(conn,bImage);
-//			}
-//			
-//		}
-		
-		if(result1 > 0) {
+		if(result > 0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
-		return result1;
+		return result;
 	}
 	
 	public int updateBoardImages(BoardImage bImage) {
@@ -200,7 +196,7 @@ public class NoticeService {
 			listCount = new NoticeDao().selectListCountByNoticeTitle(conn,text);
 		}else if(category.equals("notice_content")) {
 			listCount = new NoticeDao().selectListCountByNoticeContent(conn,text);
-		}else if(category.contentEquals("mem_name")) {
+		}else if(category.equals("mem_name")) {
 			listCount = new NoticeDao().selectListCountByMemName(conn,text);
 		}
 		
@@ -208,6 +204,28 @@ public class NoticeService {
 		
 		return listCount;
 	}
+
+	public ArrayList<BoardImage> selectBoardImagePath(int noticeNo) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		ArrayList<BoardImage> bImage = new NoticeDao().selectBoardImagePath(conn,noticeNo);
+		close(conn);
+		return bImage;
+	}
+
+	public int deleteBoardImage(int noticeNo) {
+		// TODO Auto-generated method stub
+		Connection conn = getConnection();
+		int result = new NoticeDao().deleteBoardImage(conn,noticeNo);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
 
 		
 

@@ -47,7 +47,7 @@ public class MyPageUpdate extends HttpServlet {
 		if(updateMem == null) { // 정보 수정 실패
 			
 			request.setAttribute("errorMsg", "회원 정보 수정에 실패했습니다.");
-			request.getRequestDispatcher("view/common/errorPage.jsp").forward(request, response);;
+			request.getRequestDispatcher("view/common/errorPage.jsp").forward(request, response);
 		
 		}else { // 정보 수정 성공
 			

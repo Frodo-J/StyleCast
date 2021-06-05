@@ -392,7 +392,7 @@ public class NoticeDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectListByNoticeNo");
+		String sql = prop.getProperty("selectListByNoticeTitle");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -572,6 +572,55 @@ public class NoticeDao {
 		}
 		
 		return listCount;
+	}
+
+	public ArrayList<BoardImage> selectBoardImagePath(Connection conn, int noticeNo) {
+		// TODO Auto-generated method stub
+		ArrayList<BoardImage> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectBoardImagePath");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, noticeNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new BoardImage(rset.getString("img_path")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int deleteBoardImage(Connection conn, int noticeNo) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteBoardImage");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, noticeNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 

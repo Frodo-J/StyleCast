@@ -35,7 +35,6 @@ public class MypageQuestionController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
 		HttpSession session = request.getSession();
 		
 		// 페이징바용 변수 선언
