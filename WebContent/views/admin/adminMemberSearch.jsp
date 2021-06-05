@@ -4,6 +4,8 @@
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
+	String category = (String)request.getAttribute("category");
+	String text = (String)request.getAttribute("text");
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -39,6 +41,7 @@
         <style>
 
             div {
+                /*border: 1px solid black;*/
                 box-sizing: border-box;
             }
 
@@ -141,6 +144,11 @@
             #prof{height: 17%;width: 99%; float: left;}
             #prof div, #menu div{width: 100%;}
         </style>
+    	<script>
+    	$(function(){
+    		console.log("<%=blackListYN%>");
+    	})
+    	</script>
     </head>
     <body>
         <%@ include file="../common/menubar.jsp" %>
@@ -152,7 +160,7 @@
                     <div id="line"></div>
                     <div id="prof">
                         <div id="prof_img" align="center"><img src="<%=contextPath %>/resources/images/prof.PNG"></div>
-                        <div id="prof_nick" align="center"><b><%=loginUser.getMemName()%></b></div>
+                        <div id="prof_nick" align="center"><b>닉네임</b></div>
                     </div>
                     <div id="menu">
                         <div>
@@ -186,6 +194,13 @@
                     
                     
                 </script>
+                <script>
+				$(function(){
+					console.log("<%=category%>");
+					$("#search_category").val("<%=category%>").prop("selected",true);
+				})
+    
+    			</script>
 
                 <div id="form">
                     
@@ -194,28 +209,21 @@
                         <div id="control_box">
                         	<form id="search-form" action="<%= contextPath %>/memsearch.adm?currentPage=1" method="post">
                             <div id="search_box">
-                                <select class="form-select" name="search_category">
+                                <select class="form-select" name="search_category" id="search_category">
                                     <option selected="selected" value="아이디">아이디</option>
                                     <option value="이메일">이메일</option>
                                     <option value="닉네임">닉네임</option>
                                 </select>
-                                <input id="input_search" class="form-control" type="text" name="search_text" placeholder="검색내용">
-                                <button id="img_btn" type="submit"><img src="<%=contextPath%>/resources/images/loupe.png"></button>
+                                <input id="input_search" name="search_text" class="form-control" type="text" placeholder="검색내용" value="<%=text%>">
+                                <button id="img_btn" type="button"><img src="<%=contextPath%>/resources/images/loupe.png"></button>
                             </div>
-                             </form>
+                            </form>
                             <div id="black_box">
                                 <div class="form-check form-switch">
-                                	<%if(blackListYN.equals("Y")){ %>
                                     <label class="form-check-label" for="flexSwitchCheckDefault">
-                                        <b>블랙회원도 보이기 ON</b>
+                                        <b>블랙회원 보이기 ON</b>
                                     </label>
-                                    <input class="form-check-input" type="checkbox" name="blackYN" id="flexSwitchCheckDefault" checked onclick="goToBlackN();"/>
-                                	<%}else if(blackListYN.equals("N")){ %>
-                                		<label class="form-check-label" for="flexSwitchCheckDefault">
-                                        <b>블랙회원도 보이기 OFF</b>
-                                    	</label>
-                                    <input class="form-check-input" type="checkbox" name="blackYN" id="flexSwitchCheckDefault" onclick="goToBlackY();" />
-                                	<%} %>
+                                    <input class="form-check-input" type="checkbox" name="blackYN" id="flexSwitchCheckDefault" checked disabled/>
                                 </div>
                             </div>
                             <script>
@@ -381,13 +389,13 @@
                             <div align="center" class="btn-group me-2" role="group" aria-label="First group">
 
 							<% if(currentPage != 1){ %>
-            					<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/memlist.adm?blackListYN=<%=blackListYN%>&&currentPage=<%=currentPage-1%>';"> &lt; </button>
+            					<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/memsearch.adm?currentPage=<%=currentPage-1%>&&search_category=<%=category%>&&search_text=<%=text%>';"> &lt; </button>
 							<% } %>
 
             				<% for(int p=startPage; p<=endPage; p++){ %>
             	
             					<% if(p != currentPage){ %>
-	            					<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/memlist.adm?blackListYN=<%=blackListYN%>&&currentPage=<%= p %>';"><%= p %></button>
+	            					<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/memsearch.adm?currentPage=<%= p %>&&search_category=<%=category%>&&search_text=<%=text%>';"><%= p %></button>
 	            				<% }else { %>
 	            					<button type="button" class="btn btn-outline-secondary" disabled><%= p %></button>
             					<% } %>
@@ -396,7 +404,7 @@
 						<% if(currentPage == 1 && maxPage == 0 && endPage == 0){ %>
 						
 						<% } else if(currentPage != maxPage){ %>
-            				<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/memlist.adm?blackListYN=<%=blackListYN%>&&currentPage=<%=currentPage+1%>';"> &gt; </button>
+            				<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/memsearch.adm?currentPage=<%=currentPage+1%>&&search_category=<%=category%>&&search_text=<%=text%>';"> &gt; </button>
 						<% } %>
 			
         					</div>

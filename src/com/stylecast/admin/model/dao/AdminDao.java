@@ -65,7 +65,6 @@ public class AdminDao {
 				listCount = rset.getInt("count");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
@@ -128,7 +127,6 @@ public class AdminDao {
 				listCount = rset.getInt("count");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
       			close(rset);
@@ -152,7 +150,7 @@ public class AdminDao {
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
 			pstmt.setInt(1, startRow);
-      pstmt.setInt(2, endRow);
+			pstmt.setInt(2, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -177,7 +175,7 @@ public class AdminDao {
 	}
 
 	public ArrayList<Member> selectMemberListBlackN(Connection conn, PageInfo pi) {
-		// TODO Auto-generated method stub
+		
 		ArrayList<Member> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -215,7 +213,7 @@ public class AdminDao {
 	}
 
 	public ArrayList<Member> selectMemberListBlackY(Connection conn, PageInfo pi) {
-		// TODO Auto-generated method stub
+		
 		ArrayList<Member> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -392,7 +390,6 @@ public class AdminDao {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
-		//String sql = prop.getProperty("deleteReport");
 		String sql = "UPDATE REPORT SET STATUS = 'Y' WHERE RPT_NO IN (";
 
 		for(int i = 0; i<((rptNoArr.length)-1); i++) {
@@ -715,7 +712,7 @@ public class AdminDao {
 
 
 	public int updateMemberBlackN(Connection conn, int memNo) {
-		// TODO Auto-generated method stub
+		
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateMemberBlackN");
@@ -732,6 +729,194 @@ public class AdminDao {
 		}
 		System.out.println("blackN dao 행 수: "+ result);
 		return result;
+	}
+
+	public int selectListCountByMemberId(Connection conn, String text) {
+		
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCountByMemberId");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, text);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+	public int selectListCountByEmail(Connection conn, String text) {
+		
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCountByEmail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, text);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+	public int selectListCountByMemName(Connection conn, String text) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCountByMemName");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, text);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+		
+	}
+
+	public ArrayList<Member> selectListByMemberId(Connection conn, PageInfo pi, String text) {
+		ArrayList<Member> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectListByMemberId");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setString(1, text);
+			pstmt.setInt(2,startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("mem_no"),
+						rset.getString("mem_id"),
+						rset.getString("mem_name"),
+						rset.getString("mem_email"),
+						rset.getString("black_yn"),
+						rset.getInt("warning"))
+						);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+
+	public ArrayList<Member> selectListByEmail(Connection conn, PageInfo pi, String text) {
+		ArrayList<Member> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectListByEmail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setString(1, text);
+			pstmt.setInt(2,startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("mem_no"),
+						rset.getString("mem_id"),
+						rset.getString("mem_name"),
+						rset.getString("mem_email"),
+						rset.getString("black_yn"),
+						rset.getInt("warning"))
+						);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Member> selectListByMemName(Connection conn, PageInfo pi, String text) {
+		ArrayList<Member> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectListByMemName");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setString(1, text);
+			pstmt.setInt(2,startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("mem_no"),
+						rset.getString("mem_id"),
+						rset.getString("mem_name"),
+						rset.getString("mem_email"),
+						rset.getString("black_yn"),
+						rset.getInt("warning"))
+						);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 
 

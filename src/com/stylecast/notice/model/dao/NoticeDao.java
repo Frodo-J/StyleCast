@@ -387,7 +387,7 @@ public class NoticeDao {
 	}
 
 	public ArrayList<Notice> selectListByNoticeTitle(Connection conn, PageInfo pi, String text) {
-		// TODO Auto-generated method stub
+		
 		ArrayList<Notice> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -424,7 +424,7 @@ public class NoticeDao {
 	}
 
 	public ArrayList<Notice> selectListByNoticeContent(Connection conn, PageInfo pi, String text) {
-		// TODO Auto-generated method stub
+		
 		ArrayList<Notice> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -461,7 +461,7 @@ public class NoticeDao {
 	}
 
 	public ArrayList<Notice> selectListByMemName(Connection conn, PageInfo pi, String text) {
-		// TODO Auto-generated method stub
+		
 		ArrayList<Notice> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -498,7 +498,7 @@ public class NoticeDao {
 	}
 
 	public int selectListCountByNoticeTitle(Connection conn, String text) {
-		// TODO Auto-generated method stub
+		
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -524,7 +524,7 @@ public class NoticeDao {
 	}
 
 	public int selectListCountByNoticeContent(Connection conn, String text) {
-		// TODO Auto-generated method stub
+		
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

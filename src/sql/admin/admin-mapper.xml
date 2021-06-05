@@ -302,5 +302,80 @@
           AND STATUS = 'N'
 		  AND RPT_CATEGORY LIKE '%'||?||'%'
 	</entry>
-
+	
+	<entry key="selectListCountByMemberId">
+		SELECT COUNT(*) COUNT
+		FROM MEMBER
+		WHERE MEM_ID LIKE '%'||?||'%'
+	</entry>
+	<entry key="selectListCountByEmail">
+		SELECT COUNT(*) COUNT
+		FROM MEMBER
+		WHERE MEM_EMAIL LIKE '%'||?||'%'
+	</entry>
+	<entry key="selectListCountByMemName">
+		SELECT COUNT(*) COUNT
+		FROM MEMBER
+		WHERE MEM_NAME LIKE '%'||?||'%'
+	</entry>
+	<entry key="selectListByMemberId">
+		SELECT *
+		FROM(
+    		SELECT ROWNUM RNUM, A.*
+    		FROM(
+        		SELECT
+            		 MEM_NO,
+                     MEM_EMAIL,
+                     MEM_ID,
+                     MEM_NAME,
+                     BLACK_YN,
+                     WARNING
+        		FROM
+            		MEMBER
+                WHERE MEM_ID LIKE '%'||?||'%'
+    		ORDER BY
+        		BLACK_YN DESC, WARNING DESC, MEM_NO ASC) A
+        		)
+    		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="selectListByEmail">
+		SELECT *
+		FROM(
+    		SELECT ROWNUM RNUM, A.*
+    		FROM(
+        		SELECT
+            		 MEM_NO,
+                     MEM_EMAIL,
+                     MEM_ID,
+                     MEM_NAME,
+                     BLACK_YN,
+                     WARNING
+        		FROM
+            		MEMBER
+                WHERE MEM_EMAIL LIKE '%'||?||'%'
+    		ORDER BY
+        		BLACK_YN DESC, WARNING DESC, MEM_NO ASC) A
+        		)
+    		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="selectListByMemName">
+		SELECT *
+		FROM(
+    		SELECT ROWNUM RNUM, A.*
+    		FROM(
+        		SELECT
+            		 MEM_NO,
+                     MEM_EMAIL,
+                     MEM_ID,
+                     MEM_NAME,
+                     BLACK_YN,
+                     WARNING
+        		FROM
+            		MEMBER
+                WHERE MEM_NAME LIKE '%'||?||'%'
+    		ORDER BY
+        		BLACK_YN DESC, WARNING DESC, MEM_NO ASC) A
+        		)
+    		WHERE RNUM BETWEEN ? AND ?
+	</entry>
 </properties>
