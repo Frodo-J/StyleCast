@@ -174,4 +174,11 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+
+	public String selectProfImg(int memNo) {
+		Connection conn = getConnection();
+		String uProfImg = new MemberDao().selectProfImg(conn, memNo);
+		close(conn);
+		return uProfImg;
+	}
 }

@@ -423,6 +423,34 @@ public class MemberDao {
 		
 		return result;
 	}
+
+	public String selectProfImg(Connection conn, int memNo) {
+
+		String uProfImg = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectProfImg");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				uProfImg = rset.getString("prof_img");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return uProfImg;
+	}
 	
 	
 	
