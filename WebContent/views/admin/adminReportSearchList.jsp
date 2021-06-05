@@ -217,7 +217,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="">메인관리</a>
+                                <a href="<%= contextPath %>/codilist.ad?currentPage=1">메인관리</a>
                             </h4>
                         </div>
                         <div>
