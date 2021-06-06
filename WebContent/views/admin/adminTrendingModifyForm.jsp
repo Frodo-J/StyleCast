@@ -425,19 +425,6 @@
             		$(function(){
             			
             			var cp = $("#contextpath").val();
-            			
-            			$.ajax({
-			        		url:"profImgSelect.me",
-			        		data:{
-			        			memNo:<%=loginUser.getMemNo()%>
-			        		},
-			        		type:"post",
-			        		success:function(profImg){
-								$("#content #prof_img img").attr("src", cp + profImg);
-			        		},error:function(){
-			        			console.log("프로필 이미지 불러오기 실패");
-			        		}
-			        	})
             		})
             	</script>
 
