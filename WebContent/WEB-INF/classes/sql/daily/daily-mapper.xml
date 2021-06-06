@@ -175,7 +175,46 @@
 		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+	<entry key="insertDaily">
+		INSERT 
+		       INTO DAILY
+		            (
+		            DAILY_NO
+		          , MEM_NO
+		          , DAILY_CONTENT
+		          , DAILY_IMG
+		          , TAG
+		            )
+		     VALUES
+		            (
+		            SEQ_DAILY.NEXTVAL
+		          , ?
+		          , ?
+		          , ?
+		          , ?
+	                )
+	</entry>
 	
+	<entry key="insertItem">
+	  
+		INSERT
+		       INTO ITEM
+		            (
+		            ITEM_NO
+		          , DAILY_NO
+		          , ITEM_NAME
+		          , ITEM_LINK
+		          , ITEM_CATEGORY
+		            )
+		     VALUES 
+		            (
+		            SEQ_ITEM.NEXTVAL
+		          , SEQ_DAILY.CURRVAL
+		          , ?
+		          , ?
+		          , ?
+		            )
+	</entry>
 	
 	
 	

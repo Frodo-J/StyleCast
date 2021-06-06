@@ -342,7 +342,51 @@ public class DailyDao {
 	}
 	
 
+	public int insertDaily(Connection conn, Daily d) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertDaily");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, d.getMemNo());
+			pstmt.setString(2, d.getDailyContent());
+			pstmt.setString(3, d.getDailyImg());
+			pstmt.setString(4, d.getTag());
+			
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println(result);
+		return result;
+	}
 	
-	
+	public int insertItem(Connection conn, ArrayList<Item> list) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertItem");
+		
+		try {			
+			for(Item il : list) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, il.getItemName());
+				pstmt.setString(2, il.getItemLink());
+				pstmt.setString(3, il.getItemCategory());
+				
+				result = pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e)  {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println(result);
+		return result;
+	}
 	
 }
