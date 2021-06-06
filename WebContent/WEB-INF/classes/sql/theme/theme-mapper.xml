@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	
+	<entry key="selectThemeMonthly">
+		SELECT
+		       THEME_NO
+		     , THEME_TITLE
+		     , THEME_TITLE_COLOR
+		     , THEME_SUBTITLE
+		  FROM THEME
+		 WHERE STATUS = 'Y'
+		   AND THEME_TITLE LIKE 'Monthly%'
+	</entry>
+	
+	<entry key="selectThemePost">
+		SELECT
+		       T.DAILY_NO AS "DAILY_NO"
+		     , DAILY_IMG
+             , COUNT(L.DAILY_NO) AS "COUNT"
+		  FROM (
+                SELECT *
+                 FROM THEME_POST
+                WHERE THEME_NO = ?
+                ) T
+     LEFT JOIN DAILY D ON(T.DAILY_NO = D.DAILY_NO)
+     LEFT JOIN DAILY_LIKE L ON(T.DAILY_NO = L.DAILY_NO)
+      GROUP BY T.DAILY_NO, DAILY_IMG
+      ORDER BY COUNT DESC
+	</entry>
+
+	<entry key="selectThemeList">
+		SELECT
+		       THEME_NO
+		     , THEME_TITLE
+		     , THEME_TITLE_COLOR
+		     , THEME_SUBTITLE
+		  FROM THEME
+		 WHERE STATUS = 'Y'
+		   AND THEME_TITLE NOT LIKE 'Monthly%'
+	</entry>
+	
+	<entry key="selectOtherPost">
+		SELECT *
+		       FROM (
+		        SELECT
+		               DAILY_NO
+		             , DAILY_IMG
+		          FROM THEME_POST
+		          JOIN DAILY USING (DAILY_NO)
+		         WHERE THEME_NO = ?
+		           AND DAILY_NO != ?
+		         ORDER
+		            BY DBMS_RANDOM.VALUE)
+		 WHERE ROWNUM &lt;= 4
+	</entry>
+	
+	<entry key="selectThemeInfo">
+		SELECT 
+		       THEME_NO
+		     , THEME_TITLE
+		  FROM THEME
+		 WHERE THEME_NO = ?
+	</entry>
+	
+	<entry key="selectThemeOthers">
+		SELECT
+		       THEME_NO
+		     , THEME_TITLE
+		     , THEME_TITLE_COLOR
+		     , THEME_SUBTITLE
+		  FROM THEME
+		 WHERE THEME_NO = ?
+	</entry>
+	
+	<entry key="selectThemeListOthers">
+		SELECT
+		       THEME_NO
+		     , THEME_TITLE
+		     , THEME_TITLE_COLOR
+		     , THEME_SUBTITLE
+		  FROM THEME
+		 WHERE STATUS = 'Y'
+		   AND THEME_NO != ?
+	</entry>
+</properties>

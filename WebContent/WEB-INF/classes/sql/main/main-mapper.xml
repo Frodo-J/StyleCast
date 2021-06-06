@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="MainSelectDaily">
+		SELECT * FROM (
+			SELECT
+				   DAILY_NO
+				 , DAILY_IMG 
+			 FROM DAILY ORDER BY DAILY_NO DESC 
+		) WHERE <![CDATA[ROWNUM <= 4 ]]>
+	</entry>
+	
+	<entry key="MainSelectCodiM">
+		SELECT * FROM(
+			SELECT 
+			       CODI_NO
+			     , IMG_PATH
+			FROM CODI
+			WHERE ? BETWEEN REC_LOWT AND REC_HIGHT AND GENDER='M'
+		) WHERE <![CDATA[ROWNUM <= 2 ]]>
+	</entry>
+	
+	<entry key="MainSelectCodiMR">
+		SELECT * FROM(
+			SELECT 
+			       CODI_NO
+			     , IMG_PATH
+			FROM CODI
+			WHERE ? BETWEEN REC_LOWT AND REC_HIGHT AND GENDER='M' AND WEATHER = 'SONW' || WEATHER = 'RAIN'
+		) WHERE <![CDATA[ROWNUM <= 2 ]]>
+	</entry>
+	
+	<entry key="MainSelectCodiF">
+		SELECT * FROM(
+			SELECT 
+			       CODI_NO
+			     , IMG_PATH
+			FROM CODI
+			WHERE ? BETWEEN REC_LOWT AND REC_HIGHT AND GENDER='F'
+		) WHERE <![CDATA[ROWNUM <= 2 ]]>
+	</entry>
+	
+	<entry key="MainSelectCodiFR">
+		SELECT * FROM(
+			SELECT 
+			       CODI_NO
+			     , IMG_PATH
+			FROM CODI
+			WHERE ? BETWEEN REC_LOWT AND REC_HIGHT AND GENDER='F' AND WEATHER = 'SONW' || WEATHER = 'RAIN'
+		) WHERE <![CDATA[ROWNUM <= 2 ]]>
+	</entry>
+	
+</properties>
