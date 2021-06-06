@@ -208,6 +208,7 @@
         <div id="header">
             <div id="header_1">
                 <a href="<%= contextPath %>"><img id="logoimg"src="<%=contextPath %>/resources/images/logo.jpg"></a>
+                    <input id="contextpath" type="hidden" value="<%= contextPath %>">
             </div>
 
             <div id="header_2">
@@ -239,11 +240,11 @@
 	                    <div>
 	                    <% if(loginUser.getMemId().equals("admin")) { %>
 	                        <a id="profile" href="<%= contextPath %>/myPage.me">
-	                            <img src="<%=contextPath %>/resources/images/prof.PNG" class="rounded-circle">
+	                            <img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle">
 	                        </a>
 	                    <% }else { %>
 	                    	<a id="profile" href="<%= contextPath %>/myPage.me">
-	                            <img src="<%=contextPath %>/resources/images/prof.PNG" class="rounded-circle">
+	                            <img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle">
 	                        </a>
 	                    <% } %>
 	                        <b><%= loginUser.getMemName() %></b>
@@ -266,5 +267,29 @@
             <div id="header_6">
            	</div>       
         </div>
+            	
+            	<script>
+            		// 프로필 이미지 갱신
+            		$(function(){
+            			
+            			var cp = $("#contextpath").val();
+            			
+            			<% if(loginUser != null) {%>
+            			$.ajax({
+			        		url:"profImgSelect.me",
+			        		data:{
+			        			memNo:<%=loginUser.getMemNo()%>
+			        		},
+			        		type:"post",
+			        		success:function(profImg){
+								$("#header_4 #navi img").attr("src", cp + profImg);
+			        		},error:function(){
+			        			console.log("프로필 이미지 불러오기 실패");
+			        		}
+			        	})
+			        	<%} %>
+            		})
+            	</script>
+            	
 </body>
 </html>

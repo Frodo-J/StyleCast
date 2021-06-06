@@ -256,6 +256,7 @@
                     <div id="prof">
                         <div id="prof_img" align="center"><img src="<%=contextPath %>/resources/images/prof.PNG"></div>
                         <div id="prof_nick" align="center">닉네임</div>
+                    	<input id="contextpath" type="hidden" value="<%= contextPath %>">
                     </div>
                     <div id="menu">
                         <div>
@@ -394,5 +395,26 @@
 			
 
 		</script>
+            	
+            	<script>
+            		// 프로필 이미지 갱신
+            		$(function(){
+            			
+            			var cp = $("#contextpath").val();
+            			
+            			$.ajax({
+			        		url:"profImgSelect.me",
+			        		data:{
+			        			memNo:<%=loginUser.getMemNo()%>
+			        		},
+			        		type:"post",
+			        		success:function(profImg){
+								$("#content #prof_img img").attr("src", cp + profImg);
+			        		},error:function(){
+			        			console.log("프로필 이미지 불러오기 실패");
+			        		}
+			        	})
+            		})
+            	</script>
     </body>
 </html>
