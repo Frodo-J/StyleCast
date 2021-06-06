@@ -366,7 +366,7 @@ div {
 				<!-- 데일리 작성 버튼 로그인 여부 체크 -->
 				<% if(loginUser != null) { %>
 				<img src="https://img.icons8.com/ios-filled/50/000000/plus.png"
-					class="add" onclick="location.href='03-2_데일리_작성form.html'">
+					class="add" onclick="location.href='<%=contextPath%>/create.da';">
 				<% }else { %>
 				<img src="https://img.icons8.com/ios-filled/50/000000/plus.png"
 					class="add" data-bs-toggle="modal"

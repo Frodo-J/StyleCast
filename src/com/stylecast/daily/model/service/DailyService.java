@@ -248,7 +248,26 @@ public class DailyService {
 		return list;
 	}
 	
-	
+	public int insertDaily(Daily d, ArrayList<Item> list) {
+		Connection conn = getConnection();
+		System.out.println(d.getMemNo());
+		System.out.println(d.getDailyContent());
+		System.out.println(d.getTag());
+		System.out.println(d.getDailyImg());
+		int result1 = new DailyDao().insertDaily(conn, d);
+		int result2 = 1;
+		if(list != null) {		
+			result2 = new DailyDao().insertItem(conn, list);
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1 * result2;
+	}
 	
 	
 	

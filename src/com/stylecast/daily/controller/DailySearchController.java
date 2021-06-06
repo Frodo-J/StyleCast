@@ -1,4 +1,4 @@
-package com.stylecast.main.controller;
+package com.stylecast.daily.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,13 +17,13 @@ import com.stylecast.daily.model.vo.Daily;
  * Servlet implementation class MainSearchPageController
  */
 @WebServlet("/search.ma")
-public class MainSearchPageController extends HttpServlet {
+public class DailySearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainSearchPageController() {
+    public DailySearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
