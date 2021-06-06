@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.stylecast.daily.model.vo.Report, java.util.ArrayList" %>
+<%@ page import="com.stylecast.common.model.vo.PageInfo, com.stylecast.daily.model.vo.Report, java.util.ArrayList" %>
 <%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Report> list = (ArrayList<Report>)request.getAttribute("list");
+	
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+	
 	int brCategory = (int)request.getAttribute("brCategory");
 %>
 <!DOCTYPE html>
@@ -72,9 +79,6 @@
             table tbody tr td {
                 text-align: center;
             }
-        
-       		.hidden-col{display: none;}
-            
             #table_box {
                 width: 100%;
                 height: 70%;
@@ -130,7 +134,7 @@
             #content_of_form {
                 height: 73%;
                 padding-left: 50px;
-                overflow: auto;
+                /*overflow: auto;*/
             }
             #blank_box {
                 height: 8%;
@@ -162,10 +166,10 @@
             }
             /* #table_body {
                 overflow: auto;
-            } */
+            } 
             #table_box {
                 overflow: auto;
-            }
+            } */
             #prof_img {
                 height: 70%;
                 padding: 20px;
@@ -192,8 +196,6 @@
         
         <div class="wrap">
 
-            <div id="header"></div>
-
             <div id="content">
                 <div id="side">
 
@@ -212,7 +214,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="">메인관리</a>
+                                <a href="<%= contextPath %>/codilist.ad?currentPage=1">메인관리</a>
                             </h4>
                         </div>
                         <div>
@@ -307,11 +309,11 @@
                         <script>
                         	// 신고 게시판 분류 이동
                         	$("#post_btn").click(function(){
-                        		location.replace("<%=request.getContextPath()%>/rptList.adm?brCategory=0");
+                        		location.replace("<%=request.getContextPath()%>/rptList.adm?brCategory=0&&currentPage=1");
                         	});
                         	
                         	$("#comment_btn").click(function(){
-                        		location.replace("<%=request.getContextPath()%>/rptList.adm?brCategory=1");
+                        		location.replace("<%=request.getContextPath()%>/rptList.adm?brCategory=1&&currentPage=1");
                         	});
                         </script>
 
@@ -570,6 +572,31 @@
                             </div>
                         </div>
                         <!--Modal End-->
+                        
+                        <div id="page_box" class="text-center">
+                            <div align="center" class="btn-group me-2" role="group" aria-label="First group">
+
+							<% if(currentPage != 1){ %>
+            					<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/rptList.adm?brCategory=<%=brCategory%>&&currentPage=<%=currentPage-1%>';"> &lt; </button>
+							<% } %>
+
+            				<% for(int p=startPage; p<=endPage; p++){ %>
+            	
+            					<% if(p != currentPage){ %>
+	            					<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/rptList.adm?brCategory=<%=brCategory%>&&currentPage=<%= p %>';"><%= p %></button>
+	            				<% }else { %>
+	            					<button type="button" class="btn btn-outline-secondary" disabled><%= p %></button>
+            					<% } %>
+            	
+            				<% } %>
+						<% if(currentPage == 1 && maxPage == 0 && endPage == 0){ %>
+						
+						<% } else if(currentPage != maxPage){ %>
+            				<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/rptList.adm?brCategory=<%=brCategory%>&&currentPage=<%=currentPage+1%>';"> &gt; </button>
+						<% } %>
+			
+        					</div>
+                        </div>
 
                         <!-- <div id="page_box"> <nav aria-label="Page navigation example"> <ul
                         class="pagination justify-content-center"> <li class="page-item disabled"> <a

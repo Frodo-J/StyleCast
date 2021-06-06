@@ -12,20 +12,20 @@ import javax.servlet.http.HttpSession;
 
 import com.stylecast.admin.model.service.AdminService;
 import com.stylecast.common.model.vo.PageInfo;
-import com.stylecast.daily.model.vo.Report;
 import com.stylecast.member.vo.Member;
 
+
 /**
- * Servlet implementation class AdminReportListController
+ * Servlet implementation class AdminMemberSearch
  */
-@WebServlet("/rptList.adm")
-public class AdminReportListController extends HttpServlet {
+@WebServlet("/memsearch.adm")
+public class AdminMemberSearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminReportListController() {
+    public AdminMemberSearch() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,10 +34,11 @@ public class AdminReportListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
+		
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
-		int brCategory = Integer.parseInt(request.getParameter("brCategory"));
 		
 		int listCount;
 		int currentPage;
@@ -48,15 +49,34 @@ public class AdminReportListController extends HttpServlet {
 		int startPage;
 		int endPage;
 		
-		listCount = new AdminService().selectReportListCount(brCategory);
-		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		// 여기서 작업
+		// 블랙 유뮤
+		//String blackListYN = request.getParameter("blackListYN");
+		
+		//사용자가 선택한 카테고리
+		String category = request.getParameter("search_category");
+		
+		//사용자가 입력한 검색내용
+		String text = request.getParameter("search_text");
+		
+		// 총 게시글 갯수
+		listCount = new AdminService().selectSearchListCount(category,text);
+		
+		// 사용자가 요청한 페이지 ( 현재 페이지)
+	    currentPage = Integer.parseInt(request.getParameter("currentPage"));
+
+		
+		// pageLimit : 하단에 보여질 페이징바의 페이지 최대 갯수(페이지 목록들 몇개)
 		pageLimit = 10;
+		
+		// boardLimit : 한 페이지 내에 보여질 게시글 최대 갯수
 		boardLimit = 10;
 		
-		System.out.println(listCount);
-		
+		//maxPage : 제일 마지막 페이지수 ( 총 페이지 수)
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		
 		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+		
 		endPage = startPage + pageLimit - 1;
 				
 		if(endPage > maxPage) {
@@ -65,22 +85,20 @@ public class AdminReportListController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		// 관리자 여부 확인
 		if(loginUser != null && loginUser.getAdminYN().equals("Y")) {
-			
-			ArrayList<Report> list = new AdminService().selectReportList(pi, brCategory);
-			
-			System.out.println(list.size());
-
-			request.setAttribute("brCategory", brCategory);
+		
+			ArrayList<Member> list = new AdminService().selectSearchList(pi,category,text);
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
-			request.getRequestDispatcher("views/admin/adminReportList.jsp").forward(request,response);
+			request.setAttribute("text", text);
+			request.setAttribute("category", category);
 			
+			request.getRequestDispatcher("views/admin/adminMemberSearch.jsp").forward(request,response);
 		}else {
 			session.setAttribute("alertMsg", "관리자만 접근 가능한 페이지입니다.");
 			response.sendRedirect(request.getContextPath());
-		}	
+		}
+		
 		
 	}
 

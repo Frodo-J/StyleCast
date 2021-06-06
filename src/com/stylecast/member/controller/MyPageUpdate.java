@@ -39,7 +39,7 @@ public class MyPageUpdate extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String userPwd = (request.getParameter("userNewPwd") == "") ? request.getParameter("userPwd") : request.getParameter("userNewPwd");
 		
-		Member m = new Member(userId, userPwd, userName, email, gender);
+		Member m = new Member(userId, email, userPwd, userName, gender);
 		
 		// 수정한 회원의 정보
 		Member updateMem = new MemberService().updateMember(m);

@@ -1,8 +1,6 @@
-package com.stylecast.qna.controller;
+package com.stylecast.admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,22 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.stylecast.common.model.vo.BoardImage;
+import com.stylecast.admin.model.service.AdminService;
 import com.stylecast.member.vo.Member;
-import com.stylecast.qna.model.service.QnaService;
-import com.stylecast.qna.model.vo.Qna;
 
 /**
- * Servlet implementation class QnaDetailController
+ * Servlet implementation class AdminMemberUpdateBlackNController
  */
-@WebServlet("/detail.qna")
-public class QnaDetailController extends HttpServlet {
+@WebServlet("/updateblackn.adm")
+public class AdminMemberUpdateBlackNController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnaDetailController() {
+    public AdminMemberUpdateBlackNController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,28 +31,24 @@ public class QnaDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("updateblackn진입");
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
+		if(loginUser != null && loginUser.getAdminYN().equals("Y")) {
+			int memNo = Integer.parseInt(request.getParameter("memNo"));
 		
-		int qnaNo = Integer.parseInt(request.getParameter("qno"));
+			int result = new AdminService().updateMemberBlackN(memNo);
 		
-		QnaService qService = new QnaService();
-
-		Qna q = qService.selectQna(qnaNo);
-		
-		if((loginUser != null && loginUser.getAdminYN().equals("Y")) || (loginUser != null && loginUser.getMemName().equals(q.getMemName()))) {
-		
+				
+			if(result > 0) {
+				response.sendRedirect("memlist.adm?blackListYN=N&&currentPage=1");
+			}else {
 			
-			ArrayList<BoardImage> imgList = new QnaService().selectBoardImageList(qnaNo);
-			
-			request.setAttribute("q",q);
-			request.setAttribute("imgList",imgList);
-			request.getRequestDispatcher("views/qna/qnaDetail.jsp").forward(request, response);
+			}
 		}else {
-			session.setAttribute("alertMsg", "부적절한 접근입니다.");
+			session.setAttribute("alertMsg", "관리자만 접근 가능한 페이지입니다.");
 			response.sendRedirect(request.getContextPath());
 		}
-		
 	}
 
 	/**

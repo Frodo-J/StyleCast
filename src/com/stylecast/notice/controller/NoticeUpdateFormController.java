@@ -8,8 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.stylecast.common.model.vo.BoardImage;
+import com.stylecast.member.vo.Member;
 import com.stylecast.notice.model.service.NoticeService;
 import com.stylecast.notice.model.vo.Notice;
 
@@ -33,16 +35,24 @@ public class NoticeUpdateFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int noticeNo = Integer.parseInt(request.getParameter("nno"));
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		
-		Notice n = new NoticeService().selectNotice(noticeNo);
+		if(loginUser != null && loginUser.getAdminYN().equals("Y")) {
+			int noticeNo = Integer.parseInt(request.getParameter("nno"));
 		
-		ArrayList<BoardImage> list = new NoticeService().selectBoardImageList(noticeNo);
+			Notice n = new NoticeService().selectNotice(noticeNo);
 		
-		request.setAttribute("list", list);
-		request.setAttribute("n", n);
+			ArrayList<BoardImage> list = new NoticeService().selectBoardImageList(noticeNo);
 		
-		request.getRequestDispatcher("views/notice/noticeUpdate.jsp").forward(request, response);
+			request.setAttribute("list", list);
+			request.setAttribute("n", n);
+		
+			request.getRequestDispatcher("views/notice/noticeUpdate.jsp").forward(request, response);
+		}else{
+			session.setAttribute("alertMsg", "관리자만 접근 가능한 페이지입니다.");
+			response.sendRedirect(request.getContextPath());
+		}
 		
 	}
 

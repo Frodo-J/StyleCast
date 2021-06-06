@@ -148,7 +148,7 @@
 	<%
 		String memId = loginUser.getMemId();
 		String memPwd = loginUser.getMemPwd();
-		String memName = loginUser.getMemName();
+		String memName1 = loginUser.getMemName();
 		String email = loginUser.getEmail();
 		String gender = loginUser.getGender();
 	%>
@@ -162,8 +162,9 @@
                 <div id="line"></div>
                 
                 <div id="prof">
-                    <div id="prof_img" align="center"><img src="../../resources/images/prof.png"></div>
-                    <div id="prof_nick" align="center">닉네임</div>
+                    <div id="prof_img" align="center"><img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle"></div>
+                    <div id="prof_nick" align="center"><%= loginUser.getMemName() %></div>
+                    <input id="contextpath" type="hidden" value="<%= contextPath %>">
                 </div>
 
                 <div id="menu">
@@ -190,15 +191,16 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="prof-body" align="center">
-                        <form action="" method="post" style="line-height: 30px;">
+                        <form name="profImg_update" style="line-height: 30px;">
                             <div id="prof-img">
-                                <img src="resources/prof.png">
+                                <img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle">
                                 <button id="prof-delete" class="btn btn-light btn-sm">삭제</button>
                             </div>
                             <div id="prof-input"><input type="file" name="userProfImg"></div>  
+                            <input type="hidden" name="memId" value="<%=loginUser.getMemId()%>">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width: 90px; margin: auto;">취소</button>
                             &emsp;&emsp;
-                            <button type="button" class="btn btn-primary" onclick="" style="width: 90px;">등록</button>
+                            <button type="button" class="btn btn-primary" onclick="imgUpdate(profImg_update);" style="width: 90px;">등록</button>
                         </form>
                     </div>
                 </div>
@@ -210,6 +212,15 @@
                 $("#prof_img").click(function(){
                     $("#profModal").modal("show");
                 })
+            </script>
+            
+            <script>
+	            function imgUpdate(formName){
+	        		formName.action = "/StyleCast/updateProf.me";
+	        		formName.method = "post";
+	        		formName.enctype = "multipart/form-data";
+	        		formName.submit();
+	        	}
             </script>
 
             <div id="mypage">
@@ -252,20 +263,42 @@
                         </tr>
                         <tr>
                             <td><label class="form-label">닉네임</label></td>
-                            <td><input type="text" class="form-control form-control-sm" name="userName" value="<%=memName%>"></td>
+                            <td><input type="text" class="form-control form-control-sm" name="userName" value="<%=memName1%>"></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td><label class="form-label">성별</label></td>
                             <td colspan="2">
-                                <input type="radio" name="gender" id="male" value="m">
+                                <input type="radio" name="gender" id="male" value="M">
                                 <label for="male">남자</label>
                                 
-                                <input type="radio" name="gender" id="female" value="f">
+                                <input type="radio" name="gender" id="female" value="F">
                                 <label for="female">여자</label>
                             </td>
                         </tr>
                     </table>
+            	
+            	<script>
+            		// 프로필 이미지 갱신
+            		$(function(){
+            			
+            			var cp = $("#contextpath").val();
+            			
+            			$.ajax({
+			        		url:"profImgSelect.me",
+			        		data:{
+			        			memNo:<%=loginUser.getMemNo()%>
+			        		},
+			        		type:"post",
+			        		success:function(profImg){
+								$("#content #prof_img img").attr("src", cp + profImg);
+								$(".modal-content #prof-img img").attr("src", cp + profImg);
+			        		},error:function(){
+			        			console.log("프로필 이미지 불러오기 실패");
+			        		}
+			        	})
+            		})
+            	</script>
                     
                     <!-- 성별 라디오 버튼 선택 함수 -->
                     <script>
@@ -279,15 +312,24 @@
                     </script>
 
                     <script>
-                        $(function(){
+                    	// 비밀번호 변경 체크
+                    	$("#newpass").change(function(){
                             if($("#newpass").val().length > 0){
                             	$("#newpass_check").attr("required", true);
-                            	
-                            	if($("#newpass").val() != $("#newpass_check").val()){
-                        			$("#form-button button[type='submit']").attr("disabled", true);
-                        		}
-                        	}
-                        })
+                        	}else{
+                    			$("#newpass_check").attr("required", false);
+                    		}
+                    	});
+                    	
+                    	$("#newpass_check").change(function(){
+                    		if($("#newpass").val() != $("#newpass_check").val()){
+                    			$("#form-button button[type='submit']").attr("disabled", true);
+                    		}else{
+                    			$("#form-button button[type='submit']").attr("disabled", false);
+                    		}
+                    	});
+                    	
+                    	
                     </script>
 
                     <br>

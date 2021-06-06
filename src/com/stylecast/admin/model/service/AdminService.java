@@ -54,7 +54,6 @@ public class AdminService {
 
 
 	public int selectListCount(String blackListYN) {
-		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		int listCount = 0;
 		if(blackListYN.equals("N")) {
@@ -67,7 +66,6 @@ public class AdminService {
 	}
 
 	public ArrayList<Member> selectList(PageInfo pi, String blackListYN) {
-		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		ArrayList<Member> list = null;
 		if(blackListYN.equals("N")) {
@@ -80,9 +78,9 @@ public class AdminService {
 		return list;
 	}
 
-	public ArrayList<Report> selectReportList(int brCategory) {
+	public ArrayList<Report> selectReportList(PageInfo pi, int brCategory) {
 		Connection conn = getConnection();
-		ArrayList<Report> list = new AdminDao().selectReportList(conn, brCategory);
+		ArrayList<Report> list = new AdminDao().selectReportList(conn, pi, brCategory);
 		close(conn);
 		return list;
 	}
@@ -142,7 +140,6 @@ public class AdminService {
 	}
 
 	public int updateMemberBlackY(int memNo) {
-		// TODO Auto-generated method stub
 		Connection conn = getConnection();
 		int result = new AdminDao().updateMemberBlackY(conn, memNo);
 		
@@ -168,6 +165,76 @@ public class AdminService {
 		int result = new AdminDao().deleteThemePost(conn, tno, dno);
 		close(conn);
 		return result;
+	}
+
+
+	public int updateMemberBlackN(int memNo) {
+		Connection conn = getConnection();
+		System.out.println("updateMemberBlackN Service진입");
+		int result = new AdminDao().updateMemberBlackN(conn, memNo);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+}
+
+	public int selectReportListCount(int brCategory) {
+		Connection conn = getConnection();
+		int listCount = new AdminDao().selectReportListCount(conn, brCategory);
+		close(conn);
+		return listCount;
+	}
+
+	public int selectSearchReportListCount(String category, String text, int brCategory) {
+		Connection conn = getConnection();
+		int listCount = 0;
+
+		if(category.equals("mem_id")) {
+			listCount = new AdminDao().selectReportListCountByMemId(conn, text, brCategory);
+		}else if(category.contentEquals("rmem_id")) {
+			listCount = new AdminDao().selectReportListCountByRmemId(conn, text, brCategory);
+		}else if(category.contentEquals("rpt_category")) {
+			listCount = new AdminDao().selectReportListCountByRptCategory(conn, text, brCategory);
+		}
+		
+		close(conn);
+		return listCount;
+
+	}
+
+	public int selectSearchListCount(String category, String text) {
+		Connection conn = getConnection();
+		int listCount =0;
+		if(category.equals("아이디")) {
+			listCount = new AdminDao().selectListCountByMemberId(conn,text);
+		}else if(category.equals("이메일")) {
+			listCount = new AdminDao().selectListCountByEmail(conn,text);
+		}else if(category.equals("닉네임")) {
+			listCount = new AdminDao().selectListCountByMemName(conn,text);
+		}
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<Member> selectSearchList(PageInfo pi, String category, String text) {
+		Connection conn = getConnection();
+		ArrayList<Member> list = null;
+		if(category.equals("아이디")) {
+			list = new AdminDao().selectListByMemberId(conn,pi,text);
+		}else if(category.equals("이메일")) {
+			list = new AdminDao().selectListByEmail(conn,pi,text);
+		}else if(category.contentEquals("닉네임")) {
+			list = new AdminDao().selectListByMemName(conn,pi,text);
+		}
+		close(conn);
+		
+		return list;
 	}
 
 }
