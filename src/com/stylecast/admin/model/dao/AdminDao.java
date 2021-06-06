@@ -90,109 +90,7 @@ public class AdminDao {
 			return list;
 		}
 	
-	public Codi selectCodiGender(Connection conn, PageInfo pi) {
-		Codi c = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("SelectCodiGender");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-			int endRow = startRow + pi.getBoardLimit() - 1;
-			
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				c = new Codi(rset.getInt("codi_no"),
-							 rset.getString("gender"),
-							 rset.getString("img_path"),
-							 rset.getString("rec_weather"),
-							 rset.getInt("rec_lowt"),
-							 rset.getInt("rec_hight"));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return c;
-	}
 	
-	public Codi selectCodiWeather(Connection conn, PageInfo pi) {
-		Codi c = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("SelectCodiListWeather");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-			int endRow = startRow + pi.getBoardLimit() - 1;
-			
-			pstmt.setInt(3, startRow);
-			pstmt.setInt(4, endRow);
-			
-			if(rset.next()) {
-				c = new Codi(rset.getInt("codi_no"),
-							 rset.getString("gender"),
-							 rset.getString("img_path"),
-							 rset.getString("rec_weather"),
-							 rset.getInt("rec_lowt"),
-							 rset.getInt("rec_hight"));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return c;
-	}
-	
-	public Codi selectCodiBoth(Connection conn, PageInfo pi) {
-		Codi c = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("SelectCodiSearchBoth");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-			int endRow = startRow + pi.getBoardLimit() - 1;
-			
-			pstmt.setInt(4, startRow);
-			pstmt.setInt(5, endRow);
-			
-			if(rset.next()) {
-				c = new Codi(rset.getInt("codi_no"),
-							 rset.getString("gender"),
-							 rset.getString("img_path"),
-							 rset.getString("rec_weather"),
-							 rset.getInt("rec_lowt"),
-							 rset.getInt("rec_hight"));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return c;
-	}
 	
 	public Codi selectCodiUpdate(Connection conn, int codiNo) {
 		Codi c = null;
@@ -249,5 +147,321 @@ public class AdminDao {
 		return result;
 		
 	}
+
+	public int selectListCountByWeatherClear(Connection conn) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCountByWeatherClear");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
 	
+	public int selectListCountByWeatherRain(Connection conn) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCountByWeatherRain");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	public int selectListCountByGender(Connection conn, String gender) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCountByGender");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, gender);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	public int selectListCountByBothRain(Connection conn, String gender) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCountByBothRain");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, gender);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	public int selectListCountByBothCLEAR(Connection conn, String gender) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCountByBothCLEAR");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, gender);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<Codi> selectListByWeatherClear(Connection conn, PageInfo pi) {
+		ArrayList<Codi> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListByWeatherClear");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Codi c = new Codi();
+				c.setCodiNo(rset.getInt("codi_no"));
+				c.setGender(rset.getString("gender"));
+				c.setImgPath(rset.getString("img_path"));
+				c.setRecWeather(rset.getString("rec_weather"));
+				c.setRecLowT(rset.getInt("rec_lowt"));
+				c.setRecHighT(rset.getInt("rec_hight"));
+				
+				list.add(c);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	public ArrayList<Codi> selectListByWeatherRain(Connection conn, PageInfo pi) {
+		ArrayList<Codi> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListByWeatherRain");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Codi c = new Codi();
+				c.setCodiNo(rset.getInt("codi_no"));
+				c.setGender(rset.getString("gender"));
+				c.setImgPath(rset.getString("img_path"));
+				c.setRecWeather(rset.getString("rec_weather"));
+				c.setRecLowT(rset.getInt("rec_lowt"));
+				c.setRecHighT(rset.getInt("rec_hight"));
+				
+				list.add(c);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Codi> selectListByGender(Connection conn, String gender, PageInfo pi) {
+		ArrayList<Codi> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListByGender");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setString(1, gender);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Codi c = new Codi();
+				c.setCodiNo(rset.getInt("codi_no"));
+				c.setGender(rset.getString("gender"));
+				c.setImgPath(rset.getString("img_path"));
+				c.setRecWeather(rset.getString("rec_weather"));
+				c.setRecLowT(rset.getInt("rec_lowt"));
+				c.setRecHighT(rset.getInt("rec_hight"));
+				
+				list.add(c);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Codi> selectListByBothCLEAR(Connection conn, String gender, PageInfo pi) {
+		ArrayList<Codi> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListByBothCLEAR");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setString(1, gender);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Codi c = new Codi();
+				c.setCodiNo(rset.getInt("codi_no"));
+				c.setGender(rset.getString("gender"));
+				c.setImgPath(rset.getString("img_path"));
+				c.setRecWeather(rset.getString("rec_weather"));
+				c.setRecLowT(rset.getInt("rec_lowt"));
+				c.setRecHighT(rset.getInt("rec_hight"));
+				
+				list.add(c);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	public ArrayList<Codi> selectListByBothRain(Connection conn, String gender, PageInfo pi) {
+		ArrayList<Codi> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListByBothRain");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setString(1, gender);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Codi c = new Codi();
+				c.setCodiNo(rset.getInt("codi_no"));
+				c.setGender(rset.getString("gender"));
+				c.setImgPath(rset.getString("img_path"));
+				c.setRecWeather(rset.getString("rec_weather"));
+				c.setRecLowT(rset.getInt("rec_lowt"));
+				c.setRecHighT(rset.getInt("rec_hight"));
+				
+				list.add(c);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
 }
