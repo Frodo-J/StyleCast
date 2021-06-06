@@ -249,7 +249,7 @@
                                 <b>날씨 및 코디</b>
                             </h5>
                         </div>
-                        <div id="codi_box">
+                        <form id="codi_box" name="CodiInsert" action="" method="" enctype="multipart/form-data">
                             <div id="codi_flex_box">
                                 <div id="img_box">
                                     <img name="imgPath" id="codi_img" src="<%=c.getImgPath()%>"/>
@@ -263,9 +263,10 @@
 	                                                <td width="40%"><input
 	                                                    class="form-check-input"
 	                                                    type="radio"
-	                                                    name="flexRadioDefault"
+	                                                    name="gender"
 	                                                    id="flexRadioDefault1"
-	                                                    checked="checked">
+	                                                    checked="checked"
+	                                                    value="M">
 	                                                    <label class="form-check-label" for="flexRadioDefault1">
 	                                                       	 남성
 	                                                    </label>
@@ -274,9 +275,10 @@
 	                                                    <input
 	                                                        class="form-check-input"
 	                                                        type="radio"
-	                                                        name="flexRadioDefault"
+	                                                        name="gender"
 	                                                        id="flexRadioDefault1"
-	                                                        width="100px">
+	                                                        width="100px"
+	                                                        value="F">
 	                                                    <label class="form-check-label" for="flexRadioDefault1">
 	                                                       	 여성
 	                                                    </label>
@@ -288,8 +290,9 @@
 	                                                <td width="40%"><input
 	                                                    class="form-check-input"
 	                                                    type="radio"
-	                                                    name="flexRadioDefault"
-	                                                    id="flexRadioDefault1">
+	                                                    name="gender"
+	                                                    id="flexRadioDefault1"
+	                                                    value="M">
 	                                                    <label class="form-check-label" for="flexRadioDefault1">
 	                                                       	 남성
 	                                                    </label>
@@ -298,10 +301,11 @@
 	                                                    <input
 	                                                        class="form-check-input"
 	                                                        type="radio"
-	                                                        name="flexRadioDefault"
+	                                                        name="gender"
 	                                                        id="flexRadioDefault1"
 	                                                        width="100px"
-	                                                        checked="checked">
+	                                                        checked="checked"
+	                                                        value="F">
 	                                                    <label class="form-check-label" for="flexRadioDefault1">
 	                                                       	 여성
 	                                                    </label>
@@ -313,40 +317,40 @@
 	                                                <th>날씨</th>
 	                                                <td colspan="2">
 	                                                    <select name="weather" class="form-select" aria-label="Default select example">
-	                                                        <option value="1" selected="selected">sunny</option>
-	                                                        <option value="2">cloud</option>
-	                                                        <option value="3">rain</option>
-	                                                        <option value="4">snow</option>
+	                                                        <option value="SUNNY" selected="selected">sunny</option>
+	                                                        <option value="CLOUD">cloud</option>
+	                                                        <option value="RAIN">rain</option>
+	                                                        <option value="SNOW">snow</option>
 	                                                    </select>
 	                                                </td>
 	                                        	<% }else if(c.getRecWeather().equals("cloud")){ %>
 	                                        		<th>날씨</th>
 	                                                <td colspan="2">
 	                                                    <select name="weather" class="form-select" aria-label="Default select example">
-	                                                        <option value="1">sunny</option>
-	                                                        <option value="2" selected="selected">cloud</option>
-	                                                        <option value="3">rain</option>
-	                                                        <option value="4">snow</option>
+	                                                        <option value="SUNNY">sunny</option>
+	                                                        <option value="CLOUD" selected="selected">cloud</option>
+	                                                        <option value="RAIN">rain</option>
+	                                                        <option value="SNOW">snow</option>
 	                                                    </select>
 	                                                </td>
 	                                        	<% }else if(c.getRecWeather().equals("rain")){ %>
 	                                        		<th>날씨</th>
 	                                                <td colspan="2">
 	                                                    <select name="weather" class="form-select" aria-label="Default select example">
-	                                                        <option value="1" >sunny</option>
-	                                                        <option value="2">cloud</option>
-	                                                        <option value="3" selected="selected">rain</option>
-	                                                        <option value="4">snow</option>
+	                                                        <option value="SUNNY" >sunny</option>
+	                                                        <option value="CLOUD">cloud</option>
+	                                                        <option value="RAIN" selected="selected">rain</option>
+	                                                        <option value="SNOW">snow</option>
 	                                                    </select>
 	                                                </td>
 	                                        	<% }else{ %>
 	                                        		<th>날씨</th>
 	                                                <td colspan="2">
 	                                                    <select name="weather" class="form-select" aria-label="Default select example">
-	                                                        <option value="1">sunny</option>
-	                                                        <option value="2">cloud</option>
-	                                                        <option value="3">rain</option>
-	                                                        <option value="4" selected="selected">snow</option>
+	                                                        <option value="SUNNY">sunny</option>
+	                                                        <option value="CLOUD">cloud</option>
+	                                                        <option value="RAIN">rain</option>
+	                                                        <option value="SNOW" selected="selected">snow</option>
 	                                                    </select>
 	                                                </td>
 	                                        	<% } %>
@@ -356,7 +360,7 @@
                                                 <td colspan="2"><input
                                                     class="form-control"
                                                     type="text"
-                                                    name="hTemp"
+                                                    name="highT"
                                                     placeholder="최고기온"
                                                     aria-label="default input example"
                                                     value="<%=c.getRecHighT() %>"></td>
@@ -367,7 +371,7 @@
                                                 <td colspan="2"><input
                                                     class="form-control"
                                                     type="text"
-                                                    name=""
+                                                    name="lowT"
                                                     placeholder="최저기온"
                                                     aria-label="default input example"
                                                     value="<%=c.getRecLowT() %>"></td>
@@ -380,6 +384,7 @@
                                                             type="file"
                                                             class="form-control"
                                                             id="input-img1"
+                                                            name="imgPath"
                                                             aria-describedby="inputGroupFileAddon04"
                                                             aria-label="Upload"
                                                             onchange="loadImg(this,1);" >
@@ -438,9 +443,10 @@
                                 <div id="codi_button_box">
                                     <a href="<%=request.getContextPath() %>/codilist.ad?currentPage=1" type="button" class="btn btn-secondary" id="codi_btn_delete">취소</a>
                                     <button type="button" class="btn btn-primary" id="codi_btn_submit" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">수정</button>
+                                    <input type="hidden" name="cno" value="<%= c.getCodiNo() %>">
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                     <!-- Modal -->
                     <div
@@ -470,7 +476,8 @@
                                         class="btn btn-primary"
                                         data-bs-target="#exampleModalToggle2"
                                         data-bs-toggle="modal"
-                                        data-bs-dismiss="modal">확인</button>
+                                        data-bs-dismiss="modal"
+                                        onclick="clickInsert(CodiInsert)">확인</button>
                                 </div>
                             </div>
                         </div>
@@ -506,6 +513,16 @@
                             </div>
                         </div>
                     </div>
+                    <script>
+	                    function clickInsert(CodiInsert) {
+							console.log("hi");
+							CodiInsert.action = "<%= contextPath %>/UpDateForm.ad";
+							CodiInsert.method = "post";
+							CodiInsert.enctype = "multipart/form-data";
+							CodiInsert.submit();
+							 
+						}
+                    </script>
                     <br>
 
                 </div>

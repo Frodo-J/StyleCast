@@ -377,7 +377,6 @@
                                 <div id="codi_button_box">
                                     <button type="button" class="btn btn-secondary" id="codi_btn_delete" onclick="history.back();">취소</button>
                                     <button type="button" class="btn btn-primary" id="codi_btn_submit" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" >작성</button>
-                                    <input type="hidden" >
                                 </div>
                             </div>
                         </form>

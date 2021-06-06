@@ -93,5 +93,31 @@ public class AdminService {
 		
 		return listCount;
 	}
+
+	public int UpdateEnrollCodi(Codi c) {
+		Connection conn = getConnection();
+		int result = new AdminDao().UpdateEnrollCodi(conn, c);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int UpdateEnrollCodiImg(Codi c) {
+		Connection conn = getConnection();
+		int result = new AdminDao().UpdateEnrollCodiImg(conn, c);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 	
 }

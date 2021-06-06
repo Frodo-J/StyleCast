@@ -123,6 +123,57 @@ public class AdminDao {
 		return c;
 	}
 	
+	public int UpdateEnrollCodi(Connection conn, Codi c) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("UpdateEnrollCodi");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, c.getGender());
+			pstmt.setString(2, c.getRecWeather());
+			pstmt.setInt(3, c.getRecLowT());
+			pstmt.setInt(4, c.getRecHighT());
+			pstmt.setInt(5, c.getCodiNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+	
+	public int UpdateEnrollCodiImg(Connection conn, Codi c) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("UpdateEnrollCodiImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, c.getGender());
+			pstmt.setString(2, c.getImgPath());
+			pstmt.setString(3, c.getRecWeather());
+			pstmt.setInt(4, c.getRecLowT());
+			pstmt.setInt(5, c.getRecHighT());
+			pstmt.setInt(6, c.getCodiNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+	
 	public int insertCodi(Connection conn, Codi c) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -463,5 +514,6 @@ public class AdminDao {
 		
 		return list;
 	}
+
 
 }

@@ -391,7 +391,7 @@
                         <div id="write_box">
                             <div id="write_box_inner">
                                 <!-- 사용자일경우 안보이게-->
-                                <a type="button" class="btn btn-primary" href ="<%= request.getContextPath() %>/codiCreat.ad">코디 추가</a>
+                                <a type="button" class="btn btn-primary" href ="<%= request.getContextPath() %>/codiCreate.ad">코디 추가</a>
                             </div>
                         </div>
                         <br>
@@ -423,70 +423,7 @@
                     </div>
 
                 </div>
-                <!-- Modal -->
-                <div
-                    class="modal fade"
-                    id="exampleModalToggle"
-                    aria-hidden="true"
-                    aria-labelledby="exampleModalToggleLabel"
-                    tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalToggleLabel">
-                                    <b>확인창</b>
-                                </h5>
-                                <button
-                                    type="button"
-                                    class="btn-close"
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                코디를 수정하시겠습니까?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                                <button
-                                    class="btn btn-primary"
-                                    data-bs-target="#exampleModalToggle2"
-                                    data-bs-toggle="modal"
-                                    data-bs-dismiss="modal">확인</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div
-                    class="modal fade"
-                    id="exampleModalToggle2"
-                    aria-hidden="true"
-                    aria-labelledby="exampleModalToggleLabel2"
-                    tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalToggleLabel2">
-                                    <b>확인창</b>
-                                </h5>
-                                <button
-                                    type="button"
-                                    class="btn-close"
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                	수정되었습니다!
-                            </div>
-                            <div class="modal-footer">
-                                <button
-                                    class="btn btn-primary"
-                                    data-bs-toggle="modal"
-                                    data-bs-dismiss="modal"
-                                    onclick="blackMem(mem_detail)">확인</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <br>
 
             </div>

@@ -8,15 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import com.stylecast.admin.model.service.AdminService;
+import com.stylecast.admin.model.vo.Codi;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.stylecast.common.MyFileRenamePolicy;
 
 /**
- * Servlet implementation class CodiUpdateController
+ * Servlet implementation class CodiUpDateController
  */
-@WebServlet("/update.ad")
+@WebServlet("/codiUpDate.ad")
 public class CodiUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,24 +32,14 @@ public class CodiUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("UTF-8");
+		int codiNo = Integer.parseInt(request.getParameter("cno"));
 		
-		int maxSize = 10 * 1024 * 1024;
+		Codi c = new AdminService().selectCodiUpdate(codiNo);
 		
-		if(ServletFileUpload.isMultipartContent(request)) {
-			
-			String savePath = request.getSession().getServletContext().getRealPath("/resources/codi_upfiles/");
-			
-			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-			
-			int codiNo = Integer.parseInt(multiRequest.getParameter("cno"));
-			String imgPath = multiRequest.getParameter("imgPath");
-			String weather = multiRequest.getParameter("weather");
-			String gender = multiRequest.getParameter("flexRadioDefault");
-			
-			System.out.println(imgPath);
-			
-		}
+		
+		request.setAttribute("c", c);
+		
+		request.getRequestDispatcher("views/admin/adminCodiUpdate.jsp").forward(request, response);
 		
 	}
 
