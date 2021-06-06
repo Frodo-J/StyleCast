@@ -65,6 +65,11 @@
                 if(inputFile.files.length == 1){ 
                     // 선택된 파일이 존재할 경우 
                     // => 선택된 파일을 읽어들여서 그 영역에 맞는 곳에 미리보기
+                	// 확장자 체크
+                    if(!/\.(gif|jpg|jpeg|png)$/i.test(inputFile.files[0].name)){
+                    	alert('gif, jpg, png와 확장자명이 같은 이미지 파일만 선택해 주세요.\n\n현재 파일 : ' + inputFile.files[0].name);
+                    	return;
+                    }
                     
                     // 파일을 읽어들일 FileReader 객체 생성
                     var reader = new FileReader();
