@@ -1,15 +1,19 @@
 package com.stylecast.admin.model.service;
 
+import static com.stylecast.common.JDBCTemplate.close;
+import static com.stylecast.common.JDBCTemplate.commit;
+import static com.stylecast.common.JDBCTemplate.getConnection;
+import static com.stylecast.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.stylecast.admin.model.dao.AdminDao;
 import com.stylecast.common.model.vo.PageInfo;
-import com.stylecast.theme.model.vo.Theme;
 import com.stylecast.daily.model.vo.Report;
 import com.stylecast.member.vo.Member;
-
-import static com.stylecast.common.JDBCTemplate.*;
+import com.stylecast.theme.model.vo.Theme;
+import com.stylecast.theme.model.vo.ThemePost;
 
 public class AdminService {
 
@@ -146,6 +150,20 @@ public class AdminService {
 		}
 		close(conn);
 		
+		return result;
+	}
+	
+	public ArrayList<ThemePost> selectThemePost(int tno) {
+		Connection conn = getConnection();
+		ArrayList<ThemePost> plist = new AdminDao().selectThemePost(conn, tno);
+		close(conn);
+		return plist;
+	}
+	
+	public int deleteThemePost(int tno, int dno) {
+		Connection conn = getConnection();
+		int result = new AdminDao().deleteThemePost(conn, tno, dno);
+		close(conn);
 		return result;
 	}
 

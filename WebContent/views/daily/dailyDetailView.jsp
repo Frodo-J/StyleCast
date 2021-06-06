@@ -556,8 +556,8 @@ div {
 							<!-- 로그인 되어있지 않을 경우 -->
 							<input type="text" class="form-control"
 								placeholder="로그인 후 이용가능한 서비스입니다" readonly>
-							<button onclick="insertComment()"
-								; class="btn btn-secondary btn-sm" disabled>입력</button>
+							<button onclick="insertComment();"
+								class="btn btn-secondary btn-sm" disabled>입력</button>
 							<% } %>
 						</form>
 					</div>

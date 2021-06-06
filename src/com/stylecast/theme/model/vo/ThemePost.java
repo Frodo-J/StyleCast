@@ -15,7 +15,6 @@ public class ThemePost {
 		this.themeNo = themeNo;
 		this.dailyNo = dailyNo;
 	}
-
 	
 	public ThemePost(int dailyNo, String dailyImg, int count) {
 		super();
@@ -26,6 +25,13 @@ public class ThemePost {
 
 	public ThemePost(int dailyNo, String dailyImg) {
 		super();
+		this.dailyNo = dailyNo;
+		this.dailyImg = dailyImg;
+	}
+
+	public ThemePost(int themeNo, int dailyNo, String dailyImg) {
+		super();
+		this.themeNo = themeNo;
 		this.dailyNo = dailyNo;
 		this.dailyImg = dailyImg;
 	}

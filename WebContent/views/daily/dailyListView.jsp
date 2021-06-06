@@ -395,7 +395,8 @@ div {
 	            		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.da?currentPage=<%=currentPage+1%>';"> &gt; </button>
 					<% } %>
 				
-	        	</div>
+		        	</div>
+				</div>
 			</div>
 		</div>
 	</div>

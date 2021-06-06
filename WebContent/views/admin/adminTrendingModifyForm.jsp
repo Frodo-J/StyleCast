@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.stylecast.theme.model.vo.*"%>
+	pageEncoding="UTF-8" import="com.stylecast.theme.model.vo.*, java.util.ArrayList"%>
 <%
 	Theme t = (Theme)request.getAttribute("t");
+	ArrayList<ThemePost> plist = (ArrayList<ThemePost>)request.getAttribute("plist");
 %>
 <!DOCTYPE html>
 <html lang="kr">
@@ -130,7 +131,7 @@
 
             #add_box{
                 width: 808px;
-                height:549px;
+                height:548px;
                 margin: 3px;
                 background-color: white;
                 overflow: auto;
@@ -215,15 +216,17 @@
                 height: 240px;
                 float: left;
                 margin-left:53px;
-                margin-top: 20px;
+                margin-top: 15px;
             }
             .codi>img{
                 width: 200px;
                 height: 200px;
+                object-fit: cover;
+                border-radius: 5px;
             }
             .codi>button{
                 margin-top: 3px;
-                margin-left: 55px;
+                margin-left: 75px;
             }
             
             #add_none{
@@ -303,6 +306,7 @@
                                 		<input type="hidden" name="theme_no" value="<%= t.getThemeNo() %>">
                                     </div>
                                     <div id="select_box">
+                                    	<input type="hidden" id="subtitle" value="<%= t.getThemeSubtitle() %>">
                                         <select name="month" class="form-select form-select-sm">
                                             <option value="1">1</option>
                                             <option value="2">2</option>
@@ -347,10 +351,19 @@
                                 </form>
                             </div>
                             <div id="add_box">
-
-								<div id="add_none"><p>&emsp;&emsp;&ensp;테마에 추가된 데일리 게시글이 없습니다.<p></div>
+								<% if(plist.isEmpty()) { %>
+									<div id="add_none"><p>&emsp;&emsp;&ensp;테마에 추가된 데일리 게시글이 없습니다.<p></div>
+								<% } %>
+								<% for(ThemePost tp : plist) { %>
+									<div class="codi">
+										<img src="<%= tp.getDailyImg() %>">
+										<button type="button" class="del_btn btn btn-secondary btn-sm">삭제</button>
+										<input type="hidden" name="dThemeNo" value="<%= tp.getThemeNo() %>">
+										<input type="hidden" name="dDailyNo" value="<%= tp.getDailyNo() %>">
+									</div>
+								<% } %>
+								
                                     <script>
-
                                         
                                         $(document).ready(function(){
                                         	$("#add_btn").on('click', function(){
@@ -365,18 +378,35 @@
                                         
                                         function addRow(){
 
-                                            var html="<div class=\"codi\"><img src=\"img/codi4.jpg\" alt=\"\"><button name=\"del_btn\" type=\"button\" class=\"btn btn-secondary\" onClick=\"javascript:delRow(this);\">삭제하기</button>"
+                                            var html="<div class=\"codi\"><img src=\"img/codi4.jpg\"><button class=\"del_btn btn btn-secondary btn-sm\" type=\"button\">삭제</button></div>"
                                             $("#add_box").append(html);              
                                         }
 
-                                        function delRow(object){
-                                            var index = $("#codi[name=del_btn]").index(object);
+                                        $(document).on("click", ".del_btn", function(){
+                                            var index = $(".del_btn").index(this);
                                             var none = "<div id='add_none'><p>&emsp;&emsp;&ensp;테마에 추가된 데일리 게시글이 없습니다.<p></div>"
-                                            $(".codi").eq(index).remove();
-											if($(".codi").length == 0) {
-	                            				$("#add_box").append(none);
-	                            			}
-                                        }
+											console.log(index);
+                                            $.ajax({
+	                                        	url:"deleteTPost.tr",
+	                                        	data:{
+	                                        		tno:$(".codi").eq(index).children("input[name=dThemeNo]").val(),
+	                                        		dno:$(".codi").eq(index).children("input[name=dDailyNo]").val()
+	                                        	},
+	                                        	type:"post",
+	                                			success:function(result){
+	                                				if(result > 0) { 
+	                                					$(".codi").eq(index).remove();
+	        											if($(".codi").length == 0) {
+	        	                            				$("#add_box").append(none);
+	        	                            			}
+	                                				}
+	                                			},error:function(){
+	                                				console.log("데일리 항목 삭제 ajax통신 실패");
+	                                			}
+	                                        });
+											
+                                        })
+                                        
                                     </script>
       
                             </div>
@@ -398,6 +428,15 @@
 				}else{
 					$("input[name=status]").val('N');
 				}
+			});
+			
+			// subtitle값 반환
+			$(document).ready(function(){
+				var subtitle = $("#subtitle").val();
+				var arr1 = subtitle.split("월 ");
+				var arr2 = arr1[1].split("주차");
+				$("select[name=month]").val(arr1[0]);
+	            $("select[name=week]").val(arr2[0]);
 			});
 			
 
