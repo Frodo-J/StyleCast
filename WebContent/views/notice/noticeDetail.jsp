@@ -113,7 +113,7 @@
                     <tr>
                         <th>내용</th>
                         <td colspan="3">
-                            <div id="notice_contents">
+                            <div id="notice_contents" style="white-space:pre;">
                                	<%=n.getNoticeContent()%>
                                	<br>
                                	<br>
