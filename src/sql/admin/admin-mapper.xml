@@ -235,4 +235,20 @@
         ORDER BY RPT.ENR_DATE DESC
 	</entry>
 
+	<entry key="selectThemePost">
+		SELECT
+			   THEME_NO
+		     , DAILY_NO
+		     , DAILY_IMG
+		  FROM THEME_POST
+		  JOIN DAILY USING(DAILY_NO)
+		 WHERE THEME_NO = ?
+	</entry>
+	
+	<entry key="deleteThemePost">
+		DELETE 
+		  FROM THEME_POST
+		 WHERE THEME_NO = ?
+		   AND DAILY_NO = ?
+	</entry>
 </properties>
