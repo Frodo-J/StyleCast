@@ -65,7 +65,7 @@ public class DailyInsertController extends HttpServlet {
 	            // 상의
 	            String top = "top" + i;
 	            String topLink = "topLink" + i;
-	            if(multiRequest.getParameter(top) != null){ // 넘어온값이 있을때만 => Item객체 새로 생성해서
+	            if(!multiRequest.getParameter(top).equals("")){ // 넘어온값이 있을때만 => Item객체 새로 생성해서
 	                Item il = new Item();
 	                il.setItemName(multiRequest.getParameter(top));   // 상의 아이템명 담고
 	                il.setItemLink(multiRequest.getParameter(topLink));
@@ -76,7 +76,7 @@ public class DailyInsertController extends HttpServlet {
 	            // 위와 동일
 	            String bottom = "bottom" + i;
 	            String bottomLink = "bottomLink" + i;
-	            if(multiRequest.getParameter(bottom) != null){
+	            if(!multiRequest.getParameter(bottom).equals("")){
 	                Item il = new Item();
 	                il.setItemName(multiRequest.getParameter(bottom));
 	                il.setItemLink(multiRequest.getParameter(bottomLink));
@@ -86,7 +86,7 @@ public class DailyInsertController extends HttpServlet {
 
 	            String shoes = "shoes" + i;
 	            String shoesLink = "shoesLink" + i;
-	            if(multiRequest.getParameter(shoes) != null){
+	            if(!multiRequest.getParameter(shoes).equals("")){
 	                Item il = new Item();
 	                il.setItemName(multiRequest.getParameter(shoes));
 	                il.setItemLink(multiRequest.getParameter(shoesLink));
@@ -96,7 +96,7 @@ public class DailyInsertController extends HttpServlet {
 
 	            String etc = "etc" + i;
 	            String etcLink = "etcLink" + i;
-	            if(multiRequest.getParameter(etc) != null){
+	            if(!multiRequest.getParameter(etc).equals("")){
 	                Item il = new Item();
 	                il.setItemName(multiRequest.getParameter(etc));
 	                il.setItemLink(multiRequest.getParameter(etcLink));

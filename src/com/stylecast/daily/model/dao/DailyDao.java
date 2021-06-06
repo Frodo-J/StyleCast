@@ -807,12 +807,12 @@ public class DailyDao {
 		
 		try {			
 			for(Item il : list) {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, il.getItemName());
-				pstmt.setString(2, il.getItemLink());
-				pstmt.setString(3, il.getItemCategory());
-				
-				result = pstmt.executeUpdate();
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, il.getItemName());
+					pstmt.setString(2, il.getItemLink());
+					pstmt.setString(3, il.getItemCategory());
+					
+					result = pstmt.executeUpdate();
 			}
 			
 		} catch (SQLException e)  {
