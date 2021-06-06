@@ -143,87 +143,151 @@
 		 WHERE CM_NO = ?
 		   AND DAILY_NO = ?
 	</entry>
-	
-	<entry key="selectDailyCount">
-		SELECT COUNT(*) COUNT
-		FROM DAILY
-		WHERE DAILY_CONTENT LIKE '%'||?||'%'
-		   OR TAG LIKE '%'||?||'%' 
+
+	<entry key="selectMyDailyList">
+		SELECT
+			   DAILY_NO
+			 , MEM_NO
+			 , DAILY_CONTENT
+			 , ENR_DATE
+			 , DAILY_IMG
+			 , MEM_NAME
+			 , PROF_IMG
+		  FROM DAILY
+	      JOIN MEMBER USING (MEM_NO)
+	     WHERE MEM_NO = ?
+	  ORDER BY ENR_DATE DESC
+	</entry>
+
+	<entry key="selectMyDailyListCount">
+		SELECT
+			   COUNT(*) COUNT
+		  FROM DAILY
+		 WHERE MEM_NO = ?
+	</entry>
+
+	<entry key="checkLiked">
+		SELECT
+			   COUNT(*) COUNT
+		  FROM DAILY_LIKE
+		 WHERE MEM_NO = ?
+		   AND DAILY_NO =?
+	</entry>
+
+	<entry key="checkBookmark">
+		SELECT
+			   COUNT(*) COUNT
+		  FROM BOOKMARK
+		 WHERE MEM_NO = ?
+		   AND DAILY_NO =?
 	</entry>
 	
-	<entry key="selectDaily">
+	<entry key="selectLikedCount">
+		SELECT
+			   COUNT(*) COUNT
+		  FROM DAILY_LIKE
+		 WHERE DAILY_NO =?
+	</entry>
+	
+	<entry key="selectBookmarkCount">
+		SELECT
+			   COUNT(*) COUNT
+		  FROM BOOKMARK
+		 WHERE DAILY_NO =?
+	</entry>
+	
+	<entry key="selectMyBookmarkListCount">
+		SELECT
+			   COUNT(*) COUNT
+		  FROM BOOKMARK
+		 WHERE MEM_NO = ?
+	</entry>
+	
+	<entry key="selectLikedCountList">
 		SELECT *
 		  FROM (
 		        SELECT ROWNUM RNUM, A.*
 		          FROM (
-		                SELECT
-                               DAILY_NO
-                             , MEM_NO
-                             , DAILY_CONTENT
-                             , ENR_DATE
-                             , DAILY_IMG
-                             , TAG
-                             , MEM_NAME
-                             , PROF_IMG
-		                  FROM DAILY
-                          JOIN MEMBER USING (MEM_NO)
-                         WHERE DAILY_CONTENT LIKE '%'||?||'%'
-                         	OR TAG LIKE '%'||?||'%'
-		                 ORDER
-		                    BY ENR_DATE DESC)A
+		                SELECT NVL(L.COUNT, 0) DAILY_COUNT
+                        FROM (SELECT COUNT(*) COUNT, DAILY_NO
+                               FROM DAILY_LIKE
+                               GROUP BY DAILY_NO) L
+                        RIGHT JOIN DAILY D ON(L.DAILY_NO = D.DAILY_NO)
+                        ORDER BY D.ENR_DATE DESC
+		               )A
 		        )
 		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
-	<entry key="insertDaily">
-		INSERT 
-		       INTO DAILY
-		            (
-		            DAILY_NO
-		          , MEM_NO
-		          , DAILY_CONTENT
-		          , DAILY_IMG
-		          , TAG
-		            )
-		     VALUES
-		            (
-		            SEQ_DAILY.NEXTVAL
-		          , ?
-		          , ?
-		          , ?
-		          , ?
-	                )
+	<entry key="selectBookmarkCountList">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		                SELECT NVL(B.COUNT, 0) BOOKMARK_COUNT
+                        FROM (SELECT COUNT(*) COUNT, DAILY_NO
+                               FROM BOOKMARK
+                               GROUP BY DAILY_NO) B
+                        RIGHT JOIN DAILY D ON(B.DAILY_NO = D.DAILY_NO)
+                        ORDER BY D.ENR_DATE DESC
+		               )A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
-	<entry key="insertItem">
-	  
-		INSERT
-		       INTO ITEM
-		            (
-		            ITEM_NO
-		          , DAILY_NO
-		          , ITEM_NAME
-		          , ITEM_LINK
-		          , ITEM_CATEGORY
-		            )
-		     VALUES 
-		            (
-		            SEQ_ITEM.NEXTVAL
-		          , SEQ_DAILY.CURRVAL
-		          , ?
-		          , ?
-		          , ?
-		            )
+	<entry key="insertLike">
+	INSERT INTO DAILY_LIKE(
+						   MEM_NO
+					   ,   DAILY_NO)
+				    VALUES(
+				 		   ?
+				 	     , ?)
+	</entry>
+
+	<entry key="deleteLike">
+	DELETE FROM DAILY_LIKE
+	WHERE MEM_NO = ?
+	  AND DAILY_NO = ?
 	</entry>
 	
+	<entry key="selectMyLikedCountList">
+		SELECT NVL(L.COUNT, 0) DAILY_COUNT, D.DAILY_NO
+		FROM (SELECT COUNT(*) COUNT, DAILY_NO
+				FROM DAILY_LIKE
+				GROUP BY DAILY_NO) L
+		RIGHT JOIN DAILY D ON(L.DAILY_NO = D.DAILY_NO)
+		WHERE MEM_NO = ?
+		ORDER BY D.ENR_DATE DESC
+	</entry>
 	
+	<entry key="selectMyBookmarkCountList">
+		SELECT NVL(B.COUNT, 0) DAILY_COUNT, D.DAILY_NO
+		FROM (SELECT COUNT(*) COUNT, DAILY_NO
+				FROM BOOKMARK
+				GROUP BY DAILY_NO) B
+		RIGHT JOIN DAILY D ON(B.DAILY_NO = D.DAILY_NO)
+		WHERE MEM_NO = ?
+		ORDER BY D.ENR_DATE DESC
+	</entry>
 	
+	<entry key="selectLikedCountBk">
+		SELECT NVL(L.COUNT, 0) DAILY_COUNT, BK.DAILY_NO
+		FROM (SELECT COUNT(*) COUNT, DAILY_NO
+				FROM DAILY_LIKE
+				GROUP BY DAILY_NO) L
+		RIGHT JOIN BOOKMARK BK ON(L.DAILY_NO = BK.DAILY_NO)
+		WHERE MEM_NO = ?
+		ORDER BY BK.ENR_DATE DESC
+	</entry>
 	
-	
-	
-	
-	
-	
-	
+	<entry key="selectBookmarkCountBk">
+		SELECT NVL(B.COUNT, 0) DAILY_COUNT, BK.DAILY_NO
+		FROM (SELECT COUNT(*) COUNT, DAILY_NO
+				FROM BOOKMARK
+				GROUP BY DAILY_NO) B
+		RIGHT JOIN BOOKMARK BK ON(B.DAILY_NO = BK.DAILY_NO)
+		WHERE MEM_NO = ?
+		ORDER BY BK.ENR_DATE DESC
+	</entry>
 	
 </properties>

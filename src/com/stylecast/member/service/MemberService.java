@@ -6,7 +6,9 @@ import static com.stylecast.common.JDBCTemplate.getConnection;
 import static com.stylecast.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
+import com.stylecast.daily.model.vo.Daily;
 import com.stylecast.member.dao.MemberDao;
 import com.stylecast.member.vo.Member;
 
@@ -48,10 +50,135 @@ public class MemberService {
 		return memPwd;
 	}
 	
+	public Member updateMember(Member m) {
+		
+		Connection conn = getConnection();
+		int result = new MemberDao().updateMember(conn, m);
+		
+		Member updateMem = null;
+		if(result > 0) {
+			commit(conn);
+			
+			// 갱신된 회원 객체 다시 조회
+			updateMem = new MemberDao().selectMember(conn, m.getMemId());
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return updateMem;
+	}
+
+	public String checkMember(String memId) {
+		
+		Connection conn = getConnection();
+		
+		String memPwd = new MemberDao().checkMember(conn, memId);
+		close(conn);
+		
+		return memPwd;
+	}
+
+	public int deleteMember(String memId) {
+
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().deleteMember(conn, memId);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+		
+	}
+
+	public int insertBookmark(int memNo, int dailyNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().insertBookmark(conn, memNo, dailyNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int deleteBookmark(int memNo, int dailyNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().deleteBookmark(conn, memNo, dailyNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public ArrayList<Daily> selectMyBookmarkList(int memNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Daily> list = new MemberDao().selectMyBookmarkList(conn, memNo);
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Daily> selectMyLikeList(int memNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Daily> list = new MemberDao().selectMyLikeList(conn, memNo);
+		close(conn);
+		
+		return list;
+	}
+	
 	public int idCheck(String checkId) {
 		Connection conn = getConnection();
 		int count = new MemberDao().idCheck(conn, checkId);
 		close(conn);
 		return count;
+	}
+
+	public int updateProfImg(Member mem) {
+		
+		Connection conn = getConnection();
+		int result = new MemberDao().updateProfImg(conn, mem);
+
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+
+	public String selectProfImg(int memNo) {
+		Connection conn = getConnection();
+		String uProfImg = new MemberDao().selectProfImg(conn, memNo);
+		close(conn);
+		return uProfImg;
 	}
 }

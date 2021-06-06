@@ -39,7 +39,7 @@ public class MyPageUpdate extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String userPwd = (request.getParameter("userNewPwd") == "") ? request.getParameter("userPwd") : request.getParameter("userNewPwd");
 		
-		Member m = new Member(userId, userPwd, userName, email, gender);
+		Member m = new Member(userId, email, userPwd, userName, gender);
 		
 		// 수정한 회원의 정보
 		Member updateMem = new MemberService().updateMember(m);
@@ -47,7 +47,7 @@ public class MyPageUpdate extends HttpServlet {
 		if(updateMem == null) { // 정보 수정 실패
 			
 			request.setAttribute("errorMsg", "회원 정보 수정에 실패했습니다.");
-			request.getRequestDispatcher("view/common/errorPage.jsp").forward(request, response);;
+			request.getRequestDispatcher("view/common/errorPage.jsp").forward(request, response);
 		
 		}else { // 정보 수정 성공
 			

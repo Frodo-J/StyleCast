@@ -6,11 +6,25 @@
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Daily> list = (ArrayList<Daily>)request.getAttribute("list");
 	ArrayList<Report> rlist = new ArrayList<>();
+	ArrayList<Daily> bList = (ArrayList<Daily>)request.getAttribute("bList");
+	ArrayList<Daily> lList = (ArrayList<Daily>)request.getAttribute("lList");
 	
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
+	
+	int[] bArr = new int[bList.size()];
+	int bSize = 0;
+	for(Daily bDaily : bList){
+	  bArr[bSize++] = bDaily.getDailyNo();
+	}
+	
+	int[] lArr = new int[lList.size()];
+	int lSize = 0;
+	for(Daily lDaily : lList){
+	  lArr[lSize++] = lDaily.getDailyNo();
+	}
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -157,15 +171,15 @@ div {
 	float: left;
 	font-size: 12px;
 	font-weight: 500;
-	margin: 0px 0px 1px 28px;
+	margin: 1px 0px 1px 28px;
 }
 
 .text {
 	float: left;
-	font-size: 12px;
+	font-size: 13px;
 	width: 140px;
-	height: 34px;
-	margin: 4px 0px;
+	height: 38px;
+	margin: 3px 0px;
 	overflow: hidden;
 }
 
@@ -174,7 +188,7 @@ div {
 	background: url("resources/images/react_icon/plus.svg") no-repeat;
 	width: 24px;
 	height: 24px;
-	margin: 8px 5px 0px 5px;
+	margin: 12px 5px 0px 5px;
 	border: 0px;
 }
 
@@ -182,7 +196,7 @@ div {
 	float: left;
 	width: 200px;
 	height: 26px;
-	margin: 10px 26px 15px 34px;
+	margin: 7px 26px 7px 34px;
 }
 
 .react>div {
@@ -225,6 +239,11 @@ div {
 	margin-top: 970px;
 	margin-left: 500px;
 }
+
+#font_daily{
+	color: rgb(241, 196, 15);
+}
+	        
 </style>
 <!-- bootstrap -->
 <link
@@ -257,10 +276,21 @@ div {
 					<div class="daily_img">
 						<img src="<%= contextPath %>/<%= d.getDailyImg() %>" alt="">
 						<div class="action_hover">
-							<!-- 로그인시 가능하도록 설정해야함 -->
 							<% if(loginUser != null) { %>
 							<div class="action">
-								<input type="button" class="like">
+								<% int l = 0; %>
+	                            	<%for (int i = 0; i < lArr.length; i++) {%>
+	                            		 <%if (lArr[i] == d.getDailyNo()) { %>
+	                            		 	<input type="button" class="like"
+	        		                        style="background: url('resources/images/react_icon/sun_yellow.svg') no-repeat center/contain; width:100%; height: 100%; border:0px; background-size: 25px 25px;">
+	                            			<% l++;%>
+	                            			<% d.setLikeCount(1); %>
+	                            	<%}}%>
+	                            		<%if(l == 0) {%>
+	                            			<input type="button" class="like"
+		                            		style="background: url('resources/images/react_icon/sun2.svg') no-repeat center/contain; width:100%; height: 100%; border:0px; background-size: 25px 25px;">   	
+	                            			<% d.setLikeCount(0); %>
+	                            		<%} %>
 							</div>
 							<div class="vertical-line"></div>
 							<div class="action">
@@ -268,7 +298,19 @@ div {
 							</div>
 							<div class="vertical-line"></div>
 							<div class="action">
-								<input type="button" class="bookmark">
+								<% int b = 0; %>
+	                            	<%for (int i = 0; i < bArr.length; i++) {%>
+	                            		 <%if (bArr[i] == d.getDailyNo()) { %>
+	                            		 	<input type="button" class="bookmark"
+	        		                        style="background: url('resources/images/react_icon/bookmark_blue.svg') no-repeat center/contain; width:100%; height: 100%; border:0px; background-size: 25px 25px;">
+	                            			<% b++;%>
+	                            			<% d.setBookmarkCount(1); %>
+	                            	<%}}%>
+	                            		<%if(b == 0) {%>
+	                            			<input type="button" class="bookmark"
+		                            		style="background: url('resources/images/react_icon/bookmark2.svg') no-repeat center/contain; width:100%; height: 100%; border:0px; background-size: 25px 25px;">   	
+	                            			<% d.setBookmarkCount(0); %>
+	                            		<%} %>
 							</div>
 							<div class="vertical-line"></div>
 							<div class="action">
@@ -312,11 +354,11 @@ div {
 					<input type="button" class="more" onclick="">
 					<div class="react">
 						<div class="react_like"></div>
-						<div class="react_count">10</div>
+						<div class="react_count"><%= d.getLikeCount() %></div>
 						<div class="react_comment"></div>
 						<div class="react_count">10</div>
 						<div class="react_bookmark"></div>
-						<div class="react_count">10</div>
+						<div class="react_count"><%= d.getBookmarkCount() %></div>
 					</div>
 				</div>
 				<% } %>
@@ -332,33 +374,114 @@ div {
 				<% } %>
 
 				<!-- 페이징바 -->
-				<div id="navigation">
-					<ul class="pagination">
-						<li class="page-item">
-							<% if(currentPage != 1) { %> <a class="page-link"
-							href="<%=contextPath%>/list.da?currentPage=<%=currentPage-1%>"
-							aria-label="Previous"> <span aria-hidden="true">&lt;</span>
-						</a> <% } %>
-						</li>
-						<% for(int p=startPage; p<=endPage; p++) { %>
-						<li class="page-item">
-							<% if(p != currentPage) { %> <a class="page-link"
-							href="<%=contextPath%>/list.da?currentPage=<%= p %>"><%= p %></a>
-							<% }else { %> <a class="page-link" href="#"><%= p %></a> <% } %>
-						</li>
+				<div id="navigation" class="text-center">
+	             	<div align="center" class="btn-group me-2" role="group" aria-label="First group">
+	
+						<% if(currentPage != 1){ %>
+	            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.da?currentPage=<%=currentPage-1%>';"> &lt; </button>
 						<% } %>
-						<li class="page-item">
-							<% if (currentPage != maxPage) { %> <a class="page-link"
-							href="<%=contextPath%>/list.da?currentPage=<%=currentPage+1%>"
-							aria-label="Next"> <span aria-hidden="true">&gt;</span>
-						</a> <% } %>
-						</li>
-					</ul>
-
+	
+	            		<% for(int p=startPage; p<=endPage; p++){ %>
+	            	
+	            			<% if(p != currentPage){ %>
+		            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.da?currentPage=<%= p %>';"><%= p %></button>
+		            		<% }else { %>
+		            			<button type="button" class="btn btn-outline-secondary" disabled><%= p %></button>
+	            			<% } %>
+	            	
+	            		<% } %>
+	
+					<% if(currentPage != maxPage){ %>
+	            		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/list.da?currentPage=<%=currentPage+1%>';"> &gt; </button>
+					<% } %>
+				
+		        	</div>
 				</div>
 			</div>
 		</div>
 	</div>
+    
+    <!-- 북마크 -->
+    <script>
+	    $(".daily_img .action_hover .bookmark").click(function(){
+	    	
+	    	var bc = $(this).closest(".daily_post").find(".react_bookmark").next();
+	    	var img = $(this);
+	    	
+	    	<% if(loginUser != null) {%>
+			$.ajax({
+        		url:"bookmarkMulti.do",
+        		data:{
+        			memNo:<%=loginUser.getMemNo()%>,
+        			dailyNo:$(this).parent().next().next().children("input[name=reportDailyNo]").val()
+        		},
+        		type:"post",
+        		success:function(daily){ // 성공시 실행 함수 => 북마크 버튼 색 변경, 북마크수 갱신
+					//북마크수 갱신
+        			bc.html(daily.bookmarkCount); 
+        		
+        			if(daily.likeCount > 0){ // 북마크 등록 완료
+        				img.css({"background" : "url('resources/images/react_icon/bookmark_blue.svg') no-repeat center/contain"
+											 	 , "background-size" : "25px 25px"
+							       				 , "border" : "0px"
+							       				 , "width" : "100%"
+							       				 , "height" : "100%"});
+        			} else{ // 북마크 삭제 완료
+        				img.css({"background" : "url('resources/images/react_icon/bookmark2.svg') no-repeat center/contain"
+										 		 , "background-size" : "25px 25px"
+							       				 , "border" : "0px"
+							       				 , "width" : "100%"
+							       				 , "height" : "100%"});
+        			}
+        				
+        		},error:function(){ // 실패시 실행 함수
+        			console.log("북마크 등록/삭제 실패");
+        		}
+        	})
+        <%} %>
+		})
+    </script>
+    
+    <!-- 좋아요 -->
+    <script>
+	    $(".daily_img .action_hover .like").click(function(){
+	    	
+	    	var lc = $(this).closest(".daily_post").find(".react_like").next();
+	    	var img = $(this);
+	    	
+	    	<% if(loginUser != null) {%>
+			$.ajax({
+        		url:"likeMulti.do",
+        		data:{
+        			memNo:<%=loginUser.getMemNo()%>,
+        			dailyNo:$(this).parent().siblings(".action").children("input[name=reportDailyNo]").val()
+        		},
+        		type:"post",
+        		success:function(daily){ // 성공시 실행 함수 => 좋아요 버튼 색 변경, 좋아요수 갱신
+					//좋아요수 갱신
+        			lc.html(daily.likeCount); 
+        		
+        			if(daily.bookmarkCount > 0){ // 좋아요 등록 완료
+        				img.css({"background" : "url('resources/images/react_icon/sun_yellow.svg') no-repeat center/contain"
+											 	 , "background-size" : "25px 25px"
+							       				 , "border" : "0px"
+							       				 , "width" : "100%"
+							       				 , "height" : "100%"});
+        			} else{ // 좋아요 삭제 완료
+        				img.css({"background" : "url('resources/images/react_icon/sun2.svg') no-repeat center/contain"
+										 		 , "background-size" : "25px 25px"
+							       				 , "border" : "0px"
+							       				 , "width" : "100%"
+							       				 , "height" : "100%"});
+        			}
+        				
+        		},error:function(){ // 실패시 실행 함수
+        			console.log("좋아요 등록/삭제 실패");
+        		}
+        	})
+        <%} %>
+		})
+    </script>
 
 	<!-- 게시글 신고 Modal -->
 	<div class="modal fade" id="reportModal" tabindex="-1"
@@ -373,7 +496,6 @@ div {
 				<div class="modal-body">
 					<form action="<%=contextPath%>/report.da" method="post"
 						style="line-height: 30px;">
-						<!-- 회원번호, 피신고회원번호, 내용(널러블), 게시판카테고리(0), 데일리번호, 신고카테고리 -->
 						<input type="hidden" id="memNo" name="memNo" value=""> <input
 							type="hidden" id="rMemNo" name="rMemNo" value=""> <input
 							type="hidden" id="dailyNo" name="dailyNo" value=""> <input

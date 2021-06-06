@@ -20,16 +20,14 @@ public class QnaDao {
 	
 	private Properties prop = new Properties();
 	
-	public QnaDao() {
-		
-		String filename = QnaDao.class.getResource("/sql/qna/qna-mapper.xml").getPath();
-		
-		try {
-			prop.loadFromXML(new FileInputStream(filename));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	 public QnaDao() {
+
+	        try {
+	            prop.loadFromXML(new FileInputStream(QnaDao.class.getResource("/sql/qna/qna-mapper.xml").getPath()));
+	        }catch(IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
 	
 	public ArrayList<Qna> selectMyQnaList(Connection conn, int memNo, PageInfo pi){
 		

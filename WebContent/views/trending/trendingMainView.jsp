@@ -1,9 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.stylecast.theme.model.vo.*, java.util.ArrayList"%>
+	pageEncoding="UTF-8" import="com.stylecast.theme.model.vo.*, java.util.ArrayList, com.stylecast.daily.model.vo.*, java.util.ArrayList"%>
 <%
 	Theme t = (Theme)request.getAttribute("t");
 	ArrayList<ThemePost> plist = (ArrayList<ThemePost>)request.getAttribute("plist");
 	ArrayList<Theme> tlist = (ArrayList<Theme>)request.getAttribute("tlist");
+	ArrayList<Daily> lList = (ArrayList<Daily>)request.getAttribute("lList");
+	
+	int[] lArr = new int[lList.size()];
+	int lSize = 0;
+	for(Daily lDaily : lList){
+	  lArr[lSize++] = lDaily.getDailyNo();
+	}
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -145,6 +152,10 @@ div {
 	top: 33px;
 }
 
+#font_trending{
+	color: rgb(241, 196, 15);
+}
+
 .post:hover {
 	opacity: 0.8;
 	cursor: pointer;
@@ -196,7 +207,16 @@ div {
 						<img src="<%= tp.getDailyImg() %>">
 						<div class="like_count">받은 좋아요 <%= tp.getCount() %></div>
 						<% if(loginUser != null) { %>
-							<input type="button" class="like_button"></input>
+							<% int l = 0; %>
+	                            	<%for (int i = 0; i < lArr.length; i++) {%>
+	                            		 <%if (lArr[i] == tp.getDailyNo()) { %>
+	                            		 	<input type="button" class="like_button"
+	                            		 	style="background: url('resources/images/react_icon/sun_yellow.svg') no-repeat; background-size: cover;">
+	                            			<% l++;%>
+	                            	<%}}%>
+	                            		<%if(l == 0) {%>
+	                            			<input type="button" class="like_button">   	
+	                            		<%} %>
 						<% }else { %>
 							<input type="button" class="like_button" data-bs-toggle="modal" data-bs-target="#logoutUserModal"></input>
 						<% } %>
@@ -244,6 +264,38 @@ div {
         if(event.target.className=='like_button') return;
         $(location).attr("href", "<%=contextPath%>/detail.th?tno=" + <%= t.getThemeNo() %> + "&dno=" + $(this).children().eq(0).val());
     });
+    
+    // 좋아요
+    $(".post .like_button").click(function(){
+
+		var lc = $(this).siblings(".like_count");
+		var img = $(this);
+		
+		<% if(loginUser != null) {%>
+			
+			$.ajax({
+        		url:"likeMulti.do",
+        		data:{
+        			memNo:<%=loginUser.getMemNo()%>,
+        			dailyNo:$(this).parent(".post").children().eq(0).val()
+        		},
+        		type:"post",
+        		success:function(daily){ // 성공시 실행 함수 => 좋아요 버튼 색 변경, 좋아요수 갱신
+					//좋아요수 갱신
+        			lc.html("받은 좋아요 " + daily.likeCount);
+        		
+    			if(daily.bookmarkCount > 0){ // 좋아요 등록 완료
+    				img.css({"background" : "url('resources/images/react_icon/sun_yellow.svg') no-repeat center/contain"});
+    			} else{ // 좋아요 삭제 완료
+    				img.css({"background" : "url('resources/images/react_icon/sun2.svg') no-repeat center/contain"});
+    			}
+        				
+        		},error:function(){ // 실패시 실행 함수
+        			console.log("좋아요 등록/삭제 실패");
+        		}
+        	})
+		<%} %>
+		})
     
 	</script>
 </body>

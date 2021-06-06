@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.stylecast.daily.model.vo.Reply, com.stylecast.common.model.vo.PageInfo" %>
+<%
+ 	PageInfo pi = (PageInfo)request.getAttribute("pi");
+ 	ArrayList<Reply> list = (ArrayList<Reply>)request.getAttribute("list");
+
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+ %>
 <!DOCTYPE html>
 <html lang="kr">
 <head>
@@ -25,11 +35,10 @@
             box-sizing: border-box;
         }
        
-        .wrap{width:1200px; height:1300px;  margin: auto;}
+        .wrap{width:1200px; height:1144px;  margin: auto;}
 
         #header, #content{width:100%;}
-        #header{height:12%;}
-        #content{height:88%; width: 90%; margin: auto;}
+        #content{height:100%; width: 90%; margin: auto;}
 
         #side, #mypage{float: left; height: 100%;}
         #side{width: 20%;}
@@ -49,7 +58,8 @@
         #prof div, #menu div{width: 100%;}
         #menu a{color: black; text-decoration: none;}
 
-        #prof_img{height: 70%; padding: 20px;}
+        #prof_img{height: 70%; padding: 20px; /*border: solid 1px red;*/}
+        #prof_img>img{width: 100px; height: 100px;}
 
         #write>div{font-size: 13px; padding-left: 20px; margin-top: 8px;}
         #menu>div{margin-bottom: 15px;}
@@ -67,7 +77,8 @@
             float:left;
         }
 
-        #prof-img{width: 35%;}
+        #prof-img{width: 35%; /*border: solid 1px red;*/}
+        #prof-img>img{width: 100px; height: 100px;}
         #prof-delete{height: 30px;}
         #prof-input{width: 65%;}
 
@@ -88,6 +99,8 @@
             margin: auto;
         }
         
+        .hidden-col{display: none;}
+        
         /* 페이지 박스 css */
         #page_box{
             width: 90%;
@@ -103,27 +116,29 @@
     
     <div class="wrap">
 
-        <div id="header"></div>
-
         <div id="content">
             <div id="side">
 
                 <div id="line"></div>
                 
                 <div id="prof">
-                    <div id="prof_img" align="center"><img src="resources/prof.png"></div>
-                    <div id="prof_nick" align="center">닉네임</div>
+                    <div id="prof_img" align="center"><img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle"></div>
+                    <div id="prof_nick" align="center"><%= loginUser.getMemName() %></div>
+                    <input id="contextpath" type="hidden" value="<%= contextPath %>">
                 </div>
 
                 <div id="menu">
                     <div id="write" style="font-weight: bold;">
-                        내가 쓴 글
-                        <div><a href="<%= request.getContextPath() %>/myPage.me">데일리</a></div>
-                        <div><a href="<%= request.getContextPath() %>/reply.me" style="font-weight: normal;">댓글</a></div>
-                        <div><a href="<%= request.getContextPath() %>//question.me?currentPage=1" style="font-weight: normal;">문의글</a></div>
+                        	내가 쓴 글
+                        <div><a href="<%= request.getContextPath() %>/myPage.me" style="font-weight: normal;">데일리</a></div>
+                        <div><a href="<%= request.getContextPath() %>/reply.me?currentPage=1">댓글</a></div>
+                        <div><a href="<%= request.getContextPath() %>/question.me?currentPage=1" style="font-weight: normal;">문의글</a></div>
                     </div>
                     <div><a href="<%= request.getContextPath() %>/bookmark.me">북마크</a></div>
                     <div><a href="<%= request.getContextPath() %>/myMember.me">개인정보 수정</a></div>
+                    <% if(loginUser != null && loginUser.getAdminYN().equals("Y")){ %>
+                    	<div><a href="<%= request.getContextPath() %>/memlist.adm?blackListYN=N&&currentPage=1">관리자 페이지</a></div>
+                    <% } %>
                 </div>
             </div>
 
@@ -136,15 +151,16 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="prof-body" align="center">
-                        <form action="" method="post" style="line-height: 30px;">
+                        <form name="profImg_update" style="line-height: 30px;">
                             <div id="prof-img">
-                                <img src="resources/prof.png">
+                                <img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle">
                                 <button id="prof-delete" class="btn btn-light btn-sm">삭제</button>
                             </div>
                             <div id="prof-input"><input type="file" name="userProfImg"></div>  
+                            <input type="hidden" name="memId" value="<%=loginUser.getMemId()%>">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width: 90px; margin: auto;">취소</button>
                             &emsp;&emsp;
-                            <button type="button" class="btn btn-primary" onclick="" style="width: 90px;">등록</button>
+                            <button type="button" class="btn btn-primary" onclick="imgUpdate(profImg_update);" style="width: 90px;">등록</button>
                         </form>
                     </div>
                 </div>
@@ -156,6 +172,15 @@
                 $("#prof_img").click(function(){
                     $("#profModal").modal("show");
                 })
+            </script>
+            
+            <script>
+	            function imgUpdate(formName){
+	        		formName.action = "/StyleCast/updateProf.me";
+	        		formName.method = "post";
+	        		formName.enctype = "multipart/form-data";
+	        		formName.submit();
+	        	}
             </script>
 
             <div id="mypage">
@@ -169,103 +194,104 @@
                             <th width="20%">번호</th>
                             <th width="60%">댓글</th>
                             <th width="20%">작성일</th>
+                            <th class="hidden-col" width="20%">게시글 번호</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                            <td>13</td>
-                            <td>댓글내용</td>
-                            <td>2021-05-15</td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td>댓글내용</td>
-                            <td>2021-05-15</td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>댓글내용</td>
-                            <td>2021-05-15</td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>댓글내용</td>
-                            <td>2021-05-15</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>댓글내용</td>
-                            <td>2021-05-15</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>댓글내용</td>
-                            <td>2021-05-15</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>댓글내용</td>
-                            <td>2021-05-15</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>댓글내용</td>
-                            <td>2021-05-15</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>댓글내용</td>
-                            <td>2021-05-15</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>댓글내용</td>
-                            <td>2021-05-15</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>댓글내용</td>
-                            <td>2021-05-15</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>댓글내용</td>
-                            <td>2021-05-15</td>
-                        </tr>
-                        <tr>
-                          <td>1</td>
-                          <td>댓글내용</td>
-                          <td>2021-05-15</td>
-                        </tr>
-                        <!-- 댓글이 없을 경우-->
-                        <!--
-                            <tr>
+                      
+                      <%if(list.isEmpty()){ %>
+                      
+                      <!-- 댓글이 없을 경우 -->
+						<tr>
                             <td colspan="3">작성한 댓글이 없습니다.</td>
-                            </tr>
-                        -->
+                            <td class="hidden-col"></td>
+                        </tr>
+                        
+                      <%} else{%>
+                      
+                      <!-- 댓글이 있을 경우 -->
+                      <%for(Reply reply : list){ %>
+                        <tr>
+                            <td><%=reply.getCmNo() %></td>
+                            <td><%=reply.getCmContent() %></td>
+                            <td><%=reply.getEnrDate() %></td>
+                            <td class="hidden-col"><%=reply.getDailyNo() %></td>
+                        </tr>
+                       <%} %>
+                      <%} %>
                       </tbody>
                   </table>
             </div>
+            	
+            	<script>
+            		// 프로필 이미지 갱신
+            		$(function(){
+            			
+            			var cp = $("#contextpath").val();
+            			
+            			$.ajax({
+			        		url:"profImgSelect.me",
+			        		data:{
+			        			memNo:<%=loginUser.getMemNo()%>
+			        		},
+			        		type:"post",
+			        		success:function(profImg){
+								$("#content #prof_img img").attr("src", cp + profImg);
+								$(".modal-content #prof-img img").attr("src", cp + profImg);
+			        		},error:function(){
+			        			console.log("프로필 이미지 불러오기 실패");
+			        		}
+			        	})
+            		})
+            	</script>
+            
+            <script>
+	            $("table>tbody>tr").click(function(){
+	            	location.href = "<%=contextPath%>/detail.da?dno=" + $(this).children().eq(3).text();
+		        });
+            </script>
 
             <div id="page_box">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
-                      <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item"><a class="page-link" href="#">2</a></li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">&raquo;</a>
-                      </li>
+                    	
+               			<% if(currentPage == 1){ %>
+               				<!-- 현재 페이지가 1일 때 -->
+							<li class="page-item disabled">
+		                       <a class="page-link" href="<%=contextPath%>/question.me?currentPage=<%= currentPage-1 %>" tabindex="-1" aria-disabled="true">&laquo;</a>
+		                    </li>
+						<% }else { %>
+               				<!-- 현재 페이지가 1이 아닐 때 -->
+							<li class="page-item">
+		                       <a class="page-link" href="<%=contextPath%>/question.me?currentPage=<%= currentPage-1 %>" tabindex="-1" aria-disabled="true">&laquo;</a>
+		                    </li>
+						<%} %>
+                      
+                      <% for(int p=startPage; p<=endPage; p++){ %>
+                      	<% if(p != currentPage){ %>
+                      		<li class="page-item"><a class="page-link" href="<%=contextPath%>/question.me?currentPage=<%= p %>"><%= p %></a></li>
+                      	<% }else { %>
+                      	<!-- 현재 페이지 버튼 -->
+                      		<li class="page-item disabled"><button class="page-link"><%= p %></button></li>
+                      	<% } %>
+                      <% } %>
+                      
+                      <% if(currentPage == maxPage){ %>
+               				<!-- 현재 페이지가 마지막 페이지일 때 -->
+							<li class="page-item disabled">
+		                       <a class="page-link" href="<%=contextPath%>/question.me?currentPage=<%= currentPage-1 %>" tabindex="-1" aria-disabled="true">&raquo;</a>
+		                    </li>
+						<% }else { %>
+               				<!-- 현재 페이지가 1이 아닐 때 -->
+							<li class="page-item">
+		                       <a class="page-link" href="<%=contextPath%>/question.me?currentPage=<%= currentPage+1 %>">&raquo;</a>
+		                    </li>
+						<%} %>
                     </ul>
                   </nav>
             </div>
             </div>
         </div>
-
     </div>
-
 </body>
 </html>

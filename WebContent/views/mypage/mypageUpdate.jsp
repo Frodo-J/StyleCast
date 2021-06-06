@@ -47,8 +47,9 @@
         /* 사이드바 상세 css */
         #prof div, #menu div{width: 100%;}
         #menu a{color: black; text-decoration: none;}
-        
-        #prof_img{height: 70%; padding: 20px;}
+
+        #prof_img{height: 70%; padding: 20px; /*border: solid 1px red;*/}
+        #prof_img>img{width: 100px; height: 100px;}
 
         #write>div{font-size: 13px; padding-left: 20px; margin-top: 8px;}
         #menu>div{margin-bottom: 15px;}
@@ -66,7 +67,8 @@
             float:left;
         }
 
-        #prof-img{width: 35%;}
+        #prof-img{width: 35%; /*border: solid 1px red;*/}
+        #prof-img>img{width: 100px; height: 100px;}
         #prof-delete{height: 30px;}
         #prof-input{width: 65%;}
 
@@ -146,7 +148,7 @@
 	<%
 		String memId = loginUser.getMemId();
 		String memPwd = loginUser.getMemPwd();
-		String memName = loginUser.getMemName();
+		String memName1 = loginUser.getMemName();
 		String email = loginUser.getEmail();
 		String gender = loginUser.getGender();
 	%>
@@ -160,19 +162,23 @@
                 <div id="line"></div>
                 
                 <div id="prof">
-                    <div id="prof_img" align="center"><img src="../../resources/images/prof.png"></div>
-                    <div id="prof_nick" align="center">닉네임</div>
+                    <div id="prof_img" align="center"><img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle"></div>
+                    <div id="prof_nick" align="center"><%= loginUser.getMemName() %></div>
+                    <input id="contextpath" type="hidden" value="<%= contextPath %>">
                 </div>
 
                 <div id="menu">
-                    <div id="write" style="font-weight: bold;">
-                        내가 쓴 글
+                    <div id="write">
+                        	내가 쓴 글
                         <div><a href="<%= request.getContextPath() %>/myPage.me">데일리</a></div>
-                        <div><a href="<%= request.getContextPath() %>/reply.me" style="font-weight: normal;">댓글</a></div>
-                        <div><a href="<%= request.getContextPath() %>//question.me?currentPage=1" style="font-weight: normal;">문의글</a></div>
+                        <div><a href="<%= request.getContextPath() %>/reply.me?currentPage=1">댓글</a></div>
+                        <div><a href="<%= request.getContextPath() %>/question.me?currentPage=1">문의글</a></div>
                     </div>
                     <div><a href="<%= request.getContextPath() %>/bookmark.me">북마크</a></div>
-                    <div><a href="<%= request.getContextPath() %>/myMember.me">개인정보 수정</a></div>
+                    <div><a href="<%= request.getContextPath() %>/myMember.me" style="font-weight: bold;">개인정보 수정</a></div>
+                    <% if(loginUser != null && loginUser.getAdminYN().equals("Y")){ %>
+                    	<div><a href="<%= request.getContextPath() %>/memlist.adm?blackListYN=N&&currentPage=1">관리자 페이지</a></div>
+                    <% } %>
                 </div>
             </div>
 
@@ -185,15 +191,16 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="prof-body" align="center">
-                        <form action="" method="post" style="line-height: 30px;">
+                        <form name="profImg_update" style="line-height: 30px;">
                             <div id="prof-img">
-                                <img src="resources/prof.png">
+                                <img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle">
                                 <button id="prof-delete" class="btn btn-light btn-sm">삭제</button>
                             </div>
                             <div id="prof-input"><input type="file" name="userProfImg"></div>  
+                            <input type="hidden" name="memId" value="<%=loginUser.getMemId()%>">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width: 90px; margin: auto;">취소</button>
                             &emsp;&emsp;
-                            <button type="button" class="btn btn-primary" onclick="" style="width: 90px;">등록</button>
+                            <button type="button" class="btn btn-primary" onclick="imgUpdate(profImg_update);" style="width: 90px;">등록</button>
                         </form>
                     </div>
                 </div>
@@ -205,6 +212,15 @@
                 $("#prof_img").click(function(){
                     $("#profModal").modal("show");
                 })
+            </script>
+            
+            <script>
+	            function imgUpdate(formName){
+	        		formName.action = "/StyleCast/updateProf.me";
+	        		formName.method = "post";
+	        		formName.enctype = "multipart/form-data";
+	        		formName.submit();
+	        	}
             </script>
 
             <div id="mypage">
@@ -247,20 +263,42 @@
                         </tr>
                         <tr>
                             <td><label class="form-label">닉네임</label></td>
-                            <td><input type="text" class="form-control form-control-sm" name="userName" value="<%=memName%>"></td>
+                            <td><input type="text" class="form-control form-control-sm" name="userName" value="<%=memName1%>"></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td><label class="form-label">성별</label></td>
                             <td colspan="2">
-                                <input type="radio" name="gender" id="male" value="m">
+                                <input type="radio" name="gender" id="male" value="M">
                                 <label for="male">남자</label>
                                 
-                                <input type="radio" name="gender" id="female" value="f">
+                                <input type="radio" name="gender" id="female" value="F">
                                 <label for="female">여자</label>
                             </td>
                         </tr>
                     </table>
+            	
+            	<script>
+            		// 프로필 이미지 갱신
+            		$(function(){
+            			
+            			var cp = $("#contextpath").val();
+            			
+            			$.ajax({
+			        		url:"profImgSelect.me",
+			        		data:{
+			        			memNo:<%=loginUser.getMemNo()%>
+			        		},
+			        		type:"post",
+			        		success:function(profImg){
+								$("#content #prof_img img").attr("src", cp + profImg);
+								$(".modal-content #prof-img img").attr("src", cp + profImg);
+			        		},error:function(){
+			        			console.log("프로필 이미지 불러오기 실패");
+			        		}
+			        	})
+            		})
+            	</script>
                     
                     <!-- 성별 라디오 버튼 선택 함수 -->
                     <script>
@@ -274,15 +312,24 @@
                     </script>
 
                     <script>
-                        $(function(){
+                    	// 비밀번호 변경 체크
+                    	$("#newpass").change(function(){
                             if($("#newpass").val().length > 0){
                             	$("#newpass_check").attr("required", true);
-                            	
-                            	if($("#newpass").val() != $("#newpass_check").val()){
-                        			$("#form-button button[type='submit']").attr("disabled", true);
-                        		}
-                        	}
-                        })
+                        	}else{
+                    			$("#newpass_check").attr("required", false);
+                    		}
+                    	});
+                    	
+                    	$("#newpass_check").change(function(){
+                    		if($("#newpass").val() != $("#newpass_check").val()){
+                    			$("#form-button button[type='submit']").attr("disabled", true);
+                    		}else{
+                    			$("#form-button button[type='submit']").attr("disabled", false);
+                    		}
+                    	});
+                    	
+                    	
                     </script>
 
                     <br>
@@ -305,7 +352,7 @@
                 </script>
 
                 <div id="deleteBox">
-                    <form action="" method="post">
+                    <form action="delete.me" method="post">
                         <div id="delete-title">
                             <h3>StyleCast 회원탈퇴</h3>
                             StyleCast를 이용해주셔서 감사합니다.
@@ -322,6 +369,9 @@
 
                             탈퇴 후에는 동일한 아이디로 재가입할 수 없으며, 아이디와 데이터는 복구할 수 없습니다.<br>
                             게시판형 서비스에 남아 있는 게시글을 탈퇴 후 삭제할 수 없습니다.<br><br>
+                            
+                           	<input type="hidden" name="userId" value="<%=memId%>">
+                           	
 
                             <div>
                                 <input type="checkbox" id="delete-yn" required> <label for="delete-yn">안내 사항을 모두 확인했으며, 이에 동의합니다.</label>
