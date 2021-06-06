@@ -3,6 +3,8 @@
 <%
 	Notice n = (Notice)request.getAttribute("n");
 	ArrayList<BoardImage> imgList = (ArrayList<BoardImage>)request.getAttribute("imgList");
+	String content = n.getNoticeContent();
+	content = content.replace("\r\n","<br>");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -114,7 +116,7 @@
                         <th>내용</th>
                         <td colspan="3">
                             <div id="notice_contents">
-                               	<%=n.getNoticeContent()%>
+                               	<%=content%>
                                	<br>
                                 <!--첨부파일 이미지 있으면 여기아래 처리-->
                                 <% for(int i=0; i<imgList.size(); i++){ %>

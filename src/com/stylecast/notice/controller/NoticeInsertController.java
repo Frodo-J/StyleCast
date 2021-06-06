@@ -49,12 +49,10 @@ public class NoticeInsertController extends HttpServlet {
 			// 전달된 파일명 수정 작업후 서버에 업로드처리
 			MultipartRequest multiRequest = new MultipartRequest(request,savePath,maxSize,"UTF-8",new MyFileRenamePolicy());
 			
-			String contents =multiRequest.getParameter("content");
-			contents = contents.replace("\r\n", "<br>");
 			Notice n = new Notice();
 			n.setMemNo(multiRequest.getParameter("userNo"));
 			n.setNoticeTitle(multiRequest.getParameter("title"));
-			n.setNoticeContent(contents);
+			n.setNoticeContent(multiRequest.getParameter("content"));
 			
 			
 			ArrayList<BoardImage> list = new ArrayList<>();
