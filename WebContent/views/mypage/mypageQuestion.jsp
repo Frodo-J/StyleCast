@@ -40,9 +40,9 @@
         #header, #content{width:100%;}
         #content{height:100%; width: 90%; margin: auto;}
 
-        #side, #mypage{float: left; height: 100%;}
+        #side, #mypage_box{float: left; height: 100%;}
         #side{width: 20%;}
-        #mypage{
+        #mypage_box{
             width: 80%;
             padding-top: 40px;
             padding-left: 50px;
@@ -88,7 +88,7 @@
         }
 
         /* 문의 게시판 css */
-        #mypage div{float: left;}
+        #mypage_box div{float: left;}
 
         table tbody tr td:nth-child(2){
             text-align: left;
@@ -181,7 +181,7 @@
 	        	}
             </script>
 
-            <div id="mypage">
+            <div id="mypage_box">
                 <b>내가 쓴 글 > 문의글</b>
             <br><br>
 
@@ -213,7 +213,7 @@
                             <td><%=qna.getQnaTitle() %></td>
                             <td><%=qna.getEnrDate() %></td>
                             <td>
-                            	<%if(qna.getAnsContent().length() == 0 || qna.getAnsContent() == null) {%>
+                            	<%if(qna.getAnsContent() == null || qna.getAnsContent().equals("")) {%>
                             	처리중
                             	<% }else { %>
                             	처리완료

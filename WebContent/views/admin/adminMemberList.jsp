@@ -44,7 +44,6 @@
 
             #content {
                 font-family: 'Noto Sans KR', sans-serif;
-                font-weight: 300;
             }
 
             .wrap {

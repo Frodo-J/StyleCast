@@ -211,7 +211,7 @@
                     <div id="menu">
                         <div>
                             <h4>
-                                <a href="<%= request.getContextPath() %>/memlist.adm?blackListYN=N&&currentPage=1">회원관리</a>
+                                <a href="<%=contextPath%>/memlist.adm?blackListYN=N&&currentPage=1">회원관리</a>
                             </h4>
                         </div>
                         <div>
@@ -226,7 +226,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="<%=request.getContextPath()%>/rptList.adm?brCategory=0">
+                                <a href="<%=contextPath%>/rptList.adm?brCategory=0&&currentPage=1">
                                     <b>게시글관리</b>
                                 </a>
                             </h4>

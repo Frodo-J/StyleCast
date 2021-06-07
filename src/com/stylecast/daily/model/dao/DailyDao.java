@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.stylecast.common.model.vo.BoardImage;
 import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.daily.model.vo.Daily;
 import com.stylecast.daily.model.vo.DailyCM;
@@ -458,7 +459,7 @@ public class DailyDao {
 			
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
-			
+
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			
@@ -866,12 +867,12 @@ public class DailyDao {
 		
 		try {			
 			for(Item il : list) {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, il.getItemName());
-				pstmt.setString(2, il.getItemLink());
-				pstmt.setString(3, il.getItemCategory());
-				
-				result = pstmt.executeUpdate();
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, il.getItemName());
+					pstmt.setString(2, il.getItemLink());
+					pstmt.setString(3, il.getItemCategory());
+					
+					result = pstmt.executeUpdate();
 			}
 			
 		} catch (SQLException e)  {
@@ -881,6 +882,115 @@ public class DailyDao {
 		}
 		System.out.println(result);
 		return result;
+	}
+	
+	public int updateDaily(Connection conn, Daily d) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateDaily");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, d.getDailyContent());
+			pstmt.setString(2, d.getTag());
+			pstmt.setInt(3, d.getDailyNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println(result);
+		return result;
+	}
+	
+	public int updateItem(Connection conn, ArrayList<Item> list) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateItem");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println(result);
+		return result;
+		
+		
+	}
+
+	public int[] selectSearchLikedCountList(Connection conn, PageInfo pi, String text) {
+		
+		int[] likeCount = new int[pi.getBoardLimit()];
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectSearchLikedCountList");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setString(1, text);
+			pstmt.setString(2, text);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			int i = 0;
+			
+			while(rset.next()) {
+				likeCount[i] = rset.getInt("daily_count");
+				i++;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return likeCount;
+	}
+
+	public int[] selectSearchBookmarkCountList(Connection conn, PageInfo pi, String text) {
+		
+		int[] bookmarkCount = new int[pi.getBoardLimit()];
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectSearchBookmarkCountList");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setString(1, text);
+			pstmt.setString(2, text);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			int i = 0;
+			
+			while(rset.next()) {
+				bookmarkCount[i] = rset.getInt("daily_count");
+				i++;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return bookmarkCount;
 	}
 	
 }

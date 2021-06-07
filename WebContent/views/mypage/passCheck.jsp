@@ -30,9 +30,9 @@
         #header, #content{width:100%;}
         #content{height:100%; width: 90%; margin: auto;}
 
-        #side, #mypage{float: left; height: 100%;}
+        #side, #mypage_box{float: left; height: 100%;}
         #side{width: 20%;}
-        #mypage{
+        #mypage_box{
             width: 80%;
             padding-top: 40px;
             padding-left: 50px;
@@ -192,7 +192,7 @@
             		})
             	</script>
 
-            <div id="mypage">
+            <div id="mypage_box">
                 <b>개인정보 수정</b>
                 <br><br>
                 
