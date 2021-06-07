@@ -71,12 +71,15 @@ public class DailySearchController extends HttpServlet {
 		
 		int[] likeCount = new DailyService().selectSearchLikedCountList(pi, text);
 		int[] bookmarkCount = new DailyService().selectSearchBookmarkCountList(pi, text);
+		int[] commentCount = new DailyService().selectSearchCommentCountList(pi, text);
+
 		
 		int i = 0;
 		
 		for(Daily d : list) {
 			d.setLikeCount(likeCount[i]);
 			d.setBookmarkCount(bookmarkCount[i]);
+			d.setCommentCount(commentCount[i]);
 			i++;
 		}
 		
