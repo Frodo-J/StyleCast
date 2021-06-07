@@ -145,6 +145,13 @@ public class DailyService {
 		close(conn);
 		return bookmarkCount;
 	}
+	
+	public int[] selectCommentCountList(PageInfo pi) {
+		Connection conn = getConnection();
+		int [] CommentCount = new DailyDao().selectCommentCountList(conn, pi);
+		close(conn);
+		return CommentCount;
+	}
 
 	public int insertLike(int memNo, int dailyNo) {
 		

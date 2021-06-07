@@ -67,12 +67,14 @@ public class DailyListController extends HttpServlet {
 		
 		int[] likeCount = new DailyService().selectLikedCountList(pi);
 		int[] bookmarkCount = new DailyService().selectBookmarkCountList(pi);
+		int[] commentCount = new DailyService().selectCommentCountList(pi);
 		
 		int i = 0;
 		
 		for(Daily d : list) {
 			d.setLikeCount(likeCount[i]);
-			d.setBookmarkCount(bookmarkCount[i]);;
+			d.setBookmarkCount(bookmarkCount[i]);
+			d.setCommentCount(commentCount[i]);
 			i++;
 		}
 		

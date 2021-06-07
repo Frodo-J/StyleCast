@@ -349,7 +349,7 @@ div {
 			<div id="content_2">
 				<div id="daily_post">
 					<div id="profile_img">
-						<img src="<%= d.getProfImg() %>">
+						<img src="<%= contextPath %>/<%= d.getProfImg() %>">
 					</div>
 					<div id="userid"><%= d.getMemName() %></div>
 					<% if(loginUser != null) { %>
