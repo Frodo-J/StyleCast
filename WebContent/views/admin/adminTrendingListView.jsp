@@ -154,29 +154,29 @@
 
                     <div id="line"></div>
                     <div id="prof">
-                        <div id="prof_img" align="center"><img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle"></div>
-                        <div id="prof_nick" align="center">닉네임</div>
+                        <div id="prof_img" align="center"><img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle"/></div>
+                        <div id="prof_nick" align="center"><b><%=loginUser.getMemName()%></b></div>
                     	<input id="contextpath" type="hidden" value="<%= contextPath %>">
                     </div>
                     <div id="menu">
                         <div>
                             <h4>
-                                <a href="<%=contextPath%>/memlist.adm?blackListYN=N&&currentPage=1">회원관리</a>
+                                <a href="<%=contextPath%>/memlist.adm?blackListYN=N&&currentPage=1"><b>회원관리</b></a>
                             </h4>
                         </div>
                         <div>
                             <h4>
-                                <a href="">메인관리</a>
+                                <a href="<%= contextPath %>/codilist.ad?currentPage=1">메인관리</a>
                             </h4>
                         </div>
                         <div>
                             <h4>
-                                <a href="<%= contextPath %>/trdlist.adm?currentPage=1"><b>트렌딩관리</b></a>
+                                <a href="<%= contextPath %>/trdlist.adm?currentPage=1">트렌딩관리</a>
                             </h4>
                         </div>
                         <div>
                             <h4>
-                                <a href="<%=request.getContextPath()%>/rptList.adm?brCategory=0">게시글관리</a>
+                                <a href="<%=contextPath%>/rptList.adm?brCategory=0&&currentPage=1">게시글관리</a>
                             </h4>
                         </div>
                     </div>
