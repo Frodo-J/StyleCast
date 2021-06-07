@@ -264,7 +264,7 @@
 
                     <div id="line"></div>
                     <div id="prof">
-                        <div id="prof_img" align="center"><img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle"/></div>
+                        <div id="prof_img" align="center"><img src="<%= contextPath %><%= loginUser.getProfImg() %>" class="rounded-circle"/></div>
                         <div id="prof_nick" align="center"><b><%=loginUser.getMemName()%></b></div>
                     	<input id="contextpath" type="hidden" value="<%= contextPath %>">
                     </div>
@@ -373,7 +373,7 @@
 								<% } %>
 								<% for(ThemePost tp : plist) { %>
 									<div class="codi">
-										<img src="<%= tp.getDailyImg() %>">
+										<img src="<%= contextPath %><%= tp.getDailyImg() %>">
 										<button type="button" class="del_btn btn btn-secondary btn-sm">삭제</button>
 										<input type="hidden" name="dThemeNo" value="<%= tp.getThemeNo() %>">
 										<input type="hidden" name="dDailyNo" value="<%= tp.getDailyNo() %>">
