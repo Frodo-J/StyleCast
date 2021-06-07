@@ -747,6 +747,32 @@ public class DailyDao {
 		
 	}
 	
+	public Report checkReportCM(Connection conn, DailyCM cm) {
+		Report r = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkReportCM");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cm.getDailyNo());
+			pstmt.setInt(2, cm.getCmNo());
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				r = new Report(rset.getInt("rpt_no"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return r;
+		
+	}
+	
 	public int selectDailyCount(Connection conn, String text) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;

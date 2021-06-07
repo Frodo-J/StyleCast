@@ -144,6 +144,14 @@
 		   AND DAILY_NO = ?
 	</entry>
 
+	<entry key="checkReportCM">
+		SELECT 
+		       RPT_NO
+		  FROM REPORT
+		 WHERE DAILY_NO = ?
+		   AND CM_NO = ?
+	</entry>
+
 	<entry key="selectMyDailyList">
 		SELECT
 			   DAILY_NO

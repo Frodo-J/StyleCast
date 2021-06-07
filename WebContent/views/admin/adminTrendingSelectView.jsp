@@ -365,7 +365,7 @@
 									</div>
 				
 									<div class="profile">
-										<img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle">
+										<img src="<%= contextPath %>/<%= d.getProfImg() %>" class="rounded-circle">
 									</div>
 									<div class="userid"><%= d.getMemName() %></div>
 									<div class="date"><%= simpleDateFormat.format(d.getEnrDate()) %></div>
