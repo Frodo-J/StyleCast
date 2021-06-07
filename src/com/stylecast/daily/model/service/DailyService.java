@@ -340,6 +340,13 @@ public class DailyService {
 		return bookmarkCount;
 	}
 	
+	public int[] selectSearchCommentCountList(PageInfo pi, String text) {
+		
+		Connection conn = getConnection();
+		int[] commentCount = new DailyDao().selectSearchCommentCountList(conn, pi, text);
+		close(conn);
+		return commentCount;
+	}
 	
 	
 	

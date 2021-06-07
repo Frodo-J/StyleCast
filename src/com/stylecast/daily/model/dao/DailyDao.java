@@ -993,4 +993,39 @@ public class DailyDao {
 		return bookmarkCount;
 	}
 	
+	public int[] selectSearchCommentCountList(Connection conn, PageInfo pi, String text) {
+		
+		int[] commentCount = new int[pi.getBoardLimit()];
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectSearchCommentCountList");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setString(1, text);
+			pstmt.setString(2, text);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			int i = 0;
+			
+			while(rset.next()) {
+				commentCount[i] = rset.getInt("daily_count");
+				i++;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return commentCount;
+	}
+	
 }
