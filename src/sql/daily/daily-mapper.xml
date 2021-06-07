@@ -290,4 +290,10 @@
 		ORDER BY BK.ENR_DATE DESC
 	</entry>
 	
+	<entry key="selectCommentCount">
+		SELECT
+		       COUNT(*) COUNT
+		  FROM DAILY_CM
+		 WHERE DAILY_NO = ?
+	</entry>
 </properties>

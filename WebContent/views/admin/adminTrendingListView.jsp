@@ -125,9 +125,12 @@
                 font-weight: 600;
             }
 
+			#add{
+				width:70px;
+			}
             #add_box {
                 float: right;
-                margin-bottom:10px;
+                margin-bottom:8px;
             }
             
             #table_box tr:hover{
@@ -191,7 +194,7 @@
                         <div id="blank_box">트렌딩 관리</div>
                         <div id="control_box">
                             <div id="add_box">
-                            	<button type="button" id="add" onclick="location.href='<%=contextPath%>/createForm.tr'" class="btn btn-primary">작성</button>
+                            	<button type="button" id="add" onclick="location.href='<%=contextPath%>/createForm.tr'" class="btn btn-secondary btn-sm">작성</button>
                             </div>
                         </div>
                         <div id="table_box">

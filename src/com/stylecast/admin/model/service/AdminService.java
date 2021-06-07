@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import com.stylecast.admin.model.dao.AdminDao;
 import com.stylecast.common.model.vo.PageInfo;
+import com.stylecast.daily.model.vo.Daily;
 import com.stylecast.daily.model.vo.Report;
 import com.stylecast.member.vo.Member;
 import com.stylecast.theme.model.vo.Theme;
@@ -236,5 +237,23 @@ public class AdminService {
 		
 		return list;
 	}
+	
+	public ArrayList<Daily> selectDailyList(int tno) {
+		Connection conn = getConnection();
+		ArrayList<Daily> dlist = new AdminDao().selectDailyList(conn, tno);
+		close(conn);
+		return dlist;
+	}
 
+	public int insertTPost(int tno, int dno) {
+		Connection conn = getConnection();
+		int result = new AdminDao().insertTPost(conn, tno, dno);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 }

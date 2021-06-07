@@ -104,12 +104,12 @@
             }
 
             #content_of_form {
-                height: 73%;
+                height: 82%;
                 padding-left: 50px;
                 overflow: auto;
             }
             #blank_box {
-                height: 8%;
+                height: 7%;
                 font-size: 22px;
                 font-weight: 600;
             }
@@ -117,17 +117,17 @@
             #control_box{
                 background-color: lightgray;
                 width:100%;
-                height: 86%;
+                height: 80%;
                 }
             
             #control_head{
-                height:20%;
+                height:18%;
                 position: relative;
             }
 
             #add_box{
                 width: 808px;
-                height:549px;
+                height:588px;
                 margin: 3px;
                 background-color: white;
                 overflow: auto;
@@ -329,8 +329,18 @@
                                         <div><b>비공개/공개</b></div>
                                         <input type="checkbox" id="status" class="form-check-input">
                                         <input type="hidden" name="status" value="">
-                                        <p id="here"></p>
                                     </div>
+                                    <script>
+                                    	$(function(){
+                                    		$("#submit_button>button").on("click", function(){
+                                    			if($("#status").is(":checked")) {
+                                    				$("input[name=status]").val("Y");
+                                    			}else{
+                                    				$("input[name=status]").val("N");
+                                    			}
+                                    		})
+                                    	});
+                                    </script>
                                     <div id="color_box">
                                         <div><b>테마 색상</b></div>
                                         <input type="color" id="theme_color" name="color" class="form-control form-control-color">

@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.stylecast.common.model.vo.PageInfo;
-
+import com.stylecast.daily.model.vo.Daily;
 import com.stylecast.daily.model.vo.Report;
-import com.stylecast.theme.model.vo.ThemePost;
-import com.stylecast.theme.model.vo.Theme;
 import com.stylecast.member.vo.Member;
+import com.stylecast.theme.model.vo.Theme;
+import com.stylecast.theme.model.vo.ThemePost;
 
 
 
@@ -971,4 +971,57 @@ public class AdminDao {
 		return list;
 	}
 
+	public ArrayList<Daily> selectDailyList(Connection conn, int tno) {
+		ArrayList<Daily> dlist = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectDailyList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tno);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				dlist.add(new Daily(rset.getInt("daily_no"),
+									rset.getInt("mem_no"),
+									rset.getString("daily_content"),
+									rset.getDate("enr_date"),
+									rset.getString("daily_img"),
+									rset.getString("tag"),
+									rset.getString("mem_name"),
+									rset.getString("prof_img")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return dlist;
+	}
+	
+	public int insertTPost(Connection conn, int tno, int dno) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertTPost");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tno);
+			pstmt.setInt(2, dno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
 }
