@@ -182,6 +182,10 @@
                 width: 100%;
                 height: 30%;
             }
+            #prof_img>img{width: 100px; height: 100px;}
+            #prof_img{ height: 70%; padding: 20px;}
+            #prof{height: 17%;width: 99%; float: left;}
+            #prof div, #menu div{width: 100%;}
         </style>
 <title>Insert title here</title>
 </head>
@@ -198,10 +202,9 @@
 
                     <div id="line"></div>
                     <div id="prof">
-                        <div id="prof_img" align="center"><img src="images/prof.PNG"></div>
-                        <div id="prof_nick" align="center">
-                            <b>닉네임</b>
-                        </div>
+                        <div id="prof_img" align="center"><img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle"/></div>
+                        <div id="prof_nick" align="center"><b><%=loginUser.getMemName()%></b></div>
+                    	<input id="contextpath" type="hidden" value="<%= contextPath %>">
                     </div>
                     <div id="menu">
                         <div>
