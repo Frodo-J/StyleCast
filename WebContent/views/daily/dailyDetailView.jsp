@@ -526,7 +526,7 @@ div {
 				</div>
 				<% if(loginUser != null && loginUser.getMemNo() == d.getMemNo()) { %>
 				<!-- 작성자 본인일 때 -->
-				<button class="btn btn-secondary btn-sm">수정</button>
+				<button class="btn btn-secondary btn-sm" onclick="location.href='<%=contextPath%>/updateForm.da?dno=<%=d.getDailyNo()%>';">수정</button>
 				<button class="delete btn btn-secondary btn-sm"
 					data-bs-toggle="modal" data-bs-target="#deleteModal">삭제</button>
 				<% }else if (loginUser != null) { %>
