@@ -274,7 +274,7 @@ div {
 				<div class="daily_post fadein">
 					<input type="hidden" value="<%= d.getDailyNo() %>">
 					<div class="daily_img">
-						<img src="<%= contextPath %>/<%= d.getDailyImg() %>">
+						<img src="<%= contextPath %><%= d.getDailyImg() %>">
 						<div class="action_hover">
 							<% if(loginUser != null) { %>
 							<div class="action">
@@ -346,7 +346,7 @@ div {
 					</div>
 
 					<div class="profile">
-						<img src="<%= contextPath %>/<%= d.getProfImg() %>" class="rounded-circle">
+						<img src="<%= contextPath %><%= d.getProfImg() %>" class="rounded-circle">
 					</div>
 					<div class="userid"><%= d.getMemName() %></div>
 					<div class="date"><%= simpleDateFormat.format(d.getEnrDate()) %></div>

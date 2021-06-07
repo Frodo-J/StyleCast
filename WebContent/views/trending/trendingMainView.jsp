@@ -204,7 +204,7 @@ div {
 					<div class="post">
 						<input type="hidden" value="<%= tp.getDailyNo() %>">
 						<input type="hidden" value="<%= t.getThemeNo() %>">
-						<img src="<%= tp.getDailyImg() %>">
+						<img src="<%= contextPath %><%= tp.getDailyImg() %>">
 						<div class="like_count">받은 좋아요 <%= tp.getCount() %></div>
 						<% if(loginUser != null) { %>
 							<% int l = 0; %>
