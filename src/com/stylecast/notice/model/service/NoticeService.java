@@ -105,24 +105,6 @@ public class NoticeService {
 		return result1 * result2;
 	}
 
-//	public int updateNotice(Notice n, ArrayList<BoardImage> list) {
-//		// TODO Auto-generated method stub
-//		Connection conn = getConnection();
-//		
-//		int result2 = new NoticeDao().updateNotice(conn,n);
-//		int result3 = new NoticeDao().insertBoardImageList(conn, list,n.getNoticeNo());
-//		
-//			
-//		if(result2 >0) {
-//			commit(conn);
-//		}else {
-//			rollback(conn);
-//		}
-//		
-//		close(conn);
-//		
-//		return result2;
-//	}
 
 	public int deleteBoardImages(Notice n) {
 		// TODO Auto-generated method stub
@@ -172,9 +154,6 @@ public class NoticeService {
 		Connection conn = getConnection();
 		ArrayList<Notice> list = null;
 		if(category.equals("notice_title")) {
-			System.out.println("notice_title진입");
-			System.out.println(pi);
-			System.out.println(text);
 			list = new NoticeDao().selectListByNoticeTitle(conn,pi,text);
 		}else if(category.equals("notice_content")) {
 			list = new NoticeDao().selectListByNoticeContent(conn,pi,text);
