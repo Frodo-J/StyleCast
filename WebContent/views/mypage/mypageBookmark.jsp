@@ -50,9 +50,9 @@
         #header, #content{width:100%;}
         #content{height:100%; width: 90%; margin: auto;}
 
-        #side, #mypage{float: left; height: 100%;}
+        #side, #mypage_box{float: left; height: 100%;}
         #side{width: 20%;}
-        #mypage{
+        #mypage_box{
             width: 80%;
             height: 100%;
             padding-top: 40px;
@@ -98,8 +98,8 @@
         }
 
         /* 북마크 리스트 css */
-        /*#mypage{border: 1px solid black;}*/
-        #mypage div{float: left;}
+        /*#mypage_box{border: 1px solid black;}*/
+        #mypage_box div{float: left;}
         #daily_box{height: 75%; width:100%; overflow-y: scroll; position: absolute;}
         #empty_box{margin-top: 180px; margin-left: 300px;}
         
@@ -210,7 +210,7 @@
             </script>
 
             <!-- 북마크 리스트 -->
-            <div id="mypage">
+            <div id="mypage_box">
                 <b style="margin-left: 50px;">북마크</b>
                 <br>
 
