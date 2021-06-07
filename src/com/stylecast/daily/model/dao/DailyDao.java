@@ -459,7 +459,7 @@ public class DailyDao {
 			
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
-			
+
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			
@@ -855,7 +855,11 @@ public class DailyDao {
 			pstmt = conn.prepareStatement(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
+		System.out.println(result);
+		return result;
 		
 		
 	}
