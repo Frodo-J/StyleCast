@@ -271,7 +271,7 @@
                     <div id="menu">
                         <div>
                             <h4>
-                                <a href="<%=contextPath%>/memlist.adm?blackListYN=N&&currentPage=1"><b>회원관리</b></a>
+                                <a href="<%=contextPath%>/memlist.adm?blackListYN=N&&currentPage=1">회원관리</a>
                             </h4>
                         </div>
                         <div>
@@ -281,7 +281,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="<%= contextPath %>/trdlist.adm?currentPage=1">트렌딩관리</a>
+                                <a href="<%= contextPath %>/trdlist.adm?currentPage=1"><b>트렌딩관리</b></a>
                             </h4>
                         </div>
                         <div>
