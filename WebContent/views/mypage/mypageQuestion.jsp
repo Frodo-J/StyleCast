@@ -213,7 +213,7 @@
                             <td><%=qna.getQnaTitle() %></td>
                             <td><%=qna.getEnrDate() %></td>
                             <td>
-                            	<%if(qna.getAnsContent().length() == 0 || qna.getAnsContent() == null) {%>
+                            	<%if(qna.getAnsContent() == null || qna.getAnsContent().equals("")) {%>
                             	처리중
                             	<% }else { %>
                             	처리완료
