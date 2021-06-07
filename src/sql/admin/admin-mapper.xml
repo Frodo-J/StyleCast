@@ -434,7 +434,7 @@
 		  )
 	</entry>
 	
-	<entry key="selectListCount">
+	<entry key="selectCodiListCount">
 		SELECT COUNT(*) COUNT
 		FROM CODI
 	</entry>

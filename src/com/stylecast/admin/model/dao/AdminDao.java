@@ -1027,7 +1027,7 @@ public class AdminDao {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectListCount");
+		String sql = prop.getProperty("selectCodiListCount");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
