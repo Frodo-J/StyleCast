@@ -180,7 +180,7 @@
                         <form name="profImg_update" style="line-height: 30px;">
                             <div id="prof-img">
                                 <img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle">
-                                <button id="prof-delete" class="btn btn-light btn-sm">삭제</button>
+                                <button type="button" id="prof-delete" class="btn btn-light btn-sm"">삭제</button>
                             </div>
                             <div id="prof-input"><input type="file" name="userProfImg"></div>  
                             <input type="hidden" name="memId" value="<%=loginUser.getMemId()%>">
@@ -324,15 +324,20 @@
 			    </script>
             	
             	<script>
+	        		$(function(){
+	        			selectProfImg();
+	        		});
+	        		
             		// 프로필 이미지 갱신
-            		$(function(){
+            		$(function selectProfImg(){
             			
             			var cp = $("#contextpath").val();
+            			var memNo = <%=loginUser.getMemNo()%>;
             			
             			$.ajax({
 			        		url:"profImgSelect.me",
 			        		data:{
-			        			memNo:<%=loginUser.getMemNo()%>
+			        			memNo:memNo
 			        		},
 			        		type:"post",
 			        		success:function(profImg){
@@ -341,8 +346,34 @@
 			        		},error:function(){
 			        			console.log("프로필 이미지 불러오기 실패");
 			        		}
-			        	})
-            		})
+			        	});
+            		});
+            	</script>
+            	
+            	<script>
+        		// 프로필 이미지 삭제
+        		$("#prof-delete").click(function(){
+
+					var memId = <%=loginUser.getMemId()%>;
+					console.log("memId");
+        			
+        			$.ajax({
+		        		url:"profImgDelete.me",
+		        		data:{
+		        			memId:memId
+		        		},
+		        		type:"post",
+		        		success:function(result){
+							if(result > 0){
+								selectProfImg();
+							}else{
+								alert("프로필 삭제에 실패했습니다.");
+							}
+		        		},error:function(){
+		        			console.log("프로필 이미지 불러오기 실패");
+		        		}
+		        	});
+        		});
             	</script>
 			    
 			    <!-- 북마크 -->
