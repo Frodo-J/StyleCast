@@ -27,7 +27,6 @@ public class AdminMemberSearch extends HttpServlet {
      */
     public AdminMemberSearch() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

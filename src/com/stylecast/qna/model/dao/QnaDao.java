@@ -428,7 +428,6 @@ public class QnaDao {
 		} finally {
 			close(pstmt);
 		}
-		System.out.println("updateQnaDao : " + result);
 		return result;
 	}
 
@@ -496,7 +495,6 @@ public class QnaDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println("QnaDao : SelectListCoutnByQnaTitle: " + listCount);
 		return listCount;
 	}
 
@@ -522,7 +520,6 @@ public class QnaDao {
 					close(rset);
 					close(pstmt);
 				}
-				System.out.println("QnaDao : SelectListCoutnByQnaContent: " + listCount);
 				return listCount;
 	}
 

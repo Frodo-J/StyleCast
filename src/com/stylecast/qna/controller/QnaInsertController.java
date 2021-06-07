@@ -53,7 +53,6 @@ public class QnaInsertController extends HttpServlet {
 			q.setQnaContent(multiRequest.getParameter("content"));
 			q.setQnaCategory(multiRequest.getParameter("qna_category"));
 			
-			System.out.println(q);
 			
 			ArrayList<BoardImage> list = new ArrayList<>();
 			
@@ -70,7 +69,6 @@ public class QnaInsertController extends HttpServlet {
 				}
 				
 			}
-			System.out.println(list);
 			
 			int result = new QnaService().insertQna(q,list);
 			

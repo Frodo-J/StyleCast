@@ -170,7 +170,6 @@ public class AdminService {
 
 	public int updateMemberBlackN(int memNo) {
 		Connection conn = getConnection();
-		System.out.println("updateMemberBlackN Service진입");
 		int result = new AdminDao().updateMemberBlackN(conn, memNo);
 		if(result > 0) {
 			commit(conn);
