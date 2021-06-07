@@ -289,7 +289,7 @@
 
                     <div id="line"></div>
                     <div id="prof">
-                        <div id="prof_img" align="center"><img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle"/></div>
+                        <div id="prof_img" align="center"><img src="<%= contextPath %><%= loginUser.getProfImg() %>" class="rounded-circle"/></div>
                         <div id="prof_nick" align="center"><b><%=loginUser.getMemName()%></b></div>
                     	<input id="contextpath" type="hidden" value="<%= contextPath %>">
                     </div>
@@ -361,11 +361,11 @@
 								<div class="daily_post fadein">
 									<input type="hidden" value="<%= d.getDailyNo() %>">
 									<div class="daily_img">
-										<img src="<%= contextPath %>/<%= d.getDailyImg() %>">
+										<img src="<%= contextPath %><%= d.getDailyImg() %>">
 									</div>
 				
 									<div class="profile">
-										<img src="<%= contextPath %>/<%= d.getProfImg() %>" class="rounded-circle">
+										<img src="<%= contextPath %><%= d.getProfImg() %>" class="rounded-circle">
 									</div>
 									<div class="userid"><%= d.getMemName() %></div>
 									<div class="date"><%= simpleDateFormat.format(d.getEnrDate()) %></div>

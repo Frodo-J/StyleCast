@@ -343,13 +343,13 @@ div {
 		<div id="content">
 			<div id="content_1">
 				<div id="img_box">
-					<img src="<%= d.getDailyImg() %>" alt="">
+					<img src="<%= contextPath %><%= d.getDailyImg() %>" alt="">
 				</div>
 			</div>
 			<div id="content_2">
 				<div id="daily_post">
 					<div id="profile_img">
-						<img src="<%= contextPath %>/<%= d.getProfImg() %>" class="rounded-circle">
+						<img src="<%= contextPath %><%= d.getProfImg() %>" class="rounded-circle">
 					</div>
 					<div id="userid"><%= d.getMemName() %></div>
 					<% if(loginUser != null) { %>
@@ -439,7 +439,7 @@ div {
 					<% for(Daily a : dlist) { %>
 						<div class="theme_post">
 							<input type="hidden" value="<%= a.getDailyNo() %>">
-							<img src="<%= a.getDailyImg() %>">
+							<img src="<%= contextPath %><%= a.getDailyImg() %>">
 						</div>
 					<% } %>
 				</div>
