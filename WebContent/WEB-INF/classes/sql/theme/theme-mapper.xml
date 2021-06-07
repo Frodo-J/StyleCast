@@ -38,6 +38,8 @@
 		  FROM THEME
 		 WHERE STATUS = 'Y'
 		   AND THEME_TITLE NOT LIKE 'Monthly%'
+		 ORDER
+		    BY ENR_DATE DESC
 	</entry>
 	
 	<entry key="selectOtherPost">
@@ -82,5 +84,7 @@
 		  FROM THEME
 		 WHERE STATUS = 'Y'
 		   AND THEME_NO != ?
+		 ORDER
+		    BY ENR_DATE DESC
 	</entry>
 </properties>

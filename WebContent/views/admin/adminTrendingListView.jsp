@@ -191,7 +191,7 @@
 
                 <div id="form">
                     <div id="content_of_form">
-                        <div id="blank_box">트렌딩 관리</div>
+                        <div id="blank_box"><h5><b>트렌딩관리</b></h5></div>
                         <div id="control_box">
                             <div id="add_box">
                             	<button type="button" id="add" onclick="location.href='<%=contextPath%>/createForm.tr'" class="btn btn-secondary btn-sm">작성</button>

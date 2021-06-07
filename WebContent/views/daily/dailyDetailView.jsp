@@ -453,7 +453,7 @@ div {
 			<div id="content_2">
 				<div id="daily_post">
 					<div id="profile_img">
-						<img src="<%= contextPath %>/<%= d.getProfImg() %>">
+						<img src="<%= contextPath %>/<%= d.getProfImg() %>" class="rounded-circle">
 					</div>
 					<div id="userid"><%= d.getMemName() %></div>
 					<% if(loginUser != null) { %>
@@ -992,7 +992,7 @@ div {
 
         	        for(var i in list){
         	        	result += "<div class='comment_read'>"
-	        	        			+ "<div><img src='" + list[i].profImg + "'></div>"
+	        	        			+ "<div><img src='" + <%=contextPath%>/+list[i].profImg + "' class='rounded-circle'></div>"
 	        	        			+ "<div class='comment_id'>" + list[i].memName + "</div>"
 	        	        			+ "<div class='comment_content'>" + list[i].cmContent + "</div>"; 
         	         	// 여기까지는 공통요소

@@ -327,7 +327,7 @@
                 <div id="form">
                     
                     <div id="content_of_form">
-                        <div id="blank_box">트렌딩 관리</div>
+                        <div id="blank_box"><h5><b>트렌딩관리</b></h5></div>
                         <div id="control_box">
                             <div id="control_head">
                             <div id="prev" onclick="location.href='<%=contextPath%>/modifyForm.tr?tno=<%= tno %>'"></div>
@@ -361,7 +361,7 @@
 								<div class="daily_post fadein">
 									<input type="hidden" value="<%= d.getDailyNo() %>">
 									<div class="daily_img">
-										<img src="<%= contextPath %>/<%= d.getDailyImg() %>" alt="">
+										<img src="<%= contextPath %>/<%= d.getDailyImg() %>">
 									</div>
 				
 									<div class="profile">
@@ -374,11 +374,11 @@
 									
 									<div class="react">
 										<div class="react_like"></div>
-										<div class="react_count">10</div>
+										<div class="react_count"><%= d.getLikeCount() %></div>
 										<div class="react_comment"></div>
-										<div class="react_count">10</div>
+										<div class="react_count"><%= d.getCommentCount() %></div>
 										<div class="react_bookmark"></div>
-										<div class="react_count">10</div>
+										<div class="react_count"><%= d.getBookmarkCount() %></div>
 									</div>
 								</div>
 								<% } %>
