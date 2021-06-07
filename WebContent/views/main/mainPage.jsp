@@ -262,7 +262,7 @@
 				
                 <div id="dailycontent">
                 <% for(MainSelectDaily m : dailylist){ %>
-                	<div id="newDaily"><a href="<%=contextPath %>/detail.da?dno=<%= m.getDailyNo() %>"><img src="<%= m.getDailyImg() %>" alt=""></a></div>
+                	<div id="newDaily"><a href="<%=contextPath %>/detail.da?dno=<%= m.getDailyNo() %>"><img src="<%=contextPath %><%= m.getDailyImg() %>" alt=""></a></div>
                 	<input type="hidden" id="dno" value="<%= m.getDailyNo() %>">
                 <% } %>
                 </div>
