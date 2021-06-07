@@ -290,10 +290,19 @@
 		ORDER BY BK.ENR_DATE DESC
 	</entry>
 	
-	<entry key="selectCommentCount">
-		SELECT
-		       COUNT(*) COUNT
-		  FROM DAILY_CM
-		 WHERE DAILY_NO = ?
+	<entry key="selectCommentCountList">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		                SELECT NVL(L.COUNT, 0) COMMENT_COUNT
+                        FROM (SELECT COUNT(*) COUNT, DAILY_NO
+                               FROM DAILY_CM
+                               GROUP BY DAILY_NO) L
+                        RIGHT JOIN DAILY D ON(L.DAILY_NO = D.DAILY_NO)
+                        ORDER BY D.ENR_DATE DESC
+		               )A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 </properties>
