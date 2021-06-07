@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" %>
+<%@ page import="com.stylecast.admin.model.vo.*, com.stylecast.daily.model.vo.*, java.util.ArrayList, java.text.SimpleDateFormat" %>
+<%
+	ArrayList<Daily> dlist = (ArrayList<Daily>)request.getAttribute("dlist");
+	int tno = ((Integer)request.getAttribute("tno")).intValue();
+%>
 <!DOCTYPE html>
 <html lang="kr">
     <head>
@@ -104,12 +109,12 @@
             }
 
             #content_of_form {
-                height: 73%;
+                height: 82%;
                 padding-left: 50px;
                 overflow: auto;
             }
             #blank_box {
-                height: 8%;
+                height: 7%;
                 font-size: 22px;
                 font-weight: 600;
             }
@@ -121,10 +126,10 @@
                 }
             
             #control_head{
-                height:10%;
+                height:8%;
             }
-            #add_box{
-                height:618px;
+            #daily_box{
+                height:710px;
                 width: 808px;
                 margin: 3px;
                 background-color: white;
@@ -132,67 +137,161 @@
                 float: left;
             }
 
-            #detail_box {
-                float: left;
-                margin-top:22px;
-                margin-left: 50px;
-                height:0%;
-            }
-            #select_box>select{
-                width: 120px;
-                height: 35px;
-            }
-
             #search_box {
                 float: right;
-                margin-top: 20px;
-                margin-right: 40px;
-            }
-            #search-box>button{
-                float: left;
+                margin-top: 16px;
+                margin-right: 30px;
             }
             #search_input {
                 float: left;
                 width: 260px;
             }
-            #search_btn{
-                height:38px;
+            #search_icon{
+            	background: url("resources/images/search.svg") no-repeat;
+				background-size: contain;
+				width: 25px;
+				height: 25px;
+				float: left;
+				margin: 6px 3px;
             }
 
-
-            #codi{
-                width:200px;
-                height: 240px;
-                float: left;
-                margin-left:53px;
-                margin-top: 20px;
-            }
-            #codi>img{
-                width: 200px;
-                height: 200px;
-            }
-            #codi>button{
-                margin-top: 3px;
-                margin-left: 70px;
-            }
+			#prev{
+				background: url("resources/images/back.svg") no-repeat;
+				background-size: contain;
+				float: left;
+				width: 25px;
+				height: 25px;
+				margin-top: 20px;
+				margin-left: 20px;
+				cursor: pointer;
+			}
+			/* daily style */
+			.daily_post {
+				width: 230px;
+				height: 365px;
+				float: left;
+				color: rgb(40, 40, 40);
+				border: 0.5px solid lightgrey;
+				border-radius: 2pc;
+				background: whitesmoke;
+				margin-top: 10px;
+				margin-left: 26px;
+				margin-bottom: 5px;
+			}
+			
+			.daily_img {
+				position: relative;
+				width: 200px;
+				height: 250px;
+				margin: 15px 15px 4px;
+			}
+			
+			.daily_img>img {
+				width: 200px;
+				height: 250px;
+				object-fit: cover;
+			}
+			
+			.profile {
+				width: 40px;
+				height: 40px;
+				float: left;
+				margin: 2px 5px 0px 17px;
+			}
+			
+			.profile>img {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.userid {
+				width: 83px;
+				float: left;
+				font-size: 13px;
+				font-weight: 600;
+				margin-top: 2px;
+			}
+			
+			.date {
+				float: left;
+				font-size: 11px;
+				font-weight: 500;
+				margin: 3px 0px 1px 20px;
+			}
+			
+			.text {
+				float: left;
+				font-size: 12px;
+				width: 150px;
+				height: 20px;
+				margin: 3px 0px 0px 0px;
+				overflow: hidden;
+			}
+            .tag {
+				float: left;
+				font-size: 12px;
+				width: 150px;
+				height: 20px;
+				margin: 0px 0px 2px 63px;
+				overflow: hidden;
+			}
+			
+			.react {
+				float: left;
+				width: 160px;
+				height: 21px;
+				margin: 1px 0px 0px 47px;
+			}
+			
+			.react>div {
+				float: left;
+				width: 21px;
+				height: 21px;
+			}
+			
+			.react_like {
+				background: url("resources/images/react_icon/sun.svg") no-repeat;
+				background-size: contain;
+			}
+			
+			.react_comment {
+				background: url("resources/images/react_icon/comment.svg") no-repeat;
+				background-size: contain;
+			}
+			
+			.react_bookmark {
+				background: url("resources/images/react_icon/bookmark.svg") no-repeat;
+				background-size: contain;
+			}
+			
+			.react_count {
+				margin-right: 6px;
+				text-align: center;
+				font-size: 13px;
+				font-weight: 500;
+			}
+			/* daily style end */
 
             #prof_img{height: 70%; padding: 20px;}
+        	#prof_img>img{width: 100px; height: 100px;}
             #prof{height: 17%;width: 99%; float: left;}
             #prof div, #menu div{width: 100%;}
         </style>
     </head>
     <body>
+    
+    	<%@ include file="../common/menubar.jsp"%>
+    
         <div class="wrap">
-
-            <div id="header"></div>
 
             <div id="content">
                 <div id="side">
 
                     <div id="line"></div>
                     <div id="prof">
-                        <div id="prof_img" align="center"><img src="<%=contextPath %>/resources/images/prof.PNG"></div>
+                        <div id="prof_img" align="center"><img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle"></div>
                         <div id="prof_nick" align="center">닉네임</div>
+                    	<input id="contextpath" type="hidden" value="<%= contextPath %>">
                     </div>
                     <div id="menu">
                         <div>
@@ -207,7 +306,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="<%=request.getContextPath()%>/trdlist.adm?currentPage=1"><b>트렌딩관리</b></a>
+                                <a href="<%= contextPath %>/trdlist.adm?currentPage=1"><b>트렌딩관리</b></a>
                             </h4>
                         </div>
                         <div>
@@ -231,38 +330,66 @@
                         <div id="blank_box">트렌딩 관리</div>
                         <div id="control_box">
                             <div id="control_head">
-                                <div id="detail_box">
-                                    <div id="select_box">
-                                        <select name="" id="" class="form-select">
-                                            <option value="1">최신순</option>
-                                            <option value="2">좋아요순</option>
-                                            <option value="3">댓글순</option>
-                                        </select>
-                                    </div> 
-                                </div>
-                                <div id="search_box">
-                                    <input id="search_input" class="form-control" type="text" placeholder="검색어를 입력해주세요(#태그)">
-                                    <button id="search_btn" type="button"><img src="img/loupe.png"></button>
-                                </div>
+                            <div id="prev" onclick="location.href='<%=contextPath%>/modifyForm.tr?tno=<%= tno %>'"></div>
+                            <div id="search_box">
+                                <div id="search_icon"></div>
+	                            <input id="search_input" class="form-control" type="text" placeholder="검색어를 입력해주세요(#태그)">
                             </div>
-                            <div id="add_box">
+                            </div>
+                            
+                            <script>
+	                            $(document).ready(function() {
+	                                $("#search_input").on("keyup", function() {
+	                                    var k = $(this).val();
+	                                    $(".daily_post").hide();
+	                                	if(k.startsWith("#")) {
+	                                    	var temp = $(".tag:contains('" + k + "')");
+	                                	}else {
+	                                    	var temp = $(".text:contains('" + k + "')");
+	                                	}
+
+	                                    $(temp).parent().show();
+	                                })
+	                            })
+                            </script>
+                            
+                            <div id="daily_box">
                                     
-                                <div id="codi">
-                                    <img src="img/codi4.jpg" alt="">
-                                    <button name="del_btn" type="button" class="btn btn-secondary">선택</button>
-                                </div>
-                                <div id="codi">
-                                    <img src="img/codi4.jpg" alt="">
-                                    <button name="del_btn" type="button" class="btn btn-secondary">선택</button>
-                                </div>
-                                <div id="codi">
-                                    <img src="img/codi4.jpg" alt="">
-                                    <button name="del_btn" type="button" class="btn btn-secondary">선택</button>
-                                </div>
-                                <div id="codi">
-                                    <img src="img/codi4.jpg" alt="">
-                                    <button name="del_btn" type="button" class="btn btn-secondary">선택</button>
-                                </div>
+                                <% SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy.MM.dd"); %>
+				
+								<% for(Daily d : dlist) { %>
+								<div class="daily_post fadein">
+									<input type="hidden" value="<%= d.getDailyNo() %>">
+									<div class="daily_img">
+										<img src="<%= contextPath %>/<%= d.getDailyImg() %>" alt="">
+									</div>
+				
+									<div class="profile">
+										<img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle">
+									</div>
+									<div class="userid"><%= d.getMemName() %></div>
+									<div class="date"><%= simpleDateFormat.format(d.getEnrDate()) %></div>
+									<div class="text"><%= d.getDailyContent() %></div>
+									<div class="tag"><%= d.getTag() %></div>
+									
+									<div class="react">
+										<div class="react_like"></div>
+										<div class="react_count">10</div>
+										<div class="react_comment"></div>
+										<div class="react_count">10</div>
+										<div class="react_bookmark"></div>
+										<div class="react_count">10</div>
+									</div>
+								</div>
+								<% } %>
+
+								<script>
+						        // daily click action
+						        $(".daily_post").on("click", function(){
+						            $(location).attr("href", "<%=contextPath%>/insertTPost.tr?tno="+ <%= tno %> + "&dno=" + $(this).children().eq(0).val());
+						        });
+								</script>
+
                             </div>
                         </div>
                         

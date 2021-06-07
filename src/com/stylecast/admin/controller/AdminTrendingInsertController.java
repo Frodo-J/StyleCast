@@ -46,8 +46,6 @@ public class AdminTrendingInsertController extends HttpServlet {
 		
 		int result = new AdminService().insertTheme(t);
 		
-		System.out.println(result);
-		
 		if(result > 0) {
 			int tno = result;
 			request.getSession().setAttribute("alertMsg", "성공적으로 테마가 작성되었습니다.");

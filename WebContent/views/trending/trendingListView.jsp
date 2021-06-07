@@ -48,7 +48,7 @@ div {
 
 #content_2 {
 	width: 100%;
-	height: 30%;
+	height: auto;
 	border-top: 1px solid #eee;
 }
 
