@@ -321,6 +321,7 @@
 							<div id="button">
 								<button class="btn btn-primary" type="submit" >적용</button>
 							</div>
+							<input type="hidden" name="currentPage" value="1">
                             <div id="search_box">
                                 <select class="form-select" id="weather_select" name="weather_select">
                                     <option selected="selected" value="ALL">날씨 전체 조회</option>

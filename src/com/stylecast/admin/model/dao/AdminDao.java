@@ -20,7 +20,7 @@ public class AdminDao {
 	
 	public AdminDao() {
 		try {
-			prop.loadFromXML(new FileInputStream( AdminDao.class.getResource("/sql/admin/admin-mapper.xml").getPath() ));
+			prop.loadFromXML(new FileInputStream(AdminDao.class.getResource("/sql/admin/admin-mapper.xml").getPath() ));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

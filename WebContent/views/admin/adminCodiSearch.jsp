@@ -287,7 +287,7 @@
                                 <b>날씨 및 코디</b>
                             </h5>
                         </div>
-                        <form id="control_box">
+                        <form id="control_box" action="<%=contextPath %>/searchCodi.ad?currentPage=1">
                         	<table>
 	                            <tr height="30px">
 		                        	<th width="20%">성별</th>
@@ -330,7 +330,9 @@
 		                            	<tr>
 		                            		<div>
 		                            			<button id="submit" type="button" onclick="location.href='<%=contextPath%>/searchCodi.ad'" class="btn btn-primary">적용</button>
+		                            			
 		                            		</div>
+		                            		<input type="hidden" name="currentPage" value="1">
 			                            	<div id="search_box">
 				                                <select class="form-select" id="weather_select">
 				                                    <option selected="selected" value="ALL">날씨 전체 조회</option>
