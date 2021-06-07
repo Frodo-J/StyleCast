@@ -105,6 +105,37 @@
 		 WHERE DAILY_NO = ?
 	</entry>
 	
+	<entry key="selectDailyCount">
+		SELECT COUNT(*) COUNT
+		FROM DAILY
+		WHERE DAILY_CONTENT LIKE '%'||?||'%'
+		   OR TAG LIKE '%'||?||'%' 
+	</entry>
+	
+	<entry key="selectDaily">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		                SELECT
+                               DAILY_NO
+                             , MEM_NO
+                             , DAILY_CONTENT
+                             , ENR_DATE
+                             , DAILY_IMG
+                             , TAG
+                             , MEM_NAME
+                             , PROF_IMG
+		                  FROM DAILY
+                          JOIN MEMBER USING (MEM_NO)
+                         WHERE DAILY_CONTENT LIKE '%'||?||'%'
+                         	OR TAG LIKE '%'||?||'%'
+		                 ORDER
+		                    BY ENR_DATE DESC)A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
 	<entry key="selectDailyCM">
 		SELECT
 		       CM_NO
