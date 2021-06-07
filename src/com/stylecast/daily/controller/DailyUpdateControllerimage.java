@@ -22,7 +22,7 @@ import com.stylecast.daily.model.vo.Item;
 /**
  * Servlet implementation class DailyUpdateController
  */
-@WebServlet("/update.da")
+@WebServlet("/imupdate.da")
 public class DailyUpdateControllerimage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

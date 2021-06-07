@@ -322,7 +322,7 @@
 		ORDER BY BK.ENR_DATE DESC
 	</entry>
 	
-			<entry key="insertDaily">
+	<entry key="insertDaily">
 		INSERT 
 		       INTO DAILY
 		            (
@@ -361,6 +361,26 @@
 		          , ?
 		          , ?
 		            )
+	</entry>
+	
+	<entry key="updateDaily">
+	  
+		UPDATE
+			   DAILY
+		   SET 
+		       DAILY_CONTENT = ?
+		     , DAILY_TAG = ?
+		 WHERE DAILY_NO = ?
+	</entry>
+	
+	<entry key="updateItem">
+	  
+		UPDATE
+			   Item
+		   SET 
+		       DAILY_CONTENT = ?
+		     , DAILY_TAG = ?
+		 WHERE DAILY_NO = ?
 	</entry>
 	
 </properties>

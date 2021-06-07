@@ -846,13 +846,18 @@ public class DailyDao {
 		return result;
 	}
 	
-	/*
-	public int insertDailyImage(Connection conn, BoardImage bImage) {
+	public int updateItem(Connection conn, ArrayList<Item> list) {
 		int result = 0;
-		PreparedStatement pstmt =null;
-		String sql = prop.getProperty("insertNewDailyIamge");
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateItem");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		
 	}
-	*/
 	
 }

@@ -293,10 +293,10 @@ public class DailyService {
 		
 		int result2 = 1;
 		for(int i=0; i<list.size(); i++) {
-			if(list.get(i).getItemName() != null) {
-				result2 = new DailyDao().updateItem(conn, list);
-			}else {
+			if(list.get(i).getDailyNo() > 0) {
 				result2 = new DailyDao().insertItem(conn, list);
+			}else {
+				result2 = new DailyDao().updateItem(conn, list);
 			}
 		}
 		

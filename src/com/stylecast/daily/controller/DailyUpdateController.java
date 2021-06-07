@@ -57,67 +57,104 @@ public class DailyUpdateController extends HttpServlet {
 			
 
 			ArrayList<Item> list = new ArrayList<>();
-			for(int i=1; i<=3; i++){ // 반복문은 1에서 3까지 총 3번 반복! (왜? 키값 뒤에 매번 1,2,3 이렇게 붙어서 키값으로 i를 활용하기 위해)
-				// 상의
-				String topNo = "topNo" + i;
-				String top = "top" + i;
-				String topLink = "topLinkNo" + i;
-				if(!multiRequest.getParameter(top).equals("")){ // 넘어온값이 있을때만 => Item객체 새로 생성해서
-					Item il = new Item();
-					il.setItemNo(Integer.parseInt(topNo));
-					il.setItemName(multiRequest.getParameter(top));   // 상의 아이템명 담고
-					il.setItemLink(multiRequest.getParameter(topLink));
-					il.setItemCategory("상의");
-					list.add(il); // 리스트에 추가
-				}
-				
-				// 위와 동일
-				String bottomNo = "bottomNo" + i;
-				String bottom = "bottom" + i;
-				String bottomLink = "bottomLinkNo" + i;
-				if(!multiRequest.getParameter(bottom).equals("")){
-					Item il = new Item();
-					il.setItemNo(Integer.parseInt(bottomNo));
-					il.setItemName(multiRequest.getParameter(bottom));
-					il.setItemLink(multiRequest.getParameter(bottomLink));
-					il.setItemCategory("하의");
-					list.add(il);
-				}
-				
-				String shoesNo = "shoesNo" + i;
-				String shoes = "shoesNo" + i;
-				String shoesLink = "shoesLinkNo" + i;
-				if(!multiRequest.getParameter(shoes).equals("")){
-					Item il = new Item();
-					il.setItemNo(Integer.parseInt(shoesNo));
-					il.setItemName(multiRequest.getParameter(shoes));
-					il.setItemLink(multiRequest.getParameter(shoesLink));
-					il.setItemCategory("신발");
-					list.add(il);
-				}
-				
-				String etcNo = "etcNo" + i;
-				String etc = "etcNo" + i;
-				String etcLink = "etcLinkNo" + i;
-				if(!multiRequest.getParameter(etc).equals("")){
-					Item il = new Item();
-					il.setItemNo(Integer.parseInt(etcNo));
-					il.setItemName(multiRequest.getParameter(etc));
-					il.setItemLink(multiRequest.getParameter(etcLink));
-					il.setItemCategory("기타");
-					list.add(il);
-				}
-				
+			for(int i=1; i<=3; i++){ 
+
+	          // 상의
+	            String topNo = "topNo" + i; // 기존의 상의가 2개가 이미 존재했을 경우 그때는 topNo1, topNo2라는 키값으로 값이 넘어왔을것 
+	            String top = "top" + i;
+	            String topLink = "topLinkNo" + i;
+
+	            if(!multiRequest.getParameter(top).equals("")){ // 우선 해당 키값의 아이템명이 넘어왔을 경우
+
+	                Item il = new Item(); // 우선 기존의 아이템이 있었던 새로운 아이템이 추가가 됏던 간에 값을 담기위한 Item객체 생성
+	                il.setItemName(multiRequest.getParameter(top));   // 상의 아이템명 담고
+	                il.setItemLink(multiRequest.getParameter(topLink)); // 상의 링크 담고
+	                il.setItemCategory("상의"); // 상의 카테고리 담고
+	                // 위의 아이템 명과 링크, 카테고리는 기존에 item이 있었던 새로이 추가된 item이던 간에 공통적으로 필요한 값
+
+	                if(multiRequest.getParameter(topNo) != null){ // 근데 만약에 topNoX 키값으로 뭔가 넘어온 값이 존재할경우 == 기존에 애초에 등록되어있는 item이 있었다란 소리
+	                    il.setItemNo(Integer.parseInt(multiRequest.getParameter(topNo)));
+	                }else{ // 새로이 추가된 item이란 소리
+	                    il.setDailyNo(dailyNo); // 이때는 현재의 데일리번호를 담음 => 왜? insert할때 필요하니깐! 
+	                }
+	               
+	                list.add(il); // 리스트에 추가
+	            }
+	            
+	         // 하의
+	            String bottomNo = "bottomNo" + i; // 기존의 하의가 2개가 이미 존재했을 경우 그때는 bottomNo1, bottomNo2라는 키값으로 값이 넘어왔을것 
+	            String bottom = "bottom" + i;
+	            String bottomLink = "bottomLinkNo" + i;
+
+	            if(!multiRequest.getParameter(bottom).equals("")){ // 우선 해당 키값의 아이템명이 넘어왔을 경우
+
+	                Item il = new Item(); // 우선 기존의 아이템이 있었던 새로운 아이템이 추가가 됏던 간에 값을 담기위한 Item객체 생성
+	                il.setItemName(multiRequest.getParameter(bottom));   // 하의 아이템명 담고
+	                il.setItemLink(multiRequest.getParameter(bottomLink)); // 하의 링크 담고
+	                il.setItemCategory("하의"); // 하의 카테고리 담고
+	                // 위의 아이템 명과 링크, 카테고리는 기존에 item이 있었던 새로이 추가된 item이던 간에 공통적으로 필요한 값
+
+	                if(multiRequest.getParameter(bottomNo) != null){ // 근데 만약에 bottomNoX 키값으로 뭔가 넘어온 값이 존재할경우 == 기존에 애초에 등록되어있는 item이 있었다란 소리
+	                    il.setItemNo(Integer.parseInt(multiRequest.getParameter(bottomNo)));
+	                }else{ // 새로이 추가된 item이란 소리
+	                    il.setDailyNo(dailyNo); // 이때는 현재의 데일리번호를 담음 => 왜? insert할때 필요하니깐! 
+	                }
+	               
+	                list.add(il); // 리스트에 추가
+	            }
+	            
+	         // 신발
+	            String shoesNo = "shoesNo" + i; // 기존의 신발이 2개가 이미 존재했을 경우 그때는 shoesNo1, shoesNo2라는 키값으로 값이 넘어왔을것 
+	            String shoes = "shoes" + i;
+	            String shoesLink = "shoesLinkNo" + i;
+
+	            if(!multiRequest.getParameter(shoes).equals("")){ // 우선 해당 키값의 아이템명이 넘어왔을 경우
+
+	                Item il = new Item(); // 우선 기존의 아이템이 있었던 새로운 아이템이 추가가 됏던 간에 값을 담기위한 Item객체 생성
+	                il.setItemName(multiRequest.getParameter(shoes));   // 신발 아이템명 담고
+	                il.setItemLink(multiRequest.getParameter(shoesLink)); // 신발 링크 담고
+	                il.setItemCategory("신발"); // 상의 카테고리 담고
+	                // 위의 아이템 명과 링크, 카테고리는 기존에 item이 있었던 새로이 추가된 item이던 간에 공통적으로 필요한 값
+
+	                if(multiRequest.getParameter(shoesNo) != null){ // 근데 만약에 shoesNoX 키값으로 뭔가 넘어온 값이 존재할경우 == 기존에 애초에 등록되어있는 item이 있었다란 소리
+	                    il.setItemNo(Integer.parseInt(multiRequest.getParameter(shoesNo)));
+	                }else{ // 새로이 추가된 item이란 소리
+	                    il.setDailyNo(dailyNo); // 이때는 현재의 데일리번호를 담음 => 왜? insert할때 필요하니깐! 
+	                }
+	               
+	                list.add(il); // 리스트에 추가
+	            }
+	            
+	         // 기타
+	            String etcNo = "etcNo" + i; // 기존의 기타가 2개가 이미 존재했을 경우 그때는 etcNo1, etcNo2라는 키값으로 값이 넘어왔을것 
+	            String etc = "etc" + i;
+	            String etcLink = "etcLinkNo" + i;
+
+	            if(!multiRequest.getParameter(etc).equals("")){ // 우선 해당 키값의 아이템명이 넘어왔을 경우
+
+	                Item il = new Item(); // 우선 기존의 아이템이 있었던 새로운 아이템이 추가가 됏던 간에 값을 담기위한 Item객체 생성
+	                il.setItemName(multiRequest.getParameter(etc));   // 기타 아이템명 담고
+	                il.setItemLink(multiRequest.getParameter(etcLink)); // 기타 링크 담고
+	                il.setItemCategory("기타"); // 상의 카테고리 담고
+	                // 위의 아이템 명과 링크, 카테고리는 기존에 item이 있었던 새로이 추가된 item이던 간에 공통적으로 필요한 값
+
+	                if(multiRequest.getParameter(etcNo) != null){ // 근데 만약에 topNoX 키값으로 뭔가 넘어온 값이 존재할경우 == 기존에 애초에 등록되어있는 item이 있었다란 소리
+	                    il.setItemNo(Integer.parseInt(multiRequest.getParameter(etcNo)));
+	                }else{ // 새로이 추가된 item이란 소리
+	                    il.setDailyNo(dailyNo); // 이때는 현재의 데일리번호를 담음 => 왜? insert할때 필요하니깐! 
+	                }
+	               
+	                list.add(il); // 리스트에 추가
+	            }
+	            
+	            System.out.println(list);
+	            int result = new DailyService().updateDaily(d, list);
+	            
+	            if(result > 0) {
+	               response.sendRedirect("datail.da>?dno="+dailyNo);
+	            }
+
 			}
-			
-			System.out.println(list);
-			int result = new DailyService().updateDaily(d, list);
-			
-			if(result > 0) {
-				response.sendRedirect("datail.da>?dno="+dailyNo);
-			}
-			
-			
 		}
 		
 	
