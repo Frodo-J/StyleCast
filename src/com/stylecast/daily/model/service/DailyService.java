@@ -348,10 +348,33 @@ public class DailyService {
 		return commentCount;
 	}
 	
+	public Report checkReportDaily(int dno) {
+		Connection conn = getConnection();
+		Report r = new DailyDao().checkReportDaily(conn, dno);
+		close(conn);
+		return r;
+	}
 	
 	
-	
-	
+	public int deleteDaily(int dno) {
+		Connection conn = getConnection();
+
+		int result1 = new DailyDao().deleteDailyComment(conn, dno);
+		int result2 = new DailyDao().deleteItem(conn, dno);
+		int result3 = new DailyDao().deleteDailyLike(conn, dno);
+		int result4 = new DailyDao().deleteBookmark(conn, dno);
+		int result = new DailyDao().deleteDaily(conn, dno);
+
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
 	
 	
 	

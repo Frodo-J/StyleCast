@@ -527,8 +527,7 @@ div {
 				<% if(loginUser != null && loginUser.getMemNo() == d.getMemNo()) { %>
 				<!-- 작성자 본인일 때 -->
 				<button class="btn btn-secondary btn-sm" onclick="location.href='<%=contextPath%>/updateForm.da?dno=<%=d.getDailyNo()%>';">수정</button>
-				<button class="delete btn btn-secondary btn-sm"
-					data-bs-toggle="modal" data-bs-target="#deleteModal">삭제</button>
+				<button class="delete btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">삭제</button>
 				<% }else if (loginUser != null) { %>
 				<!-- 작성자 본인이 아닐 때 -->
 				<button id="report_bt" class="report btn btn-secondary btn-sm"
@@ -839,7 +838,7 @@ div {
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">취소</button>
-					<button type="button" class="btn btn-primary">확인</button>
+					<button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/delete.da?dno=<%=d.getDailyNo()%>';">확인</button>
 				</div>
 			</div>
 		</div>
