@@ -9,20 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.stylecast.daily.model.service.DailyService;
-import com.stylecast.daily.model.vo.DailyCM;
 import com.stylecast.daily.model.vo.Report;
 
 /**
- * Servlet implementation class CommentDeleteController
+ * Servlet implementation class DailyDeleteController
  */
-@WebServlet("/cdelete.da")
-public class CommentDeleteController extends HttpServlet {
+@WebServlet("/delete.da")
+public class DailyDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CommentDeleteController() {
+    public DailyDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,33 +31,25 @@ public class CommentDeleteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int dailyNo = Integer.parseInt(request.getParameter("dailyNo"));
-		int cmNo = Integer.parseInt(request.getParameter("cmNo"));
-		String currentUrl = request.getParameter("currentUrl");
+		int dno = Integer.parseInt(request.getParameter("dno"));
 		
-		DailyCM cm = new DailyCM();
-		cm.setDailyNo(dailyNo);
-		cm.setCmNo(cmNo);
+		Report r = new DailyService().checkReportDaily(dno);
 		
-		System.out.println(dailyNo);
-		System.out.println(cmNo);
-		
-		Report r = new DailyService().checkReportCM(cm);
-
 		if(r != null) {
-			request.getSession().setAttribute("alertMsg", "신고가 접수된 댓글은 삭제할 수 없습니다. 관리자에게 문의 바랍니다.");
-			response.sendRedirect(currentUrl);			
+			request.getSession().setAttribute("alertMsg", "신고가 접수되었거나, 신고 접수된 댓글이 포함된 게시글은 삭제할 수 없습니다. 관리자에게 문의 바랍니다.");
+			response.sendRedirect(request.getContextPath() + "/detail.da?dno=" + dno);			
 		}else {
-			int result = new DailyService().deleteDailyCM(cm);
+			int result = new DailyService().deleteDaily(dno);
 			if(result > 0) {
-				request.getSession().setAttribute("alertMsg", "댓글이 성공적으로 삭제되었습니다.");
-				response.sendRedirect(currentUrl);			
+				request.getSession().setAttribute("alertMsg", "게시글이 성공적으로 삭제되었습니다.");
+				response.sendRedirect(request.getContextPath() + "/list.da?currentPage=1");			
 			}else {
-				request.setAttribute("errorMsg", "댓글 삭제를 실패하였습니다.");
+				request.setAttribute("errorMsg", "게시글 삭제를 실패하였습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 		}
-		
+	
+	
 	}
 
 	/**

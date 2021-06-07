@@ -474,4 +474,42 @@
 		        )
 		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
+	
+	<entry key="checkReportDaily">
+		SELECT
+		       RPT_NO
+		  FROM REPORT
+		 WHERE DAILY_NO = ?
+	</entry>
+	
+	<entry key="deleteDaily">
+		DELETE
+		  FROM DAILY
+		 WHERE DAILY_NO = ?
+	</entry>
+	
+	<entry key="deleteItem">
+		DELETE
+		  FROM ITEM
+		 WHERE DAILY_NO = ?
+	</entry>
+	
+	<entry key="deleteDailyLike">
+		DELETE
+		  FROM DAILY_LIKE
+		 WHERE DAILY_NO = ?
+	</entry>
+	
+	<entry key="deleteBookmark">
+		DELETE
+		  FROM BOOKMARK
+		 WHERE DAILY_NO = ?
+	</entry>
+	
+	<entry key="deleteDailyComment">
+		DELETE
+		  FROM DAILY_CM
+		 WHERE DAILY_NO = ?
+	</entry>
+	
 </properties>

@@ -1028,4 +1028,130 @@ public class DailyDao {
 		return commentCount;
 	}
 	
+	public Report checkReportDaily(Connection conn, int tno) {
+		Report r = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkReportDaily");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tno);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				r = new Report(rset.getInt("rpt_no"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return r;
+	}
+	
+	
+	public int deleteDailyComment(Connection conn, int dno) {
+		
+		PreparedStatement pstmt = null;
+		int result1 = 0;
+		String sql = prop.getProperty("deleteDailyComment");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dno);
+			
+			result1 = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result1;
+		
+	}
+	
+	public int deleteItem(Connection conn, int dno) {
+		
+		
+		PreparedStatement pstmt = null;
+		int result2 = 0;
+		String sql = prop.getProperty("deleteItem");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dno);
+			
+			result2 = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result2;
+		
+	}
+	public int deleteDailyLike(Connection conn, int dno) {
+		
+		PreparedStatement pstmt = null;
+		int result3 = 0;
+		String sql = prop.getProperty("deleteDailyLike");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dno);
+			
+			result3 = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result3;
+	}
+	
+	public int deleteBookmark(Connection conn, int dno) {
+		
+		PreparedStatement pstmt = null;
+		int result4 = 0;
+		String sql = prop.getProperty("deleteBookmark");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dno);
+			
+			result4 = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result4;
+	}
+	
+	public int deleteDaily(Connection conn, int dno) {
+		
+		PreparedStatement pstmt = null;
+		int result5 = 0;
+		String sql = prop.getProperty("deleteDaily");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dno);
+			
+			result5 = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result5;
+	}
 }
