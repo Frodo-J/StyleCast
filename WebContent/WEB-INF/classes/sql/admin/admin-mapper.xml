@@ -436,4 +436,208 @@
 		  , ?
 		  )
 	</entry>
+	
+	<entry key="selectCodiListCount">
+		SELECT COUNT(*) COUNT
+		FROM CODI
+	</entry>
+	
+	<entry key="SelectCodiList">
+		SELECT *
+		FROM(
+		        SELECT ROWNUM RNUM, A.* 
+		        FROM(
+		            SELECT 
+		                   CODI_NO
+		                 , GENDER
+		                 , IMG_PATH
+		                 , REC_WEATHER
+		                 , REC_LOWT
+		                 , REC_HIGHT
+		                 FROM CODI
+		             )A
+		     )
+		     WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectCodiUpdate">
+		SELECT 
+		       CODI_NO
+		     , GENDER
+		     , IMG_PATH
+		     , REC_WEATHER
+		     , REC_LOWT
+		     , REC_HIGHT
+		  FROM CODI
+		 WHERE CODI_NO = ?
+	</entry>
+	
+	<entry key="UpdateEnrollCodiImg">
+		UPDATE
+			CODI
+		SET GENDER = ?
+		  , IMG_PATH = ?
+		  , REC_WEATHER = ?
+		  , REC_LOWT = ?
+		  , REC_HIGHT = ? 
+		WHERE CODI_NO = ?
+	</entry>
+	
+	<entry key="UpdateEnrollCodi">
+		UPDATE
+			CODI
+		SET GENDER = ?
+		  , REC_WEATHER = ?
+		  , REC_LOWT = ?
+		  , REC_HIGHT = ? 
+		WHERE CODI_NO = ?
+	</entry>
+	
+	<entry key="insertCodi">
+		INSERT
+		  INTO CODI
+		  (
+		    CODI_NO
+		  , GENDER
+		  , IMG_PATH
+		  , REC_WEATHER
+		  , REC_LOWT
+		  , REC_HIGHT
+		  )
+		  VALUES
+		  (
+		    SEQ_CODI.NEXTVAL
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  )
+	</entry>
+	
+	<entry key="selectListCountByWeatherClear">
+		SELECT COUNT(*) COUNT
+				FROM CODI
+				WHERE REC_WEATHER = 'SUNNY' OR REC_WEATHER = 'CLOUD'
+	</entry>
+	
+	<entry key="selectListCountByWeatherRain">
+		SELECT COUNT(*) COUNT
+				FROM CODI
+				WHERE REC_WEATHER = 'RAIN' OR REC_WEATHER = 'SNOW'
+	</entry>
+	
+	<entry key="selectListCountByGender">
+		SELECT COUNT(*) COUNT
+				FROM CODI
+				WHERE GENDER = ?
+	</entry>
+	
+	<entry key="selectListCountByBothRain">
+		SELECT COUNT(*) COUNT
+				FROM CODI
+				WHERE GENDER = ? AND (REC_WEATHER = 'RAIN' OR REC_WEATHER = 'SNOW')  
+	</entry>
+	
+	<entry key="selectListCountByBothCLEAR">
+		SELECT COUNT(*) COUNT
+				FROM CODI
+				WHERE GENDER = ? AND (REC_WEATHER = 'SUNNY' OR REC_WEATHER = 'CLOUD')  
+	</entry>
+	
+	<entry key="selectListByWeatherClear">
+		SELECT *
+		FROM(
+		        SELECT ROWNUM RNUM, A.* 
+		        FROM(
+		            SELECT 
+		                   CODI_NO
+		                 , GENDER
+		                 , IMG_PATH
+		                 , REC_WEATHER
+		                 , REC_LOWT
+		                 , REC_HIGHT
+		                 FROM CODI
+		                 WHERE REC_WEATHER = 'SUNNY' OR REC_WEATHER = 'CLOUD'
+		             )A
+		     )
+		     WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectListByWeatherRain">
+		SELECT *
+		FROM(
+		        SELECT ROWNUM RNUM, A.* 
+		        FROM(
+		            SELECT 
+		                   CODI_NO
+		                 , GENDER
+		                 , IMG_PATH
+		                 , REC_WEATHER
+		                 , REC_LOWT
+		                 , REC_HIGHT
+		                 FROM CODI
+		                 WHERE REC_WEATHER = 'RAIN' OR REC_WEATHER = 'SNOW'
+		             )A
+		     )
+		     WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectListByGender">
+		SELECT *
+		FROM(
+		        SELECT ROWNUM RNUM, A.* 
+		        FROM(
+		            SELECT 
+		                   CODI_NO
+		                 , GENDER
+		                 , IMG_PATH
+		                 , REC_WEATHER
+		                 , REC_LOWT
+		                 , REC_HIGHT
+		                 FROM CODI
+		                 WHERE GENDER = ?
+		             )A
+		     )
+		     WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectListByBothCLEAR">
+		SELECT *
+		FROM(
+		        SELECT ROWNUM RNUM, A.* 
+		        FROM(
+		            SELECT 
+		                   CODI_NO
+		                 , GENDER
+		                 , IMG_PATH
+		                 , REC_WEATHER
+		                 , REC_LOWT
+		                 , REC_HIGHT
+		                 FROM CODI
+		                 WHERE GENDER = ? AND (REC_WEATHER = 'SUNNY' OR REC_WEATHER = 'CLOUD')
+		             )A
+		     )
+		     WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectListByBothRain">
+		SELECT *
+		FROM(
+		        SELECT ROWNUM RNUM, A.* 
+		        FROM(
+		            SELECT 
+		                   CODI_NO
+		                 , GENDER
+		                 , IMG_PATH
+		                 , REC_WEATHER
+		                 , REC_LOWT
+		                 , REC_HIGHT
+		                 FROM CODI
+		                 WHERE GENDER = ? AND (REC_WEATHER = 'SNOW' OR REC_WEATHER = 'RAIN')
+		             )A
+		     )
+		     WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
 </properties>
