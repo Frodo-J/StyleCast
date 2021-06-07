@@ -255,7 +255,7 @@
 
                     <div id="line"></div>
                     <div id="prof">
-                        <div id="prof_img" align="center"><img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle"/></div>
+                        <div id="prof_img" align="center"><img src="<%= contextPath %><%= loginUser.getProfImg() %>" class="rounded-circle"/></div>
                         <div id="prof_nick" align="center"><b><%=loginUser.getMemName()%></b></div>
                     	<input id="contextpath" type="hidden" value="<%= contextPath %>">
                     </div>
