@@ -53,6 +53,13 @@ public class Report {
 		this.rMemId = rMemId;
 	}
 	
+	
+	public Report(int rptNo) {
+		super();
+		this.rptNo = rptNo;
+	}
+
+
 	public int getRptNo() {
 		return rptNo;
 	}

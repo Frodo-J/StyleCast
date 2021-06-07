@@ -236,6 +236,14 @@ public class DailyService {
 		return result;
 	}
 	
+	public Report checkReportCM(DailyCM cm) {
+		Connection conn = getConnection();
+		Report r = new DailyDao().checkReportCM(conn, cm);
+		
+		close(conn);
+		return r;
+	}
+	
 	public int searchListCount(String text) {
 		Connection conn = getConnection();
 		int listCount = 0;
