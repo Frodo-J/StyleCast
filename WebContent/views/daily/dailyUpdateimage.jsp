@@ -1,43 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList,com.stylecast.common.model.vo.* ,com.stylecast.daily.model.vo.*"%>
 <%
-
-	//Item il = (Item)request.getAttribute("il");
-	Daily d = (Daily)request.getAttribute("d");
 	ArrayList<Item> list = (ArrayList<Item>)request.getAttribute("list");
-	
-	
+	Item il = (Item)request.getAttribute("il");
+	Daily d = (Daily)request.getAttribute("d");
 	String dPath = request.getContextPath() + "/" + d.getDailyImg();
-	
-	
-	ArrayList<Item> topList = new ArrayList<>();
-	ArrayList<Item> bottomList = new ArrayList<>();
-	ArrayList<Item> shoesList = new ArrayList<>();
-	ArrayList<Item> etcList = new ArrayList<>();
-	
-	for(Item i : list){
-		if(i.getItemCategory().equals("상의")){
-			topList.add(i);
-		}else if(i.getItemCategory().equals("하의")){
-			bottomList.add(i);
-		}else if(i.getItemCategory().equals("신발")){
-			shoesList.add(i);
-		}else{
-			etcList.add(i);
-		}
-	}
-	
-	
-	/*
-	String[] iName = new String[3];
-	String[] iLink = new String[3];
+	String[] iName = new String[12];
+	String[] iLink = new String[12];
 	for(int i=0; i<list.size(); i++){
 		if(list != null){
 			iName[i] = list.get(i).getItemName();
 			iLink[i] = list.get(i).getItemLink();
 		}
 	}
-	*/
 
 %>
 <!DOCTYPE html>
@@ -155,8 +130,6 @@
             border: none;
         }
         
-        
-        
         #tag_body{
         	text-align: center;
         	margin: auto;
@@ -165,18 +138,16 @@
             right: 0;
         }
 
-        #dailyName, #dailyLink1{
-            font-size: 12px;
+        #dailyName, #dailyLink1, #dailyLink2{
+            font-size: 15px;
             margin-bottom: 16px;
-            margin-left:-3px;
             border: none;
             display: inline-block;
         }
 
 		#dailyName{
 			width : 100px;
-			margin-right: 1%;
-			margin-left: 1%;
+			margin-right: 1.3%;
 		}
 
 		#dailyLink1{
@@ -195,14 +166,13 @@
         #daily_submit, daily_cancel{
             text-align: center;
             margin: auto;
+            margin-top: 40px;
             position: relative;
             left: 0;
             right: 0;
             bottom: 0;
             top : 0;
         }
-        
-        #daily_button{margin-top : 30px;}
 
     </style>
     <!--bootstrap-->
@@ -261,6 +231,7 @@
                 <input type="hidden" name="dno" value="<%=d.getDailyNo() %>">
 	                <div id="dailyUp_header">
 	                    <div id="input_file" class="input-group" style="display: none">
+	                        <input type="hidden" name="originImage" value="<%=il.getItemNo() %>"/>
 	                        <input type="file" class="form-control" id="input-img" name="image" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,1);" required>
 	                    </div>
 	                    <div id="image">
@@ -282,69 +253,44 @@
                             <p style="font-size: 10px; color: gray; text-align: left; margin-left: 53px;" >아이템을 구매한 곳의 링크를 입력해주세요! (선택사항)</p>
                             <br>
                             <div id="tag_body">
-                            
-                            	
-                            	<%for(int i=0; i<=2; i++){ %>
-                            		<% if(i <= topList.size() - 1){ %>
-                            			
-                            			<input type="hidden" name="topNo<%= i+1 %>" value="<%=topList.get(i).getItemNo() %>">
-                            			<input type="text" name="top<%= i+1 %>" value="<%= topList.get(i).getItemName() %>" id="dailyName" class="form-control" placeholder="상의<%= i+1 %>">
-		                            	<input type="text" name="topLink<%= i+1 %>" value="<%= topList.get(i).getItemLink() %>" id="dailyLink1" class="form-control" placeholder="링크">	
-                            		
-                            		<% }else{ %>
-                            			<input type="text" name="top<%= i+1 %>" value="" id="dailyName" class="form-control" placeholder="상의<%= i+1 %>">
-		                           	    <input type="text" name="topLink<%= i+1 %>" value="" id="dailyLink1" class="form-control" placeholder="링크">
-                            		
-                            		<% } %>
-                            	<% } %>
-                            	
-                            	<%for(int i=0; i<=2; i++){ %>
-                            		<% if(i <= bottomList.size() - 1){ %>
-                            			
-                            			<input type="hidden" name="bottomNo<%= i+1 %>" value="<%=bottomList.get(i).getItemNo() %>">
-                            			<input type="text" name="bottom<%= i+1 %>" value="<%= bottomList.get(i).getItemName() %>" id="dailyName" class="form-control" placeholder="하의<%= i+1 %>">
-		                            	<input type="text" name="bottomLink<%= i+1 %>" value="<%= bottomList.get(i).getItemLink() %>" id="dailyLink1" class="form-control" placeholder="링크">	
-                            		
-                            		<% }else{ %>
-                            			<input type="text" name="bottom<%= i+1 %>" value="" id="dailyName" class="form-control" placeholder="하의<%= i+1 %>">
-		                           	    <input type="text" name="bottomLink<%= i+1 %>" value="" id="dailyLink1" class="form-control" placeholder="링크">
-                            		
-                            		<% } %>
-                            	<% } %>
-                            		
-                            	<%for(int i=0; i<=2; i++){ %>
-                            		<% if(i <= shoesList.size() - 1){ %>
-                            			
-                            			<input type="hidden" name="shoesNo<%= i+1 %>" value="<%=shoesList.get(i).getItemNo() %>">
-                            			<input type="text" name="shoes<%= i+1 %>" value="<%= shoesList.get(i).getItemName() %>" id="dailyName" class="form-control" placeholder="신발<%= i+1 %>">
-		                            	<input type="text" name="shoesLink<%= i+1 %>" value="<%= shoesList.get(i).getItemLink() %>" id="dailyLink1" class="form-control" placeholder="링크">	
-                            		
-                            		<% }else{ %>
-                            			<input type="text" name="shoes<%= i+1 %>" value="" id="dailyName" class="form-control" placeholder="신발<%= i+1 %>">
-		                           	    <input type="text" name="shoesLink<%= i+1 %>" value="" id="dailyLink1" class="form-control" placeholder="링크">
-                            		
-                            		<% } %>
-                            	<% } %>  
-                            	
-                            	<%for(int i=0; i<=2; i++){ %>
-                            		<% if(i <= etcList.size() - 1){ %>
-                            			
-                            			<input type="hidden" name="etcNo<%= i+1 %>" value="<%=etcList.get(i).getItemNo() %>">
-                            			<input type="text" name="etc<%= i+1 %>" value="<%= etcList.get(i).getItemName() %>" id="dailyName" class="form-control" placeholder="기타<%= i+1 %>">
-		                            	<input type="text" name="etcLink<%= i+1 %>" value="<%= etcList.get(i).getItemLink() %>" id="dailyLink1" class="form-control" placeholder="링크">	
-                            		
-                            		<% }else{ %>
-                            			<input type="text" name="etc<%= i+1 %>" value="" id="dailyName" class="form-control" placeholder="기타<%= i+1 %>">
-		                           	    <input type="text" name="etcLink<%= i+1 %>" value="" id="dailyLink1" class="form-control" placeholder="링크">
-                            		
-                            		<% } %>                        	
-	                            <% } %>
-                            		
+	                            <input type="text" name="top1" value="<%= iName[0] %>" id="dailyName" class="form-control" placeholder="상의1">
+	                            <input type="text" name="topLink1" value="<%= iLink[0] %>" id="dailyLink1" class="form-control" placeholder="링크">
 	                            
-	                			<div id=daily_button>
-	                				<button type="button" style="width:100px;" id="daily_cancel" class="btn btn-dark" onclick="location.href='<%=contextPath%>/detail.da?dno=<%=d.getDailyNo()%>';">취소</button>&nbsp;&nbsp;&nbsp;
-	                				<button type="submit" style="width:100px;" id="daily_submit" class="btn btn-dark">수정</button>
-	                			</div>
+	                            <input type="text" name="top2" value="<%= iName[1] %>" id="dailyName" class="form-control" placeholder="상의2">
+	                            <input type="text" name="topLink2" value="<%= iLink[1] %>" id="dailyLink1" class="form-control" placeholder="링크">
+	                            
+	                            <input type="text" name="top3" value="<%= iName[2] %>" id="dailyName" class="form-control" placeholder="상의3">
+	                            <input type="text" name="topLink3" value="<%= iLink[2] %>" id="dailyLink2" class="form-control" placeholder="링크">
+	                            
+	                            <input type="text" name="bottom1" value="<%= iName[3] %>" id="dailyName" class="form-control" placeholder="하의1">
+	                            <input type="text" name="bottomLink1" value="<%= iLink[3] %>" id="dailyLink1" class="form-control" placeholder="링크">
+	
+	                            <input type="text" name="bottom2" value="<%= iName[4] %>" id="dailyName" class="form-control" placeholder="하의2">
+	                            <input type="text" name="bottomLink2" value="<%= iLink[4] %>" id="dailyLink1" class="form-control" placeholder="링크">
+	                            
+	                            <input type="text" name="bottom3" value="<%= iName[5] %>" id="dailyName" class="form-control" placeholder="하의3">
+	                            <input type="text" name="bottomLink3" value="<%= iLink[5] %>" id="dailyLink2" class="form-control" placeholder="링크">
+	                            
+	                            <input type="text" name="shoes1" value="<%= iName[6] %>" id="dailyName" class="form-control" placeholder="신발1">
+	                            <input type="text" name="shoesLink1" value="<%= iLink[6] %>" id="dailyLink1" class="form-control" placeholder="링크">
+	                            
+	                            <input type="text" name="shoes2" value="<%= iName[7] %>" id="dailyName" class="form-control" placeholder="신발2">
+	                            <input type="text" name="shoesLink2" value="<%= iLink[7] %>" id="dailyLink1" class="form-control" placeholder="링크">
+	                            
+	                            <input type="text" name="shoes3" value="<%= iName[8] %>" id="dailyName" class="form-control" placeholder="신발3">
+	                            <input type="text" name="shoesLink3" value="<%= iLink[8] %>" id="dailyLink2" class="form-control" placeholder="링크">
+	                            
+	                            <input type="text" name="etc1" value="<%= iName[9] %>" id="dailyName" class="form-control" placeholder="기타1">
+	                            <input type="text" name="etcLink1" value="<%= iLink[9] %>" id="dailyLink1" class="form-control" placeholder="링크">
+	                            
+	                            <input type="text" name="etc2" value="<%= iName[10] %>" id="dailyName" class="form-control" placeholder="기타2">
+	                            <input type="text" name="etcLink2" value="<%= iLink[10] %>" id="dailyLink1" class="form-control" placeholder="링크">
+	                           
+	                            <input type="text" name="etc3" value="<%= iName[11] %>" id="dailyName" class="form-control" placeholder="기타3">
+	                            <input type="text" name="etcLink3" value="<%= iLink[11] %>" id="dailyLink2" class="form-control" placeholder="링크">
+	                			
+	                			<button type="button" id="daily_cancel" class="btn btn-dark" onclick="location.href='<%=contextPath%>/detail.da?dno=<%=d.getDailyNo()%>';">취소</button>
+	                			<button type="submit" id="daily_submit" class="btn btn-dark">수정</button>
                            </div>
 	                	</div>
 	                </div>

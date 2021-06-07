@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.stylecast.common.model.vo.BoardImage;
 import com.stylecast.common.model.vo.PageInfo;
 import com.stylecast.daily.model.vo.Daily;
 import com.stylecast.daily.model.vo.DailyCM;
@@ -823,5 +824,35 @@ public class DailyDao {
 		System.out.println(result);
 		return result;
 	}
+	
+	public int updateDaily(Connection conn, Daily d) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateDaily");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, d.getDailyContent());
+			pstmt.setString(2, d.getTag());
+			pstmt.setInt(3, d.getDailyNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println(result);
+		return result;
+	}
+	
+	/*
+	public int insertDailyImage(Connection conn, BoardImage bImage) {
+		int result = 0;
+		PreparedStatement pstmt =null;
+		String sql = prop.getProperty("insertNewDailyIamge");
+		
+	}
+	*/
 	
 }

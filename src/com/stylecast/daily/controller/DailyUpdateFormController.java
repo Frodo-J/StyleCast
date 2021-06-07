@@ -34,11 +34,14 @@ public class DailyUpdateFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int dailyNo = Integer.parseInt(request.getParameter("ddo"));
+		int dailyNo = Integer.parseInt(request.getParameter("dno"));
 		
-		Daily d = new DailyService().selectDaily(dailyNo);
+		Daily d = new DailyService().selectDailyDetail(dailyNo);
 		
-		ArrayList<Item> list = new DailyService().selectItem(dailyNo);
+		ArrayList<Item> list = new DailyService().selectDailyItem(dailyNo);
+		
+		System.out.println(d);
+		System.out.println(list);
 		
 		request.setAttribute("d", d);
 		request.setAttribute("list", list);
