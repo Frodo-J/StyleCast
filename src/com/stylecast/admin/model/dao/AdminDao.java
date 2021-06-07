@@ -251,6 +251,8 @@ public class AdminDao {
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectListCountByGender");
 		
+		System.out.println(gender);
+	
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, gender);
