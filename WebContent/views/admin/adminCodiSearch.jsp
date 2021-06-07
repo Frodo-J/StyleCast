@@ -269,7 +269,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="<%=request.getContextPath()%>/rptList.adm?brCategory=0">게시글관리</a>
+                                <a href="<%=contextPath%>/rptList.adm?brCategory=0&&currentPage=1">게시글관리</a>
                             </h4>
                         </div>
                     </div>
@@ -314,6 +314,7 @@
                             </h5>
                         </div>
                         <form id="control_box" action="<%=contextPath %>/searchCodi.ad?currentPage=1">
+                        	<%if(gender.equals("ALL")){ %>
                         	<input
                             	class="form-check-input"
                                 type="radio"
@@ -343,10 +344,73 @@
                             <label class="form-check-label" for="flexRadioDefault1">
                         		여성
                             </label>
+                            <%}else if (gender.equals("F")) {%>
+                            	<input
+                            	class="form-check-input"
+                                type="radio"
+                                name="gender"
+                                id="flexRadioDefault1"
+                                value="ALL" >
+                            <label class="form-check-label" for="flexRadioDefault1" >
+                         	  	모두
+                            </label>
+                            <input
+                            	class="form-check-input"
+                                type="radio"
+                                name="gender"
+                                id="flexRadioDefault1"
+                                value="M">
+                            <label class="form-check-label" for="flexRadioDefault1" >
+                         	  	남성
+                            </label>
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="gender"
+                                id="flexRadioDefault1"
+                                value="F"
+                                width="100px"
+                                checked="checked">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                        		여성
+                            </label>
+                            <%}else{ %>
+                            	<input
+                            	class="form-check-input"
+                                type="radio"
+                                name="gender"
+                                id="flexRadioDefault1"
+                                value="ALL" >
+                            <label class="form-check-label" for="flexRadioDefault1" >
+                         	  	모두
+                            </label>
+                            <input
+                            	class="form-check-input"
+                                type="radio"
+                                name="gender"
+                                id="flexRadioDefault1"
+                                value="M"
+                                 checked="checked">
+                            <label class="form-check-label" for="flexRadioDefault1" >
+                         	  	남성
+                            </label>
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="gender"
+                                id="flexRadioDefault1"
+                                value="F"
+                                width="100px">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                        		여성
+                            </label>
+                            	
+                            <%} %>
 							<div id="button">
 								<button class="btn btn-primary" type="submit" >적용</button>
 							</div>
 							<input type="hidden" name="currentPage" value="1">
+							<% if(weather.equals("ALL")) {%>
                             <div id="search_box">
                                 <select class="form-select" id="weather_select" name="weather_select">
                                     <option selected="selected" value="ALL">날씨 전체 조회</option>
@@ -354,6 +418,23 @@
                                     <option value="RAIN">비/눈</option>
                                 </select>
                             </div>
+                            <%}else if(weather.equals("CLEAR")) {%>
+                            	<div id="search_box">
+                                <select class="form-select" id="weather_select" name="weather_select">
+                                    <option value="ALL">날씨 전체 조회</option>
+                                    <option selected="selected" value="CLEAR">맑음/흐림</option>
+                                    <option value="RAIN">비/눈</option>
+                                </select>
+                            </div>
+                            <%}else{ %>
+                            	<div id="search_box">
+                                <select class="form-select" id="weather_select" name="weather_select">
+                                    <option value="ALL">날씨 전체 조회</option>
+                                    <option value="CLEAR">맑음/흐림</option>
+                                    <option selected="selected" value="RAIN">비/눈</option>
+                                </select>
+                            </div>
+                            <%} %>
                         </form>
                         <div id="codi_box">
                         	<% for(Codi c : list){ %>

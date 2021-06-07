@@ -52,7 +52,7 @@ public class CodiSearchController extends HttpServlet {
 //		System.out.println(weather);
 		
 		// 총 게시글 갯수
-		listCount = new AdminService().selectListCount(gender,weather);
+		listCount = new AdminService().selectCodiListCount(gender,weather);
 		
 		//System.out.println(listCount);
 		

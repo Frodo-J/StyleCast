@@ -259,8 +259,8 @@ public class AdminService {
 	
 	public int selectCodiListCount() {
 		Connection conn = getConnection();
-		int listCount = new AdminDao().selectListCount(conn);
-
+		int listCount = new AdminDao().selectCodiListCount(conn);
+		System.out.println(listCount);
 		close(conn);
 		return listCount;
 	}
@@ -318,11 +318,11 @@ public class AdminService {
 		return list;
 	}
 
-	public int selectListCount(String gender, String weather) {
+	public int selectCodiListCount(String gender, String weather) {
 		Connection conn = getConnection();
 		int listCount = 0;
 		if(gender.equals("ALL") && weather.equals("ALL")) {
-			listCount = new AdminDao().selectListCount(conn);
+			listCount = new AdminDao().selectCodiListCount(conn);
 		}else if(gender.equals("ALL") && weather.equals("CLEAR")) {
 			listCount = new AdminDao().selectListCountByWeatherClear(conn);
 		}else if(gender.equals("ALL") && weather.equals("RAIN")) {

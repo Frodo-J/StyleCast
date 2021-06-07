@@ -229,7 +229,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="<%=request.getContextPath()%>/rptList.adm?brCategory=0">게시글관리</a>
+                                <a href="<%=contextPath%>/rptList.adm?brCategory=0&&currentPage=1">게시글관리</a>
                             </h4>
                         </div>
                     </div>
@@ -337,7 +337,7 @@
 	                                            </tr>
 	                                            <% } %>
                                             <tr height="150px">
-                                            	<% if(c.getRecWeather().equals("sunny")){ %>
+                                            	<% if(c.getRecWeather().equals("SUNNY")){ %>
 	                                                <th>날씨</th>
 	                                                <td colspan="2">
 	                                                    <select name="weather" class="form-select" aria-label="Default select example">
@@ -347,7 +347,7 @@
 	                                                        <option value="SNOW">snow</option>
 	                                                    </select>
 	                                                </td>
-	                                        	<% }else if(c.getRecWeather().equals("cloud")){ %>
+	                                        	<% }else if(c.getRecWeather().equals("CLOUD")){ %>
 	                                        		<th>날씨</th>
 	                                                <td colspan="2">
 	                                                    <select name="weather" class="form-select" aria-label="Default select example">
@@ -357,7 +357,7 @@
 	                                                        <option value="SNOW">snow</option>
 	                                                    </select>
 	                                                </td>
-	                                        	<% }else if(c.getRecWeather().equals("rain")){ %>
+	                                        	<% }else if(c.getRecWeather().equals("RAIN")){ %>
 	                                        		<th>날씨</th>
 	                                                <td colspan="2">
 	                                                    <select name="weather" class="form-select" aria-label="Default select example">
@@ -492,7 +492,7 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    코디를 수정하시겠습니까?
+                                    	코디를 수정하시겠습니까?
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
@@ -506,37 +506,7 @@
                             </div>
                         </div>
                     </div>
-                    <div
-                        class="modal fade"
-                        id="exampleModalToggle2"
-                        aria-hidden="true"
-                        aria-labelledby="exampleModalToggleLabel2"
-                        tabindex="-1">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalToggleLabel2">
-                                        <b>확인창</b>
-                                    </h5>
-                                    <button
-                                        type="button"
-                                        class="btn-close"
-                                        data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    수정되었습니다!
-                                </div>
-                                <div class="modal-footer">
-                                    <button
-                                        class="btn btn-primary"
-                                        data-bs-toggle="modal"
-                                        data-bs-dismiss="modal"
-                                        onclick="blackMem(mem_detail)">확인</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <script>
 	                    function clickInsert(CodiInsert) {
 							console.log("hi");

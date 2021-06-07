@@ -8,10 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.stylecast.admin.model.service.AdminService;
 import com.stylecast.admin.model.vo.Codi;
 import com.stylecast.common.model.vo.PageInfo;
+import com.stylecast.member.vo.Member;
 
 /**
  * Servlet implementation class CodiMainController
@@ -33,6 +35,9 @@ public class CodiMainController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
 		int listCount;
 		int currentPage;
 		int pageLimit;
@@ -43,7 +48,7 @@ public class CodiMainController extends HttpServlet {
 		int endPage;
 		
 		// 총 게시글 갯수
-		listCount = new AdminService().selectListCount();
+		listCount = new AdminService().selectCodiListCount();
 		
 		// 사용자가 요청한 페이지 ( 현재 페이지)
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -67,16 +72,16 @@ public class CodiMainController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
+		if(loginUser != null && loginUser.getAdminYN().equals("Y")) {
+			ArrayList<Codi> list = new AdminService().selectCodiList(pi);
 		
-		ArrayList<Codi> list = new AdminService().selectCodiList(pi);
-		
-		
-		//ArrayList<Notice> list = new NoticeService().selectNoticeList();
-		
-		request.setAttribute("list", list);
-		request.setAttribute("pi", pi);
-		request.getRequestDispatcher("views/admin/adminCodiMain.jsp").forward(request,response);
-		
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			request.getRequestDispatcher("views/admin/adminCodiMain.jsp").forward(request,response);
+		}else {
+			session.setAttribute("alertMsg", "관리자만 접근 가능한 페이지입니다.");
+			response.sendRedirect(request.getContextPath());
+		}	
 		
 	}
 

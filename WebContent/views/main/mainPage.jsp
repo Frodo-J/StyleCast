@@ -17,7 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <!--bootstrap end-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
-    <link rel="stylesheet" href="style.css">
+
     <!--font-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
@@ -216,8 +216,8 @@
                              },success: function(listC){
                             	 console.log(listC);
                             	 
-                            	 $("#codi_img_1").attr("src", listC[0].imgPath + "jpg");
-                            	 $("#codi_img_2").attr("src", listC[1].imgPath + "jpg");
+                            	 $("#codi_img_1").attr("src", listC[0].imgPath);
+                            	 $("#codi_img_2").attr("src", listC[1].imgPath);
                             	 
                             	 
                              }
@@ -235,11 +235,11 @@
                            	 Temp : Temp,
                            	 Weather : Weather
                             },success: function(listF){
-                           	 console.log(listF);
+                           	 	console.log(listF);
                            	 
-                           	 $("#codi_img_1").attr("src", listF[0].imgPath + "jpg");
-                           	 $("#codi_img_2").attr("src", listF[1].imgPath + "jpg");
-                           	 
+                           	
+                           	 $("#codi_img_1").attr("src", listF[0].imgPath);
+                           	 $("#codi_img_2").attr("src", listF[1].imgPath);
                            	 
                             }
                         });

@@ -113,7 +113,7 @@ public class MainDao {
 	}
 	
 	public ArrayList<MainSelectCodiF> MainSelectCodiF(Connection conn, double Nowtemp){
-		ArrayList<MainSelectCodiF> listC = new ArrayList<>();
+		ArrayList<MainSelectCodiF> listF = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("MainSelectCodiF");
@@ -124,9 +124,10 @@ public class MainDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				listC.add(new MainSelectCodiF(rset.getInt("codi_no"),
+				listF.add(new MainSelectCodiF(rset.getInt("codi_no"),
 								    	 	 rset.getString("img_path")));
 			}
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -135,7 +136,7 @@ public class MainDao {
 			close(pstmt);
 		}
 		
-		return listC;
+		return listF;
 		
 	}
 	
