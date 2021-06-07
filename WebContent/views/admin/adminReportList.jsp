@@ -174,6 +174,7 @@
                 height: 70%;
                 padding: 20px;
             }
+            #prof_img>img{width: 100px; height: 100px;}
             #prof {
                 height: 17%;
                 width: 99%;
@@ -201,8 +202,9 @@
 
                     <div id="line"></div>
                     <div id="prof">
-                        <div id="prof_img" align="center"><img src="images/prof.PNG"></div>
+                        <div id="prof_img" align="center"><img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle"></div>
                         <div id="prof_nick" align="center">
+                    	<input id="contextpath" type="hidden" value="<%= contextPath %>">
                             <b>닉네임</b>
                         </div>
                     </div>
@@ -608,6 +610,35 @@
                         </div> -->
 
                     </div>
+            	
+            	<script>
+            		// 프로필 이미지 갱신
+            		$(function(){
+            			
+            			var cp = $("#contextpath").val();
+            		})
+            	</script>
+            	
+            	<script>
+            		// 프로필 이미지 갱신
+            		$(function(){
+            			
+            			var cp = $("#contextpath").val();
+            			
+            			$.ajax({
+			        		url:"profImgSelect.me",
+			        		data:{
+			        			memNo:<%=loginUser.getMemNo()%>
+			        		},
+			        		type:"post",
+			        		success:function(profImg){
+								$("#content #prof_img img").attr("src", cp + profImg);
+			        		},error:function(){
+			        			console.log("프로필 이미지 불러오기 실패");
+			        		}
+			        	})
+            		})
+            	</script>
 
                 </div>
             </div>

@@ -49,7 +49,6 @@ public class NoticeInsertController extends HttpServlet {
 			// 전달된 파일명 수정 작업후 서버에 업로드처리
 			MultipartRequest multiRequest = new MultipartRequest(request,savePath,maxSize,"UTF-8",new MyFileRenamePolicy());
 			
-			
 			Notice n = new Notice();
 			n.setMemNo(multiRequest.getParameter("userNo"));
 			n.setNoticeTitle(multiRequest.getParameter("title"));
@@ -76,9 +75,8 @@ public class NoticeInsertController extends HttpServlet {
 			if(result > 0) {
 				response.sendRedirect(request.getContextPath() + "/list.no?currentPage=1");
 			}else {
-				//에러페이지
-				//RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-				//view.forward(request, response);
+				request.setAttribute("errorMsg", "등록에 실패했습니다.");
+				request.getRequestDispatcher("view/common/errorPage.jsp").forward(request, response);
 			}
 		
 		}

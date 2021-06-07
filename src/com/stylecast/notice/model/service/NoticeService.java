@@ -105,24 +105,6 @@ public class NoticeService {
 		return result1 * result2;
 	}
 
-//	public int updateNotice(Notice n, ArrayList<BoardImage> list) {
-//		// TODO Auto-generated method stub
-//		Connection conn = getConnection();
-//		
-//		int result2 = new NoticeDao().updateNotice(conn,n);
-//		int result3 = new NoticeDao().insertBoardImageList(conn, list,n.getNoticeNo());
-//		
-//			
-//		if(result2 >0) {
-//			commit(conn);
-//		}else {
-//			rollback(conn);
-//		}
-//		
-//		close(conn);
-//		
-//		return result2;
-//	}
 
 	public int deleteBoardImages(Notice n) {
 		// TODO Auto-generated method stub
@@ -157,7 +139,6 @@ public class NoticeService {
 			if(bImage.getImgNo() != 0) { // 기존 첨부파일 있을 경우
 				result = new NoticeDao().updateBoardImage(conn,bImage);
 			}else { // 기존 첨부파일이 없을 경우
-				System.out.println("서비스의 첨부파일이 없을 경우: " + bImage);
 				result = new NoticeDao().insertNewBoardImage(conn,bImage);
 			}
 			
@@ -172,9 +153,6 @@ public class NoticeService {
 		Connection conn = getConnection();
 		ArrayList<Notice> list = null;
 		if(category.equals("notice_title")) {
-			System.out.println("notice_title진입");
-			System.out.println(pi);
-			System.out.println(text);
 			list = new NoticeDao().selectListByNoticeTitle(conn,pi,text);
 		}else if(category.equals("notice_content")) {
 			list = new NoticeDao().selectListByNoticeContent(conn,pi,text);

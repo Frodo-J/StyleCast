@@ -395,4 +395,42 @@
         		)
     		WHERE RNUM BETWEEN ? AND ?
 	</entry>
+	
+	<entry key="selectDailyList">
+		SELECT
+		       DAILY_NO
+		     , MEM_NO
+		     , DAILY_CONTENT
+		     , ENR_DATE
+		     , DAILY_IMG
+		     , TAG
+		     , MEM_NAME
+		     , PROF_IMG
+		  FROM DAILY
+		  JOIN MEMBER USING(MEM_NO)
+         WHERE 
+           NOT DAILY_NO IN
+             (
+               SELECT 
+                      DAILY_NO
+                 FROM THEME_POST
+                WHERE THEME_NO = ?
+             )
+         ORDER
+            BY ENR_DATE DESC
+	</entry>
+	
+	<entry key="insertTPost">
+		INSERT
+		  INTO THEME_POST
+		  (
+		    THEME_NO
+		  , DAILY_NO
+		  )
+		  VALUES
+		  (
+		    ?
+		  , ?
+		  )
+	</entry>
 </properties>

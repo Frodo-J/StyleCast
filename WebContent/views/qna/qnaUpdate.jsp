@@ -59,6 +59,11 @@ ArrayList<BoardImage> list = (ArrayList<BoardImage>)request.getAttribute("list")
             function loadImg(inputFile, num){
                 // inputFile : 현재 변화가 생긴 input type="file" 요소객체
                 // num : 몇번째 input요소인지 확인 후 해당 그영역에 미리보기하기위해서
+            	// 확장자 체크
+                if(!/\.(gif|jpg|jpeg|png)$/i.test(inputFile.files[0].name)){
+                	alert('gif, jpg, png와 확장자명이 같은 이미지 파일만 선택해 주세요.\n\n현재 파일 : ' + inputFile.files[0].name);
+                	return;
+                }
 
                 //console.log(inputFile.files.length);
             

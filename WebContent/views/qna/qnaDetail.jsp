@@ -3,6 +3,8 @@
 <%
 	Qna q = (Qna)request.getAttribute("q");
 	ArrayList<BoardImage> imgList = (ArrayList<BoardImage>)request.getAttribute("imgList");
+	String content = q.getQnaContent();
+	content = content.replace("\r\n","<br>");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -127,7 +129,7 @@
                         <th>내용</th>
                         <td colspan="3">
                             <div id="qna_contents">
-                            	<%=q.getQnaContent() %>
+                            	<%=content %>
                             	<br>
                                	<br>
                                 <!--첨부파일 이미지 있으면 여기아래 처리-->

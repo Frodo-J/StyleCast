@@ -3,6 +3,7 @@ package com.stylecast.qna.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -52,7 +53,6 @@ public class QnaInsertController extends HttpServlet {
 			q.setQnaContent(multiRequest.getParameter("content"));
 			q.setQnaCategory(multiRequest.getParameter("qna_category"));
 			
-			System.out.println(q);
 			
 			ArrayList<BoardImage> list = new ArrayList<>();
 			
@@ -69,7 +69,6 @@ public class QnaInsertController extends HttpServlet {
 				}
 				
 			}
-			System.out.println(list);
 			
 			int result = new QnaService().insertQna(q,list);
 			
@@ -77,8 +76,8 @@ public class QnaInsertController extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/list.qna?currentPage=1");
 			}else {
 				//에러페이지
-				//RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-				//view.forward(request, response);
+				request.setAttribute("errorMsg", "등록에 실패했습니다.");
+				request.getRequestDispatcher("view/common/errorPage.jsp").forward(request, response);
 			}
 			
 		}

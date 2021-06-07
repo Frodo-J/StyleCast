@@ -31,7 +31,6 @@ public class AdminMemberUpdateBlackNController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("updateblackn진입");
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		if(loginUser != null && loginUser.getAdminYN().equals("Y")) {

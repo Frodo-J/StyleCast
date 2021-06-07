@@ -48,12 +48,17 @@
                 // inputFile : 현재 변화가 생긴 input type="file" 요소객체
                 // num : 몇번째 input요소인지 확인 후 해당 그영역에 미리보기하기위해서
 
-                //console.log(inputFile.files.length);
-            
+                console.log(inputFile.files);
+            	
+            	
                 if(inputFile.files.length == 1){ 
                     // 선택된 파일이 존재할 경우 
                     // => 선택된 파일을 읽어들여서 그 영역에 맞는 곳에 미리보기
-                    
+                    // 확장자 체크
+                    if(!/\.(gif|jpg|jpeg|png)$/i.test(inputFile.files[0].name)){
+                    	alert('gif, jpg, png와 확장자명이 같은 이미지 파일만 선택해 주세요.\n\n현재 파일 : ' + inputFile.files[0].name);
+                    	return;
+                    }
                     // 파일을 읽어들일 FileReader 객체 생성
                     var reader = new FileReader();
                     
@@ -214,9 +219,9 @@
                         <th>이미지 첨부</th>
                         <td colspan="3">
                             <div id="image_lists">
-                                <img id="img1" width="200" height="150"/>
-                                <img id="img2" width="200" height="150"/>
-                                <img id="img3" width="200" height="150"/>
+                                <img id="img1" width="200" height="150" src="<%=contextPath %>/resources/images/add.png" onerror="javascript:this.src='<%=contextPath %>/resources/images/add.png'"/>
+                                <img id="img2" width="200" height="150" src="<%=contextPath %>/resources/images/add.png" onerror="javascript:this.src='<%=contextPath %>/resources/images/add.png'"/>
+                                <img id="img3" width="200" height="150" src="<%=contextPath %>/resources/images/add.png" onerror="javascript:this.src='<%=contextPath %>/resources/images/add.png'"/>
                             </div>
                         </td>
                     </tr>

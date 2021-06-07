@@ -108,12 +108,12 @@
             }
 
             #content_of_form {
-                height: 73%;
+                height: 82%;
                 padding-left: 50px;
                 overflow: auto;
             }
             #blank_box {
-                height: 8%;
+                height: 7%;
                 font-size: 22px;
                 font-weight: 600;
             }
@@ -121,17 +121,17 @@
             #control_box{
                 background-color: lightgray;
                 width:100%;
-                height: 86%;
+                height: 80%;
                 }
             
             #control_head{
-                height:20%;
+                height:18%;
                 position: relative;
             }
 
             #add_box{
                 width: 808px;
-                height:548px;
+                height: 588px;
                 margin: 3px;
                 background-color: white;
                 overflow: auto;
@@ -199,8 +199,11 @@
 
             #submit_button{
                 position: absolute;
-                top: 84px;
-                left: 715px;
+                top: 88px;
+                left: 700px;
+            }
+            #submit_button>button{
+                width: 70px;
             }
 
             #room_type{
@@ -245,6 +248,7 @@
             }
             
             #prof_img{height: 70%; padding: 20px;}
+        	#prof_img>img{width: 100px; height: 100px;}
             #prof{height: 17%;width: 99%; float: left;}
             #prof div, #menu div{width: 100%;}
         </style>
@@ -260,8 +264,9 @@
 
                     <div id="line"></div>
                     <div id="prof">
-                        <div id="prof_img" align="center"><img src="<%=contextPath %>/resources/images/prof.PNG"></div>
-                        <div id="prof_nick" align="center">닉네임</div>
+                        <div id="prof_img" align="center"><img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle"/></div>
+                        <div id="prof_nick" align="center"><b><%=loginUser.getMemName()%></b></div>
+                    	<input id="contextpath" type="hidden" value="<%= contextPath %>">
                     </div>
                     <div id="menu">
                         <div>
@@ -271,7 +276,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="">메인관리</a>
+                                <a href="<%= contextPath %>/codilist.ad?currentPage=1">메인관리</a>
                             </h4>
                         </div>
                         <div>
@@ -281,7 +286,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="<%=request.getContextPath()%>/rptList.adm?brCategory=0">게시글관리</a>
+                                <a href="<%=contextPath%>/rptList.adm?brCategory=0&&currentPage=1">게시글관리</a>
                             </h4>
                         </div>
                     </div>
@@ -341,12 +346,24 @@
                                         	<input type="hidden" name="status" value="">
                                         <% } %>
                                     </div>
+                                    <script>
+                                    	$(function(){
+                                    		$("#submit_button>button").on("click", function(){
+                                    			if($("#status").is(":checked")) {
+                                    				$("input[name=status]").val("Y");
+                                    			}else{
+                                    				$("input[name=status]").val("N");
+                                    			}
+                                    		})
+                                    	});
+                                    </script>
+                                    
                                     <div id="color_box">
                                         <div><b>테마 색상</b></div>
                                         <input type="color" id="theme_color" name="color" class="form-control form-control-color" value="<%= t.getThemeTitleColor() %>">
                                     </div>
                                     <div id="submit_button">
-                                        <button type="submit" class="btn btn-primary">적용</button>
+                                        <button type="submit" class="btn btn-secondary btn-sm">적용</button>
                                     </div>
                                 </form>
                             </div>
@@ -364,24 +381,15 @@
 								<% } %>
 								
                                     <script>
-                                        
-                                        $(document).ready(function(){
-                                        	$("#add_btn").on('click', function(){
-                                                addRow();
-                                        		
-	                            			if($(".codi").length){
-	                                            $("#add_none").remove();
-	                            			}
-
-	                                        });
-                                        });
-                                        
+                                        /*
                                         function addRow(){
 
                                             var html="<div class=\"codi\"><img src=\"img/codi4.jpg\"><button class=\"del_btn btn btn-secondary btn-sm\" type=\"button\">삭제</button></div>"
                                             $("#add_box").append(html);              
                                         }
-
+										*/
+                                        
+                                        // 항목 삭제
                                         $(document).on("click", ".del_btn", function(){
                                             var index = $(".del_btn").index(this);
                                             var none = "<div id='add_none'><p>&emsp;&emsp;&ensp;테마에 추가된 데일리 게시글이 없습니다.<p></div>"
@@ -404,20 +412,40 @@
 	                                				console.log("데일리 항목 삭제 ajax통신 실패");
 	                                			}
 	                                        });
-											
                                         })
                                         
                                     </script>
       
                             </div>
                         </div>
-                        <button type="button" id="add_btn" class="btn btn-secondary">항목추가</button>
+                        <button type="button" id="add_btn" class="btn btn-secondary" onclick="location.href='<%= contextPath %>/selectTPost.tr?tno=<%= t.getThemeNo() %>'">항목추가</button>
                         <button type="button" id="return_btn" class="btn btn-secondary" onclick="location.href='<%= contextPath %>/trdlist.adm?currentPage=1'">목록</button> 
 
                     </div>
                 </div>
             </div>
         </div>
+            	
+            	<script>
+            		// 프로필 이미지 갱신
+            		$(function(){
+            			
+            			var cp = $("#contextpath").val();
+            			
+            			$.ajax({
+			        		url:"profImgSelect.me",
+			        		data:{
+			        			memNo:<%=loginUser.getMemNo()%>
+			        		},
+			        		type:"post",
+			        		success:function(profImg){
+								$("#content #prof_img img").attr("src", cp + profImg);
+			        		},error:function(){
+			        			console.log("프로필 이미지 불러오기 실패");
+			        		}
+			        	})
+            		})
+            	</script>
 
 		<script>
 		

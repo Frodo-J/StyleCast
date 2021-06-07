@@ -104,12 +104,12 @@
             }
 
             #content_of_form {
-                height: 73%;
+                height: 82%;
                 padding-left: 50px;
                 overflow: auto;
             }
             #blank_box {
-                height: 8%;
+                height: 7%;
                 font-size: 22px;
                 font-weight: 600;
             }
@@ -117,17 +117,17 @@
             #control_box{
                 background-color: lightgray;
                 width:100%;
-                height: 86%;
+                height: 80%;
                 }
             
             #control_head{
-                height:20%;
+                height:18%;
                 position: relative;
             }
 
             #add_box{
                 width: 808px;
-                height:549px;
+                height:588px;
                 margin: 3px;
                 background-color: white;
                 overflow: auto;
@@ -239,6 +239,7 @@
             }
             
             #prof_img{height: 70%; padding: 20px;}
+        	#prof_img>img{width: 100px; height: 100px;}
             #prof{height: 17%;width: 99%; float: left;}
             #prof div, #menu div{width: 100%;}
         </style>
@@ -254,8 +255,9 @@
 
                     <div id="line"></div>
                     <div id="prof">
-                        <div id="prof_img" align="center"><img src="<%=contextPath %>/resources/images/prof.PNG"></div>
-                        <div id="prof_nick" align="center">닉네임</div>
+                        <div id="prof_img" align="center"><img src="<%= contextPath %>/<%= loginUser.getProfImg() %>" class="rounded-circle"/></div>
+                        <div id="prof_nick" align="center"><b><%=loginUser.getMemName()%></b></div>
+                    	<input id="contextpath" type="hidden" value="<%= contextPath %>">
                     </div>
                     <div id="menu">
                         <div>
@@ -265,7 +267,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="">메인관리</a>
+                                <a href="<%= contextPath %>/codilist.ad?currentPage=1">메인관리</a>
                             </h4>
                         </div>
                         <div>
@@ -275,7 +277,7 @@
                         </div>
                         <div>
                             <h4>
-                                <a href="<%=request.getContextPath()%>/rptList.adm?brCategory=0">게시글관리</a>
+                                <a href="<%=contextPath%>/rptList.adm?brCategory=0&&currentPage=1">게시글관리</a>
                             </h4>
                         </div>
                     </div>
@@ -327,8 +329,18 @@
                                         <div><b>비공개/공개</b></div>
                                         <input type="checkbox" id="status" class="form-check-input">
                                         <input type="hidden" name="status" value="">
-                                        <p id="here"></p>
                                     </div>
+                                    <script>
+                                    	$(function(){
+                                    		$("#submit_button>button").on("click", function(){
+                                    			if($("#status").is(":checked")) {
+                                    				$("input[name=status]").val("Y");
+                                    			}else{
+                                    				$("input[name=status]").val("N");
+                                    			}
+                                    		})
+                                    	});
+                                    </script>
                                     <div id="color_box">
                                         <div><b>테마 색상</b></div>
                                         <input type="color" id="theme_color" name="color" class="form-control form-control-color">
@@ -394,5 +406,26 @@
 			
 
 		</script>
+            	
+            	<script>
+            		// 프로필 이미지 갱신
+            		$(function(){
+            			
+            			var cp = $("#contextpath").val();
+            			
+            			$.ajax({
+			        		url:"profImgSelect.me",
+			        		data:{
+			        			memNo:<%=loginUser.getMemNo()%>
+			        		},
+			        		type:"post",
+			        		success:function(profImg){
+								$("#content #prof_img img").attr("src", cp + profImg);
+			        		},error:function(){
+			        			console.log("프로필 이미지 불러오기 실패");
+			        		}
+			        	})
+            		})
+            	</script>
     </body>
 </html>

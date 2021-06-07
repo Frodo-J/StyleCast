@@ -346,7 +346,7 @@ div {
 					</div>
 
 					<div class="profile">
-						<img src="<%= contextPath %>/<%= d.getProfImg() %>" alt="">
+						<img src="<%= contextPath %>/<%= d.getProfImg() %>" class="rounded-circle">
 					</div>
 					<div class="userid"><%= d.getMemName() %></div>
 					<div class="date"><%= simpleDateFormat.format(d.getEnrDate()) %></div>
@@ -356,7 +356,7 @@ div {
 						<div class="react_like"></div>
 						<div class="react_count"><%= d.getLikeCount() %></div>
 						<div class="react_comment"></div>
-						<div class="react_count">10</div>
+						<div class="react_count"><%= d.getCommentCount() %></div>
 						<div class="react_bookmark"></div>
 						<div class="react_count"><%= d.getBookmarkCount() %></div>
 					</div>

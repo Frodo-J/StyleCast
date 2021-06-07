@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -50,7 +51,8 @@ public class NoticeDeleteController extends HttpServlet {
 		if(result1 * result2 > 0) {
 			response.sendRedirect(request.getContextPath() + "/list.no?currentPage=1");
 		}else {
-			//에러페이지
+			request.setAttribute("errorMsg", "삭제에 실패했습니다.");
+			request.getRequestDispatcher("view/common/errorPage.jsp").forward(request, response);
 		}
 		
 	}
