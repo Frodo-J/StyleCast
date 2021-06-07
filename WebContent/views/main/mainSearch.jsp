@@ -5,12 +5,27 @@
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Daily> list = (ArrayList<Daily>)request.getAttribute("list");
 	ArrayList<Report> rlist = new ArrayList<>();
+	ArrayList<Daily> bList = (ArrayList<Daily>)request.getAttribute("bList");
+	ArrayList<Daily> lList = (ArrayList<Daily>)request.getAttribute("lList");
+	
 	String text = (String)request.getAttribute("text");
 	
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
+	
+	int[] bArr = new int[bList.size()];
+	int bSize = 0;
+	for(Daily bDaily : bList){
+	  bArr[bSize++] = bDaily.getDailyNo();
+	}
+	
+	int[] lArr = new int[lList.size()];
+	int lSize = 0;
+	for(Daily lDaily : lList){
+	  lArr[lSize++] = lDaily.getDailyNo();
+	}
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -116,11 +131,39 @@
 		                        <div class="action_hover">
 		                        	<!-- 로그인시 가능하도록 설정해야함 -->
 									<% if(loginUser != null) { %>
-		                            <div class="action"><input type="button" class="like" ></div>
+		                            <div class="action">
+										<% int l = 0; %>
+			                            	<%for (int i = 0; i < lArr.length; i++) {%>
+			                            		 <%if (lArr[i] == d.getDailyNo()) { %>
+			                            		 	<input type="button" class="like"
+			        		                        style="background: url('resources/images/react_icon/sun_yellow.svg') no-repeat center/contain; width:100%; height: 100%; border:0px; background-size: 25px 25px;">
+			                            			<% l++;%>
+			                            			<% d.setLikeCount(1); %>
+			                            	<%}}%>
+			                            		<%if(l == 0) {%>
+			                            			<input type="button" class="like"
+				                            		style="background: url('resources/images/react_icon/sun2.svg') no-repeat center/contain; width:100%; height: 100%; border:0px; background-size: 25px 25px;">   	
+			                            			<% d.setLikeCount(0); %>
+			                            		<%} %>
+									</div>
 		                            <div class="vertical-line"></div>
 		                            <div class="action"><input type="button" class="comment"></div>
 		                            <div class="vertical-line"></div>
-		                            <div class="action"><input type="button" class="bookmark"></div>
+		                            <div class="action">
+										<% int b = 0; %>
+			                            	<%for (int i = 0; i < bArr.length; i++) {%>
+			                            		 <%if (bArr[i] == d.getDailyNo()) { %>
+			                            		 	<input type="button" class="bookmark"
+			        		                        style="background: url('resources/images/react_icon/bookmark_blue.svg') no-repeat center/contain; width:100%; height: 100%; border:0px; background-size: 25px 25px;">
+			                            			<% b++;%>
+			                            			<% d.setBookmarkCount(1); %>
+			                            	<%}}%>
+			                            		<%if(b == 0) {%>
+			                            			<input type="button" class="bookmark"
+				                            		style="background: url('resources/images/react_icon/bookmark2.svg') no-repeat center/contain; width:100%; height: 100%; border:0px; background-size: 25px 25px;">   	
+			                            			<% d.setBookmarkCount(0); %>
+			                            		<%} %>
+									</div>
 		                            <div class="vertical-line"></div>
 		                            <div class="action">
 			                            <input type="button" class="report" data-bs-toggle="modal" data-bs-target="#reportModal">
@@ -142,7 +185,7 @@
 		                    </div>
 	
 		                    <div class="profile">
-		                        <img src="<%= contextPath %>/<%= d.getProfImg() %>" alt="">
+								<img src="<%= contextPath %>/<%= d.getProfImg() %>" class="rounded-circle">
 		                    </div>
 		                    <div class="userid"><%= d.getMemName() %></div>
 		                    <div class="date"><%= simpleDateFormat.format(d.getEnrDate()) %></div>
@@ -150,11 +193,11 @@
 		                    <input type="button" class="more" onclick="">
 		                    <div class="react">
 		                        <div class="react_like"></div>
-		                        <div class="react_count">10</div>
+		                        <div class="react_count"><%= d.getLikeCount() %></div>
 		                        <div class="react_comment"></div>
 		                        <div class="react_count">10</div>
 		                        <div class="react_bookmark"></div>
-		                        <div class="react_count">10</div>
+		                        <div class="react_count"><%= d.getBookmarkCount() %></div>
 		                    </div>
 		                </div>
 	                	<% } %>
@@ -190,6 +233,89 @@
 		        </div>
 	        </div>
 		</div>
+	    
+	    <!-- 북마크 -->
+	    <script>
+		    $(".daily_img .action_hover .bookmark").click(function(){
+		    	
+		    	var bc = $(this).closest(".daily_post").find(".react_bookmark").next();
+		    	var img = $(this);
+		    	
+		    	<% if(loginUser != null) {%>
+				$.ajax({
+	        		url:"bookmarkMulti.do",
+	        		data:{
+	        			memNo:<%=loginUser.getMemNo()%>,
+	        			dailyNo:$(this).parent().next().next().children("input[name=reportDailyNo]").val()
+	        		},
+	        		type:"post",
+	        		success:function(daily){ // 성공시 실행 함수 => 북마크 버튼 색 변경, 북마크수 갱신
+						//북마크수 갱신
+	        			bc.html(daily.bookmarkCount); 
+	        		
+	        			if(daily.likeCount > 0){ // 북마크 등록 완료
+	        				img.css({"background" : "url('resources/images/react_icon/bookmark_blue.svg') no-repeat center/contain"
+												 	 , "background-size" : "25px 25px"
+								       				 , "border" : "0px"
+								       				 , "width" : "100%"
+								       				 , "height" : "100%"});
+	        			} else{ // 북마크 삭제 완료
+	        				img.css({"background" : "url('resources/images/react_icon/bookmark2.svg') no-repeat center/contain"
+											 		 , "background-size" : "25px 25px"
+								       				 , "border" : "0px"
+								       				 , "width" : "100%"
+								       				 , "height" : "100%"});
+	        			}
+	        				
+	        		},error:function(){ // 실패시 실행 함수
+	        			console.log("북마크 등록/삭제 실패");
+	        		}
+	        	})
+	        <%} %>
+			})
+	    </script>
+	    
+	    <!-- 좋아요 -->
+	    <script>
+		    $(".daily_img .action_hover .like").click(function(){
+		    	
+		    	var lc = $(this).closest(".daily_post").find(".react_like").next();
+		    	var img = $(this);
+		    	
+		    	<% if(loginUser != null) {%>
+				$.ajax({
+	        		url:"likeMulti.do",
+	        		data:{
+	        			memNo:<%=loginUser.getMemNo()%>,
+	        			dailyNo:$(this).parent().siblings(".action").children("input[name=reportDailyNo]").val()
+	        		},
+	        		type:"post",
+	        		success:function(daily){ // 성공시 실행 함수 => 좋아요 버튼 색 변경, 좋아요수 갱신
+						//좋아요수 갱신
+	        			lc.html(daily.likeCount); 
+	        		
+	        			if(daily.bookmarkCount > 0){ // 좋아요 등록 완료
+	        				img.css({"background" : "url('resources/images/react_icon/sun_yellow.svg') no-repeat center/contain"
+												 	 , "background-size" : "25px 25px"
+								       				 , "border" : "0px"
+								       				 , "width" : "100%"
+								       				 , "height" : "100%"});
+	        			} else{ // 좋아요 삭제 완료
+	        				img.css({"background" : "url('resources/images/react_icon/sun2.svg') no-repeat center/contain"
+											 		 , "background-size" : "25px 25px"
+								       				 , "border" : "0px"
+								       				 , "width" : "100%"
+								       				 , "height" : "100%"});
+	        			}
+	        				
+	        		},error:function(){ // 실패시 실행 함수
+	        			console.log("좋아요 등록/삭제 실패");
+	        		}
+	        	})
+	        <%} %>
+			})
+	    </script>
+    
 	        <!-- 게시글 신고 Modal -->
 		    <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
 		        <div class="modal-dialog modal-dialog-centered">

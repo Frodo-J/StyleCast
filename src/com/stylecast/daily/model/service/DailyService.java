@@ -315,6 +315,22 @@ public class DailyService {
 		close(conn);
 		return result1 * result2;
 	}
+
+	public int[] selectSearchLikedCountList(PageInfo pi, String text) {
+		
+		Connection conn = getConnection();
+		int[] likeCount = new DailyDao().selectSearchLikedCountList(conn, pi, text);
+		close(conn);
+		return likeCount;
+	}
+
+	public int[] selectSearchBookmarkCountList(PageInfo pi, String text) {
+		
+		Connection conn = getConnection();
+		int[] bookmarkCount = new DailyDao().selectSearchBookmarkCountList(conn, pi, text);
+		close(conn);
+		return bookmarkCount;
+	}
 	
 	
 	
