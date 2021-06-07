@@ -397,17 +397,20 @@
 	</entry>
 	
 	<entry key="selectDailyList">
-		SELECT
-		       DAILY_NO
-		     , MEM_NO
-		     , DAILY_CONTENT
-		     , ENR_DATE
-		     , DAILY_IMG
-		     , TAG
-		     , MEM_NAME
-		     , PROF_IMG
-		  FROM DAILY
-		  JOIN MEMBER USING(MEM_NO)
+	  SELECT
+             DAILY_NO
+           , MEM_NO
+           , DAILY_CONTENT
+           , ENR_DATE
+           , DAILY_IMG
+           , TAG
+           , MEM_NAME
+           , PROF_IMG
+           , (select count(*) from daily_like DL where D.daily_no = DL.daily_no) "count_like"
+           , (select count(*) from bookmark DB where D.daily_no = DB.daily_no) "count_bm"
+           , (select count(*) from daily_cm DC where D.daily_no = DC.daily_no) "count_cm"
+        FROM DAILY D
+        JOIN MEMBER USING(MEM_NO)
          WHERE 
            NOT DAILY_NO IN
              (

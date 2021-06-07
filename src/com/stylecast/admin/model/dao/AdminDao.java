@@ -990,7 +990,10 @@ public class AdminDao {
 									rset.getString("daily_img"),
 									rset.getString("tag"),
 									rset.getString("mem_name"),
-									rset.getString("prof_img")));
+									rset.getString("prof_img"),
+									rset.getInt("count_like"),
+									rset.getInt("count_bm"),
+									rset.getInt("count_cm")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
