@@ -4,6 +4,8 @@
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Codi> list = (ArrayList<Codi>)request.getAttribute("list");
+	String gender = (String)request.getAttribute("gender");
+	String weather = (String)request.getAttribute("weather");
 	
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
@@ -112,7 +114,7 @@
                 height: 8%;
             }
             #search_box {
-                width: 170px;
+                width: 150px;
                 display: inline-flex;
                 float: right;
                 margin-bottom: 10px;
@@ -133,10 +135,6 @@
                 height: 70%;
                 border-radius: 3px;
                 overflow-x: auto;
-            }
-            #submit{
-            	float: right;
-            	margin-right: 79px;
             }
             #codi_flex_box {
                 display: inline-flex;
@@ -224,6 +222,10 @@
                 float: right;
             }
             #navigation{position: absolute; margin-top: 970px; margin-left: 500px;}
+            #button{
+            	float: right;
+            	margin-right:79px;
+            }
         </style>
 <title>Insert title here</title>
 </head>
@@ -288,60 +290,46 @@
                             </h5>
                         </div>
                         <form id="control_box" action="<%=contextPath %>/searchCodi.ad?currentPage=1">
-                        	<table>
-	                            <tr height="30px">
-		                        	<th width="20%">성별</th>
-		                                    <td width="52px"><input
-		                                            class="form-check-input"
-		                                            type="radio"
-		                                            name="flexRadioDefault"
-		                                            id="gender"
-		                                            value = "ALL"
-		                                            checked="checked">
-		                                        <label class="form-check-label" for="flexRadioDefault1">
-		                                            	모두
-		                                        </label>
-		                                    </td>
-		                                    <td>
-		                                       	<input
-		                                        	class="form-check-input"
-		                                            type="radio"
-		                                            name="flexRadioDefault"
-		                                            id="gender"
-		                                            value = "F"
-		                                            width="100px">
-		                                        <label class="form-check-label" for="flexRadioDefault1">
-		                                               	여성
-		                                    	</label>
-		                                	</td>
-		                                	<td>
-		                                       	<input
-		                                        	class="form-check-input"
-		                                            type="radio"
-		                                            name="flexRadioDefault"
-		                                            id="gender"
-		                                            value = "M"
-		                                            width="100px">
-		                                        <label class="form-check-label" for="flexRadioDefault1">
-		                                               	남자
-		                                    	</label>
-		                                	</td>
-		                            	</tr>
-		                            	<tr>
-		                            		<div>
-		                            			<button id="submit" type="button" onclick="location.href='<%=contextPath%>/searchCodi.ad'" class="btn btn-primary">적용</button>
-		                            			
-		                            		</div>
-		                            		<input type="hidden" name="currentPage" value="1">
-			                            	<div id="search_box">
-				                                <select class="form-select" id="weather_select">
-				                                    <option selected="selected" value="ALL">날씨 전체 조회</option>
-				                                    <option value="CLEAR">맑음/흐림</option>
-				                                    <option value="RAIN">비/눈</option>
-				                                </select>
-		                            		</div>
-		                            	</tr>
-                            	</table>
+                        	<input
+                            	class="form-check-input"
+                                type="radio"
+                                name="gender"
+                                id="flexRadioDefault1"
+                                value="ALL"
+                                checked="checked">
+                            <label class="form-check-label" for="flexRadioDefault1" >
+                         	  	모두
+                            </label>
+                            <input
+                            	class="form-check-input"
+                                type="radio"
+                                name="gender"
+                                id="flexRadioDefault1"
+                                value="M">
+                            <label class="form-check-label" for="flexRadioDefault1" >
+                         	  	남성
+                            </label>
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="gender"
+                                id="flexRadioDefault1"
+                                value="F"
+                                width="100px">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                        		여성
+                            </label>
+							<div id="button">
+								<button class="btn btn-primary" type="submit" >적용</button>
+							</div>
+							<input type="hidden" name="currentPage" value="1">
+                            <div id="search_box">
+                                <select class="form-select" id="weather_select" name="weather_select">
+                                    <option selected="selected" value="ALL">날씨 전체 조회</option>
+                                    <option value="CLEAR">맑음/흐림</option>
+                                    <option value="RAIN">비/눈</option>
+                                </select>
+                            </div>
                         </form>
                         <div id="codi_box">
                         	<% for(Codi c : list){ %>
@@ -355,52 +343,6 @@
                                 </a>
                             </div>
                             <% } %>
-                            <!-- 
-                            <div class="thumbnail" align="center">
-                                <input type="hidden" value="">
-                                <img src="images/codi_bk.PNG" width="190" height="200">
-                                <p>
-                                    <b>
-                                        sunny / 22 / 17
-                                    </b>
-                                </p>
-                            </div>
-                            <div class="thumbnail" align="center">
-                                <input type="hidden" value="">
-                                <img src="images/codi_sb.PNG" width="190" height="200">
-                                <p>
-                                    <b>sunny / 22 / 17
-                                    </b>
-                                </p>
-                            </div>
-                            <div class="thumbnail" align="center">
-                                <input type="hidden" value="">
-                                <img src="images/codi_bk.PNG" width="190" height="200">
-                                <p>
-                                    <b>
-                                        sunny / 22 / 17
-                                    </b>
-                                </p>
-                            </div>
-                            <div class="thumbnail" align="center">
-                                <input type="hidden" value="">
-                                <img src="images/codi_sb.PNG" width="190" height="200">
-                                <p>
-                                    <b>sunny / 22 / 17
-                                    </b>
-                                </p>
-                            </div>
-                            <div class="thumbnail" align="center">
-                                <input type="hidden" value="">
-                                <img src="images/codi_bk.PNG" width="190" height="200">
-                                <p>
-                                    <b>
-                                        sunny / 22 / 17
-                                    </b>
-                                </p>
-                            </div>
-                             -->
-
                         </div>
                         <div id="write_box">
                             <div id="write_box_inner">
@@ -414,13 +356,13 @@
 			             	<div align="center" class="btn-group me-2" role="group" aria-label="First group">
 			
 								<% if(currentPage != 1){ %>
-			            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/codilist.ad?currentPage=<%=currentPage-1%>';"> &lt; </button>
+			            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/searchCodi.ad?currentPage=<%=currentPage-1%>&&gender=<%=gender %>&&weather_select=<%=weather%>';"> &lt; </button>
 								<% } %>
 			
 			            		<% for(int p=startPage; p<=endPage; p++){ %>
 			            	
 			            			<% if(p != currentPage){ %>
-				            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/codilist.ad?currentPage=<%= p %>';"><%= p %></button>
+				            			<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/searchCodi.ad?currentPage=<%= p %>&&gender=<%=gender %>&&weather_select=<%=weather%>';"><%= p %></button>
 				            		<% }else { %>
 				            			<button type="button" class="btn btn-outline-secondary" disabled><%= p %></button>
 			            			<% } %>
@@ -428,7 +370,7 @@
 			            		<% } %>
 			
 							<% if(currentPage != maxPage){ %>
-			            		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/codilist.ad?currentPage=<%=currentPage+1%>';"> &gt; </button>
+			            		<button type="button" class="btn btn-outline-secondary" onclick="location.href='<%=contextPath%>/searchCodi.ad?currentPage=<%=currentPage+1%>&&gender=<%=gender %>&&weather_select=<%=weather%>';"> &gt; </button>
 							<% } %>
 						
 			        	</div>

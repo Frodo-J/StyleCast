@@ -180,7 +180,7 @@
 		                 , REC_LOWT
 		                 , REC_HIGHT
 		                 FROM CODI
-		                 WHERE GENDER = ? (REC_WEATHER = 'SUNNY' OR REC_WEATHER = 'CLOUD')
+		                 WHERE GENDER = ? AND (REC_WEATHER = 'SUNNY' OR REC_WEATHER = 'CLOUD')
 		             )A
 		     )
 		     WHERE RNUM BETWEEN ? AND ?
@@ -199,7 +199,7 @@
 		                 , REC_LOWT
 		                 , REC_HIGHT
 		                 FROM CODI
-		                 WHERE GENDER = ? (REC_WEATHER = 'SNOW' OR REC_WEATHER = 'RAIN')
+		                 WHERE GENDER = ? AND (REC_WEATHER = 'SNOW' OR REC_WEATHER = 'RAIN')
 		             )A
 		     )
 		     WHERE RNUM BETWEEN ? AND ?

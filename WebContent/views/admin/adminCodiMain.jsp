@@ -303,8 +303,7 @@
                                 type="radio"
                                 name="gender"
                                 id="flexRadioDefault1"
-                                value="M"
-                                checked="checked">
+                                value="M">
                             <label class="form-check-label" for="flexRadioDefault1" >
                          	  	남성
                             </label>

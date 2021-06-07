@@ -48,13 +48,13 @@ public class CodiSearchController extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String weather = request.getParameter("weather_select");
 		
-		System.out.println(gender);
-		System.out.println(weather);
+//		System.out.println(gender);
+//		System.out.println(weather);
 		
 		// 총 게시글 갯수
 		listCount = new AdminService().selectListCount(gender,weather);
 		
-		System.out.println(listCount);
+		//System.out.println(listCount);
 		
 		// 사용자가 요청한 페이지 ( 현재 페이지)
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
