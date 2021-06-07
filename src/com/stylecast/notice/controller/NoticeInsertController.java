@@ -75,9 +75,8 @@ public class NoticeInsertController extends HttpServlet {
 			if(result > 0) {
 				response.sendRedirect(request.getContextPath() + "/list.no?currentPage=1");
 			}else {
-				//에러페이지
-				//RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-				//view.forward(request, response);
+				request.setAttribute("errorMsg", "등록에 실패했습니다.");
+				request.getRequestDispatcher("view/common/errorPage.jsp").forward(request, response);
 			}
 		
 		}

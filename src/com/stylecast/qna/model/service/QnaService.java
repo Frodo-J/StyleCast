@@ -183,7 +183,6 @@ public class QnaService {
 			if(bImage.getImgNo() != 0) { // 기존 첨부파일 있을 경우
 				result = new QnaDao().updateBoardImage(conn,bImage);
 			}else { // 기존 첨부파일이 없을 경우
-				System.out.println("서비스의 첨부파일이 없을 경우: " + bImage);
 				result = new QnaDao().insertNewBoardImage(conn,bImage);
 			}
 			

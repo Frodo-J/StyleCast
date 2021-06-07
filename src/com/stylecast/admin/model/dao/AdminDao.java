@@ -779,7 +779,6 @@ public class AdminDao {
 		}finally {
 			close(pstmt);
 		}
-		System.out.println("blackN dao 행 수: "+ result);
 		return result;
 	}
 

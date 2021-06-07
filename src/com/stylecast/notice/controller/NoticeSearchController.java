@@ -82,10 +82,6 @@ public class NoticeSearchController extends HttpServlet {
 		request.setAttribute("pi", pi);
 		request.setAttribute("text", text);
 		request.setAttribute("category", category);
-		System.out.println(list);
-		System.out.println(pi);
-		System.out.println(text);
-		System.out.println(category);
 		
 		request.getRequestDispatcher("views/notice/noticeSearch.jsp").forward(request,response);
 	}

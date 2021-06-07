@@ -52,7 +52,6 @@ request.setCharacterEncoding("UTF-8");
 			String qnaTitle = multiRequest.getParameter("title");
 			String qnaContent = multiRequest.getParameter("content");
 			String qnaCategory = multiRequest.getParameter("qna_category");
-			System.out.println("받아온:" +  qnaCategory);
 			
 			Qna q = new Qna();
 			q.setQnaNo(qnaNo);
@@ -61,7 +60,7 @@ request.setCharacterEncoding("UTF-8");
 			q.setQnaCategory(qnaCategory);
 			
 			int qresult = new QnaService().updateQna(q);
-			System.out.println("받아온 q:" +  q);
+			
 			
 			for(int i=1; i<4; i++) {
 				BoardImage bImage = null;

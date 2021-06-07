@@ -267,7 +267,6 @@ public class NoticeDao {
 		}finally {
 			close(pstmt);
 		}
-		System.out.println("insertBoardDao : " + result);
 		return result;
 	}
 
@@ -289,7 +288,6 @@ public class NoticeDao {
 		}finally {
 			close(pstmt);
 		}
-		System.out.println("deleteBoardDao : " + result);
 		return result;
 	}
 
@@ -313,7 +311,6 @@ public class NoticeDao {
 		} finally {
 			close(pstmt);
 		}
-		System.out.println("updateNoticeDao : " + result);
 		return result;
 	}
 

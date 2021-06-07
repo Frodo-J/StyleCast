@@ -47,6 +47,9 @@ public class NoticeDetailController extends HttpServlet {
 			request.setAttribute("n", n);
 			request.setAttribute("imgList", imgList);
 			request.getRequestDispatcher("views/notice/noticeDetail.jsp").forward(request, response);
+		}else {
+			request.setAttribute("errorMsg", "공지 리스트 조회에 실패했습니다.");
+			request.getRequestDispatcher("view/common/errorPage.jsp").forward(request, response);
 		}
 		
 	}
