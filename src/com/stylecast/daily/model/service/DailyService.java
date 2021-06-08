@@ -382,6 +382,23 @@ public class DailyService {
 		
 		return list;
 	}
+
+	public int[] selectCommentCountList(int memNo) {
+		Connection conn = getConnection();
+		int count = new DailyDao().selectMyDailyListCount(conn, memNo);
+		int [] commentCount = new DailyDao().selectCommentCountList(conn, memNo, count);
+		close(conn);
+		return commentCount;
+	}
+
+	public int[] selectCommentCountBk(int memNo) {
+		
+		Connection conn = getConnection();
+		int count = new DailyDao().selectMyBookmarkListCount(conn, memNo);
+		int[] commentCount = new DailyDao().selectCommentCountBk(conn, memNo, count);
+		close(conn);
+		return commentCount;
+	}
 	
 	
 	

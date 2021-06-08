@@ -1277,4 +1277,62 @@ public class DailyDao {
 		}
 		return list;
 	}
+
+	public int[] selectCommentCountList(Connection conn, int memNo, int count) {
+		int[] commentCount = new int[count];
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMyCommentCountList");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			int i = 0;
+			
+			while(rset.next()) {
+				commentCount[i] = rset.getInt("comment_count");
+				i++;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return commentCount;
+	}
+
+	public int[] selectCommentCountBk(Connection conn, int memNo, int count) {
+		int[] bookmarkCount = new int[count];
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCommentCountBk");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			int i = 0;
+			
+			while(rset.next()) {
+				bookmarkCount[i] = rset.getInt("comment_count");
+				i++;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return bookmarkCount;
+	}
+	
+	
 }
