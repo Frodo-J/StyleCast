@@ -893,9 +893,36 @@ public class DailyDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, d.getDailyContent());
 			pstmt.setString(2, d.getTag());
-			pstmt.setInt(3, d.getDailyNo());
+			pstmt.setString(3,d.getDailyImg());
+			pstmt.setInt(4, d.getDailyNo());
 			
 			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println(result);
+		return result;
+	}
+
+	/*
+	public int updateNewItem(Connection conn, ArrayList<Item> list) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateNewItem");
+		
+		try {
+			for(Item il : list) {
+				pstmt = conn.prepareStatement(sql);
+				//pstmt.setInt(1, il.getItemNo());
+				pstmt.setInt(1, il.getDailyNo());
+				pstmt.setString(2, il.getItemName());
+				pstmt.setString(3, il.getItemLink());
+				pstmt.setString(4, il.getItemCategory());
+				
+				result = pstmt.executeUpdate();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -911,7 +938,14 @@ public class DailyDao {
 		String sql = prop.getProperty("updateItem");
 		
 		try {
-			pstmt = conn.prepareStatement(sql);
+			for(Item il : list) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, il.getItemName());
+				pstmt.setString(2, il.getItemLink());
+				pstmt.setInt(3, il.getItemNo());
+				
+				result = pstmt.executeUpdate();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -919,10 +953,58 @@ public class DailyDao {
 		}
 		System.out.println(result);
 		return result;
-		
-		
 	}
-
+	*/
+	
+	public int updateNewItem(Connection conn, Item i) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateNewItem");
+		
+		try {
+			//for(Item il : list) {
+				pstmt = conn.prepareStatement(sql);
+				//pstmt.setInt(1, il.getItemNo());
+				pstmt.setInt(1, i.getDailyNo());
+				pstmt.setString(2, i.getItemName());
+				pstmt.setString(3, i.getItemLink());
+				pstmt.setString(4, i.getItemCategory());
+				
+				result = pstmt.executeUpdate();
+			//}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println(result);
+		return result;
+	}
+	
+	public int updateItem(Connection conn, Item i) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateItem");
+		
+		try {
+			//for(Item il : list) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, i.getItemName());
+				pstmt.setString(2, i.getItemLink());
+				pstmt.setInt(3, i.getItemNo());
+				
+				result = pstmt.executeUpdate();
+			//}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println(result);
+		return result;
+	}
+	
+	
 	public int[] selectSearchLikedCountList(Connection conn, PageInfo pi, String text) {
 		
 		int[] likeCount = new int[pi.getBoardLimit()];

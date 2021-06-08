@@ -284,22 +284,6 @@ public class DailyService {
 		close(conn);
 		return result1 * result2;
 	}
-	/*
-	public int updateDailyImages(BoardImage bImage) {
-		Connection conn = getConnection();
-		
-		int result = 1;
-		if(bImage != null) {
-			if(bImage.getImgNo() != 0) {
-				result = new DailyDao().updateDailyImage(conn, bImage);
-			}else {
-				System.out.println("서비스의 첨부파일이 없을 경우 : " + bImage);
-				result = new DailyDao().insertNewDailyImage(conn, bImage);
-			}
-		}
-		return result;
-	}
-	*/
 	
 	public int updateDaily(Daily d, ArrayList<Item> list) {
 		Connection conn = getConnection();
@@ -307,19 +291,22 @@ public class DailyService {
 		int result1 = new DailyDao().updateDaily(conn, d);
 		
 		int result2 = 1;
+		
 		for(int i=0; i<list.size(); i++) {
 			if(list.get(i).getDailyNo() > 0) {
-				result2 = new DailyDao().insertItem(conn, list);
+				result2 = new DailyDao().updateNewItem(conn, list.get(i)); // insert
 			}else {
-				result2 = new DailyDao().updateItem(conn, list);
+				result2 = new DailyDao().updateItem(conn, list.get(i)); // update
 			}
 		}
+		
 		
 		if(result1 > 0 && result2 > 0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
+		
 		close(conn);
 		return result1 * result2;
 	}

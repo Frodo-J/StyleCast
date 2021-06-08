@@ -274,7 +274,7 @@ div {
 				<div class="daily_post fadein">
 					<input type="hidden" value="<%= d.getDailyNo() %>">
 					<div class="daily_img">
-						<img src="<%= contextPath %><%= d.getDailyImg() %>">
+						<img src="<%= contextPath %>/<%= d.getDailyImg() %>">
 						<div class="action_hover">
 							<% if(loginUser != null) { %>
 							<div class="action">
