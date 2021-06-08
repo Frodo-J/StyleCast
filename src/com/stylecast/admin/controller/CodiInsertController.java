@@ -76,7 +76,7 @@ public class CodiInsertController extends HttpServlet {
 			
 			if(result>0) {
 				response.sendRedirect(request.getContextPath() + "/codilist.ad?currentPage=1");
-				session.setAttribute("alertMsg", "코디 수정에 성공하였습니다");
+				session.setAttribute("alertMsg", "코디 작성에 성공하였습니다");
 			}else {
 				new File(savePath + c.getImgPath()).delete();
 			}

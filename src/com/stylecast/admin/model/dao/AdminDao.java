@@ -1123,6 +1123,26 @@ public class AdminDao {
 		return c;
 	}
 	
+	public int selectCodiDelete(Connection conn, Codi c) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectCodiDelete");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, c.getCodiNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
 	public int UpdateEnrollCodi(Connection conn, Codi c) {
 		int result = 0;
 		PreparedStatement pstmt = null;
