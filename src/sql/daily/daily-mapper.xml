@@ -532,7 +532,13 @@
 		  FROM DAILY_CM
 		 WHERE DAILY_NO = ?
 	</entry>
-	
+
+	<entry key="deleteTrendingPost">
+		DELETE
+		  FROM THEME_POST
+		 WHERE DAILY_NO = ?
+  </entry>
+
 	<entry key="selectDailyByTag">
 		SELECT *
 		  FROM (

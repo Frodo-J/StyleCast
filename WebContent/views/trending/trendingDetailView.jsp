@@ -678,7 +678,7 @@ div {
 		</div>
 	</div>
 
-	<!-- 게시글 삭제 확인-->
+	<!-- 데일리 게시글 삭제 확인-->
 	<div class="modal fade" id="deleteModal" tabindex="-1"
 		aria-labelledby="deleteModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
@@ -694,7 +694,7 @@ div {
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">취소</button>
-					<button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/delete.da?dno=<%=d.getDailyNo()%>';">확인</button>
+					<button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/deleteDaily.th?tno=<%=m.getThemeNo()%>&dno=<%=d.getDailyNo()%>';">확인</button>
 				</div>
 			</div>
 		</div>

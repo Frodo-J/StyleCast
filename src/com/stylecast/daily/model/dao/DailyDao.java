@@ -1220,16 +1220,17 @@ public class DailyDao {
 		return result4;
 	}
 	
-	public int deleteDaily(Connection conn, int dno) {
+	public int deleteTrendingPost(Connection conn, int dno) {
 		
 		PreparedStatement pstmt = null;
 		int result5 = 0;
-		String sql = prop.getProperty("deleteDaily");
+		String sql = prop.getProperty("deleteTrendingPost");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, dno);
 			
 			result5 = pstmt.executeUpdate();
+			result5++;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1239,6 +1240,28 @@ public class DailyDao {
 		
 		return result5;
 	}
+
+	
+	public int deleteDaily(Connection conn, int dno) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteDaily");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 	public ArrayList<Daily> selectDailyByTag(Connection conn, PageInfo pi, String text) {
 		ArrayList<Daily> list = new ArrayList<>();
@@ -1333,6 +1356,5 @@ public class DailyDao {
 		
 		return bookmarkCount;
 	}
-	
-	
+
 }
