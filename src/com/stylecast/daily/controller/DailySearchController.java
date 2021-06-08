@@ -67,7 +67,15 @@ public class DailySearchController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		ArrayList<Daily> list = new DailyService().searchDailyList(pi,text);
+		String tagYn = request.getParameter("tagYn");
+		
+		ArrayList<Daily> list = null;
+		
+		if(tagYn == null) {
+			list = new DailyService().searchDailyList(pi,text);
+		}else {
+			list = new DailyService().searchDailyListByTag(pi,text);
+		}
 		
 		int[] likeCount = new DailyService().selectSearchLikedCountList(pi, text);
 		int[] bookmarkCount = new DailyService().selectSearchBookmarkCountList(pi, text);

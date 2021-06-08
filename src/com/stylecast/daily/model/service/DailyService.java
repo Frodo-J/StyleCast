@@ -375,6 +375,16 @@ public class DailyService {
 		close(conn);
 		return result;
 	}
+
+	public ArrayList<Daily> searchDailyListByTag(PageInfo pi, String text) {
+		Connection conn = getConnection();
+		ArrayList<Daily> list = null;
+			list = new DailyDao().selectDailyByTag(conn, pi, text);
+
+		close(conn);
+		
+		return list;
+	}
 	
 	
 	
