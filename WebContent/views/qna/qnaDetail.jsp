@@ -143,8 +143,12 @@
             </div>
             <div id="out_of_contents_box">
             <div id="button_box">
-            	<% if((loginUser != null && loginUser.getMemName().equals(q.getMemName())) || (loginUser != null && loginUser.getAdminYN().equals("Y"))){ %>
+            	<% if((loginUser != null && loginUser.getMemName().equals(q.getMemName()))){ %>
                 	<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='<%=contextPath%>/updateForm.qna?qno=<%=q.getQnaNo()%>';">수정</button>
+                	<button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#exampleModalToggle_rept">삭제</button>
+                <% } %>
+                <% if(loginUser != null && loginUser.getAdminYN().equals("Y")){ %>
                 	<button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#exampleModalToggle_rept">삭제</button>
                 <% } %>
