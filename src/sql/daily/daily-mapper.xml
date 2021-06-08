@@ -556,4 +556,24 @@
 		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+	<entry key="selectMyCommentCountList">
+		SELECT NVL(L.COUNT, 0) COMMENT_COUNT
+		FROM (SELECT COUNT(*) COUNT, DAILY_NO
+        	  FROM DAILY_CM
+        	  GROUP BY DAILY_NO) L
+        RIGHT JOIN DAILY D ON(L.DAILY_NO = D.DAILY_NO)
+        WHERE MEM_NO = ?
+        ORDER BY D.ENR_DATE DESC
+	</entry>
+	
+	<entry key="selectCommentCountBk">
+		SELECT NVL(B.COUNT, 0) COMMENT_COUNT, BK.DAILY_NO
+		FROM (SELECT COUNT(*) COUNT, DAILY_NO
+				FROM DAILY_CM
+				GROUP BY DAILY_NO) B
+		RIGHT JOIN BOOKMARK BK ON(B.DAILY_NO = BK.DAILY_NO)
+		WHERE MEM_NO = ?
+		ORDER BY BK.ENR_DATE DESC
+	</entry>
+	
 </properties>
