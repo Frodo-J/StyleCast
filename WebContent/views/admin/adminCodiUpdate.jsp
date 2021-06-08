@@ -172,13 +172,17 @@
                 width: 95%;
                 height: 150px;
             }
-            #codi_btn_delete {
+            #codi_btn_cancel {
                 margin-left: 15px;
                 float: right;
 
             }
             #codi_btn_submit {
+            	margin-left: 15px;
                 float: right;
+            }
+            #codi_btn_delete{
+            	float: right;
             }
             #codi_button_box {
                 margin-top: 60px;
@@ -465,8 +469,9 @@
                             </div>
                             <div id="codi_submit_box">
                                 <div id="codi_button_box">
-                                    <a href="<%=request.getContextPath() %>/codilist.ad?currentPage=1" type="button" class="btn btn-secondary" id="codi_btn_delete">취소</a>
-                                    <button type="button" class="btn btn-primary" id="codi_btn_submit" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">수정</button>
+                                	<button type="button" class="btn btn-primary" id="codi_btn_submit" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">수정</button>
+                                	<a href="<%=request.getContextPath() %>/codilist.ad?currentPage=1" type="button" class="btn btn-secondary" id="codi_btn_cancel">취소</a>
+                                	<button type="button" id="codi_btn_delete" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteexampleModalToggle">삭제</button>
                                     <input type="hidden" name="cno" value="<%= c.getCodiNo() %>">
                                 </div>
                             </div>
@@ -507,10 +512,53 @@
                         </div>
                     </div>
                     
+                    <div
+                        class="modal fade"
+                        id="deleteexampleModalToggle"
+                        aria-hidden="true"
+                        aria-labelledby="exampleModalToggleLabel"
+                        tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalToggleLabel">
+                                        <b>확인창</b>
+                                    </h5>
+                                    <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    	코디를 삭제하시겠습니까?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                    <button
+                                        class="btn btn-primary"
+                                        data-bs-target="#exampleModalToggle2"
+                                        data-bs-toggle="modal"
+                                        data-bs-dismiss="modal"
+                                        onclick="clickDelete(CodiInsert)">확인</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <script>
 	                    function clickInsert(CodiInsert) {
 							console.log("hi");
 							CodiInsert.action = "<%= contextPath %>/UpDateForm.ad";
+							CodiInsert.method = "post";
+							CodiInsert.enctype = "multipart/form-data";
+							CodiInsert.submit();
+							 
+						}
+	                    
+	                    function clickDelete(CodiInsert) {
+							console.log("hi");
+							CodiInsert.action = "<%= contextPath %>/codidelete.ad";
 							CodiInsert.method = "post";
 							CodiInsert.enctype = "multipart/form-data";
 							CodiInsert.submit();

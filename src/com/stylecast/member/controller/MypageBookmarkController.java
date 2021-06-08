@@ -53,12 +53,14 @@ public class MypageBookmarkController extends HttpServlet {
 	
 			int[] likeCount = new DailyService().selectLikedCountBk(memNo);
 			int[] bookmarkCount = new DailyService().selectBookmarkCountBk(memNo);
+			int[] commentCount = new DailyService().selectCommentCountBk(memNo);
 			
 			int i = 0;
 			
 			for(Daily d : list) {
 				d.setLikeCount(likeCount[i]);
-				d.setBookmarkCount(bookmarkCount[i]);;
+				d.setBookmarkCount(bookmarkCount[i]);
+				d.setCommentCount(commentCount[i]);
 				i++;
 			}
 			

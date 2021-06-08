@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
@@ -39,6 +40,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		
 		request.setCharacterEncoding("UTF-8");
 		
+		HttpSession session = request.getSession();
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			
@@ -84,6 +86,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 				int result = new AdminService().UpdateEnrollCodi(c);
 				if(result>0) {
 					response.sendRedirect(request.getContextPath() + "/codilist.ad?currentPage=1");
+					session.setAttribute("alertMsg", "코디 수정에 성공하였습니다");
 				}else {
 					new File(savePath + c.getImgPath()).delete();
 				}
@@ -91,8 +94,8 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 				System.out.println(c.getRecLowT());
 				int result = new AdminService().UpdateEnrollCodiImg(c);
 				if(result>0) {
-					
 					response.sendRedirect(request.getContextPath() + "/codilist.ad?currentPage=1");
+					session.setAttribute("alertMsg", "코디 수정에 성공하였습니다");
 				}else {
 					new File(savePath + c.getImgPath()).delete();
 				}

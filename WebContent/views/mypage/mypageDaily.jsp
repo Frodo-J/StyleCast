@@ -296,7 +296,7 @@
 	                        <div class="react_like"></div>
 	                        <div class="react_count"><%= d.getLikeCount() %></div>
 	                        <div class="react_comment"></div>
-	                        <div class="react_count">10</div>
+	                        <div class="react_count"><%= d.getCommentCount() %></div>
 	                        <div class="react_bookmark"></div>
 	                        <div class="react_count"><%= d.getBookmarkCount() %></div>
 	                    </div>
@@ -354,18 +354,32 @@
         		// 프로필 이미지 삭제
         		$("#prof-delete").click(function(){
 
-					var memId = <%=loginUser.getMemId()%>;
 					console.log("memId");
         			
         			$.ajax({
 		        		url:"profImgDelete.me",
 		        		data:{
-		        			memId:memId
+		        			memId:"user01"
 		        		},
 		        		type:"post",
 		        		success:function(result){
 							if(result > 0){
-								selectProfImg();
+								var cp = $("#contextpath").val();
+		            			var memNo = <%=loginUser.getMemNo()%>;
+		            			
+		            			$.ajax({
+					        		url:"profImgSelect.me",
+					        		data:{
+					        			memNo:memNo
+					        		},
+					        		type:"post",
+					        		success:function(profImg){
+										$("#content #prof_img img").attr("src", cp + profImg);
+										$(".modal-content #prof-img img").attr("src", cp + profImg);
+					        		},error:function(){
+					        			console.log("프로필 이미지 불러오기 실패");
+					        		}
+					        	});
 							}else{
 								alert("프로필 삭제에 실패했습니다.");
 							}

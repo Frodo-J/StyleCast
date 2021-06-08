@@ -893,9 +893,36 @@ public class DailyDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, d.getDailyContent());
 			pstmt.setString(2, d.getTag());
-			pstmt.setInt(3, d.getDailyNo());
+			pstmt.setString(3,d.getDailyImg());
+			pstmt.setInt(4, d.getDailyNo());
 			
 			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println(result);
+		return result;
+	}
+
+	/*
+	public int updateNewItem(Connection conn, ArrayList<Item> list) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateNewItem");
+		
+		try {
+			for(Item il : list) {
+				pstmt = conn.prepareStatement(sql);
+				//pstmt.setInt(1, il.getItemNo());
+				pstmt.setInt(1, il.getDailyNo());
+				pstmt.setString(2, il.getItemName());
+				pstmt.setString(3, il.getItemLink());
+				pstmt.setString(4, il.getItemCategory());
+				
+				result = pstmt.executeUpdate();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -911,7 +938,14 @@ public class DailyDao {
 		String sql = prop.getProperty("updateItem");
 		
 		try {
-			pstmt = conn.prepareStatement(sql);
+			for(Item il : list) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, il.getItemName());
+				pstmt.setString(2, il.getItemLink());
+				pstmt.setInt(3, il.getItemNo());
+				
+				result = pstmt.executeUpdate();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -919,10 +953,58 @@ public class DailyDao {
 		}
 		System.out.println(result);
 		return result;
-		
-		
 	}
-
+	*/
+	
+	public int updateNewItem(Connection conn, Item i) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateNewItem");
+		
+		try {
+			//for(Item il : list) {
+				pstmt = conn.prepareStatement(sql);
+				//pstmt.setInt(1, il.getItemNo());
+				pstmt.setInt(1, i.getDailyNo());
+				pstmt.setString(2, i.getItemName());
+				pstmt.setString(3, i.getItemLink());
+				pstmt.setString(4, i.getItemCategory());
+				
+				result = pstmt.executeUpdate();
+			//}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println(result);
+		return result;
+	}
+	
+	public int updateItem(Connection conn, Item i) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateItem");
+		
+		try {
+			//for(Item il : list) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, i.getItemName());
+				pstmt.setString(2, i.getItemLink());
+				pstmt.setInt(3, i.getItemNo());
+				
+				result = pstmt.executeUpdate();
+			//}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println(result);
+		return result;
+	}
+	
+	
 	public int[] selectSearchLikedCountList(Connection conn, PageInfo pi, String text) {
 		
 		int[] likeCount = new int[pi.getBoardLimit()];
@@ -1158,6 +1240,7 @@ public class DailyDao {
 		
 		return result5;
 	}
+
 	
 	public int deleteDaily(Connection conn, int dno) {
 		
@@ -1178,4 +1261,100 @@ public class DailyDao {
 		
 		return result;
 	}
+
+
+	public ArrayList<Daily> selectDailyByTag(Connection conn, PageInfo pi, String text) {
+		ArrayList<Daily> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectDailyByTag");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setString(1, text);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Daily(rset.getInt("daily_no"),
+								   rset.getInt("mem_no"),
+								   rset.getString("daily_content"),
+								   rset.getDate("enr_date"),
+								   rset.getString("daily_img"),
+								   rset.getString("tag"),
+								   rset.getString("mem_name"),
+								   rset.getString("prof_img")));
+			}
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int[] selectCommentCountList(Connection conn, int memNo, int count) {
+		int[] commentCount = new int[count];
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMyCommentCountList");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			int i = 0;
+			
+			while(rset.next()) {
+				commentCount[i] = rset.getInt("comment_count");
+				i++;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return commentCount;
+	}
+
+	public int[] selectCommentCountBk(Connection conn, int memNo, int count) {
+		int[] bookmarkCount = new int[count];
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCommentCountBk");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			int i = 0;
+			
+			while(rset.next()) {
+				bookmarkCount[i] = rset.getInt("comment_count");
+				i++;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return bookmarkCount;
+	}
+
 }

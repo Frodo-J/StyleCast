@@ -49,9 +49,28 @@ public class DailyUpdateController extends HttpServlet {
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
+			Daily d = new Daily();
+			d.setDailyImg(multiRequest.getParameter("originImage"));
+			
+			//새로 전달된 파일이 있는 경우
+			//if(multiRequest.getParameter("reUpfile") != null) {
+			if(multiRequest.getOriginalFileName("reUpfile") != null) {
+				
+				if(multiRequest.getParameter("originImage") != null) { // 기존의 파일이 있었을 경우 
+					
+					d.setDailyImg("/resources/daily_updiles/" + multiRequest.getFilesystemName("reUpfile"));
+					
+					new File(savePath + multiRequest.getParameter("originFilePath")).delete();
+				}/*else {
+					d.setDailyImg("resources/daily_updiles/" + multiRequest.getFilesystemName("reUpfile"));
+				}*/
+				
+			}
+			
+			
 			int dailyNo = Integer.parseInt(multiRequest.getParameter("dno"));
 			
-			Daily d = new Daily();
+			d.setDailyNo(dailyNo);
 			d.setDailyContent(multiRequest.getParameter("dailyContent"));
 			d.setTag(multiRequest.getParameter("tag"));
 			
@@ -62,7 +81,7 @@ public class DailyUpdateController extends HttpServlet {
 	          // 상의
 	            String topNo = "topNo" + i; // 기존의 상의가 2개가 이미 존재했을 경우 그때는 topNo1, topNo2라는 키값으로 값이 넘어왔을것 
 	            String top = "top" + i;
-	            String topLink = "topLinkNo" + i;
+	            String topLink = "topLink" + i;
 
 	            if(!multiRequest.getParameter(top).equals("")){ // 우선 해당 키값의 아이템명이 넘어왔을 경우
 
@@ -84,7 +103,7 @@ public class DailyUpdateController extends HttpServlet {
 	         // 하의
 	            String bottomNo = "bottomNo" + i; // 기존의 하의가 2개가 이미 존재했을 경우 그때는 bottomNo1, bottomNo2라는 키값으로 값이 넘어왔을것 
 	            String bottom = "bottom" + i;
-	            String bottomLink = "bottomLinkNo" + i;
+	            String bottomLink = "bottomLink" + i;
 
 	            if(!multiRequest.getParameter(bottom).equals("")){ // 우선 해당 키값의 아이템명이 넘어왔을 경우
 
@@ -97,7 +116,7 @@ public class DailyUpdateController extends HttpServlet {
 	                if(multiRequest.getParameter(bottomNo) != null){ // 근데 만약에 bottomNoX 키값으로 뭔가 넘어온 값이 존재할경우 == 기존에 애초에 등록되어있는 item이 있었다란 소리
 	                    il.setItemNo(Integer.parseInt(multiRequest.getParameter(bottomNo)));
 	                }else{ // 새로이 추가된 item이란 소리
-	                    il.setDailyNo(dailyNo); // 이때는 현재의 데일리번호를 담음 => 왜? insert할때 필요하니깐! 
+	                    il.setDailyNo(dailyNo); // 이때는 현재의 데일리번호를 담음 => 왜? insert할때 필요하니깐!
 	                }
 	               
 	                list.add(il); // 리스트에 추가
@@ -106,7 +125,7 @@ public class DailyUpdateController extends HttpServlet {
 	         // 신발
 	            String shoesNo = "shoesNo" + i; // 기존의 신발이 2개가 이미 존재했을 경우 그때는 shoesNo1, shoesNo2라는 키값으로 값이 넘어왔을것 
 	            String shoes = "shoes" + i;
-	            String shoesLink = "shoesLinkNo" + i;
+	            String shoesLink = "shoesLink" + i;
 
 	            if(!multiRequest.getParameter(shoes).equals("")){ // 우선 해당 키값의 아이템명이 넘어왔을 경우
 
@@ -128,7 +147,7 @@ public class DailyUpdateController extends HttpServlet {
 	         // 기타
 	            String etcNo = "etcNo" + i; // 기존의 기타가 2개가 이미 존재했을 경우 그때는 etcNo1, etcNo2라는 키값으로 값이 넘어왔을것 
 	            String etc = "etc" + i;
-	            String etcLink = "etcLinkNo" + i;
+	            String etcLink = "etcLink" + i;
 
 	            if(!multiRequest.getParameter(etc).equals("")){ // 우선 해당 키값의 아이템명이 넘어왔을 경우
 
@@ -146,15 +165,18 @@ public class DailyUpdateController extends HttpServlet {
 	               
 	                list.add(il); // 리스트에 추가
 	            }
-	            
-	            System.out.println(list);
-	            int result = new DailyService().updateDaily(d, list);
-	            
-	            if(result > 0) {
-	               response.sendRedirect("datail.da>?dno="+dailyNo);
-	            }
 
 			}
+			
+			
+			System.out.println(list);
+            int result = new DailyService().updateDaily(d, list);
+            
+            if(result > 0) {
+               response.sendRedirect("detail.da?dno="+dailyNo);
+            }
+            
+            
 		}
 		
 	
