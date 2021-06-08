@@ -663,6 +663,28 @@ div {
 		</div>
 	</div>
 
+	<!-- 게시글 삭제 확인-->
+	<div class="modal fade" id="deleteModal" tabindex="-1"
+		aria-labelledby="deleteModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="deleteModalLabel">게시글 삭제</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>이 게시글을 삭제하시겠습니까?</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">취소</button>
+					<button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/delete.da?dno=<%=d.getDailyNo()%>';">확인</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<!-- 비로그인 유저 action 클릭 Modal -->
 	<div class="modal fade" id="logoutUserModal" tabindex="-1"
 		aria-labelledby="logoutUserModalLabel" aria-hidden="true">
