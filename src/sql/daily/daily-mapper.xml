@@ -533,4 +533,27 @@
 		 WHERE DAILY_NO = ?
 	</entry>
 	
+	<entry key="selectDailyByTag">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		                SELECT
+                               DAILY_NO
+                             , MEM_NO
+                             , DAILY_CONTENT
+                             , ENR_DATE
+                             , DAILY_IMG
+                             , TAG
+                             , MEM_NAME
+                             , PROF_IMG
+		                  FROM DAILY
+                          JOIN MEMBER USING (MEM_NO)
+                         WHERE TAG LIKE '%'||?||'%'
+		                 ORDER
+		                    BY ENR_DATE DESC)A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
 </properties>
