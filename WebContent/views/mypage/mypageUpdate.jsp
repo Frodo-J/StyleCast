@@ -254,13 +254,15 @@
                         <tr>
                             <td><label class="form-label">이메일</label></td>
                             <td><input type="email" class="form-control form-control-sm" name="email" value="<%=email%>"></td>
-                            <td><button type="button" class="btn btn-light btn-sm">인증번호 발송</button></td>
+                            <!--<td><button type="button" class="btn btn-light btn-sm">인증번호 발송</button></td>-->
                         </tr>
+                        <!-- 
                         <tr>
                             <td><label class="form-label">인증번호 입력</label></td>
                             <td><input type="text" class="form-control form-control-sm" name="email-confirm" style="width:100px" placeholder="인증번호"></td>
                             <td><button type="button" id="confirm-btn" class="btn btn btn-light btn-sm" style="margin-left: -100px;">확인</button></td>
                         </tr>
+                         -->
                         <tr>
                             <td><label class="form-label">닉네임</label></td>
                             <td><input type="text" class="form-control form-control-sm" name="userName" value="<%=memName1%>"></td>
