@@ -346,21 +346,31 @@ public class DailyService {
 	public int deleteDaily(int dno) {
 		Connection conn = getConnection();
 
-		int result1 = new DailyDao().deleteDailyComment(conn, dno);
-		int result2 = new DailyDao().deleteItem(conn, dno);
-		int result3 = new DailyDao().deleteDailyLike(conn, dno);
-		int result4 = new DailyDao().deleteBookmark(conn, dno);
-		int result = new DailyDao().deleteDaily(conn, dno);
-
+		int result1 = new DailyDao().deleteDailyComment(conn, dno); //댓글 삭제
+		int result2 = new DailyDao().deleteItem(conn, dno);  		//아이템 삭제
+		int result3 = new DailyDao().deleteDailyLike(conn, dno);	//좋아요 삭제
+		int result4 = new DailyDao().deleteBookmark(conn, dno);		//북마크 삭제
+		System.out.println(result1 + result2 + result3 + result4);
 		
-		if(result > 0) {
-			commit(conn);
+		if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0) {
+			int result = new DailyDao().deleteDaily(conn, dno);		//데일리 삭제
+			
+			if(result > 0) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+			
+			close(conn);
+			return result;
 		}else {
 			rollback(conn);
+			close(conn);
+			int result = 0;
+			return result;
 		}
 		
-		close(conn);
-		return result;
+		
 	}
 
 	public ArrayList<Daily> searchDailyListByTag(PageInfo pi, String text) {

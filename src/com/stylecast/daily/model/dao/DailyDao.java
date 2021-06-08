@@ -1145,7 +1145,7 @@ public class DailyDao {
 			pstmt.setInt(1, dno);
 			
 			result1 = pstmt.executeUpdate();
-			
+			result1++;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -1167,6 +1167,7 @@ public class DailyDao {
 			pstmt.setInt(1, dno);
 			
 			result2 = pstmt.executeUpdate();
+			result2++;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1187,6 +1188,7 @@ public class DailyDao {
 			pstmt.setInt(1, dno);
 			
 			result3 = pstmt.executeUpdate();
+			result3++;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1207,6 +1209,7 @@ public class DailyDao {
 			pstmt.setInt(1, dno);
 			
 			result4 = pstmt.executeUpdate();
+			result4++;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
