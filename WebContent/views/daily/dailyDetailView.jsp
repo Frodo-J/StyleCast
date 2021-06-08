@@ -260,7 +260,7 @@ div {
 	left: 275px;
 }
 
-#report_bt {
+.btn_etc {
 	margin-left: 55px;
 }
 
@@ -439,8 +439,8 @@ div {
 
 		<% SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy.MM.dd"); %>
 		<% if(loginUser != null) { %>
-		<input type="hidden" id="loginUserNo"
-			value="<%=loginUser.getMemNo()%>">
+		<input type="hidden" id="loginUserNo" value="<%=loginUser.getMemNo()%>">
+		<input type="hidden" id="loginUserAdminYN" value="<%=loginUser.getAdminYN()%>">
 		<% } %>
 
 
@@ -525,17 +525,20 @@ div {
 					</div>
 				</div>
 				<% if(loginUser != null && loginUser.getMemNo() == d.getMemNo()) { %>
-				<!-- 작성자 본인일 때 -->
-				<button class="btn btn-secondary btn-sm" onclick="location.href='<%=contextPath%>/updateForm.da?dno=<%=d.getDailyNo()%>';">수정</button>
-				<button class="delete btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">삭제</button>
+					<!-- 작성자 본인일 때 -->
+					<button class="btn btn-secondary btn-sm" onclick="location.href='<%=contextPath%>/updateForm.da?dno=<%=d.getDailyNo()%>';">수정</button>
+					<button class="delete btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">삭제</button>
+				<% }else if(loginUser != null && loginUser.getAdminYN().equals("Y")) { %>
+					<!-- 관리자일 때 -->
+					<button class="delete btn btn-secondary btn-sm btn_etc" data-bs-toggle="modal" data-bs-target="#deleteModal">삭제</button>
 				<% }else if (loginUser != null) { %>
-				<!-- 작성자 본인이 아닐 때 -->
-				<button id="report_bt" class="report btn btn-secondary btn-sm"
-					data-bs-toggle="modal" data-bs-target="#reportModal">신고</button>
-				<input type="hidden" name="loginUser"
-					value="<%= loginUser.getMemNo() %>"> <input type="hidden"
-					name="writeUser" value="<%= d.getMemNo() %>"> <input
-					type="hidden" name="reportDailyNo" value="<%= d.getDailyNo() %>">
+					<!-- 다른 사용자일 때 -->
+					<button id="report_bt" class="report btn btn-secondary btn-sm btn_etc"
+						data-bs-toggle="modal" data-bs-target="#reportModal">신고</button>
+					<input type="hidden" name="loginUser"
+						value="<%= loginUser.getMemNo() %>"> <input type="hidden"
+						name="writeUser" value="<%= d.getMemNo() %>"> <input
+						type="hidden" name="reportDailyNo" value="<%= d.getDailyNo() %>">
 				<% } %>
 			</div>
 			<div id="content_3">
@@ -1005,6 +1008,14 @@ div {
     	                        	+ "<div class='comment_date'>" + list[i].enrDate + "</div>"
     	                        	+ "</div>";
 
+        	      		}else if($("#loginUserNo").val() > 0 && $("#loginUserAdminYN").val() == "Y"){ //현재 로그인한 회원이 관리자일경우
+        	      		
+            	      		result += "<input type='button' class='comment_delete' data-bs-toggle='modal' data-bs-target='#deleteCmModal'>"
+      	                        	+ "<input type='hidden' name='deleteCmDNo' value='" + <%= d.getDailyNo() %> + "'>"
+      	                        	+ "<input type='hidden' name='deleteCmNo' value='" + list[i].cmNo + "'>"
+    	                        	+ "<div class='comment_date'>" + list[i].enrDate + "</div>"
+    	                        	+ "</div>";
+    	                        	
         	      		}else if($("#loginUserNo").val() > 0) { //현재 로그인한회원이 해당 댓글작성자 본인이 아닐 경우
         	      			
         	      			result += "<input type='button' class='comment_report report_cm' data-bs-toggle='modal' data-bs-target='#reportCmModal'>"
