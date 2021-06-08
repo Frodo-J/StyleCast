@@ -54,7 +54,7 @@ public class DailyInsertController extends HttpServlet {
 
 			if(multiRequest.getOriginalFileName("image") != null) {
 				
-				d.setDailyImg("resources/daily_upfiles/" + multiRequest.getFilesystemName("image"));
+				d.setDailyImg("/resources/daily_upfiles/" + multiRequest.getFilesystemName("image"));
 				
 			}
 			
