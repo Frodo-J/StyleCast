@@ -58,6 +58,23 @@
 	   AND ENT_YN = 'N'
 	</entry>
 	
+	<entry key="selectMemberId">
+	SELECT MEM_ID
+	  FROM MEMBER
+	 WHERE BLACK_YN ='N'
+	   AND ENT_YN ='N'
+	   AND MEM_EMAIL = ?
+	</entry>
+	
+	<entry key="selectMemberPwd">
+	SELECT MEM_PWD
+	  FROM MEMBER
+	 WHERE BLACK_YN ='N'
+	   AND ENT_YN ='N'
+	   AND MEM_ID = ?
+	   AND MEM_EMAIL = ?
+	</entry>
+	
 	<entry key="deleteMember">
 	UPDATE MEMBER
 	   SET ENT_YN = 'Y',
@@ -161,6 +178,13 @@
 	SELECT PROF_IMG
 	  FROM MEMBER
 	 WHERE MEM_NO = ?
+	</entry>
+	
+	<entry key="idCheck">
+		SELECT
+			   COUNT(*)
+		  FROM MEMBER
+		 WHERE MEM_ID = ?
 	</entry>
 
 </properties>
