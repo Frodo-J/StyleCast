@@ -515,6 +515,10 @@
 		  )
 	</entry>
 	
+	<entry key="selectCodiDelete">
+		DELETE FROM CODI WHERE CODI_NO  = ?
+	</entry>
+	
 	<entry key="selectListCountByWeatherClear">
 		SELECT COUNT(*) COUNT
 				FROM CODI

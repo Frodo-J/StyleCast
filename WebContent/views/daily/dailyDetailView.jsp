@@ -203,6 +203,11 @@ div {
 	padding: 5px;
 }
 
+#tag a{
+	color: #4b70fd;
+	cursor: pointer;
+	text-decoration: none;}
+
 #line {
 	position: relative;
 	top: 245px;
@@ -447,13 +452,13 @@ div {
 		<div id="content">
 			<div id="content_1">
 				<div id="img_box">
-					<img src="<%= contextPath %><%= d.getDailyImg() %>" alt="">
+					<img src="<%= contextPath %>/<%= d.getDailyImg() %>" alt="">
 				</div>
 			</div>
 			<div id="content_2">
 				<div id="daily_post">
 					<div id="profile_img">
-						<img src="<%= contextPath %><%= d.getProfImg() %>" class="rounded-circle">
+						<img src="<%= contextPath %>/<%= d.getProfImg() %>" class="rounded-circle">
 					</div>
 					<div id="userid"><%= d.getMemName() %></div>
 					<% if(loginUser != null) { %>
@@ -501,7 +506,7 @@ div {
 					<div id="tag">
 
 						<% for(int i=1; i<tags.length; i++) { %>
-						<a href="">#<%= tags[i] %></a>
+						<a>#<%= tags[i] %></a>
 						<% } %>
 					</div>
 					<hr id="line">
@@ -578,6 +583,16 @@ div {
 	    	selectLbCount();
 	    	selectLbYn();
 		})
+    </script>
+    
+    <!-- 태그 검색 -->
+    <script>
+    	$("#tag a").click(function(){
+    		
+    		var text = $(this).text().substring(1);
+    		
+    		location.href = "<%=contextPath%>/search.ma?search_text=" + text + "&&tagYn=Y&&currentPage=1";
+    	})
     </script>
     
     <!-- 북마크수 조회 -->

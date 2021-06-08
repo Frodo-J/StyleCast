@@ -42,7 +42,7 @@ public class QnaUpdateFormController extends HttpServlet {
 		
 		Qna q = new QnaService().selectQna(qnaNo);
 		
-		if((loginUser != null && loginUser.getAdminYN().equals("Y")) || (loginUser != null && loginUser.getMemName().equals(q.getMemName()))) {
+		if(loginUser != null && loginUser.getMemName().equals(q.getMemName())) {
 			ArrayList<BoardImage> list = new QnaService().selectBoardImageList(qnaNo);
 			
 			request.setAttribute("list", list);

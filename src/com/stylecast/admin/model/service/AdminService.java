@@ -282,6 +282,20 @@ public class AdminService {
 		return c;
 	}
 	
+	public int selectCodiDelete(Codi c) {
+		Connection conn = getConnection();
+		int result = new AdminDao().selectCodiDelete(conn, c);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+	
 	public int insertCodi(Codi c) {
 		Connection conn = getConnection();
 		int result = new AdminDao().insertCodi(conn, c);

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
@@ -39,6 +40,7 @@ public class CodiInsertController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
+		HttpSession session = request.getSession();
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			
@@ -74,6 +76,7 @@ public class CodiInsertController extends HttpServlet {
 			
 			if(result>0) {
 				response.sendRedirect(request.getContextPath() + "/codilist.ad?currentPage=1");
+				session.setAttribute("alertMsg", "코디 작성에 성공하였습니다");
 			}else {
 				new File(savePath + c.getImgPath()).delete();
 			}

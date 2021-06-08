@@ -179,7 +179,7 @@
 	  FROM MEMBER
 	 WHERE MEM_NO = ?
 	</entry>
-
+	
 	<entry key="idCheck">
 		SELECT
 			   COUNT(*)
