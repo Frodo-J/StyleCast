@@ -379,18 +379,39 @@
 			   DAILY
 		   SET 
 		       DAILY_CONTENT = ?
-		     , DAILY_TAG = ?
+		     , TAG = ?
+		     , DAILY_IMG = ?
 		 WHERE DAILY_NO = ?
+	</entry>
+	
+	<entry key="updateNewItem">
+		INSERT 
+		       INTO ITEM
+		            ( 
+		            ITEM_NO
+		          , DAILY_NO
+		          , ITEM_NAME
+		          , ITEM_LINK
+		          , ITEM_CATEGORY
+		          )
+		     VALUES 
+		            (
+		            SEQ_ITEM.NEXTVAL
+		          , ?
+		          , ?
+		          , ?
+		          , ?
+		            )
 	</entry>
 	
 	<entry key="updateItem">
 	  
 		UPDATE
-			   Item
+			   ITEM
 		   SET 
-		       DAILY_CONTENT = ?
-		     , DAILY_TAG = ?
-		 WHERE DAILY_NO = ?
+		       ITEM_NAME = ?
+		     , ITEM_LINK = ?
+		 WHERE ITEM_NO = ?
 	</entry>
 	
 	<entry key="selectCommentCountList">

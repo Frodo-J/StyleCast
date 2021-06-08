@@ -261,11 +261,12 @@
                 <input type="hidden" name="dno" value="<%=d.getDailyNo() %>">
 	                <div id="dailyUp_header">
 	                    <div id="input_file" class="input-group" style="display: none">
-	                        <input type="file" class="form-control" id="input-img" name="image" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,1);" required>
+	                    	<input type="hidden" name="originImage" value="<%= d.getDailyImg()%>">
+	                        <input type="file" name="reUpfile" class="form-control" id="input-img" name="image" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="loadImg(this,1);">
 	                    </div>
 	                    <div id="image">
-	                    	<input type="hidden" name="originDilePath" value="<%=dPath%>"/>
-	                        <img src="<%=dPath%>" id="img" name="img" width = "300" height = "300" onerror="javascript:this.src='<%=contextPath %>/resources/images/add2.png'">
+	                    	<input type="hidden" name="originFilePath" value="<%=request.getContextPath() + "/" + d.getDailyImg()%>"/>
+	                        <img src="<%=request.getContextPath() + "/" + d.getDailyImg()%>" id="img" name="img" width = "300" height = "300" onerror="javascript:this.src='<%=contextPath %>/resources/images/add2.png'">
 	                    </div>
 	                </div>
                 
