@@ -240,12 +240,10 @@
 	                            		 	<input type="button" class="like"
 	        		                        style="background: url('resources/images/react_icon/sun_yellow.svg') no-repeat center/contain; width:100%; height: 100%; border:0px; background-size: 25px 25px;">
 	                            			<% l++;%>
-	                            			<% d.setLikeCount(1); %>
 	                            	<%}}%>
 	                            		<%if(l == 0) {%>
 	                            			<input type="button" class="like"
 		                            		style="background: url('resources/images/react_icon/sun2.svg') no-repeat center/contain; width:100%; height: 100%; border:0px; background-size: 25px 25px;">   	
-	                            			<% d.setLikeCount(0); %>
 	                            		<%} %>
 	                            </div>
 	                            <div class="vertical-line"></div>
@@ -258,12 +256,10 @@
 	                            		 	<input type="button" class="bookmark"
 	        		                        style="background: url('resources/images/react_icon/bookmark_blue.svg') no-repeat center/contain; width:100%; height: 100%; border:0px; background-size: 25px 25px;">
 	                            			<% b++;%>
-	                            			<% d.setBookmarkCount(1); %>
 	                            	<%}}%>
 	                            		<%if(b == 0) {%>
 	                            			<input type="button" class="bookmark"
 		                            		style="background: url('resources/images/react_icon/bookmark2.svg') no-repeat center/contain; width:100%; height: 100%; border:0px; background-size: 25px 25px;">   	
-	                            			<% d.setBookmarkCount(0); %>
 	                            		<%} %>
 	                            </div>
 	                            <div class="vertical-line"></div>
