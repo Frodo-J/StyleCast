@@ -34,7 +34,7 @@ public class AjaxProfImgDeleteController extends HttpServlet {
 		String memId = request.getParameter("memId");
 		
 		mem.setMemId(memId);
-		mem.setProfImg("/resources/profile_upfiles/default_prof.png");
+		mem.setProfImg("/resources/profile_upfiles/2021060816165980780.png");
 		
 		int result = new MemberService().updateProfImg(mem);
 		
