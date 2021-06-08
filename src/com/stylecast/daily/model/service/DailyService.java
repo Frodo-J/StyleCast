@@ -363,9 +363,10 @@ public class DailyService {
 		int result2 = new DailyDao().deleteItem(conn, dno);  		//아이템 삭제
 		int result3 = new DailyDao().deleteDailyLike(conn, dno);	//좋아요 삭제
 		int result4 = new DailyDao().deleteBookmark(conn, dno);		//북마크 삭제
-		System.out.println(result1 + result2 + result3 + result4);
+		int result5 = new DailyDao().deleteTrendingPost(conn, dno);	//트렌딩포스트 삭제
+		System.out.println(result1 + result2 + result3 + result4 + result5);
 		
-		if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0) {
+		if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0 && result5 > 0) {
 			int result = new DailyDao().deleteDaily(conn, dno);		//데일리 삭제
 			
 			if(result > 0) {
