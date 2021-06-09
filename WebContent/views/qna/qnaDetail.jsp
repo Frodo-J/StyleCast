@@ -147,8 +147,8 @@
                 	<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='<%=contextPath%>/updateForm.qna?qno=<%=q.getQnaNo()%>';">수정</button>
                 	<button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#exampleModalToggle_rept">삭제</button>
-                <% } %>
-                <% if(loginUser != null && loginUser.getAdminYN().equals("Y")){ %>
+   
+                <% }else if(loginUser != null && loginUser.getAdminYN().equals("Y")){ %>
                 	<button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#exampleModalToggle_rept">삭제</button>
                 <% } %>
