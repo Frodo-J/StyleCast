@@ -49,7 +49,11 @@ public class AdminReportListController extends HttpServlet {
 		int endPage;
 		
 		listCount = new AdminService().selectReportListCount(brCategory);
-		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		if(request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		}else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
 		pageLimit = 10;
 		boardLimit = 10;
 		

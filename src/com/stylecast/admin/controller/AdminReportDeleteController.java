@@ -40,13 +40,13 @@ public class AdminReportDeleteController extends HttpServlet {
 		
 		if(result > 0) { // 삭제 실패 => 에러페이지 응답
 
-			session.setAttribute("alertMsg", "신고글 삭제에 실패했습니다.");
+			session.setAttribute("alertMsg", "신고글을 삭제했습니다.");
 			response.sendRedirect(request.getContextPath() + "/rptList.adm?brCategory=0");
 		
 			
 		}else { // 로그인 성공 => mainPage 응답
 			
-			session.setAttribute("alertMsg", "신고글을 삭제했습니다.");
+			session.setAttribute("alertMsg", "신고글 삭제에 실패했습니다.");
 			response.sendRedirect(request.getContextPath() + "/rptList.adm?brCategory=0");
 		}
 	}

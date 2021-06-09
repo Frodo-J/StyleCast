@@ -134,7 +134,7 @@
                                	<br>
                                 <!--첨부파일 이미지 있으면 여기아래 처리-->
                                 <% for(int i=0; i<imgList.size(); i++){ %>
-                                	<img src="<%=contextPath %>/<%= imgList.get(i).getImgPath()%>" width="700" height="450"/>
+                                	<img src="<%=contextPath %>/<%= imgList.get(i).getImgPath()%>" width="600" height="auto"/>
 								<%} %>
                             </div>
                         </td>
@@ -147,8 +147,8 @@
                 	<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='<%=contextPath%>/updateForm.qna?qno=<%=q.getQnaNo()%>';">수정</button>
                 	<button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#exampleModalToggle_rept">삭제</button>
-                <% } %>
-                <% if(loginUser != null && loginUser.getAdminYN().equals("Y")){ %>
+   
+                <% }else if(loginUser != null && loginUser.getAdminYN().equals("Y")){ %>
                 	<button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#exampleModalToggle_rept">삭제</button>
                 <% } %>

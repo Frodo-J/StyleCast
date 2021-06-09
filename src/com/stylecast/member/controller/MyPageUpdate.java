@@ -55,7 +55,7 @@ public class MyPageUpdate extends HttpServlet {
 			session.setAttribute("loginUser", updateMem);
 			session.setAttribute("alertMsg", "성공적으로 회원 정보를 수정했습니다.");
 			
-			response.sendRedirect(request.getContextPath() + "/myPage.me");
+			response.sendRedirect(request.getContextPath() + "/memberPage.me");
 		}
 	}
 

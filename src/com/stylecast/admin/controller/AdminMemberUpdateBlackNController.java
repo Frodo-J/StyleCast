@@ -40,7 +40,7 @@ public class AdminMemberUpdateBlackNController extends HttpServlet {
 		
 				
 			if(result > 0) {
-				response.sendRedirect("memlist.adm?blackListYN=N&&currentPage=1");
+				response.sendRedirect("memlist.adm?blackListYN=Y&&currentPage=1");
 			}else {
 			
 			}
