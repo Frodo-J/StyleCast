@@ -103,6 +103,8 @@
 		     , ITEM_CATEGORY
 		  FROM ITEM
 		 WHERE DAILY_NO = ?
+		 ORDER
+            BY ITEM_NO
 	</entry>
 	
 	<entry key="selectDailyCount">
@@ -150,7 +152,9 @@
 		  FROM DAILY_CM
 		  LEFT JOIN MEMBER USING(MEM_NO)
 		 WHERE DAILY_NO = ?
-		 ORDER BY ENR_DATE DESC
+		 ORDER
+            BY ENR_DATE DESC
+             , CM_NO DESC
 	</entry>
 	
 	<entry key="insertDailyCM">
