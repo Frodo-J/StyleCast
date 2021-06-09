@@ -48,7 +48,7 @@ public class ReplyDao {
 			
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
+			while(rset.next()) {
 				list.add(new Reply(rset.getInt("cm_no"),
 								   rset.getInt("daily_no"),
 						           rset.getString("cm_content"),

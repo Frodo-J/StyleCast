@@ -49,7 +49,7 @@ public class QnaDao {
 			
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
+			while(rset.next()) {
 				list.add(new Qna(rset.getInt("qna_no"),
 								 rset.getString("qna_title"),
 								 rset.getDate("enr_date"),
