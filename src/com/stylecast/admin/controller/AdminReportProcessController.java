@@ -38,15 +38,15 @@ public class AdminReportProcessController extends HttpServlet {
 		
 		int result = new AdminService().processReport(rptNoArr);
 		
-		if(result > 0) { // 삭제 실패 => 에러페이지 응답
+		if(result > 0) {
 
-			session.setAttribute("alertMsg", "경고 처리에 실패했습니다.");
+			session.setAttribute("alertMsg", "경고 처리 완료했습니다.");
 			response.sendRedirect(request.getContextPath() + "/rptList.adm?brCategory=0");
 		
 			
-		}else { // 로그인 성공 => mainPage 응답
+		}else {
 			
-			session.setAttribute("alertMsg", "경고 처리 완료했습니다.");
+			session.setAttribute("alertMsg", "경고 처리에 실패했습니다.");
 			response.sendRedirect(request.getContextPath() + "/rptList.adm?brCategory=0");
 		}
 	}

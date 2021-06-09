@@ -448,6 +448,8 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- 
                         <div
                             class="modal fade"
                             id="exampleModalToggle2"
@@ -479,7 +481,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!--Modal End-->
+                        <!--Modal End--> -->
                         <!-- Modal -->
                         <div
                             class="modal fade"
@@ -542,6 +544,7 @@
                         	});
                         </script>
                         
+                        <!-- 
                         <div
                             class="modal fade"
                             id="exampleModalToggle_rept2"
@@ -573,7 +576,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!--Modal End-->
+                        <!--Modal End--> -->
                         
                         <div id="page_box" class="text-center">
                             <div align="center" class="btn-group me-2" role="group" aria-label="First group">

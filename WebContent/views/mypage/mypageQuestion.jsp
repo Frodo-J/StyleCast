@@ -98,6 +98,7 @@
             width: 90%;
             margin: auto;
         }
+        .hidden-col{display: none;}
         
         /* 페이지 박스 css */
         #page_box{
@@ -193,6 +194,7 @@
                             <th width="60%">제목</th>
                             <th>등록일</th>
                             <th>처리상태</th>
+                            <td class="hidden-col"></td>
                         </tr>
                       </thead>
                       <tbody>
@@ -202,6 +204,7 @@
                       <!-- 문의글이 없을 경우 -->
 						<tr>
                             <td colspan="4">작성한 문의글이 없습니다.</td>
+                            <td class="hidden-col"></td>
                         </tr>
                         
                       <%} else{%>
@@ -219,6 +222,7 @@
                             	처리완료
                             	<%} %>
                             </td>
+                            <td class="hidden-col"><%=qna.getQnaNo() %></td>
                         </tr>
                        <%} %>
                       <%} %>
@@ -247,6 +251,12 @@
 			        	})
             		})
             	</script>
+            
+	            <script>
+		            $("table>tbody>tr").click(function(){
+		            	location.href = "<%=contextPath%>/detail.qna?qno=" + $(this).children().eq(4).text();
+			        });
+	            </script>
             
             <!-- 
             <script>
