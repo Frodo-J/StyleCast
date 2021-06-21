@@ -24,6 +24,7 @@
 
 # ERD
 
+![ERD](https://user-images.githubusercontent.com/40001921/122720755-cff2c800-d2aa-11eb-8032-760198b32267.png)
 
 
 # 구현기능
