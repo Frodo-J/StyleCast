@@ -26,6 +26,7 @@
 
 ![ERD](https://user-images.githubusercontent.com/40001921/122720755-cff2c800-d2aa-11eb-8032-760198b32267.png)
 
+[ERD-CLOUD에서 확인하기](https://www.erdcloud.com/d/Zdwb2DEQRvBABKWw8)
 
 # 구현기능
 
