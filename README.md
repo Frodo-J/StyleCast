@@ -3,7 +3,7 @@
 
 <b>제작기간</b>: 2021/04/23~2021/06/10 
 
-<b>팀원</b>: 안세아(@takoyummy), 최연지(@yungc97), 서우주(dvwww17), 장재욱(@Frodo-J), 원동규(@wondongkyu)
+<b>팀원</b>: 장재욱(@Frodo-J), 안세아(@takoyummy), 최연지(@yungc97), 서우주(dvwww17),  원동규(@wondongkyu)
 
 # 개발 목표
 
